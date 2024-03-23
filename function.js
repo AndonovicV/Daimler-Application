@@ -22,3 +22,32 @@ $(document).ready(function(){
     });
 });
 
+
+// Login Form Vanila JS
+document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("loginForm");
+    const errorDisplay = document.getElementById("errorDisplay");
+
+    loginForm.addEventListener("submit", function (event) {
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        // Basic validation
+        if (!name || !email || !username || !password) {
+            errorDisplay.textContent = "Please fill in all fields";
+            event.preventDefault(); // Prevent form submission
+        } else if (!validateEmail(email)) {
+            errorDisplay.textContent = "Please enter a valid email address";
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+
+    function validateEmail(email) {
+        // Regular expression for email validation
+        const re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+});
+

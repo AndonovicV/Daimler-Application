@@ -17,5 +17,19 @@
     <p id="blueParag" class="blueParag">I am Blue</p>
     <!-- Vanila JS <button id="redBtn" type="button" class="btn btn-primary" onclick="redFunction()"> Red </button> -->
     <button id="redBtn" type="button" class="btn btn-primary"> Red </button>
+
+    <h2>Login Form</h2>
+    <form id="loginForm" action="db_action.php" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Login">
+    </form>
+    <div id="errorDisplay"></div>
 </body>
 </html>
