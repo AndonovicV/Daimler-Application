@@ -20,7 +20,7 @@
 
     <h2>Login Form</h2>
     <form id="loginForm" action="db_action.php" method="POST">
-        <label for="name">Name:</label><br>
+        <label for="name">First name, Last name:</label><br>
         <input type="text" id="name" name="name" required><br>
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email" required><br>
