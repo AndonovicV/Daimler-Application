@@ -24,17 +24,17 @@
 						</div>
 						<div class="content">
 							<div class="inner">
-								<h1>Dimension</h1>
+								<h1>DOMM</h1>
 								<p>A fully responsive site template designed by <a href="https://html5up.net">HTML5 UP</a> and released<br />
 								for free under the <a href="https://html5up.net/license">Creative Commons</a> license.</p>
 							</div>
 						</div>
 						<nav>
 							<ul>
-								<li><a href="#intro">Intro</a></li>
-								<li><a href="#work">Work</a></li>
-								<li><a href="#about">About</a></li>
-								<li><a href="#contact">Contact</a></li>
+								<li><a href="#contact">Add MM</a></li>
+								<li><a href="#intro">List MM</a></li>
+								<li><a href="#work">Calendar</a></li>
+								<li><a href="#about">Log Out</a></li>
 								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
 						</nav>
@@ -65,27 +65,43 @@
 								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
 								<p>Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices. Aliquam libero et malesuada fames ac ante ipsum primis in faucibus. Cras viverra ligula sit amet ex mollis mattis lorem ipsum dolor sit amet.</p>
 							</article>
-
+						<!-- Changed headers but ID's left the same for the sake of the function. Can change later -->
 						<!-- Contact -->
 							<article id="contact">
-								<h2 class="major">Contact</h2>
+								<h2 class="major">New MM</h2>
 								<form method="post" action="#">
 									<div class="fields">
-										<div class="field half">
-											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
+										<div class="field">
+											<label for="name" style="text-align: center;">Title</label>
+											<input type="text" name="name" id="name" placeholder="Title of the MM" style="text-align: center;"/>
 										</div>
 										<div class="field half">
-											<label for="email">Email</label>
+											<label for="email">Attendees</label>
 											<input type="text" name="email" id="email" />
 										</div>
 										<div class="field">
-											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="4"></textarea>
+											<label for="message">Agenda</label>
+											<textarea name="message" id="message" rows="1"></textarea>
+										</div>
+										<div class="field third">
+											<label for="action">Action</label>
+											<textarea name="action" id="action" rows="1"></textarea>
+										</div>
+										<div class="field third">
+											<label for="responsible">Responsible</label>
+											<textarea name="responsible" id="responsible" rows="1"></textarea>
+										</div>
+										<div class="field third">
+											<label for="deadline">Deadline</label>
+											<textarea name="deadline" id="deadline" rows="1"></textarea>
+										</div>
+										<div class="field">
+											<label for="summary">Summary</label>
+											<textarea name="summary" id="summary" rows="4"></textarea>
 										</div>
 									</div>
 									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="primary" /></li>
+										<li><input type="submit" value="Post MM" class="primary" /></li>
 										<li><input type="reset" value="Reset" /></li>
 									</ul>
 								</form>
