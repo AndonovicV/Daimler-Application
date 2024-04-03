@@ -33,9 +33,9 @@
 							<ul>
 								<li><a href="#contact">Add MM</a></li>
 								<li><a href="#list_mm">List MM</a></li>
+								<li><a href="#Meeting_Minutes">Meeting Minutes</a></li>
 								<li><a href="#work">Calendar</a></li>
 								<li><a href="#about">Log Out</a></li>
-								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
 						</nav>
 					</header>
@@ -77,6 +77,99 @@
 								<a href="#" class="button primary">View more</a>
 							</article>
 
+			<!-- Meeting Minutes -->
+			<article id="Meeting_Minutes">
+				<h3 class="major">Meeting Minutes</h3>
+				<div style="display: flex;">
+					<style>
+						.form-group label {
+							display: flex;
+							align-items: center;
+							margin-bottom: 10px;
+						}
+			
+						.form-group input[type="checkbox"] {
+							margin-right: 5px;
+							/* space between checkbox and its label */
+						}
+					</style>
+					<form>
+						<fieldset>
+							<h2>Title</h2>
+			
+							<label for="location">Location:</label>
+							<select id="location" name="location">
+								<!-- Options for locations -->
+							</select>
+							<br>
+			
+							<label for="meeting-time">Time:</label>
+							<input type="time" id="meeting-time" name="meeting_time" required>
+							</select>
+							<br> <br>
+			
+							<label for="attendees">Attendees:</label>
+							<select id="attendees" name="attendees[]" multiple>
+								<!-- Options for attendees -->
+							</select>
+							<br>
+			
+							<label for="absent">Absent:</label>
+							<select id="absent" name="absent[]" multiple>
+								<!-- Options for absentees -->
+							</select>
+						</fieldset>
+			
+						<br> <br>
+			
+						<fieldset>
+							<section>
+								<h2>Agenda</h2>
+								<input type="checkbox" id="task1" name="task1" value="done">
+								<label for="task1"> Nunc nec sodales enim. </label><br>
+								<input type="checkbox" id="task2" name="task2" value="done">
+								<label for="task2"> Curabitur porttitor justo ac eleifend pulvinar.</label><br>
+								<input type="checkbox" id="task3" name="task3" value="done">
+								<label for="task3"> Donec vulputate, ex et pharetra efficitur, turpis diam convallis libero</label>
+								<input type="checkbox" id="task2" name="task2" value="done">
+								<label for="task4"> Vivamus porttitor ligula id quam aliquet ornare. </label>
+								<input type="checkbox" id="task4" name="task4" value="done"> <br><br> <br>
+			
+			
+			
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce libero metus, eleifend eu risus
+									in, tempus semper erat. </p>
+								<p>Maecenas tristique ullamcorper risus at fermentum. Donec purus quam, pretium quis odio nec,
+									posuere faucibus odio. Donec sodales tristique semper. Morbi venenatis, nisl eu pulvinar ornare,
+									leo velit tristique neque, eget mattis felis mi id era <br>
+									Curabitur sed condimentum augue, et lobortis urna. Nulla et varius est. Nulla facilisi. Interdum
+									et malesuada fames ac ante ipsum primis in faucibus. Nulla eu nunc scelerisque, posuere velit
+									ut, tincidunt odio. Suspendisse potenti. Donec et lobortis lacus, quis rhoncus enim. Duis nec
+									metus lectus. </p>
+								<p>Maecenas tristique ullamcorper risus at fermentum. Donec purus quam, pretium quis odio nec,
+									posuere faucibus odio. Donec sodales tristique semper. Morbi venenatis, nisl eu pulvinar ornare,
+									leo velit tristique neque, eget mattis felis mi id era</p>
+								<p>Nulla ut enim vitae nulla auctor tristique ac at sapien. Donec sit amet lacus quam. Quisque in
+									laoreet justo. Mauris metus mauris, gravida ac eleifend et, sollicitudin sit amet lectus.</p>
+								<!-- Agenda items -->
+							</section>
+						</fieldset>
+			
+						<footer>
+							<label for="minutes-submitted-by">Minutes submitted by:</label>
+							<input type="text" id="minutes-submitted-by" name="minutes_submitted_by"> <br>
+			
+							<label for="minutes-approved-by">Minutes approved by:</label>
+							<input type="text" id="minutes-approved-by" name="minutes_approved_by"> <br> <br>
+			
+							<input type="submit" value="Save Meeting Minutes">
+						</footer>
+					</form>
+			</article>
+
+
+
+							
 						<!-- Work -->
 							<article id="work">
 								<h2 class="major">Work</h2>
