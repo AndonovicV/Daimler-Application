@@ -6,24 +6,28 @@
 -->
 <html>
 	<head>
-		<!--Template Links-->
-		<title>Dimension by HTML5 UP</title>
+		<!--TEMPLATE-->
+		<title>DOMM</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		
+		<!--LIBRARY-->
 		<!--Link to Bootstrap CSS--> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 		<!--Link to Bootstrap JS--><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-		
 		<!--Link to jQuery--> <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-		<!--Link to Virtual select Plugin CSS--><link rel="stylesheet" href="plugins/virtual-select-master/dist/virtual-select.min.js" />
-		<!--Link to Virtual select Plugin JS--><script src="plugins/virtual-select-master/dist/virtual-select.min.js"></script>
+		<!--PLUGINS-->
+		<!--Link to Virtual select Plugin CSS--><link rel="stylesheet" href="plugins\multiple_select\virtual-select.min.css" />
+		<!--Link to Virtual select Plugin JS--> <script src="plugins\multiple_select\virtual-select.min.js"></script>
 		
-		<!--Make sure to load CSS & JS AFTER Bootstrap and jQuery-->
-		<!--Link to CSS--> <link rel="stylesheet" href="style.css"> 
-		<!--Link to JS--> <script src="function.js"></script>
+		<!--Link to Tooltip CSS--><link rel="stylesheet" href="plugins\tooltip\tooltip.min.css" />
+		<!--Link to Tooltip JS--> <script src="plugins\tooltip\tooltip.min.js"></script>
+
+    
+		<!--CUSTOM FILES  Make sure to load CSS & JS AFTER Bootstrap and jQuery-->
+		<!--Link to CSS--> <link rel="stylesheet" href="style.css" />
+    	<!--Link to JS--> <script src="function.js"></script>
 	</head>
 	<body class="is-preload">
 
@@ -38,8 +42,8 @@
 						<div class="content">
 							<div class="inner">
 								<h1>DOMM</h1>
-								<p>A fully responsive site template designed by <a href="https://html5up.net">HTML5 UP</a> and released<br />
-								for free under the <a href="https://html5up.net/license">Creative Commons</a> license.</p>
+								<p>A fully responsive meeting minutes design, integrated inside the <a href="https://www.daimlertruck.com/en">Cockpit</a> and connected<br />
+								within the <a href="https://www.daimlertruck.com/en/products">ICM</a> system.</p>
 							</div>
 						</div>
 						<nav>
@@ -59,40 +63,46 @@
 						<!-- Intro -->
 							<article id="list_mm">
 								<h2 class="major">List MM</h2>
-								<div style="display: flex;">
-									<a href="#" class="button primary">NEW</a>
+								<div class="input-group rounded">
+									<input type="search" class="form-control rounded" placeholder="Search by Title" aria-label="Search" aria-describedby="search-addon" />
+								  </div>
+								  <br>
+								  <div style="display: flex;">
+									<a href="#contact" class="button primary">NEW</a>
 									<div style="width: auto; padding: 5px; margin-left: auto;">
-										<select>
-											<option value="option1">Option 1</option>
-											<option value="option2">Option 2</option>
-											<option value="option3">Option 3</option>
+										<select class="text">
+											<option value="" disabled selected>Filter</option>
+											<option value="option1">Filter 1</option>
+											<option value="option2">Filter 2</option>
+											<option value="option3">Filter 3</option>
+											<option value="option3">None</option>
 										</select>
 									</div>
 								</div>
 								<a href="#" class="box" style="margin-top: 20px; display: block;">
-									<h3>Title</h3>
-									Date:
+									<h3>Title 1</h3>
+									Date & Time:
 									</br>
-									Time:
+									Location:
 								</a>
 								<a href="#" class="box" style="margin-top: 20px; display: block;">
-									<h3>Title</h3>
-									Date:
+									<h3>Title 2</h3>
+									Date & Time:
 									</br>
-									Time:
+									Location:
 								</a>
 								<a href="#" class="box" style="margin-top: 20px; display: block;">
-									<h3>Title</h3>
-									Date:
+									<h3>Title 3</h3>
+									Date & Time:
 									</br>
-									Time:
+									Location:
 								</a>
 								<a href="#" class="button primary">View more</a>
 							</article>
 
 			<!-- Meeting Minutes -->
 			<article id="Meeting_Minutes">
-				<h3 class="major">Meeting Minutes</h3>
+				<h3 class="major">Meeting Minute Title</h3>
 				<div style="display: flex;">
 					<style>
 						.form-group label {
@@ -108,74 +118,40 @@
 					</style>
 					<form>
 						<fieldset>
-							<h2>Title</h2>
-			
-							<label for="location">Location:</label>
-							<select id="location" name="location">
-								<!-- Options for locations -->
-							</select>
-							<br>
-			
 							<label for="meeting-time">Time:</label>
-							<input type="time" id="meeting-time" name="meeting_time" required>
-							</select>
-							<br> <br>
+							<!-- <input type="time" id="meeting-time" name="meeting_time" required> -->
+							<br>
+
+							<label for="location">Location:</label>
+							<br>
 			
 							<label for="attendees">Attendees:</label>
-							<select id="attendees" name="attendees[]" multiple>
-								<!-- Options for attendees -->
-							</select>
+
 							<br>
-			
-							<label for="absent">Absent:</label>
-							<select id="absent" name="absent[]" multiple>
-								<!-- Options for absentees -->
-							</select>
 						</fieldset>
-			
 						<br> <br>
 			
 						<fieldset>
 							<section>
-								<h2>Agenda</h2>
+								<h3>Agenda</h3>
+								<br>
 								<input type="checkbox" id="task1" name="task1" value="done">
 								<label for="task1"> Nunc nec sodales enim. </label><br>
 								<input type="checkbox" id="task2" name="task2" value="done">
 								<label for="task2"> Curabitur porttitor justo ac eleifend pulvinar.</label><br>
 								<input type="checkbox" id="task3" name="task3" value="done">
-								<label for="task3"> Donec vulputate, ex et pharetra efficitur, turpis diam convallis libero</label>
-								<input type="checkbox" id="task2" name="task2" value="done">
-								<label for="task4"> Vivamus porttitor ligula id quam aliquet ornare. </label>
-								<input type="checkbox" id="task4" name="task4" value="done"> <br><br> <br>
-			
-			
-			
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce libero metus, eleifend eu risus
-									in, tempus semper erat. </p>
-								<p>Maecenas tristique ullamcorper risus at fermentum. Donec purus quam, pretium quis odio nec,
-									posuere faucibus odio. Donec sodales tristique semper. Morbi venenatis, nisl eu pulvinar ornare,
-									leo velit tristique neque, eget mattis felis mi id era <br>
-									Curabitur sed condimentum augue, et lobortis urna. Nulla et varius est. Nulla facilisi. Interdum
-									et malesuada fames ac ante ipsum primis in faucibus. Nulla eu nunc scelerisque, posuere velit
-									ut, tincidunt odio. Suspendisse potenti. Donec et lobortis lacus, quis rhoncus enim. Duis nec
-									metus lectus. </p>
-								<p>Maecenas tristique ullamcorper risus at fermentum. Donec purus quam, pretium quis odio nec,
-									posuere faucibus odio. Donec sodales tristique semper. Morbi venenatis, nisl eu pulvinar ornare,
-									leo velit tristique neque, eget mattis felis mi id era</p>
-								<p>Nulla ut enim vitae nulla auctor tristique ac at sapien. Donec sit amet lacus quam. Quisque in
-									laoreet justo. Mauris metus mauris, gravida ac eleifend et, sollicitudin sit amet lectus.</p>
+								<label for="task3"> Donec vulputate, ex et pharetra efficitur</label>
+								<br> <br>
+								
+								<h3>Summary</h3>
+								<textarea name="summary" id="summary" rows="8" class="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."></textarea>
 								<!-- Agenda items -->
 							</section>
 						</fieldset>
-			
+						<br><br><br>
 						<footer>
-							<label for="minutes-submitted-by">Minutes submitted by:</label>
-							<input type="text" id="minutes-submitted-by" name="minutes_submitted_by"> <br>
-			
-							<label for="minutes-approved-by">Minutes approved by:</label>
-							<input type="text" id="minutes-approved-by" name="minutes_approved_by"> <br> <br>
-			
 							<input type="submit" value="Save Meeting Minutes">
+							<input type="submit" value="Cancle">
 						</footer>
 					</form>
 			</article>
@@ -205,39 +181,53 @@
 									<div class="fields">
 										<div class="field">
 											<label for="name" style="text-align: center;">Title</label>
-											<input type="text" name="name" id="name" style="text-align: center;"/>
+											<input type="text" name="name" id="name" style="text-align: center; color: white;">
 										</div>
 										<div class="field half">
 											<label for="email">Attendees</label>
-											<div id="example-select"></div>
+											<!-- <div data-tooltip= "Possible tooltip location" data-tooltip-position="right"> -->
+											<select id="multipleSel" multiple name="native-select" data-search="false" data-silent-initial-value-set="true">
+												<option value="1">Jonas</option>
+												<option value="2">Amanda</option>
+												<option value="3">Christof</option>
+												<option value="3">Erwin</option>
+												<option value="3">Joachim</option>
+												<option value="3">Marcus</option>
+												<option value="3">Hannes</option>
+												<option value="3">Svenja</option>
+												<option value="3">Sebastian</option>
+											  </select>
+											<!-- </div> -->
+											  <script> VirtualSelect.init({ele: '#multipleSel'}); </script>
 										</div>
 										<div class="field">
 											<label for="message">Agenda</label>
-											<textarea name="message" id="message" rows="1"></textarea>
+											<textarea name="message" id="message" rows="1" class="text"></textarea>
 										</div>
 										<div class="field third">
 											<label for="action">Action</label>
-											<textarea name="action" id="action" rows="1"></textarea>
+											<textarea name="action" id="action" rows="1" class="text"></textarea>
 										</div>
 										<div class="field third">
 											<label for="responsible">Responsible</label>
-											<textarea name="responsible" id="responsible" rows="1"></textarea>
+											<textarea name="responsible" id="responsible" rows="1" class="text"></textarea>
 										</div>
 										<div class="field third">
 											<label for="deadline">Deadline</label>
-											<textarea name="deadline" id="deadline" rows="1"></textarea>
+											<textarea name="deadline" id="deadline" rows="1" class="text"></textarea>
 										</div>
 										<div class="field">
 											<label for="summary">Summary</label>
-											<textarea name="summary" id="summary" rows="4"></textarea>
+											<textarea name="summary" id="summary" rows="4" class="text"></textarea>
 										</div>
 									</div>
 									<ul class="actions">
-										<li><input type="submit" value="Post MM" class="primary" /></li>
-										<li><input type="reset" value="Reset" /></li>
+										<a href="#list_mm" class="button primary">Post MM</a>
+										<a style="margin-left: 1.5em;" href="#" class="button secondary ">Cancle</a>
 									</ul>
 								</form>
 								<ul class="icons">
+									<i class="fa-brands fa-microsoft"></i>
 									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 									<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
 									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>

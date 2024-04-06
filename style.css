@@ -8,3 +8,83 @@
 	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
     border-color: black;
 }
+
+.logo{
+	color:white;
+}
+
+a {
+	color:white;
+	text-decoration: none;
+}
+
+.inner{
+	color:white;
+}
+
+.copyright {
+	color:white;
+}
+
+.vscomp-toggle-button{
+	background-color: #212529;
+}
+
+.vscomp-value{
+	color: white;
+}
+.vscomp-arrow{
+	background-color: white;
+}
+
+.sample {
+	color:white;
+}
+
+.tooltip-comp {
+    color: white; /* Change the color value to your desired text color */
+	background-color: red;
+}
+
+.text{
+	color:white;
+}
+
+input::placeholder{
+	color: #f00;
+  }
+
+  .major{
+	color:white;
+  }
+  section {
+	color:white;
+  }
+
+
+/* Optional: You can also style the input directly */
+#search {
+	text-align: center;
+	color: white;
+	width: 300px; /* Adjust width as needed */
+}
+
+.search-container{
+	color:white !important;
+	background-color: #212529;
+	border-color: white;
+	margin-bottom: 0.5em;
+	width: 300px;
+}
+
+.input-group  {
+	width: 75%;
+}
+
+.form-control{
+	background-color: #212529;
+}
+
+#search-addon{
+	background-color: #212529;
+}
