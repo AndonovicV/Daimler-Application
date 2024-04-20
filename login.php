@@ -1,5 +1,5 @@
 <?php 
-include 'db_conn.php';
+include 'conn.php';
 //LOGIN
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data

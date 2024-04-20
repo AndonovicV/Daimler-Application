@@ -1,6 +1,6 @@
 <?php
 // Include database connection file here
-include 'db_conn.php';
+include 'conn.php';
 
 //REGISTER
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
