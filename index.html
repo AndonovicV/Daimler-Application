@@ -10,8 +10,7 @@
 		<title>DOMM</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/calendar/syle.css" />
+		<link rel="stylesheet" href="template/css/main.css" />
 		
 		<!--LIBRARY-->
 		<!--Link to Bootstrap CSS--> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -50,9 +49,9 @@
 							<ul>
 								<li><a href="#contact">Add MM</a></li>
 								<li><a href="#list_mm">List MM</a></li>
-								<li><a href="#Meeting_Minutes">Meeting Minutes</a></li>
-								<li><a href="assets/calendar/calendar.html">Calendar</a></li>
-								<li><a href="#about">Log Out</a></li>
+								<li><a href="#mt_agenda">MT Agenda</a></li>
+								<li><a href="plugins\calendar\calendar.html">Calendar</a></li>
+								<li><a href="#elements">Elements</a></li>
 							</ul>
 						</nav>
 					</header>
@@ -78,19 +77,19 @@
 										</select>
 									</div>
 								</div>
-								<a href="#Meeting_Minutes" class="box" style="margin-top: 20px; display: block;">
+								<a href="#mt_agenda" class="box" style="margin-top: 20px; display: block;">
 									<h3>Title 1</h3>
 									Date & Time:
 									</br>
 									Location:
 								</a>
-								<a href="#Meeting_Minutes" class="box" style="margin-top: 20px; display: block;">
+								<a href="#mt_agenda" class="box" style="margin-top: 20px; display: block;">
 									<h3>Title 2</h3>
 									Date & Time:
 									</br>
 									Location:
 								</a>
-								<a href="#Meeting_Minutes" class="box" style="margin-top: 20px; display: block;">
+								<a href="#mt_agenda" class="box" style="margin-top: 20px; display: block;">
 									<h3>Title 3</h3>
 									Date & Time:
 									</br>
@@ -100,70 +99,13 @@
 							</article>
 
 			<!-- Meeting Minutes -->
-			<article id="Meeting_Minutes">
-				<h3 class="major">Meeting Minute Title</h3>
-				<div style="display: flex;">
-					<style>
-						.form-group label {
-							display: flex;
-							align-items: center;
-							margin-bottom: 10px;
-						}
-			
-						.form-group input[type="checkbox"] {
-							margin-right: 5px;
-							/* space between checkbox and its label */
-						}
-					</style>
-					<form>
-						<fieldset>
-							<label for="meeting-time">Time:</label>
-							<!-- <input type="time" id="meeting-time" name="meeting_time" required> -->
-							<br>
-
-							<label for="location">Location:</label>
-							<br>
-			
-							<label for="attendees">Attendees:</label>
-
-							<br>
-						</fieldset>
-						<br> <br>
-			
-						<fieldset>
-							<section>
-								<h3>Agenda</h3>
-								<br>
-								<input type="checkbox" id="task1" name="task1" value="done">
-								<label for="task1"> Nunc nec sodales enim. </label><br>
-								<input type="checkbox" id="task2" name="task2" value="done">
-								<label for="task2"> Curabitur porttitor justo ac eleifend pulvinar.</label><br>
-								<input type="checkbox" id="task3" name="task3" value="done">
-								<label for="task3"> Donec vulputate, ex et pharetra efficitur</label>
-								<br> <br>
-								
-								<h3>Summary</h3>
-								<textarea name="summary" id="summary" rows="8" class="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."></textarea>
-								<!-- Agenda items -->
-							</section>
-						</fieldset>
-						<br><br><br>
-						<footer>
-							<input type="submit" value="Save Meeting Minutes">
-							<input type="submit" value="Cancle">
-						</footer>
-					</form>
+			<article id="mt_agenda">
+				<h3 class="major">MT Agenda</h3>
+				
 			</article>
-
-
-						<!-- About -->
-							<article id="about">
-								<h2 class="major">About</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
-								<p>Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices. Aliquam libero et malesuada fames ac ante ipsum primis in faucibus. Cras viverra ligula sit amet ex mollis mattis lorem ipsum dolor sit amet.</p>
-							</article>
-						<!-- Changed headers but ID's left the same for the sake of the function. Can change later -->
-						<!-- Contact -->
+						<!-- I changed the headers but ID's left the same for the sake of the function. Can change later. Voja -->
+						
+						<!-- ADD MM -->
 							<article id="contact">
 								<h2 class="major" style="color: white">New MM</h2>
 								<form method="post" action="#">
@@ -224,7 +166,11 @@
 								</ul>
 							</article>
 
-						<!-- Elements -->
+						<!-- Calendar -->
+						<article id="about">
+						</article>
+
+						<!-- Elements --> <!-- Use this to help you find some code, will be removed afterwards -->
 							<article id="elements">
 								<h2 class="major">Elements</h2>
 
@@ -463,28 +409,23 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 										</ul>
 									</form>
 								</section>
-
 							</article>
-
 					</div>
 
 				<!-- Footer -->
 					<footer id="footer">
 						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
 					</footer>
-
 			</div>
 
-		<!-- BG -->
+		<!-- Background -->
 			<div id="bg"></div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="assets/calendar/script.js"></script>
-
+		<!-- Template Scripts --> <!-- I don't know why they don't work inside head section, so just leave them here -->
+		<script src="template/js/jquery.min.js"></script>
+		<script src="template/js/browser.min.js"></script>
+		<script src="template/js/breakpoints.min.js"></script>
+		<script src="template/js/util.js"></script>
+		<script src="template/js/main.js"></script>
 	</body>
 </html>
