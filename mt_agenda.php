@@ -1,4 +1,4 @@
-<table id="myTable" class="display">
+<table id="agendaTable" class="display">
 <thead>
             <tr>
                 <th>Name</th>
