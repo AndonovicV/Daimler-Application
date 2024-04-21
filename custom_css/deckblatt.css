@@ -1,0 +1,93 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  .header {
+    background-color: #ececec;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .header img {
+    width: 50px;
+    height: auto;
+  }
+  
+  .members, .guests {
+    padding: 20px;
+  }
+  
+  .memberList, .guest-list {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+  }
+
+  .memberList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: minmax(50px, auto);
+    gap: 10px;
+  }
+  
+  .member, .guest {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .add-guest {
+    margin-bottom: 20px;
+  }
+  
+  .add-guest button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .remove-guest {
+    margin-left: auto;
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Additional styles and media queries can be added to make the page responsive */
+  
+
+.member, .guest {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .member-name, .guest-name {
+    margin-left: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: auto; /* Set to auto or a specific width if needed */
+  }
