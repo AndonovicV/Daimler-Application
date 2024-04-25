@@ -20,7 +20,8 @@
       <!-- Repeat this block for each member -->
 
       <?php
-        include "conn.php";
+        #include "conn.php";
+        #include "custom_css/deckblatt.css";
         $sql="SELECT * FROM mdt_members";
         $result=$conn->query($sql);
         if ($result->num_rows > 0) {
