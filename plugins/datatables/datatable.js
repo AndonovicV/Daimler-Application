@@ -2,30 +2,52 @@ $(document).ready(function() {
     $('#agendaTable').DataTable({
         "order": []
     });
-
-    var counter = 1; // Initialize counter outside the function
-
-    // Event delegation for dynamically added rows
-    $('#agendaTable').on('click', '.addRow', addNewRow);
-
-    function addNewRow() {
-        var newRowData = [
-            '<button class="addRow">Add new row</button>',
-            counter + '.1',
-            counter + '.2',
-            counter + '.3',
-            counter + '.4',
-            counter + '.5',
-            counter + '.6'
-        ];
-        var parentRow = $(this).closest('tr');
-
-        // Add the new row data to the DataTable
-        var table = $('#agendaTable').DataTable(); 
-        var newRow = table.row.add(newRowData).draw(false).node(); // Correct table ID
-        $(newRow).insertAfter(parentRow);
-
-        // Increment the counter for the next row
-        counter++;
-    }
 });
+
+$(document).ready(function(){
+    $(document).on('click', '.addRow', function(){
+        addNewRow(this);
+        saveToDatabase()
+    });
+});
+
+var counter = 1;
+
+function addNewRow(clickedCell) {
+
+    var newRowHtml = `
+        <tr>
+            <td></td>
+            <td class='addRow' id='addRowCell`+ counter + `'>New Row</td>'>
+            <td contenteditable="true">`+ counter + `</td>
+            <td contenteditable="true">`+ counter + `</td>
+            <td contenteditable="true">`+ counter + `</td>
+            <td contenteditable="true">`+ counter + `</td>
+            <td contenteditable="true">`+ counter + `</td>
+            <td contenteditable="true">`+ counter + `</td>
+            <td contenteditable="true">`+ counter + `</td>
+            <td contenteditable="true">`+ counter + `</td>
+            <td contenteditable="true">`+ counter + `</td>
+            <td contenteditable="true">`+ counter + `</td>
+        </tr>
+        `
+        counter++;
+
+        $(newRowHtml).insertAfter($(clickedCell).closest('tr'));
+}
+
+function saveToDatabase() {
+    $.ajax({
+        type: 'POST',
+        url: 'datatableDatabase.php',
+        data: {
+            counter: counter
+        },
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}

@@ -1,3 +1,6 @@
+<?php 
+include 'C:\xampp\htdocs\Daimler\conn.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,56 +17,51 @@
     <script src="datatable.js"></script>
 </head>
 <body>
+
 <table id="agendaTable" class="display">
-    <thead>
-        <tr>
-            <th>Add row</th>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><button class="addRow">Add new row</button></td>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011-04-25</td>
-            <td>$320,800</td>
-        </tr>
-        <tr>
-            <td><button class="addRow">Add new row</button></td>
-            <td>Garrett Winters</td>
-            <td>Accountant</td>
-            <td>Tokyo</td>
-            <td>63</td>
-            <td>2011-07-25</td>
-            <td>$170,750</td>
-        </tr>
-        <tr>
-            <td><button class="addRow">Add new row</button></td>
-            <td>Ashton Cox</td>
-            <td>Junior Technical Author</td>
-            <td>San Francisco</td>
-            <td>66</td>
-            <td>2009-01-12</td>
-            <td>$86,000</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <th>Add Row</th>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
-        </tr>
-    </tfoot>
+<thead>
+            <tr>
+                <th>ID</th>
+                <th>New Row</th>
+                <th>GFT</th>
+                <th>Topic</th>
+                <th>Status</th>
+                <th>Change Request</th>
+                <th>Task</th>
+                <th>Comment</th>
+                <th>Milestone</th>
+                <th>Responsible</th>
+                <th>Start</th>
+                <th>Duration</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            
+            $sql = "SELECT * FROM mt_agenda";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+
+                    echo "<tr>";
+                    echo "<td>" . $row["id"] . "</td>";
+                    echo "<td class='addRow' id='addRowCell'>". $row["add_row"] . "</td>";
+                    echo "<td>" . $row["gft"] . "</td>";
+                    echo "<td>" . $row["topic"] . "</td>";
+                    echo "<td>" . $row["status"] . "</td>";
+                    echo "<td>" . $row["change_request"] . "</td>";
+                    echo "<td>" . $row["task"] . "</td>";
+                    echo "<td>" . $row["comment"] . "</td>";
+                    echo "<td>" . $row["milestone"] . "</td>";
+                    echo "<td>" . $row["responsible"] . "</td>";
+                    echo "<td>" . $row["start"] . "</td>";
+                    echo "<td>" . $row["duration"] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "0 results";
+            }
+            ?>
+        </tbody>
 </table>
