@@ -1,18 +1,34 @@
-$(document).ready(function() {
-    $('#agendaTable').DataTable({
-        "order": []
-    });
-});
-
-$(document).ready(function(){
-    $(document).on('click', '.addRow', function(){
-        addNewRow(this);
-        saveToDatabase()
-    });
-});
-
+// Handy GLOBAL variables
+var table = new DataTable('#agendaTable');
 var counter = 1;
 
+// Datatable Settings
+$(document).ready(function(){
+    $('#agendaTable').dataTable( {
+        "order": [] //auto sort diabled
+    });
+});
+
+
+// TRIGGERS
+$(document).ready(function(){ //addinng new row
+    $(document).on('click', '.addRow', function(){
+        addNewRow(this);
+        saveToDatabase();
+    });
+});
+
+
+    // Trigger to delete row when delete icon is clicked
+    $(document).ready(function(){ //removing row
+        $(document).on('click', '.icon-delete', function(){
+            var row = $(this).closest('tr');
+            table.row(row).remove().draw();
+        });
+    });
+
+    
+// FUNCTIONS
 function addNewRow(clickedCell) {
 
     var newRowHtml = `
@@ -28,7 +44,7 @@ function addNewRow(clickedCell) {
             <td contenteditable="true">`+ counter + `</td>
             <td contenteditable="true">`+ counter + `</td>
             <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
+            <td><img src="delete_icon.png" class="icon-delete" alt="Delete"></td>
         </tr>
         `
         counter++;

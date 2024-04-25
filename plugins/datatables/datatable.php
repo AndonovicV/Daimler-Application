@@ -56,7 +56,7 @@ include 'C:\xampp\htdocs\Daimler\conn.php';
                     echo "<td>" . $row["milestone"] . "</td>";
                     echo "<td>" . $row["responsible"] . "</td>";
                     echo "<td>" . $row["start"] . "</td>";
-                    echo "<td>" . $row["duration"] . "</td>";
+                    echo "<td><button type='button' class='btn btn-danger btn-sm icon-delete'><i class='bi bi-trash'></i></button></td>";
                     echo "</tr>";
                 }
             } else {
