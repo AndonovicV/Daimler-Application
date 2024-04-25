@@ -36,15 +36,10 @@ td[contenteditable="true"]:focus {
 </style>
             <tr>
                 <th>ID</th>
-                <th>GFT</th>
-                <th>Topic</th>
-                <th>Status</th>
-                <th>Change Request</th>
-                <th>Task</th>
-                <th>Comment</th>
-                <th>Milestone</th>
+                <th>Type</th>
                 <th>Responsible</th>
                 <th>Start</th>
+                <th>Duration</th>
                 <th>New Row</th>
                 <th>Delete Row</th>
 
@@ -53,22 +48,17 @@ td[contenteditable="true"]:focus {
         <tbody>
             <?php
             
-            $sql = "SELECT * FROM mt_agenda";
+            $sql = "SELECT * FROM mt_agenda_aly";
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr id='" . $row["id"] . "'>"; 
                     echo "<td>" . $row["id"] . "</td>";
-                    echo "<td>" . $row["gft"] . "</td>";
-                    echo "<td>" . $row["topic"] . "</td>";
-                    echo "<td>" . $row["status"] . "</td>";
-                    echo "<td>" . $row["change_request"] . "</td>";
-                    echo "<td>" . $row["task"] . "</td>";
-                    echo "<td>" . $row["comment"] . "</td>";
-                    echo "<td>" . $row["milestone"] . "</td>";
+                    echo "<td>" . $row["type"] . "</td>";
                     echo "<td>" . $row["responsible"] . "</td>";
                     echo "<td>" . $row["start"] . "</td>";
+                    echo "<td>" . $row["duration"] . "</td>";
                     echo "<td><button class='btn btn-primary addRow'>New Row</button></td>";
                     echo "<td><button class='btn btn-danger deleteRow'>Delete Row</button></td>";
                     echo "</tr>";
