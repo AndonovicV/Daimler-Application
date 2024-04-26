@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $rowId = $_POST['rowId'];
 
         try {
-            $stmt = $conn->prepare("DELETE FROM mt_agenda WHERE id = ?");
+            $stmt = $conn->prepare("DELETE FROM mt_agenda_aly WHERE id = ?");
             $stmt->bind_param('i', $rowId);
             $stmt->execute();
             

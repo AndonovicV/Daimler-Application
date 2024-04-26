@@ -36,10 +36,6 @@ function addNewRow(clickedCell) {
             <td contenteditable="true">`+ counter + `</td>
             <td contenteditable="true">`+ counter + `</td>
             <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
             <td><button class="btn btn-primary addRow">New Row</button></td>
             <td><button class="btn btn-danger deleteRow">Delete Row</button></td>
         </tr>
