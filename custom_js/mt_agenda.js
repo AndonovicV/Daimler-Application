@@ -9,7 +9,6 @@ $(document).ready(function(){
     });
 });
 
-
 // TRIGGERS
 $(document).ready(function(){ //adding new row
     $(document).on('click', '.addRow', function(){
@@ -23,8 +22,6 @@ $(document).ready(function(){ //deleting new row
         deleteRow(this);
     });
 });
-
-
     
 // FUNCTIONS
 function addNewRow(clickedCell) {
@@ -49,7 +46,6 @@ function addNewRow(clickedCell) {
     $(newRowHtml).insertAfter($(clickedCell).closest('tr'));
 }
 
-
 function deleteRow(clickedCell) {
     var row = $(clickedCell).closest('tr');
     row.remove(); 
@@ -58,7 +54,7 @@ function deleteRow(clickedCell) {
 
     $.ajax({
         type: 'POST',
-        url: 'deleteRow.php', 
+        url: "actions.php", 
         data: {
             rowId: row.attr('id') 
         },
@@ -74,12 +70,10 @@ function deleteRow(clickedCell) {
     });
 }
 
-
-
 function saveToDatabase() {
     $.ajax({
         type: 'POST',
-        url: 'datatableDatabase.php',
+        url: "actions.php",
         data: {
             counter: counter
         },
