@@ -50,6 +50,7 @@ while ($row_spec_book = $result_spec_book->fetch_assoc()) {
     <thead>
         <tr>
             <th>Module team</th>
+            <th>ID</th>
             <th>Type</th>
             <th>New Row</th>
             <th>Delete Row</th>
@@ -60,15 +61,20 @@ while ($row_spec_book = $result_spec_book->fetch_assoc()) {
         while ($row_gft = $result_gfts->fetch_assoc()) {
             echo "<tr class='gftRow' data-moduleteam='" . $row_gft["moduleteam"] . "'>"; 
             echo "<td>" . $row_gft["moduleteam"] . "</td>";
-            echo "<td><strong>GFT " . $row_gft["name"] . "</td>";
+            echo "<td>" . $row_gft["id"] . "</td>";
+            echo "<td>" . $row_gft["name"] . "</td>";
             echo "<td><button class='btn btn-primary addRow'>New Row</button></td>";
             echo "<td></td>";
+            // Display projects for each GFT in separate rows
+            //echo "<td colspan='8'></td>";
             echo "</tr>";
+            // Display projects associated with the current GFT
             if (isset($gft_projects[$row_gft["name"]])) {
                 foreach ($gft_projects[$row_gft["name"]] as $project) {
-                    echo "<tr class='projectRow' data-moduleteam='" . $row_gft["moduleteam"] . "' style='display:none;'>";
+                    echo "<tr>";
                     echo "<td></td>"; 
-                    echo "<td colspan='1'>Project $project</td>"; 
+                    echo "<td colspan='1'>$project</td>"; 
+                    echo "<td colspan='1'>Project</td>"; 
                     echo "<td><button class='btn btn-primary addRow'>New Row</button></td>";
                     echo "<td><button class='btn btn-danger deleteRow'>Delete Row</button></td>";
                     echo "</tr>";
@@ -80,31 +86,19 @@ while ($row_spec_book = $result_spec_book->fetch_assoc()) {
 </table>
 
 <script>
-function filterRows(moduleTeam) {
+function filterGFTs() {
+    var selectedModuleTeam = document.getElementById("moduleTeamSelect").value;
     var gftRows = document.getElementsByClassName("gftRow");
-    var projectRows = document.getElementsByClassName("projectRow");
-    
+
     for (var i = 0; i < gftRows.length; i++) {
-        if (moduleTeam === "" || gftRows[i].getAttribute("data-moduleteam") === moduleTeam) {
+        var moduleTeam = gftRows[i].getAttribute("data-moduleteam");
+        if (selectedModuleTeam === "" || moduleTeam === selectedModuleTeam) {
             gftRows[i].style.display = "table-row";
         } else {
             gftRows[i].style.display = "none";
         }
     }
-    
-    for (var j = 0; j < projectRows.length; j++) {
-        if (moduleTeam === "" || projectRows[j].getAttribute("data-moduleteam") === moduleTeam) {
-            projectRows[j].style.display = "table-row";
-        } else {
-            projectRows[j].style.display = "none";
-        }
-    }
 }
-
-document.getElementById("moduleTeamSelect").addEventListener("change", function() {
-    var selectedModuleTeam = this.value;
-    filterRows(selectedModuleTeam);
-});
 </script>
 
 </body>

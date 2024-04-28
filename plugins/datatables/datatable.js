@@ -5,7 +5,8 @@ var counter = 1;
 // Datatable Settings
 $(document).ready(function(){
     $('#agendaTable').dataTable( {
-        "order": [] //auto sort diabled
+        "order": [],
+        "paging": false // Disable pagination
     });
 });
 
@@ -31,11 +32,6 @@ function addNewRow(clickedCell) {
     var newRowHtml = `
         <tr id="${counter}">
             <td></td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
             <td contenteditable="true">`+ counter + `</td>
             <td contenteditable="true">`+ counter + `</td>
             <td contenteditable="true">`+ counter + `</td>
