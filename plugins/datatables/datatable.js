@@ -1,5 +1,12 @@
 // Handy GLOBAL variables
-var table = new DataTable('#agendaTable');
+var table = new DataTable('#agendaTable', {
+    columnDefs: [
+        {
+            targets: [2, 3],
+            orderable: false
+        }
+    ]
+});
 var counter = 1;
 
 // Datatable Settings
@@ -7,6 +14,7 @@ $(document).ready(function(){
     $('#agendaTable').dataTable( {
         "order": [],
         "paging": false // Disable pagination
+        ,searchable: false
     });
 });
 
@@ -32,12 +40,10 @@ function addNewRow(clickedCell) {
     var newRowHtml = `
         <tr id="${counter}">
             <td></td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td><button class="btn btn-primary addRow">New Row</button></td>
-            <td><button class="btn btn-danger deleteRow">Delete Row</button></td>
+            <td class = "contenteditable" contenteditable="true">`+ "Placeholder" + `</td>
+            <td class = "contenteditable" contenteditable="true">`+ "Responsible" + `</td>
+            <td><button style="text-align: center;" class="btn btn-primary addRow">New Row</button></td>
+            <td><button style="text-align: center;" class="btn btn-danger deleteRow">Delete</button></td>
         </tr>
     `;
     counter++;
