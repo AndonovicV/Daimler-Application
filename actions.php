@@ -6,7 +6,7 @@ if (isset($_POST['meanId']) && isset($_POST['counter'])) {
     $meanId = $_POST['meanId'];
     $counter = $_POST['counter'];
 
-    $sql = "INSERT INTO mt_agenda (id, GFT, Topic, Status, Change_Request, Task, Comment, Milestone, Responsible, Start, New_Row, Delete_Row)
+    $sql = "INSERT INTO mt_agenda (item_id, GFT, Topic, Status, Change_Request, Task, Comment, Milestone, Responsible, Start, New_Row, Delete_Row)
             VALUES ('$meanId', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', 'Yes', 'No')";
     echo "SQL query: " . $sql; // Echo the SQL query
     if ($conn->query($sql) === TRUE) {
@@ -22,7 +22,7 @@ if (isset($_POST['meanId']) && isset($_POST['counter'])) {
 if (isset($_POST['rowId'])) {
     $rowId = $_POST['rowId'];
     //echo $rowId; // Corrected variable name
-    $sql = "DELETE FROM mt_agenda WHERE CONCAT(`mt_agenda`.`id`) = '$rowId'";
+    $sql = "DELETE FROM mt_agenda WHERE CONCAT(`mt_agenda`.`item_id`) = '$rowId'";
     echo "SQL query: " . $sql; // Echo the SQL query
     if ($conn->query($sql) === TRUE) {
         //echo "Row deleted successfully.";

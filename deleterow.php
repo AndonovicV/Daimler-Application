@@ -7,7 +7,7 @@ if(isset($_POST['rowId'])) {
     $rowId = $_POST['rowId'];
 
     // Construct the deletion query
-    $delete_sql = "DELETE FROM mt_agenda WHERE id = '$rowId'";
+    $delete_sql = "DELETE FROM mt_agenda WHERE item_id = '$rowId'";
     
     // Execute the deletion query
     if ($conn->query($delete_sql) === TRUE) {

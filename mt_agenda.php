@@ -60,8 +60,8 @@ td[contenteditable="true"]:focus {
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<tr id='" . $row["id"] . "'>"; 
-                    echo "<td>" . $row["id"] . "</td>";
+                    echo "<tr id='" . $row["item_id"] . "'>"; 
+                    echo "<td>" . $row["item_id"] . "</td>";
                     echo "<td>" . $row["GFT"] . "</td>";
                     echo "<td>" . $row["Topic"] . "</td>";
                     echo "<td>" . $row["Status"] . "</td>";
