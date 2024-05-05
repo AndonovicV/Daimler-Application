@@ -4,39 +4,51 @@ var counter = 1;
 
 // Datatable Settings
 $(document).ready(function(){
-    $('#agendaTable').dataTable( {
-        "order": [] //auto sort diabled
+    $('#agendaTable').dataTable({
+        "order": [] //auto sort disabled
     });
+
+$(document).on('click', '.addRow', function(){
+    var currentRow = $(this).closest('tr'); // Get the current row
+    var currentRowId = parseFloat(currentRow.attr('id')); // Get the ID of the current row
+    
+    var nextRow = currentRow.next(); // Get the next row
+    var nextRowId = nextRow.attr('id'); // Get the ID of the next row
+    
+    if (nextRowId === undefined) {
+        // If there is no next row, set nextRowId to currentRowId + 1
+        nextRowId = currentRowId + 1;
+    } else {
+        nextRowId = parseFloat(nextRowId);
+    }
+    
+    var meanId = (currentRowId + nextRowId) / 2;
+    addNewRow(this, meanId);
+    saveToDatabase(meanId);
 });
 
-// TRIGGERS
-$(document).ready(function(){ //adding new row
-    $(document).on('click', '.addRow', function(){
-        addNewRow(this);
-        saveToDatabase();
-    });
-});
 
-$(document).ready(function(){ //deleting new row
-    $(document).on('click', '.deleteRow', function(){
+    // Deleting new row
+    $(document).on('click', '.deleteRow', function(){   
         deleteRow(this);
     });
+
 });
-    
+
 // FUNCTIONS
-function addNewRow(clickedCell) {
+function addNewRow(clickedCell, meanId) {
     var newRowHtml = `
-        <tr id="${counter}">
-            <td></td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
-            <td contenteditable="true">`+ counter + `</td>
+        <tr id="${meanId}">
+            <td contenteditable="true">${meanId}</td>
+            <td contenteditable="true">${counter}</td>
+            <td contenteditable="true">${counter}</td>
+            <td contenteditable="true">${counter}</td>
+            <td contenteditable="true">${counter}</td>
+            <td contenteditable="true">${counter}</td>
+            <td contenteditable="true">${counter}</td>
+            <td contenteditable="true">${counter}</td>
+            <td contenteditable="true">${counter}</td>
+            <td contenteditable="true">${counter}</td>
             <td><button class="btn btn-primary addRow">New Row</button></td>
             <td><button class="btn btn-danger deleteRow">Delete Row</button></td>
         </tr>
@@ -48,33 +60,30 @@ function addNewRow(clickedCell) {
 
 function deleteRow(clickedCell) {
     var row = $(clickedCell).closest('tr');
+    var rowId = row.attr('id');
     row.remove(); 
     table.row(row).remove().draw(); 
-    counter--; 
-
     $.ajax({
         type: 'POST',
         url: "actions.php", 
         data: {
-            rowId: row.attr('id') 
+           rowId: rowId
         },
         success: function(response) {
-            //alert("Row with ID " + row.attr('id') + " deleted successfully");
-            //console.log('Row deleted successfully.');
-            row.remove();
+            console.log(response);
         },
         error: function(xhr, status, error) {
-            //alert("Error deleting row: " + error);
-            console.error('Error deleting row:', error);
+            console.error(xhr.responseText);
         }
     });
 }
 
-function saveToDatabase() {
+function saveToDatabase(meanId) {
     $.ajax({
         type: 'POST',
         url: "actions.php",
         data: {
+            meanId: meanId,
             counter: counter
         },
         success: function(response) {

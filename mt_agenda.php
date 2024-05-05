@@ -53,8 +53,8 @@ td[contenteditable="true"]:focus {
             </tr>
         </thead>
         <tbody>
-            <?php
-            
+        <?php
+            // Fetching data from mt_agenda table
             $sql = "SELECT * FROM mt_agenda";
             $result = $conn->query($sql);
 
@@ -62,15 +62,15 @@ td[contenteditable="true"]:focus {
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr id='" . $row["id"] . "'>"; 
                     echo "<td>" . $row["id"] . "</td>";
-                    echo "<td>" . $row["gft"] . "</td>";
-                    echo "<td>" . $row["topic"] . "</td>";
-                    echo "<td>" . $row["status"] . "</td>";
-                    echo "<td>" . $row["change_request"] . "</td>";
-                    echo "<td>" . $row["task"] . "</td>";
-                    echo "<td>" . $row["comment"] . "</td>";
-                    echo "<td>" . $row["milestone"] . "</td>";
-                    echo "<td>" . $row["responsible"] . "</td>";
-                    echo "<td>" . $row["start"] . "</td>";
+                    echo "<td>" . $row["GFT"] . "</td>";
+                    echo "<td>" . $row["Topic"] . "</td>";
+                    echo "<td>" . $row["Status"] . "</td>";
+                    echo "<td>" . $row["Change_Request"] . "</td>";
+                    echo "<td>" . $row["Task"] . "</td>";
+                    echo "<td>" . $row["Comment"] . "</td>";
+                    echo "<td>" . $row["Milestone"] . "</td>";
+                    echo "<td>" . $row["Responsible"] . "</td>";
+                    echo "<td>" . $row["Start"] . "</td>";
                     echo "<td><button class='btn btn-primary addRow'>New Row</button></td>";
                     echo "<td><button class='btn btn-danger deleteRow'>Delete Row</button></td>";
                     echo "</tr>";
@@ -78,6 +78,7 @@ td[contenteditable="true"]:focus {
             } else {
                 echo "0 results";
             }
-            ?>
+$conn->close();
+?>
         </tbody>
 </table>
