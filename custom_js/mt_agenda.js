@@ -1,13 +1,11 @@
 $(document).ready(function () {
-    // Handy GLOBAL variables
-    var table = new DataTable('#agendaTable');
-    var counter = 1;
-
-    // Datatable Settings
-    $('#agendaTable').dataTable({
+    //Initialization and settings of datatable
+    var table = $('#agendaTable').dataTable({
         "order": [] //auto sort disabled
     });
-
+    
+    // Handy GLOBAL variables
+    var counter = 1;
     // FUNCTIONS
     // Creating New Row
     function addNewRow(clickedCell, meanId) {

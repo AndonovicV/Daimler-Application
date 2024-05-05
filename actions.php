@@ -41,7 +41,6 @@ if (isset($_POST['agenda_id']) && $_POST['agenda_id'] != 'new') {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             // Echo each row as HTML
-            // Modify this part based on your table structure
             echo "<tr id='" . $row["item_id"] . "'>"; 
             echo "<td>" . $row["item_id"] . "</td>";
             echo "<td>" . $row["GFT"] . "</td>";
