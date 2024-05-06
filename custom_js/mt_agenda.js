@@ -33,7 +33,6 @@ $(document).ready(function () {
         var row = $(clickedCell).closest('tr');
         var rowId = row.attr('id');
         row.remove();
-        table.row(row).remove().draw();
         $.ajax({
             type: 'POST',
             url: "actions.php",
@@ -136,37 +135,5 @@ $(document).ready(function () {
                 populateTable(selectedAgendaId);
             }
         }
-    });
-
-
-    // Listen for cell edit events
-    $('#agendaTable').on('dblclick', 'td[contenteditable=true]', function () {
-        $(this).attr('contenteditable', 'true');
-    });
-
-    // Handle cell edit
-    $('#agendaTable').on('blur', 'td[contenteditable=true]', function () {
-        var cell = table.cell(this);
-        var columnIdx = cell.index().column;
-        var rowIdx = cell.index().row;
-        var newValue = $(this).text();
-        var columnTitle = table.column(columnIdx).header().innerHTML;
-
-        // Send updated data to server
-        $.ajax({
-            url: 'update_cell_data.php',
-            type: 'POST',
-            data: {
-                rowId: table.row(rowIdx).id(),
-                columnTitle: columnTitle,
-                newValue: newValue
-            },
-            success: function (response) {
-                console.log('Cell data updated successfully:', response);
-            },
-            error: function (xhr, status, error) {
-                console.error('Error updating cell data:', error);
-            }
-        });
     });
 });

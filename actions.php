@@ -62,18 +62,17 @@ if (isset($_POST['agenda_id']) && $_POST['agenda_id'] != 'new') {
     }
 }
 
+// Insert new row (Table) into mt_agenda_list table
 if (isset($_POST['agenda_name']) && !empty($_POST['agenda_name'])) {
     $agendaName = $_POST['agenda_name'];
-    
-    // Insert new row into mt_agenda_list table
-    $insertSql = "INSERT INTO mt_agenda_list (agenda_name) VALUES ('$agendaName')";
+        $insertSql = "INSERT INTO mt_agenda_list (agenda_name) VALUES ('$agendaName')";
     if ($conn->query($insertSql) === TRUE) {
         // Retrieve the auto-generated agenda_id
         $agendaId = $conn->insert_id;
         
         // Insert an empty row into mt_agenda table
-        $emptyRowSql = "INSERT INTO mt_agenda (GFT, Topic, Status, Change_Request, Task, Comment, Milestone, Responsible, Start, New_Row, Delete_Row, agenda_id) 
-                        VALUES ('', '', '', '', '', '', '', '', '', 'Yes', 'No', '$agendaId')";
+        $emptyRowSql = "INSERT INTO mt_agenda (agenda_id, GFT, Topic, Status, Change_Request, Task, Comment, Milestone, Responsible, Start, New_Row, Delete_Row) 
+                        VALUES ('$agendaId', '', '', '', '', '', '', '', '', '', 'Yes', 'No')";
         if ($conn->query($emptyRowSql) === TRUE) {
             echo $agendaId; // Return the newly generated agenda_id
         } else {
