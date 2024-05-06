@@ -10,7 +10,7 @@ include 'conn.php';
     <title>Datatable</title>
 
     <!-- Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="plugins\jQuery\jquery.min.js"></script>
     <link href="plugins\bootstrap-5.3.3-dist\css\bootstrap.min.css" rel="stylesheet">
     <script src="plugins\bootstrap-5.3.3-dist\js\bootstrap.min.js"></script>
     <link rel="stylesheet" href="plugins\datatables\datatables.min.css">
