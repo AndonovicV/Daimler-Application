@@ -67,14 +67,26 @@ if (isset($_POST['agenda_id']) && $_POST['agenda_id'] != 'new') {
 // Insert new row (Table) into mt_agenda_list table
 if (isset($_POST['agenda_name']) && !empty($_POST['agenda_name'])) {
     $agendaName = $_POST['agenda_name'];
-        $insertSql = "INSERT INTO mt_agenda_list (agenda_name) VALUES ('$agendaName')";
+
+    // Fetch the maximum item_id from mt_agenda table
+    $maxItemIdQuery = "SELECT MAX(item_id) AS max_item_id FROM mt_agenda";
+    $maxItemIdResult = $conn->query($maxItemIdQuery);
+    if ($maxItemIdResult->num_rows > 0) {
+        $row = $maxItemIdResult->fetch_assoc();
+        $nextItemId = $row['max_item_id'] + 1;
+    } else {
+        $nextItemId = 1; // If no rows found, start from 1
+    }
+
+    // Insert new row into mt_agenda_list table
+    $insertSql = "INSERT INTO mt_agenda_list (agenda_name) VALUES ('$agendaName')";
     if ($conn->query($insertSql) === TRUE) {
         // Retrieve the auto-generated agenda_id
         $agendaId = $conn->insert_id;
-        
-        // Insert an empty row into mt_agenda table
-        $emptyRowSql = "INSERT INTO mt_agenda (agenda_id, GFT, Topic, Status, Change_Request, Task, Comment, Milestone, Responsible, Start, New_Row, Delete_Row) 
-                        VALUES ('$agendaId', '', '', '', '', '', '', '', '', '', 'Yes', 'No')";
+
+        // Insert an empty row into mt_agenda table with the next item_id
+        $emptyRowSql = "INSERT INTO mt_agenda (item_id, agenda_id, GFT, Topic, Status, Change_Request, Task, Comment, Milestone, Responsible, Start, New_Row, Delete_Row) 
+                        VALUES ('$nextItemId', '$agendaId', '', '', '', '', '', '', '', '', '', 'Yes', 'No')";
         if ($conn->query($emptyRowSql) === TRUE) {
             echo $agendaId; // Return the newly generated agenda_id
         } else {
@@ -86,5 +98,6 @@ if (isset($_POST['agenda_name']) && !empty($_POST['agenda_name'])) {
 } else {
     echo "Agenda name not provided.";
 }
+
 
 ?>  
