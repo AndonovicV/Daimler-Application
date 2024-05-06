@@ -113,35 +113,44 @@ $(document).on('click', '.addRow', function () {
         });
     }
 
-    // Event listener for agenda selection change
-    $('#agendaSelect').change(function () {
+    // Function to show the table
+    function showTable() {
+        $('#agendaTable').show();
+        }
+        
+        // Event listener for agenda selection change
+        $('#agendaSelect').change(function () {
         var selectedAgendaId = $(this).val();
         if (selectedAgendaId) {
-            if (selectedAgendaId === 'new') {
-                // Prompt user to enter new agenda name
-                var newAgendaName = prompt('Enter the name for the new agenda:');
-                if (newAgendaName !== null && newAgendaName.trim() !== '') {
-                    // Create new agenda
-                    $.ajax({
-                        type: 'POST',
-                        url: 'actions.php',
-                        data: { agenda_name: newAgendaName },
-                        success: function (response) {
-                            // Retrieve newly created agenda ID and populate the table
-                            populateTable(response);
-                        },
-                        error: function (xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                } else {
-                    // If agenda name is not provided, reset dropdown to default value
-                    $(this).val('');
-                }
+        if (selectedAgendaId === 'new') {
+            // Prompt user to enter new agenda name
+            var newAgendaName = prompt('Enter the name for the new agenda:');
+            if (newAgendaName !== null && newAgendaName.trim() !== '') {
+                // Create new agenda
+                $.ajax({
+                    type: 'POST',
+                    url: 'actions.php',
+                    data: { agenda_name: newAgendaName },
+                    success: function (response) {
+                        // Retrieve newly created agenda ID and populate the table
+                        populateTable(response);
+                        // Show the table after it's populated
+                        showTable();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
             } else {
-                // Otherwise, populate the table with the selected agenda's data
-                populateTable(selectedAgendaId);
+                // If agenda name is not provided, reset dropdown to default value
+                $(this).val('');
             }
+        } else {
+            // Otherwise, populate the table with the selected agenda's data
+            populateTable(selectedAgendaId);
+            // Show the table after it's populated
+            showTable();
+        }
         }
     });
 });

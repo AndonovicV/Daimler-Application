@@ -46,7 +46,7 @@ include 'conn.php';
 
     <div class="row">
         <div class="col-md-12">
-            <table id="agendaTable" class="display">
+            <table id="agendaTable" class="display" style="display: none;">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -64,32 +64,7 @@ include 'conn.php';
                     </tr>
                 </thead>
                 <tbody id="agendaTableBody">
-                    <?php
-                    if (isset($_POST['agenda_id']) && $_POST['agenda_id'] != 'new') {
-                        $agenda_id = $_POST['agenda_id'];
-                        $sql = "SELECT * FROM mt_agenda WHERE agenda_id = $agenda_id";
-                        $result = $conn->query($sql);
-
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr id='" . $row["item_id"] . "'>"; 
-                                echo "<td>" . $row["item_id"] . "</td>";
-                                echo "<td>" . $row["GFT"] . "</td>";
-                                echo "<td>" . $row["Topic"] . "</td>";
-                                echo "<td>" . $row["Status"] . "</td>";
-                                echo "<td>" . $row["Change_Request"] . "</td>";
-                                echo "<td>" . $row["Task"] . "</td>";
-                                echo "<td>" . $row["Comment"] . "</td>";
-                                echo "<td>" . $row["Milestone"] . "</td>";
-                                echo "<td>" . $row["Responsible"] . "</td>";
-                                echo "<td>" . $row["Start"] . "</td>";
-                                echo "<td><button class='btn btn-primary addRow'>New Row</button></td>";
-                                echo "<td><button class='btn btn-danger deleteRow'>Delete Row</button></td>";
-                                echo "</tr>";
-                            }
-                        }
-                    }
-                    ?>
+                    <!--Datatable body loaded here-->
                 </tbody>
             </table>
         </div>
