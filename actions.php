@@ -2,12 +2,13 @@
 include 'conn.php';  
 
 // mt_agenda new row
-if (isset($_POST['meanId']) && isset($_POST['counter'])) {
+if (isset($_POST['meanId']) && isset($_POST['counter']) && isset($_POST['agendaId'])) {
     $meanId = $_POST['meanId'];
     $counter = $_POST['counter'];
+    $agendaId = $_POST['agendaId']; // Get the agenda_id
 
-    $sql = "INSERT INTO mt_agenda (item_id, GFT, Topic, Status, Change_Request, Task, Comment, Milestone, Responsible, Start, New_Row, Delete_Row)
-            VALUES ('$meanId', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', 'Yes', 'No')";
+    $sql = "INSERT INTO mt_agenda (item_id, agenda_id, GFT, Topic, Status, Change_Request, Task, Comment, Milestone, Responsible, Start, New_Row, Delete_Row)
+            VALUES ( '$meanId', '$agendaId', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', 'Yes', 'No')";
     echo "SQL query: " . $sql; // Echo the SQL query
     if ($conn->query($sql) === TRUE) {
         echo "New record inserted successfully";
@@ -15,8 +16,9 @@ if (isset($_POST['meanId']) && isset($_POST['counter'])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 } else {
-    //echo "Mean ID or Counter value is not set";
+    //echo "Mean ID, Counter value, or Agenda ID is not set";
 }
+
 
 // mt_agenda delete row
 if (isset($_POST['rowId'])) {

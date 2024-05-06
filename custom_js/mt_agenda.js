@@ -8,25 +8,27 @@ $(document).ready(function () {
     var counter = 1;
     // FUNCTIONS
     // Creating New Row
-    function addNewRow(clickedCell, meanId) {
-        var newRowHtml = `
-        <tr id="${meanId}">
-            <td contenteditable="true">${meanId}</td>
-            <td contenteditable="true">${counter}</td>
-            <td contenteditable="true">${counter}</td>
-            <td contenteditable="true">${counter}</td>
-            <td contenteditable="true">${counter}</td>
-            <td contenteditable="true">${counter}</td>
-            <td contenteditable="true">${counter}</td>
-            <td contenteditable="true">${counter}</td>
-            <td contenteditable="true">${counter}</td>
-            <td contenteditable="true">${counter}</td>
-            <td><button class="btn btn-primary addRow">New Row</button></td>
-            <td><button class="btn btn-danger deleteRow">Delete Row</button></td>
-        </tr>`;
-        counter++;
-        $(newRowHtml).insertAfter($(clickedCell).closest('tr'));
-    }
+// Creating New Row
+function addNewRow(clickedCell, meanId, agendaId) {
+    var newRowHtml = `
+    <tr id="${meanId}" data-agenda-id="${agendaId}">
+        <td contenteditable="true">${meanId}</td>
+        <td contenteditable="true">${counter}</td>
+        <td contenteditable="true">${counter}</td>
+        <td contenteditable="true">${counter}</td>
+        <td contenteditable="true">${counter}</td>
+        <td contenteditable="true">${counter}</td>
+        <td contenteditable="true">${counter}</td>
+        <td contenteditable="true">${counter}</td>
+        <td contenteditable="true">${counter}</td>
+        <td contenteditable="true">${counter}</td>
+        <td><button class="btn btn-primary addRow">New Row</button></td>
+        <td><button class="btn btn-danger deleteRow">Delete Row</button></td>
+    </tr>`;
+    counter++;
+    $(newRowHtml).insertAfter($(clickedCell).closest('tr'));
+}
+
 
     // Deleting selected row
     function deleteRow(clickedCell) {
@@ -52,42 +54,48 @@ $(document).ready(function () {
     });
 
     // Saving the changes to database
-    function saveToDatabase(meanId) {
-        $.ajax({
-            type: 'POST',
-            url: "actions.php",
-            data: {
-                meanId: meanId,
-                counter: counter
-            },
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
+// Saving the changes to database
+function saveToDatabase(meanId, agendaId) {
+    $.ajax({
+        type: 'POST',
+        url: "actions.php",
+        data: {
+            meanId: meanId,
+            counter: counter,
+            agendaId: agendaId // Include agendaId in the data
+        },
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
+
 
     // Add  row with mean value
-    $(document).on('click', '.addRow', function () {
-        var currentRow = $(this).closest('tr'); // Get the current row
-        var currentRowId = parseFloat(currentRow.attr('id')); // Get the ID of the current row
+// Add row with mean value
+$(document).on('click', '.addRow', function () {
+    var currentRow = $(this).closest('tr'); // Get the current row
+    var currentRowId = parseFloat(currentRow.attr('id')); // Get the ID of the current row
+    var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
 
-        var nextRow = currentRow.next(); // Get the next row
-        var nextRowId = nextRow.attr('id'); // Get the ID of the next row
+    var nextRow = currentRow.next(); // Get the next row
+    var nextRowId = nextRow.attr('id'); // Get the ID of the next row
 
-        if (nextRowId === undefined) {
-            // If there is no next row, set nextRowId to currentRowId + 1
-            nextRowId = currentRowId + 1;
-        } else {
-            nextRowId = parseFloat(nextRowId);
-        }
+    if (nextRowId === undefined) {
+        // If there is no next row, set nextRowId to currentRowId + 1
+        nextRowId = currentRowId + 1;
+    } else {
+        nextRowId = parseFloat(nextRowId);
+    }
 
-        var meanId = (currentRowId + nextRowId) / 2;
-        addNewRow(this, meanId);
-        saveToDatabase(meanId);
-    });
+    var meanId = (currentRowId + nextRowId) / 2;
+    addNewRow(this, meanId, agendaId); // Pass agendaId to addNewRow function
+    saveToDatabase(meanId, agendaId); // Pass agendaId to saveToDatabase function
+});
+
 
 
     // Function to populate the table with agenda data
