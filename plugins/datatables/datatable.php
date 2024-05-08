@@ -18,6 +18,15 @@ while ($row_spec_book = $result_spec_book->fetch_assoc()) {
     $gft_projects[$row_spec_book['GFT']][] = $row_spec_book['Project'];
 }
 
+// Fetch tasks
+$sql_tasks = "SELECT * FROM tasks";
+$result_tasks = $conn->query($sql_tasks);
+
+// Fetch topics
+$sql_topics = "SELECT * FROM topics";
+$result_topics = $conn->query($sql_topics);
+?>
+
 // Fetch titles for each project
 $sql_titles = "SELECT project, title FROM package";
 $result_titles = $conn->query($sql_titles);

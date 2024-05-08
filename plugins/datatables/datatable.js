@@ -35,22 +35,53 @@ $(document).ready(function(){ //deleting new row
 
 
     
-// FUNCTIONS
 function addNewRow(clickedCell) {
-    var newRowHtml = `
+    var newRow = $(`
         <tr id="${counter}">
-            <td></td>
-            <td class = "contenteditable" contenteditable="true">`+ "Placeholder" + `</td>
-            <td class = "contenteditable" contenteditable="true">`+ "Responsible" + `</td>
+            <td>
+                <select class="form-select">
+                    <option value="Topic" selected>Topic</option>
+                    <option value="Task">Task</option>
+                </select>
+            </td>
+            <td class="contenteditable" contenteditable="true">Placeholder</td>
+            <td class="contenteditable" contenteditable="true">Responsible</td>
             <td><button style="text-align: center;" class="btn btn-primary addRow">New Row</button></td>
             <td><button style="text-align: center;" class="btn btn-danger deleteRow">Delete</button></td>
         </tr>
-    `;
+    `);
     counter++;
 
-    $(newRowHtml).insertAfter($(clickedCell).closest('tr'));
-}
+    newRow.insertAfter($(clickedCell).closest('tr'));
 
+
+    // Find GFT and Project names
+    var gft = "";
+    var project = "";
+    var gftFound = false; // Track if GFT name is found
+    var projectFound = false; // Track if GFT name is found
+    var currentRow = newRow.prev();
+    // Search for GFT and Project names in preceding rows
+    while (currentRow.length > 0 && !gftFound) {
+        var cells = currentRow.find('td:eq(1)'); // Only search in the 2nd column
+        var cellContent = cells.text().trim();
+        if (cellContent.startsWith("GFT")) {
+            gft = cellContent;
+            gftFound = true; // Set flag to true if GFT name is found
+        } else if (cellContent.startsWith("Project") && !projectFound) {
+            project = cellContent;
+            projectFound = true;
+        }
+        currentRow = currentRow.prev();
+    }
+    project = project.substring("Project".length).trim();
+    gft = gft.substring("GFT".length).trim();
+    alert(project)
+    alert(gft)
+    setTimeout(function() {
+        saveToDatabase(newRow, gft, project);
+    }, 10000);
+}
 
 function deleteRow(clickedCell) {
     var row = $(clickedCell).closest('tr');
@@ -76,15 +107,33 @@ function deleteRow(clickedCell) {
     });
 }
 
+function saveToDatabase(newRow, gft, project) {
+    var selectedOption = newRow.find('select').val();
+    var content = newRow.find('td:eq(1)').text().trim();
+    var responsible = newRow.find('td:eq(2)').text().trim();
+    var ajaxData = {};
+    alert(gft)
+    alert(project)
+    if (selectedOption === "Task") {
+        ajaxData = {
+            taskContent: content,
+            taskResponsible: responsible,
+            taskGft: gft, // Use taskGft instead of gft
+            taskProject: project // Use taskProject instead of project
+        };
+    } else if (selectedOption === "Topic") {
+        ajaxData = {
+            topicContent: content,
+            topicResponsible: responsible,
+            topicGft: gft, // Use topicGft instead of gft
+            topicProject: project // Use topicProject instead of project
+        };
+    }
 
-
-function saveToDatabase() {
     $.ajax({
         type: 'POST',
-        url: 'datatableDatabase.php',
-        data: {
-            counter: counter
-        },
+        url: 'actions.php',
+        data: ajaxData, // Send the modified data object
         success: function(response) {
             console.log(response);
         },
