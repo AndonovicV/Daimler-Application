@@ -9,7 +9,7 @@ $page_title = ucwords(str_replace("_", " ", $page));
 <html lang="en">
 <?php include_once('inc/header.php'); ?>
 <body>
-<?php include_once('inc/navigation.php'); ?>
+<?php include_once('inc\navigationDeckblat.php'); ?>
     <div class="container-md py-3">
         <?php if(isset($_SESSION['flashdata']) && !empty($_SESSION['flashdata'])): ?>
             <div class="flashdata flashdata-<?= $_SESSION['flashdata']['type'] ?? 'default' ?> mb-3">

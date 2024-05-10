@@ -1,9 +1,10 @@
 <?php 
+include_once('php-attendance\inc\navigationAgenda.php');
 include 'conn.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html data-bs-theme="dark" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,8 +60,8 @@ include 'conn.php';
                         <th>Milestone</th>
                         <th>Responsible</th>
                         <th>Start</th>
-                        <th>New Row</th>
-                        <th>Delete Row</th>
+                        <th>New</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody id="agendaTableBody">

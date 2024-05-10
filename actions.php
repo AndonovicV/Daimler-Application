@@ -54,8 +54,8 @@ if (isset($_POST['agenda_id']) && $_POST['agenda_id'] != 'new') {
             echo "<td>" . $row["Milestone"] . "</td>";
             echo "<td>" . $row["Responsible"] . "</td>";
             echo "<td>" . $row["Start"] . "</td>";
-            echo "<td><button class='btn btn-primary addRow'>New Row</button></td>";
-            echo "<td><button class='btn btn-danger deleteRow'>Delete Row</button></td>";
+            echo "<td><button class='btn btn-primary addRow'>New</button></td>";
+            echo "<td><button class='btn btn-danger deleteRow'>Delete</button></td>";
             echo "</tr>";
         }
     } else {
