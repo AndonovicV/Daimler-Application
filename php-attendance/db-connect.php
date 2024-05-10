@@ -1,18 +1,15 @@
-<?php 
-// Hostname
-$host = "localhost";
-// Username
-$uname = "root";
-// Password
-$pw = "";
-// Database Name
-$dbname = "simple_attendance_db";
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "dom_cockpit_dummy";
 
-try{
-    $conn = new MySQLi($host, $uname, $pw, $dbname);
-}catch(Exception $e){
-    echo "Database Connection Failed: <br>";
-    print_r($e->getMessage());
-    exit;
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
 }
+//echo "Connected successfully";
 ?>
