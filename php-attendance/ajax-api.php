@@ -20,6 +20,15 @@ switch($action){
     case 'save_attendance':
         $response = $actionClass->save_attendance();
         break;
+    case 'save_guest':
+        $response = $actionClass->save_guest();
+        break;
+    case 'delete_guest':
+        $response = $actionClass->delete_guest();
+        break;
+    case 'save_guests_attendance':
+        $response = $actionClass->save_guests_attendance();
+        break;
     default:
         $response = ["status" => "error", "msg" => "Undefined API Action!"];
         break;

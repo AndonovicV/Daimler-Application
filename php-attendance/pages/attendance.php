@@ -7,6 +7,7 @@ $mdt_id = $_GET['mdt_id'] ?? "";
 $meeting_date = $_GET['meeting_date'] ?? "";
 $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
 
+
 ?>
 <!-- <pre>
     <?php print_r($memberList) ?>
@@ -32,7 +33,7 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                                 <label for="meeting_date" class="form-label">Date</label>
-                                <input type="date" name="meeting_date" id="meeting_date" class="form-control" value="<?= $meeting_date ?? '' ?>" required="required">
+                                <input type="datetime-local" name="meeting_date" id="meeting_date" class="form-control" value="<?= $meeting_date ?? '' ?>" required="required">
                             </div>
                         </div>
                     </div>
@@ -48,19 +49,20 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                         <div class="table-responsive">
                             <table id="attendance-tbl" class="table table-bordered">
                                 <colgroup>
-                                    <col width="40%">
+                                    <!-- <col width="40%">
                                     <col width="15%">
                                     <col width="15%">
                                     <col width="15%">
-                                    <col width="15%">
+                                    <col width="15%"> -->
                                 </colgroup>
-                                <thead class="bg-primary">
+                                <thead class="bg-primary"> 
                                     <tr>
+                                        <th class="text-center bg-transparent text-light">Department</th>
                                         <th class="text-center bg-transparent text-light">Members</th>
                                         <th class="text-center bg-transparent text-light">Present</th>
-                                        <th class="text-center bg-transparent text-light">Late</th>
-                                        <th class="text-center bg-transparent text-light">Absent</th>
-                                        <th class="text-center bg-transparent text-light">Holiday</th>
+                                        <!-- <th class="text-center bg-transparent text-light">Late</th> -->
+                                        <!-- <th class="text-center bg-transparent text-light">Absent</th>
+                                        <th class="text-center bg-transparent text-light">Holiday</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -73,7 +75,7 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                                 </label>
                                             </div>
                                         </th>
-                                        <th class="text-center px-2 py-1 text-dark-emphasis">
+                                        <!-- <th class="text-center px-2 py-1 text-dark-emphasis">
                                             <div class="form-check d-flex w-100 justify-content-center">
                                                 <input class="form-check-input checkAll" type="checkbox" id="LCheckAll">
                                                 <label class="form-check-label" for="LCheckAll">
@@ -93,7 +95,7 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                                 <label class="form-check-label" for="HCheckAll">
                                                 </label>
                                             </div>
-                                        </th>
+                                        </th> -->
                                     </tr>
                                     <?php if(!empty($memberList) && is_array($memberList)): ?>
                                     <?php foreach($memberList as $row): ?>
@@ -109,7 +111,7 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td class="text-center px-2 py-1 text-dark-emphasis">
+                                            <!-- <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
                                                     <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="2" id="status_l_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 2) ? "checked" : "" ?>>
                                                     <label class="form-check-label" for="status_l_<?= $row['id'] ?>">
@@ -130,11 +132,11 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                                     </label>
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                     <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="5" class="px-2 py-1 text-center">No Member Listed Yet</td>
+                                            <td colspan="3" class="px-2 py-1 text-center">No Member Listed Yet</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -152,110 +154,67 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
         </div>
     </div>
 </form>
-<script>
-    $(document).ready(function(){
-        checkAll_count()
 
-        $('#mdt_id, #meeting_date').change(function(e){
-            var mdt_id = $('#mdt_id').val()
-            var meeting_date = $('#meeting_date').val()
-            location.replace(`./?page=attendance&mdt_id=${mdt_id}&meeting_date=${meeting_date}`)
-        })
-        $('.status_check').change(function(){
-            var member_id = $(this)[0].dataset?.id
-            var isChecked = $(this).is(":checked")
-            if(isChecked === true){
-                $(`.status_check[data-id='${member_id}']`).prop("checked", false)
-                $(this).prop("checked", true)
-            }
-            checkAll_count()
-        })
-        $('.checkAll').change(function(){
-            var _this = $(this)
-            var isChecked = $(this).is(":checked")
-            var id = $(this).attr('id')
-            if(isChecked === true){
-                $('.checkAll').each(function(){
-                    if($(this).attr('id') != id&& $(this).is(":checked") == true){
-                        $(this).prop("checked", false)
-                    }
-                })
-                $('.status_check').prop('checked', false)
-                if(id == 'PCheckAll'){
-                    $('.status_check[value="1"]').prop('checked', true) 
-                }else if(id == 'LCheckAll'){
-                    $('.status_check[value="2"]').prop('checked', true) 
-                }else if(id == 'ACheckAll'){
-                    $('.status_check[value="3"]').prop('checked', true) 
-                }else if(id == 'HCheckAll'){
-                    $('.status_check[value="4"]').prop('checked', true) 
-                }
-            }else{
-                if(id == 'PCheckAll'){
-                    $('.status_check[value="1"]').prop('checked', false) 
-                }else if(id == 'LCheckAll'){
-                    $('.status_check[value="2"]').prop('checked', false) 
-                }else if(id == 'ACheckAll'){
-                    $('.status_check[value="3"]').prop('checked', false) 
-                }else if(id == 'HCheckAll'){
-                    $('.status_check[value="4"]').prop('checked', false) 
-                }
-            }
-        })
-        $('#manage-attendance').submit(function(e){
-            e.preventDefault()
-            start_loader()
-            var _this = $(this)
-            $('#attendance-tbl .member-row').each(function(){
-                var has_checks = $(this).find('.status_check:checked').length
-                if(has_checks < 1){
-                    var name = $(this).find('td').first().text() || "";
-                        name = String(name).trim();
-                    console.log(name)
-                    alert(`${name}'s attendance is not yet marked!`);
-                    end_loader()
-                    return false;
-                }
-            })
-            $.ajax({
-                url:'./ajax-api.php?action=save_attendance',
-                method: 'POST',
-                data: $(this).serialize(),
-                dataType: 'JSON',
-                error: (err) => {
-                    console.error(err)
-                    alert("An error occurred while saving the data. kindly reload this page.")
-                    end_loader();
-                },
-                success: function(resp){
-                    if(resp?.status == "success"){
-                        location.reload()
-                    }else if(resp?.status == "error" && resp?.msg != ""){
-                        var fd = $(flashdataHTML).clone()
-                       fd.addClass('flashdata-danger')
-                       fd.find('.flashdata-msg').html(resp.msg)
-                        $('#msg').html(fd)
-                        $('html, body').scrollTop(0)
-                    }else{
-                        alert("An error occurred while saving the data. kindly reload this page.")
-                    }
-                    end_loader();
-                }
-            })
-        })
-    })
+<hr>
 
-    function checkAll_count(){
-        var statuses = {'PCheckAll': 1, 'LCheckAll': 2, 'ACheckAll': 3, 'HCheckAll':4}
-        $('.checkAll').each(function(){
-            var id = $(this).attr('id')
-            var checkedCount = $(`.status_check[value="${statuses[id]}"]:checked`).length
-            var totalCount = $(`.status_check[value="${statuses[id]}"]`).length
-            if(totalCount != checkedCount){
-                $(this).prop('checked', false)
-            }else{
-                $(`#${id}`).prop('checked', true)
-            }
-        })
-    }
-</script>
+<h1 style="color:white; text-align:center;">Guest List</h1>
+<hr>
+<?php 
+$guestList = $actionClass->list_guest();
+?>
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+        <div class="card shadow">
+            <div class="card-header rounded-0">
+                <div class="d-flex w-100 justify-content-end align-items-center">
+                    <button class="btn btn-sm rounded-0 btn-primary" type="button" id="add_guest"><i class="far fa-plus-square"></i> Add New</button>
+                </div>
+            </div>
+            <div class="card-body rounded-0">
+                <div class="container-fluid">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hovered table-stripped">
+                            <colgroup>
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="60%">
+                                <col width="20%">
+                            </colgroup>
+                            <thead class="bg-dark-subtle">
+                                <tr class="bg-transparent">
+                                    <th class="bg-transparent text-center">Department</th>
+                                    <th class="bg-transparent text-center">ID</th>
+                                    <th class="bg-transparent text-center">Name</th>
+                                    <th class="bg-transparent text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                                <?php if(!empty($guestList) && is_array($guestList)): ?>
+                                <?php foreach($guestList as $row): ?>
+                                    <tr>
+                                        <td class="px-2 py-1"><?= $row['dept'] ?></td>
+                                        <td class="text-center px-2 py-1"><?= $row['id'] ?></td>
+                                        <td class="px-2 py-1"><?= $row['name'] ?></td>
+                                        <td class="text-center px-2 py-1">
+                                            <div class="input-group input-group-sm justify-content-center">
+                                                <button class="btn btn-sm btn-outline-primary rounded-0 edit_guest" type="button" data-id="<?= $row['id'] ?>" title="Edit"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger rounded-0 delete_guest" type="button" data-id="<?= $row['id'] ?>" title="Delete"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <th class="text-center px-2 py-1" colspan="4">No data found.</th>
+                                    </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Scripts -->
+<script src="assets/js/attendance.js"></script>
+<script src="assets/js/guests.js"></script>
