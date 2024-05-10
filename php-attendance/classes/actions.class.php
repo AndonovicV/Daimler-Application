@@ -133,7 +133,21 @@ class Actions{
     public function attendancemembers($mdt_id = "", $meeting_date = ""){
         if(empty($mdt_id) || empty($meeting_date))
             return [];
-        $sql = "SELECT `members_tbl`.*, COALESCE((SELECT `status` FROM `attendance_tbl` where `member_id` = `members_tbl`.id and `meeting_date` = '{$meeting_date}' ), 0) as `status` FROM `members_tbl` where `mdt_id` = '{$mdt_id}' order by `name` ASC";
+        
+        // Modified SQL query to include the department name
+        $sql = "SELECT 
+                    members_tbl.*, 
+                    COALESCE((SELECT `status` FROM `attendance_tbl` WHERE `member_id` = `members_tbl`.id AND `meeting_date` = '{$meeting_date}'), 0) AS `status`,
+                    dept_tbl.name AS `dept` -- Include department name
+                FROM 
+                    members_tbl
+                JOIN 
+                    dept_tbl ON members_tbl.dept_id = dept_tbl.id -- Join with dept_tbl table
+                WHERE 
+                    members_tbl.mdt_id = '{$mdt_id}' 
+                ORDER BY 
+                    members_tbl.name ASC";
+        
         $qry = $this->conn->query($sql);
         $result = $qry->fetch_all(MYSQLI_ASSOC);
         return $result;
