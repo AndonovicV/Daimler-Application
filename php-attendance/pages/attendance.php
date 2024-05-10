@@ -49,33 +49,27 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                         <div class="table-responsive">
                             <table id="attendance-tbl" class="table table-bordered">
                                 <colgroup>
-                                    <!-- <col width="40%">
-                                    <col width="15%">
-                                    <col width="15%">
-                                    <col width="15%">
-                                    <col width="15%"> -->
+                                    <col width="30%">
+                                    <col width="30%">
+                                    <col width="13.3%">
+                                    <col width="13.3%">
+                                    <col width="13.3%">
                                 </colgroup>
                                 <thead class="bg-primary"> 
                                     <tr>
-                                        <th class="text-center bg-transparent text-light">Department</th>
                                         <th class="text-center bg-transparent text-light">Members</th>
+                                        <th class="text-center bg-transparent text-light">Department</th>
                                         <th class="text-center bg-transparent text-light">Present</th>
-                                        <!-- <th class="text-center bg-transparent text-light">Late</th> -->
-                                        <!-- <th class="text-center bg-transparent text-light">Absent</th>
-                                        <th class="text-center bg-transparent text-light">Holiday</th> -->
+                                        <th class="text-center bg-transparent text-light">Absent</th>
+                                        <th class="text-center bg-transparent text-light">Substituted</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <th class="text-center px-2 py-1 text-dark-emphasis">Check/Uncheck All</th>
                                         <th class="text-center px-2 py-1 text-dark-emphasis">
-                                            <div class="form-check d-flex w-100 justify-content-center">
-                                                <input class="form-check-input checkAll" type="checkbox" id="PCheckAll">
-                                                <label class="form-check-label" for="PCheckAll">
-                                                </label>
-                                            </div>
                                         </th>
-                                        <!-- <th class="text-center px-2 py-1 text-dark-emphasis">
+                                        <th class="text-center px-2 py-1 text-dark-emphasis">
                                             <div class="form-check d-flex w-100 justify-content-center">
                                                 <input class="form-check-input checkAll" type="checkbox" id="LCheckAll">
                                                 <label class="form-check-label" for="LCheckAll">
@@ -95,7 +89,7 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                                 <label class="form-check-label" for="HCheckAll">
                                                 </label>
                                             </div>
-                                        </th> -->
+                                        </th>
                                     </tr>
                                     <?php if(!empty($memberList) && is_array($memberList)): ?>
                                     <?php foreach($memberList as $row): ?>
@@ -104,14 +98,8 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                                 <input type="hidden" name="member_id[]" value="<?= $row['id'] ?>">
                                                 <?= $row['name'] ?>
                                             </td>
+                                            <td class="text-center px-2 py-1 text-dark-emphasis"><?= $row['dept'] ?></td>
                                             <td class="text-center px-2 py-1 text-dark-emphasis">
-                                                <div class="form-check d-flex w-100 justify-content-center">
-                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="1" id="status_p_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 1) ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="status_p_<?= $row['id'] ?>">
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <!-- <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
                                                     <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="2" id="status_l_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 2) ? "checked" : "" ?>>
                                                     <label class="form-check-label" for="status_l_<?= $row['id'] ?>">
@@ -132,7 +120,7 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                                     </label>
                                                 </div>
                                             </td>
-                                        </tr> -->
+                                        </tr>
                                     <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
