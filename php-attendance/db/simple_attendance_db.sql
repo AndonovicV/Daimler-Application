@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:8888
--- Generation Time: Apr 25, 2024 at 01:27 AM
+-- Generation Time: May 10, 2024 at 07:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -155,7 +155,97 @@ INSERT INTO `attendance_tbl` (`id`, `member_id`, `meeting_date`, `status`, `crea
 (112, 2, '2023-02-26', 3, '2024-04-25 01:05:00', NULL),
 (113, 1, '2023-02-26', 3, '2024-04-25 01:05:00', NULL),
 (114, 4, '2023-02-26', 3, '2024-04-25 01:05:00', NULL),
-(115, 5, '2023-02-26', 3, '2024-04-25 01:05:00', NULL);
+(115, 5, '2023-02-26', 3, '2024-04-25 01:05:00', NULL),
+(116, 3, '2024-04-25', 1, '2024-04-25 17:54:36', NULL),
+(117, 2, '2024-04-25', 1, '2024-04-25 17:54:36', '2024-04-25 17:54:38'),
+(118, 1, '2024-04-25', 1, '2024-04-25 17:54:36', '2024-04-25 17:54:38'),
+(119, 4, '2024-04-25', 1, '2024-04-25 17:54:36', '2024-04-25 17:54:38'),
+(120, 5, '2024-04-25', 1, '2024-04-25 17:54:36', '2024-04-25 17:54:38'),
+(121, 3, '2024-04-27', 1, '2024-04-27 17:32:33', NULL),
+(122, 2, '2024-04-27', 1, '2024-04-27 17:32:33', NULL),
+(123, 1, '2024-04-27', 1, '2024-04-27 17:32:33', NULL),
+(124, 4, '2024-04-27', 1, '2024-04-27 17:32:33', NULL),
+(125, 5, '2024-04-27', 1, '2024-04-27 17:32:33', NULL),
+(126, 3, '2024-04-27', 1, '2024-04-27 17:38:19', NULL),
+(127, 2, '2024-04-27', 1, '2024-04-27 17:38:19', NULL),
+(128, 1, '2024-04-27', 1, '2024-04-27 17:38:19', NULL),
+(129, 4, '2024-04-27', 1, '2024-04-27 17:38:19', NULL),
+(130, 5, '2024-04-27', 1, '2024-04-27 17:38:19', NULL),
+(131, 3, '2024-04-28', 1, '2024-04-28 10:58:36', NULL),
+(132, 2, '2024-04-28', 2, '2024-04-28 10:58:36', NULL),
+(133, 1, '2024-04-28', 3, '2024-04-28 10:58:36', NULL),
+(134, 4, '2024-04-28', 3, '2024-04-28 10:58:36', NULL),
+(135, 5, '2024-04-28', 3, '2024-04-28 10:58:36', NULL),
+(136, 3, '2024-04-28', 1, '2024-04-28 10:58:43', NULL),
+(137, 2, '2024-04-28', 1, '2024-04-28 10:58:43', NULL),
+(138, 1, '2024-04-28', 2, '2024-04-28 10:58:43', NULL),
+(139, 4, '2024-04-28', 3, '2024-04-28 10:58:43', NULL),
+(140, 5, '2024-04-28', 2, '2024-04-28 10:58:43', NULL),
+(141, 3, '2024-04-28', 3, '2024-04-28 11:11:02', NULL),
+(142, 2, '2024-04-28', 3, '2024-04-28 11:11:02', NULL),
+(143, 1, '2024-04-28', 3, '2024-04-28 11:11:02', NULL),
+(144, 4, '2024-04-28', 3, '2024-04-28 11:11:02', NULL),
+(145, 5, '2024-04-28', 3, '2024-04-28 11:11:02', NULL),
+(146, 3, '2024-04-26', 1, '2024-04-29 13:07:45', NULL),
+(147, 2, '2024-04-26', 2, '2024-04-29 13:07:45', NULL),
+(148, 1, '2024-04-26', 3, '2024-04-29 13:07:45', NULL),
+(149, 10, '2024-04-26', 3, '2024-04-29 13:07:45', NULL),
+(150, 4, '2024-04-26', 3, '2024-04-29 13:07:45', NULL),
+(151, 5, '2024-04-26', 2, '2024-04-29 13:07:45', NULL),
+(152, 3, '2024-04-22', 3, '2024-04-29 13:13:27', NULL),
+(153, 2, '2024-04-22', 3, '2024-04-29 13:13:27', NULL),
+(154, 1, '2024-04-22', 3, '2024-04-29 13:13:27', NULL),
+(155, 10, '2024-04-22', 3, '2024-04-29 13:13:27', NULL),
+(156, 4, '2024-04-22', 3, '2024-04-29 13:13:27', NULL),
+(157, 5, '2024-04-22', 3, '2024-04-29 13:13:27', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dept_tbl`
+--
+
+CREATE TABLE `dept_tbl` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dept_tbl`
+--
+
+INSERT INTO `dept_tbl` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'dept1', '2023-11-16 11:37:26', '2023-11-16 11:52:34'),
+(2, 'dept2', '2023-11-16 11:52:46', NULL),
+(5, 'dept3', '2024-04-25 17:53:03', '2024-04-29 13:06:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guests_tbl`
+--
+
+CREATE TABLE `guests_tbl` (
+  `id` int(11) NOT NULL,
+  `dept_id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `guests_tbl`
+--
+
+INSERT INTO `guests_tbl` (`id`, `dept_id`, `name`, `created_at`, `updated_at`) VALUES
+(11, 1, 'Who this', '2024-04-27 17:50:53', '2024-05-10 15:19:58'),
+(12, 5, 'what', '2024-04-27 17:51:11', '2024-05-10 15:20:00'),
+(14, 5, 'test name', '2024-04-27 20:52:37', '2024-05-10 15:20:05'),
+(22, 0, 'Borat', '2024-05-10 15:33:33', NULL),
+(23, 1, 'easy money', '2024-05-10 16:02:05', NULL),
+(24, 2, 'Voicelove', '2024-05-10 16:12:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -176,7 +266,8 @@ CREATE TABLE `mdt_tbl` (
 
 INSERT INTO `mdt_tbl` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Tractor', '2023-11-16 11:37:26', '2023-11-16 11:52:34'),
-(2, 'Truck', '2023-11-16 11:52:46', NULL);
+(2, 'Truck', '2023-11-16 11:52:46', NULL),
+(5, 'Mechatronics TE Application ', '2024-04-25 17:53:03', '2024-04-29 13:06:14');
 
 -- --------------------------------------------------------
 
@@ -201,7 +292,9 @@ INSERT INTO `members_tbl` (`id`, `mdt_id`, `name`, `created_at`, `updated_at`) V
 (2, 1, 'John Doe', '2023-11-16 13:18:49', NULL),
 (3, 1, 'Claire Blake', '2023-11-16 13:18:56', NULL),
 (4, 1, 'Mark Cooper', '2023-11-16 13:19:18', NULL),
-(5, 1, 'Samantha Lou', '2023-11-16 13:19:30', NULL);
+(5, 1, 'Samantha Lou', '2023-11-16 13:19:30', NULL),
+(10, 1, 'Jonas', '2024-04-29 13:06:35', NULL),
+(11, 5, 'Alek', '2024-04-29 13:06:44', NULL);
 
 --
 -- Indexes for dumped tables
@@ -213,6 +306,19 @@ INSERT INTO `members_tbl` (`id`, `mdt_id`, `name`, `created_at`, `updated_at`) V
 ALTER TABLE `attendance_tbl`
   ADD PRIMARY KEY (`id`),
   ADD KEY `member_id_fk` (`member_id`);
+
+--
+-- Indexes for table `dept_tbl`
+--
+ALTER TABLE `dept_tbl`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `guests_tbl`
+--
+ALTER TABLE `guests_tbl`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `dept_id_fk` (`dept_id`) USING BTREE;
 
 --
 -- Indexes for table `mdt_tbl`
@@ -235,19 +341,31 @@ ALTER TABLE `members_tbl`
 -- AUTO_INCREMENT for table `attendance_tbl`
 --
 ALTER TABLE `attendance_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
+
+--
+-- AUTO_INCREMENT for table `dept_tbl`
+--
+ALTER TABLE `dept_tbl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `guests_tbl`
+--
+ALTER TABLE `guests_tbl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `mdt_tbl`
 --
 ALTER TABLE `mdt_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `members_tbl`
 --
 ALTER TABLE `members_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
