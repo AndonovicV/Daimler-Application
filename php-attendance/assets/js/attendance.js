@@ -28,23 +28,25 @@ $(document).ready(function(){
             $('.status_check').prop('checked', false)
             if(id == 'PCheckAll'){
                 $('.status_check[value="1"]').prop('checked', true) 
-            }else if(id == 'LCheckAll'){
-                $('.status_check[value="2"]').prop('checked', true) 
             }else if(id == 'ACheckAll'){
+                $('.status_check[value="2"]').prop('checked', true) 
+            }else if(id == 'SCheckAll'){
                 $('.status_check[value="3"]').prop('checked', true) 
-            }else if(id == 'HCheckAll'){
-                $('.status_check[value="4"]').prop('checked', true) 
             }
+            // else if(id == 'HCheckAll'){
+            //     $('.status_check[value="4"]').prop('checked', true) 
+            // }
         }else{
             if(id == 'PCheckAll'){
                 $('.status_check[value="1"]').prop('checked', false) 
-            }else if(id == 'LCheckAll'){
-                $('.status_check[value="2"]').prop('checked', false) 
             }else if(id == 'ACheckAll'){
+                $('.status_check[value="2"]').prop('checked', false) 
+            }else if(id == 'SCheckAll'){
                 $('.status_check[value="3"]').prop('checked', false) 
-            }else if(id == 'HCheckAll'){
-                $('.status_check[value="4"]').prop('checked', false) 
             }
+            // else if(id == 'HCheckAll'){
+            //     $('.status_check[value="4"]').prop('checked', false) 
+            // }
         }
     })
     $('#manage-attendance').submit(function(e){
@@ -91,7 +93,7 @@ $(document).ready(function(){
 })
 
 function checkAll_count(){
-    var statuses = {'PCheckAll': 1, 'LCheckAll': 2, 'ACheckAll': 3, 'HCheckAll':4}
+    var statuses = {'PCheckAll': 1, 'ACheckAll': 2, 'SCheckAll': 3}
     $('.checkAll').each(function(){
         var id = $(this).attr('id')
         var checkedCount = $(`.status_check[value="${statuses[id]}"]:checked`).length

@@ -71,8 +71,8 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                         </th>
                                         <th class="text-center px-2 py-1 text-dark-emphasis">
                                             <div class="form-check d-flex w-100 justify-content-center">
-                                                <input class="form-check-input checkAll" type="checkbox" id="LCheckAll">
-                                                <label class="form-check-label" for="LCheckAll">
+                                                <input class="form-check-input checkAll" type="checkbox" id="PCheckAll">
+                                                <label class="form-check-label" for="PCheckAll">
                                                 </label>
                                             </div>
                                         </th>
@@ -85,8 +85,8 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                         </th>
                                         <th class="text-center px-2 py-1 text-dark-emphasis">
                                             <div class="form-check d-flex w-100 justify-content-center">
-                                                <input class="form-check-input checkAll" type="checkbox" id="HCheckAll">
-                                                <label class="form-check-label" for="HCheckAll">
+                                                <input class="form-check-input checkAll" type="checkbox" id="SCheckAll">
+                                                <label class="form-check-label" for="SCheckAll">
                                                 </label>
                                             </div>
                                         </th>
@@ -101,22 +101,22 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                             <td class="text-center px-2 py-1 text-dark-emphasis"><?= $row['dept'] ?></td>
                                             <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
-                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="2" id="status_l_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 2) ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="status_l_<?= $row['id'] ?>">
+                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="1" id="status_p_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 1) ? "checked" : "" ?>>
+                                                    <label class="form-check-label" for="status_p_<?= $row['id'] ?>">
                                                     </label>
                                                 </div>
                                             </td>
                                             <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
-                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="3" id="status_a_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 3) ? "checked" : "" ?>>
+                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="2" id="status_a_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 2) ? "checked" : "" ?>>
                                                     <label class="form-check-label" for="status_a_<?= $row['id'] ?>">
                                                     </label>
                                                 </div>
                                             </td>
                                             <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
-                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="4" id="status_h_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 4) ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="status_h_<?= $row['id'] ?>">
+                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="3" id="status_s_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 3) ? "checked" : "" ?>>
+                                                    <label class="form-check-label" for="status_s_<?= $row['id'] ?>">
                                                     </label>
                                                 </div>
                                             </td>
@@ -124,7 +124,7 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                     <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="3" class="px-2 py-1 text-center">No Member Listed Yet</td>
+                                            <td colspan="5" class="px-2 py-1 text-center">No Member Listed Yet</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
