@@ -1,6 +1,12 @@
 $(document).ready(function(){
     checkAll_count()
 
+
+    $('#agenda_id').change(function(e){
+        var agenda_id = $(this).val();
+        location.replace(`./?page=attendance&agenda_id=${agenda_id}`);
+    });
+
     $('#mdt_id, #meeting_date').change(function(e){
         var mdt_id = $('#mdt_id').val()
         var meeting_date = $('#meeting_date').val()

@@ -5,61 +5,46 @@ include 'db-connect.php';
 // $memberList = $actionClass->list_member();
 $mdtList = $actionClass->list_mdt();
 $mdt_id = $_GET['mdt_id'] ?? "";
-$agenda_id = $_GET['agenda_id'] ?? "";
 $meeting_date = $_GET['meeting_date'] ?? "";
-$memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
+$agendaList = $actionClass->list_agendas(); // Assuming you have a function to list agendas
+$agenda_id = $_GET['agenda_id'] ?? "";
+$memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll need to adjust this function
+
 
 
 ?>
 <!-- <pre>
     <?php print_r($memberList) ?>
 </pre> -->
+
 <form action="" id="manage-attendance">
     <div class="row justify-content-center">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div id="msg"></div>
-            <select name="agendaSelect" id="agendaSelect" class="form-select" required="required">
-                                <option value="">Select Agenda...</option>
-                                    <?php
-                                    // Fetching data from mt_agenda_list table
-                                    $sql = "SELECT * FROM mt_agenda_list";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<option value='" . $row["agenda_id"] . "'>" . $row["agenda_name"] . "</option>";
-                                        }
-                                    }
-                                    ?>
-                            </select>
             <div class="card shadow mb-3">
                 <div class="card-body rounded-0">
                     <div class="container-fluid">
                         <div class="row align-items-end">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                <label for="mdt_id" class="form-label">Module Team</label>
-                                <select name="mdt_id" id="mdt_id" class="form-select" required="required">
-                                    <option value="" disabled <?= empty($mdt_id) ? "selected" : "" ?>> -- Select Here -- </option>
-                                    <?php if(!empty($mdtList) && is_array($mdtList)): ?>
-                                    <?php foreach($mdtList as $row): ?>
-                                        <option value="<?= $row['id'] ?>" <?= (isset($mdt_id) && $mdt_id == $row['id']) ? "selected" : "" ?>><?= $row['name'] ?></option>
-                                    <?php endforeach; ?>
+                                <label for="agenda_id" class="form-label">Agenda</label>
+                                <select name="agenda_id" id="agenda_id" class="form-select" required="required">
+                                    <option value="" disabled <?= empty($agenda_id) ? "selected" : "" ?>> -- Select Here -- </option>
+                                    <?php if(!empty($agendaList) && is_array($agendaList)): ?>
+                                        <?php foreach($agendaList as $row): ?>
+                                            <option value="<?= $row['agenda_id'] ?>" <?= (isset($agenda_id) && $agenda_id == $row['agenda_id']) ? "selected" : "" ?>><?= $row['agenda_name'] ?></option>
+                                        <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                                <label for="meeting_date" class="form-label">Date</label>
-                                <input type="datetime-local" name="meeting_date" id="meeting_date" class="form-control" value="<?= $meeting_date ?? '' ?>" required="required">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <?php if(!empty($mdt_id) && !empty($meeting_date)): ?>
+            <?php if(!empty($agenda_id)): ?>
             <div class="card shadow mb-3">
                 <div class="card-header rounded-0">
                     <div class="card-title">Attendance Sheet</div>
                 </div>
-                
                 <div class="card-body">
                     <div class="container-fluid">
                         <div class="table-responsive">
@@ -67,9 +52,9 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                 <colgroup>
                                     <col width="30%">
                                     <col width="30%">
-                                    <col width="13.3%">
-                                    <col width="13.3%">
-                                    <col width="13.3%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="15%">
                                 </colgroup>
                                 <thead class="bg-primary"> 
                                     <tr>
@@ -81,32 +66,6 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th class="text-center px-2 py-1 text-dark-emphasis">Check/Uncheck All</th>
-                                        <th class="text-center px-2 py-1 text-dark-emphasis">
-                                        </th>
-                                        <th class="text-center px-2 py-1 text-dark-emphasis">
-                                            <div class="form-check d-flex w-100 justify-content-center">
-                                                <input class="form-check-input checkAll" type="checkbox" id="PCheckAll">
-                                                <label class="form-check-label" for="PCheckAll">
-                                                </label>
-                                            </div>
-                                        </th>
-                                        <th class="text-center px-2 py-1 text-dark-emphasis">
-                                            <div class="form-check d-flex w-100 justify-content-center">
-                                                <input class="form-check-input checkAll" type="checkbox" id="ACheckAll">
-                                                <label class="form-check-label" for="ACheckAll">
-                                                </label>
-                                            </div>
-                                        </th>
-                                        <th class="text-center px-2 py-1 text-dark-emphasis">
-                                            <div class="form-check d-flex w-100 justify-content-center">
-                                                <input class="form-check-input checkAll" type="checkbox" id="SCheckAll">
-                                                <label class="form-check-label" for="SCheckAll">
-                                                </label>
-                                            </div>
-                                        </th>
-                                    </tr>
                                     <?php if(!empty($memberList) && is_array($memberList)): ?>
                                     <?php foreach($memberList as $row): ?>
                                         <tr class="member-row">
@@ -117,30 +76,24 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                             <td class="text-center px-2 py-1 text-dark-emphasis"><?= $row['dept'] ?></td>
                                             <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
-                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="1" id="status_p_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 1) ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="status_p_<?= $row['id'] ?>">
-                                                    </label>
+                                                    <input class="form-check-input" type="checkbox" name="status[<?= $row['id'] ?>]" value="1" id="status_p_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 1) ? "checked" : "" ?>>
                                                 </div>
                                             </td>
                                             <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
-                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="2" id="status_a_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 2) ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="status_a_<?= $row['id'] ?>">
-                                                    </label>
+                                                    <input class="form-check-input" type="checkbox" name="status[<?= $row['id'] ?>]" value="2" id="status_a_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 2) ? "checked" : "" ?>>
                                                 </div>
                                             </td>
                                             <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
-                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="3" id="status_s_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 3) ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="status_s_<?= $row['id'] ?>">
-                                                    </label>
+                                                    <input class="form-check-input" type="checkbox" name="status[<?= $row['id'] ?>]" value="3" id="status_s_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 3) ? "checked" : "" ?>>
                                                 </div>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="3" class="px-2 py-1 text-center">No Member Listed Yet</td>
+                                            <td colspan="5" class="px-2 py-1 text-center">No Member Listed Yet</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -158,6 +111,7 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
         </div>
     </div>
 </form>
+
 
 <hr>
 

@@ -67,6 +67,13 @@ class Actions{
         $result = $qry->fetch_assoc();
         return $result;
     }
+
+    public function list_agendas(){
+        $sql = "SELECT * FROM `mt_agenda_list` ORDER BY `agenda_name` ASC";
+        $qry = $this->conn->query($sql);
+        return $qry->fetch_all(MYSQLI_ASSOC);
+    }
+
     /**
      * member Actions
      */
@@ -130,11 +137,11 @@ class Actions{
         $result = $qry->fetch_assoc();
         return $result;
     }
-    public function attendancemembers($mdt_id = "", $meeting_date = ""){
-        if(empty($mdt_id) || empty($meeting_date))
+    public function attendancemembersByAgenda($agenda_id = "", $meeting_date = "YYYY-MM-DD"){
+        if(empty($agenda_id) || empty($meeting_date))
             return [];
         
-        // Modified SQL query to include the department name
+        // Modified SQL query to include the department name and filter by agenda_id
         $sql = "SELECT 
                     members_tbl.*, 
                     COALESCE((SELECT `status` FROM `attendance_tbl` WHERE `member_id` = `members_tbl`.id AND `meeting_date` = '{$meeting_date}'), 0) AS `status`,
@@ -144,7 +151,7 @@ class Actions{
                 JOIN 
                     dept_tbl ON members_tbl.dept_id = dept_tbl.id -- Join with dept_tbl table
                 WHERE 
-                    members_tbl.mdt_id = '{$mdt_id}' 
+                    members_tbl.agenda_id = '{$agenda_id}' 
                 ORDER BY 
                     members_tbl.name ASC";
         
