@@ -1,9 +1,18 @@
 $(document).ready(function () {
+
     //Initialization and settings of datatable
     var table = $('#agendaTable').dataTable({
-        "order": [] //auto sort disabled
+        responsive: true,
+        layout: {
+            topStart: {
+                buttons: ['csvHtml5', 'pdfHtml5']
+            }
+        }
     });
     
+    var table = $('#mt_agenda_test2').dataTable({
+        "order": [] //auto sort disabled
+    });
     // Handy GLOBAL variables
     var counter = 1;
     // FUNCTIONS

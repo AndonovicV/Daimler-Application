@@ -16,7 +16,11 @@ include 'conn.php';
     <script src="plugins\bootstrap-5.3.3-dist\js\bootstrap.min.js"></script>
     <link rel="stylesheet" href="plugins\datatables\datatables.min.css">
     <script src="plugins\datatables\datatables.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script> <!--CDN Link, Local doesnt work --> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script> <!--CDN Link, Local doesnt work -->
+    
+    <!-- Custom CSS -->
+    <link href="custom_css\agendaStyle.css" rel="stylesheet">
     <!-- Custom JS -->
     <script src="custom_js/mt_agenda.js"></script>
 </head>
@@ -71,6 +75,60 @@ include 'conn.php';
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+
+// Fetch all GFTs and their corresponding Change Requests for Module Team A
+$sql = "SELECT GFT, Change_Request FROM mt_agenda_test_2 WHERE md_team = 'Module Team A'";
+$result = mysqli_query($conn, $sql);
+
+// Initialize variables
+$currentGFT = null;
+?>
+
+<table>  <!--id="mt_agenda_test2" to initialize datatable (works)-->
+    <tbody>
+        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+            <?php if ($row['GFT'] !== $currentGFT) { ?>
+                <?php if ($currentGFT !== null) { ?>
+                    </td></tr>
+                <?php } ?>
+                <tr>
+                    <td><?php echo $row['GFT']; ?></td>
+                </tr>
+                <tr>
+                <td></td> <!--For visual Space -->
+                    <td><?php echo $row['Change_Request']; ?></td>
+                </tr>
+                <?php $currentGFT = $row['GFT']; ?>
+            <?php } else { ?>
+                <tr>
+                    <td></td> <!--For visual Space -->
+                    <td><?php echo $row['Change_Request']; ?></td>
+                </tr>
+            <?php } ?>
+        <?php } ?>
+    </tbody>
+</table>
+
+
+
+
+
+
 
 </body>
 </html>
