@@ -117,22 +117,22 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                             <td class="text-center px-2 py-1 text-dark-emphasis"><?= $row['dept'] ?></td>
                                             <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
-                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="2" id="status_l_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 2) ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="status_l_<?= $row['id'] ?>">
+                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="1" id="status_p_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 1) ? "checked" : "" ?>>
+                                                    <label class="form-check-label" for="status_p_<?= $row['id'] ?>">
                                                     </label>
                                                 </div>
                                             </td>
                                             <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
-                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="3" id="status_a_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 3) ? "checked" : "" ?>>
+                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="2" id="status_a_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 2) ? "checked" : "" ?>>
                                                     <label class="form-check-label" for="status_a_<?= $row['id'] ?>">
                                                     </label>
                                                 </div>
                                             </td>
                                             <td class="text-center px-2 py-1 text-dark-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
-                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="4" id="status_h_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 4) ? "checked" : "" ?>>
-                                                    <label class="form-check-label" for="status_h_<?= $row['id'] ?>">
+                                                    <input class="form-check-input status_check" data-id="<?= $row['id'] ?>" type="checkbox" name="status[]" value="3" id="status_s_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 3) ? "checked" : "" ?>>
+                                                    <label class="form-check-label" for="status_s_<?= $row['id'] ?>">
                                                     </label>
                                                 </div>
                                             </td>
