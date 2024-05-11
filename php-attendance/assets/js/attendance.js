@@ -33,9 +33,6 @@ $(document).ready(function(){
             }else if(id == 'SCheckAll'){
                 $('.status_check[value="3"]').prop('checked', true) 
             }
-            // else if(id == 'HCheckAll'){
-            //     $('.status_check[value="4"]').prop('checked', true) 
-            // }
         }else{
             if(id == 'PCheckAll'){
                 $('.status_check[value="1"]').prop('checked', false) 
@@ -44,9 +41,6 @@ $(document).ready(function(){
             }else if(id == 'SCheckAll'){
                 $('.status_check[value="3"]').prop('checked', false) 
             }
-            // else if(id == 'HCheckAll'){
-            //     $('.status_check[value="4"]').prop('checked', false) 
-            // }
         }
     })
     $('#manage-attendance').submit(function(e){

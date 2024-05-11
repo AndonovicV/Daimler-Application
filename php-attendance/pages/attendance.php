@@ -87,8 +87,8 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                         </th>
                                         <th class="text-center px-2 py-1 text-dark-emphasis">
                                             <div class="form-check d-flex w-100 justify-content-center">
-                                                <input class="form-check-input checkAll" type="checkbox" id="LCheckAll">
-                                                <label class="form-check-label" for="LCheckAll">
+                                                <input class="form-check-input checkAll" type="checkbox" id="PCheckAll">
+                                                <label class="form-check-label" for="PCheckAll">
                                                 </label>
                                             </div>
                                         </th>
@@ -101,8 +101,8 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                                         </th>
                                         <th class="text-center px-2 py-1 text-dark-emphasis">
                                             <div class="form-check d-flex w-100 justify-content-center">
-                                                <input class="form-check-input checkAll" type="checkbox" id="HCheckAll">
-                                                <label class="form-check-label" for="HCheckAll">
+                                                <input class="form-check-input checkAll" type="checkbox" id="SCheckAll">
+                                                <label class="form-check-label" for="SCheckAll">
                                                 </label>
                                             </div>
                                         </th>
