@@ -18,79 +18,93 @@ include 'conn.php';
     <script src="plugins\datatables\datatables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script> <!--CDN Link, Local doesnt work --> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script> <!--CDN Link, Local doesnt work -->
+    <!--Link to Virtual select Plugin CSS--><link rel="stylesheet" href="plugins\virtual_select\virtual-select.min.css">
+	<!--Link to Virtual select Plugin JS--><script src="plugins/virtual_select/virtual-select.min.js"></script>
     
     <!-- Custom CSS -->
-    <link href="custom_css\agendaStyle.css" rel="stylesheet">
+    <link href="custom_css\mt_agenda.css" rel="stylesheet">
     <!-- Custom JS -->
     <script src="custom_js/mt_agenda.js"></script>
 </head>
-
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Select or Create Agenda:</h3>
+                <select id="agendaSelect" data-search="true" style="margin-left: 5em;">
+                    <option value="">Select Agenda...</option>
+                    <?php
+                    // Fetching data from mt_agenda_list table
+                    $sql = "SELECT * FROM mt_agenda_list";
+                    $result = $conn->query($sql);
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <h3>Select or Create Agenda:</h3>
-            <select id="agendaSelect" class="form-select mb-3">
-                <option value="">Select Agenda...</option>
-                <?php
-                // Fetching data from mt_agenda_list table
-                $sql = "SELECT * FROM mt_agenda_list";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<option value='" . $row["agenda_id"] . "'>" . $row["agenda_name"] . "</option>";
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<option value='" . $row["agenda_id"] . "'>" . $row["agenda_name"] . "</option>";
+                        }
                     }
-                }
-                ?>
-                <option value="new">Create New Agenda</option>
-            </select>
+                    ?>
+                    <option value="new">Create New Agenda</option>
+                </select>
+                <script> VirtualSelect.init({ele: '#agendaSelect'}); </script>
+            </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#personalTaskModal">Personal Task</button>
+
+        <!-- Personal Task Modal -->
+        <div class="modal fade" id="personalTaskModal" tabindex="-1" aria-labelledby="personalTaskLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- Display the selected agenda ID in the modal title -->
+                        <h1 class="modal-title fs-5" id="personalTaskLabel">Selected Agenda ID</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-md-12">
+                <table id="agendaTable" class="display" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>GFT</th>
+                            <th>Topic</th>
+                            <th>Status</th>
+                            <th>Change Request</th>
+                            <th>Task</th>
+                            <th>Comment</th>
+                            <th>Milestone</th>
+                            <th>Responsible</th>
+                            <th>Start</th>
+                            <th>New</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agendaTableBody">
+                        <!--Datatable body loaded here-->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <table id="agendaTable" class="display" style="display: none;">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>GFT</th>
-                        <th>Topic</th>
-                        <th>Status</th>
-                        <th>Change Request</th>
-                        <th>Task</th>
-                        <th>Comment</th>
-                        <th>Milestone</th>
-                        <th>Responsible</th>
-                        <th>Start</th>
-                        <th>New</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody id="agendaTableBody">
-                    <!--Datatable body loaded here-->
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    
 <?php
-
 // Fetch all GFTs and their corresponding Change Requests for Module Team A
 $sql = "SELECT GFT, Change_Request FROM mt_agenda_test_2 WHERE md_team = 'Module Team A'";
 $result = mysqli_query($conn, $sql);
@@ -99,7 +113,7 @@ $result = mysqli_query($conn, $sql);
 $currentGFT = null;
 ?>
 
-<table>  <!--id="mt_agenda_test2" to initialize datatable (works)-->
+<table id="mt_agenda_test2">
     <tbody>
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>
             <?php if ($row['GFT'] !== $currentGFT) { ?>
@@ -123,13 +137,6 @@ $currentGFT = null;
         <?php } ?>
     </tbody>
 </table>
-
-
-
-
-
-
-
 </body>
 </html>
 

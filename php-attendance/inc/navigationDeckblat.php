@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link <?= (isset($page)) && $page == 'home' ? 'active' : '' ?>" href="/Daimler/index.html">DOMM</a>
+                    <a class="nav-link <?= (isset($page)) && $page == 'home' ? 'active' : '' ?>" href="/Daimler/index.php">DOMM</a>
                 </li>
                  <li class="nav-item">
                     <a class="nav-link <?= (isset($page)) && $page == 'mdt_list' ? 'active' : '' ?>" href="/Daimler/mt_agenda.php">MT Agenda</a>

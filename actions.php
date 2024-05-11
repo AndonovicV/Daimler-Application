@@ -95,9 +95,28 @@ if (isset($_POST['agenda_name']) && !empty($_POST['agenda_name'])) {
     } else {
         echo "Error creating new agenda: " . $conn->error;
     }
-} else {
-    echo "Agenda name not provided.";
+} //else {
+    //echo "Agenda name not provided.";
+//}  For some reason this gets read in Personal Task
+
+// PERSONAL NOTES
+if(isset($_POST['selectedAgendaId'])) {
+    // Sanitize the input data
+    $agendaId = mysqli_real_escape_string($conn, $_POST['selectedAgendaId']);
+
+    // Fetch the agenda name based on the agenda ID
+    $sql = "SELECT agenda_name FROM mt_agenda_list WHERE agenda_id = '$agendaId'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Fetch the agenda name
+        $row = $result->fetch_assoc();
+        $agendaName = $row['agenda_name'];
+        // Return the agenda name as the response
+        echo $agendaName;
+    } else {
+        // If no matching agenda found, return an error message
+        echo "Agenda not found";
+    }
 }
-
-
 ?>  
