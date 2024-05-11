@@ -1,9 +1,11 @@
 <div class="page-title mb-3">Manage Attendance</div>
 <hr>
 <?php 
+include 'db-connect.php';
 // $memberList = $actionClass->list_member();
 $mdtList = $actionClass->list_mdt();
 $mdt_id = $_GET['mdt_id'] ?? "";
+$agenda_id = $_GET['agenda_id'] ?? "";
 $meeting_date = $_GET['meeting_date'] ?? "";
 $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
 
@@ -16,6 +18,19 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
     <div class="row justify-content-center">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div id="msg"></div>
+            <select name="agendaSelect" id="agendaSelect" class="form-select" required="required">
+                                <option value="">Select Agenda...</option>
+                                    <?php
+                                    // Fetching data from mt_agenda_list table
+                                    $sql = "SELECT * FROM mt_agenda_list";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value='" . $row["agenda_id"] . "'>" . $row["agenda_name"] . "</option>";
+                                        }
+                                    }
+                                    ?>
+                            </select>
             <div class="card shadow mb-3">
                 <div class="card-body rounded-0">
                     <div class="container-fluid">
@@ -44,6 +59,7 @@ $memberList = $actionClass->attendanceMembers($mdt_id, $meeting_date);
                 <div class="card-header rounded-0">
                     <div class="card-title">Attendance Sheet</div>
                 </div>
+                
                 <div class="card-body">
                     <div class="container-fluid">
                         <div class="table-responsive">
