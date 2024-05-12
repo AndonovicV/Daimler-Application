@@ -244,7 +244,7 @@ include 'conn.php';
 				<script>VirtualSelect.init({ele: '#agendaSelect'});</script>
 				<div class="modal-body">
 					<div class="field">
-						<textarea name="summary" id="summary" rows="4" class="text" style="width: 100%;"></textarea>
+						<textarea name="summary" id="summary" rows="16" class="text" style="width: 100%;"></textarea>
 					</div>
 				</div>
 			</article>
