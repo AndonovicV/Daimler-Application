@@ -92,3 +92,18 @@ input::placeholder{
 #calendar {
 	color: white;
 }
+
+#personalTaskLabel{
+	color:white !important;
+	margin-left: 3.7em;
+
+}
+
+#agendaSelect{
+	margin-left: 23.3em;
+	color:black;
+}
+
+.vscomp-value{
+	color:black;
+}

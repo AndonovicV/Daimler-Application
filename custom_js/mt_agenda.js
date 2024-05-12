@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#agendaTable').hide();
-
+    $('#modalBtn').hide();
 
     $('#agendaSelect').change(function () {
         var selectedAgenda = $(this).val();
@@ -14,6 +14,7 @@ $(document).ready(function () {
                     }
                 },
             });
+            $('#modalBtn').show();
         }
     });
 

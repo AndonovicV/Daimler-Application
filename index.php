@@ -1,3 +1,6 @@
+<?php
+include 'conn.php';
+?>
 <!DOCTYPE HTML>
 <!--
 	Dimension by HTML5 UP
@@ -39,9 +42,9 @@
 
 	<!--CUSTOM FILES  Make sure to load CSS & JS AFTER Bootstrap and jQuery-->
 	<!--Link to CSS-->
-	<link rel="stylesheet" href="custom_css\style.css" />
+	<link rel="stylesheet" href="custom_css\index.css" />
 	<!--Link to JS-->
-	<script src="custom_js\datatable.js"></script>
+	<script src="custom_js\index.js"></script>
 </head>
 
 <body class="is-preload">
@@ -65,8 +68,8 @@
 					<li><a href="#contact">Protokoll</a></li>
 					<li><a href="php-attendance/?page=attendance">Deckblatt</a></li>
 					<!-- <li><a href="#list_mm">List MM</a></li> -->
+					<li><a href="#personalTaskModal">Personal Task</a></li>
 					<li><a href="plugins\calendar\calendar.html">Calendar</a></li>
-					<li><a href="#personalTaskModal" data-bs-toggle="modal">Personal Task</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -100,7 +103,7 @@
 			</article>
 
 			<article id="Deckblatt">
-				<img src="logo.png" alt="Modulteam Logo">
+				<!--<img src="logo.png" alt="Modulteam Logo"> -->
 				<h3 class="major">Modulteam - Minutes</h3>
 				<div style="display: flex;">
 					<div style="width: auto; padding: 5px; margin-left: auto;">
@@ -220,46 +223,31 @@
 			<article id="about">
 			</article>
 
-			<div class="modal fade" id="personalTaskModal" tabindex="-1" aria-labelledby="personalTaskLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<!-- Display the selected agenda ID in the modal title -->
-							<h1 class="modal-title fs-5" id="personalTaskLabel">Selected Agenda ID</h1>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body"> </div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Save changes</button>
-						</div>
+			<!-- Personal Task Modal -->
+			<article id="personalTaskModal">
+				<!-- Agenda Select -->
+				<h2 id="personalTaskLabel">Personal Task</h2>
+				<select id="agendaSelect" data-search="true">
+					<option value="">Select Agenda</option>
+					<option value="general">General</option>
+					<?php
+					$sql = "SELECT * FROM mt_agenda_list";
+					$result = $conn->query($sql);
+					if ($result->num_rows > 0) {
+						while ($row = $result->fetch_assoc()) {
+							echo "<option value='" . $row["agenda_id"] . "'>" . $row["agenda_name"] . "</option>";
+						}
+					}
+					?>
+					<option value="new">Create New Agenda</option>
+				</select>
+				<script>VirtualSelect.init({ele: '#agendaSelect'});</script>
+				<div class="modal-body">
+					<div class="field">
+						<textarea name="summary" id="summary" rows="4" class="text" style="width: 100%;"></textarea>
 					</div>
 				</div>
-			</div>
-			<!--Select Agenda For Personal Task Comment -->
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<h3>Select or Create Agenda:</h3>
-						<select id="agendaSelect" data-search="true" style="margin-left: 5em;">
-							<option value="">Select Agenda...</option>
-							<?php
-							include 'conn.php';
-							// Fetching data from mt_agenda_list table
-							$sql = "SELECT * FROM mt_agenda_list";
-							$result = $conn->query($sql);
-
-							if ($result->num_rows > 0) {
-								while ($row = $result->fetch_assoc()) {
-									echo "<option value='" . $row["agenda_id"] . "'>" . $row["agenda_name"] . "</option>";
-								}
-							}
-							?>
-						</select>
-						<script> VirtualSelect.init({ele: '#agendaSelect'}); </script>
-					</div>
-				</div>
-			</div>
+			</article>
 		</div>
 
 		<!-- Footer -->
