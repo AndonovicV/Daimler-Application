@@ -1,0 +1,93 @@
+Bonnet/hood
+Support stick
+Hinges and springs
+Bumper
+Unexposed bumper
+Exposed bumper
+Cowl screen
+Decklid
+Fender (wing or mudguard)
+Fascia
+Grille (also called grill)
+Pillar and hard trim
+Quarter panel
+Radiator core support
+Rocker
+Roof rack
+Spoiler
+Front spoiler (air dam)
+Rear spoiler (wing)
+Rims
+Hubcap
+Tire/Tyre
+Trim package
+Trunk/boot/hatch
+Trunk/boot latch
+Valance
+Welded assembly
+Antenna assembly
+Antenna cable
+Radio and media player
+Speaker
+Tuner
+Subwoofer
+Video play
+Backup camera
+Dashcam
+Digital Camera
+Alternator
+Battery
+Performance Battery
+Battery Box
+Battery Cable terminal
+Battery Cable
+Battery Control system
+Battery Plate
+Battery tray
+Battery Cap
+Sulphuric Acid
+Distilled Water
+Voltage regulator
+Ammeter
+Clinometer
+Dynamometer
+Fuel gauge
+Manometer
+Hydrometer
+Odometer
+Speedometer
+Tachometer
+Temperature gauge
+Tire pressure gauge
+Vacuum gauge
+Voltmeter
+Water temperature meter
+Oil pressure gauge
+Sparking cable
+Distributor
+Distributor Cap
+Electronic timing controller
+Ignition box
+Ignition coil
+Ignition Coil Connector
+Ignition coil parts
+Ignition magneto
+Spark plug
+Glow Plug
+ABS Sensor
+Airbag sensors
+Automatic transmission speed sensor
+Brake sensor
+Camshaft position sensor
+Crankshaft position sensor
+Coolant temperature sensor
+Fuel level sensor
+Fuel pressure sensor
+Knock sensor
+Light sensor
+MAP sensor
+Mass airflow sensor
+Oil level sensor
+Oil pressure sensor
+Oxygen sensor (O2)
+Throttle position sensor
