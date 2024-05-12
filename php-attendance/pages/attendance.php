@@ -27,9 +27,10 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
         <?php endif; ?>
     </select>
     <?php if (!empty($agenda_id)) : ?>
+        <hr>
+        <h1 style="color:white; text-align:center;">Module Team List</h1>
         <div class="card shadow mb-3">
             <div class="card-header rounded-0">
-                <div class="card-title">Attendance Sheet</div>
             </div>
             <div class="card-body">
                 <div class="container-fluid">
