@@ -1,12 +1,11 @@
 <?php
 include_once('php-attendance\inc\navigationAgenda.php');
 include 'conn.php';
-session_start(); // Start the session if not already started
 
 // Check if the session variable is set
 if (isset($_SESSION['selected_team'])) {
     $selected_team = $_SESSION['selected_team'];
-    echo($selected_team);
+    //echo($selected_team);
 } else {
     $selected_team = ""; // Default value if not set
 }
@@ -57,7 +56,6 @@ if (isset($_SESSION['selected_team'])) {
                         }
                     }
                     ?>
-                    <option value="new">Create New Agenda</option>
                 </select>
                 <script>
                     VirtualSelect.init({
@@ -66,7 +64,34 @@ if (isset($_SESSION['selected_team'])) {
                 </script>
 
         <!-- Button trigger modal -->
+        <button type="button" class="btn btn-light" id="createAgendaBtn">Create new agenda</button>
         <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn">Personal Task</button>
+
+        <!-- Modal for creating a new agenda -->
+        <div class="modal fade" id="createAgendaModal" tabindex="-1" aria-labelledby="createAgendaModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createAgendaModalLabel">Create New Agenda</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="agendaName" class="form-label">Agenda Name:</label>
+                            <input type="text" class="form-control" id="agendaName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="agendaDate" class="form-label">Agenda Date:</label>
+                            <input type="date" class="form-control" id="agendaDate">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-light" id="createAgendaConfirmBtn">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Personal Task Modal -->
         <div class="modal fade" id="personalTaskModal" tabindex="-1" aria-labelledby="personalTaskLabel" aria-hidden="true">

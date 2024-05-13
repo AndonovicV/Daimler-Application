@@ -1,5 +1,14 @@
 <?php 
 include 'conn.php';  
+session_start(); // Start the session if not already started
+
+// Check if the session variable is set
+if (isset($_SESSION['selected_team'])) {
+    $selected_team = $_SESSION['selected_team'];
+    //echo($selected_team);
+} else {
+    $selected_team = ""; // Default value if not set
+}
 
 // mt_agenda new row
 if (isset($_POST['meanId']) && isset($_POST['counter']) && isset($_POST['agendaId'])) {
@@ -65,8 +74,9 @@ if (isset($_POST['agenda_id']) && $_POST['agenda_id'] != 'new') {
 }
 
 // Insert new row (Table) into mt_agenda_list table
-if (isset($_POST['agenda_name']) && !empty($_POST['agenda_name'])) {
+if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda_name']) && !empty($_POST['agenda_date'])) {
     $agendaName = $_POST['agenda_name'];
+    $agendaDate = $_POST['agenda_date'];
 
     // Fetch the maximum item_id from mt_agenda table
     $maxItemIdQuery = "SELECT MAX(item_id) AS max_item_id FROM mt_agenda";
@@ -79,7 +89,7 @@ if (isset($_POST['agenda_name']) && !empty($_POST['agenda_name'])) {
     }
 
     // Insert new row into mt_agenda_list table
-    $insertSql = "INSERT INTO mt_agenda_list (agenda_name) VALUES ('$agendaName')";
+    $insertSql = "INSERT INTO mt_agenda_list (agenda_name, agenda_date, module_team) VALUES ('$agendaName', '$agendaDate', '$selected_team')";
     if ($conn->query($insertSql) === TRUE) {
         // Retrieve the auto-generated agenda_id
         $agendaId = $conn->insert_id;
@@ -95,10 +105,9 @@ if (isset($_POST['agenda_name']) && !empty($_POST['agenda_name'])) {
     } else {
         echo "Error creating new agenda: " . $conn->error;
     }
-} //else {
-    //echo "Agenda name not provided.";
-//}  For some reason this gets read in Personal Task
-
+} else {
+    echo "Agenda name or date not provided.";
+}
 // PERSONAL NOTES
 if(isset($_POST['selectedAgendaId'])) {
     // Sanitize the input data

@@ -4,7 +4,14 @@ session_start(); // Start the session if not already started
 if (isset($_POST['selected_team']) && !empty($_POST['selected_team'])) {
     $_SESSION['selected_team'] = $_POST['selected_team'];
 }
-$sql_module_teams = "SELECT DISTINCT lead_module_team FROM package";
+// Check if the session variable is set
+if (isset($_SESSION['selected_team'])) {
+    $selected_team = $_SESSION['selected_team'];
+    //echo($selected_team);
+} else {
+    $selected_team = ""; // Default value if not set
+}
+$sql_module_teams = "SELECT name FROM org_moduleteams";
 $result_module_teams = $conn->query($sql_module_teams);
 ?>
 <!DOCTYPE HTML>
@@ -57,18 +64,18 @@ $result_module_teams = $conn->query($sql_module_teams);
 	<div id="wrapper">
 		<!-- Header -->
 		<header id="header">
-							<form method="post" action="">
-								<select id="moduleTeamSelect" onchange="this.form.submit()" style="text-align: center; max-width: 200px;" name="selected_team">
-									<option value="">Select Module Team</option>
-									<?php
-									while ($row_module_team = $result_module_teams->fetch_assoc()) {
-										$team_name = $row_module_team["lead_module_team"];
-										$selected = ($team_name == $selected_team) ? "selected" : "";
-										echo "<option value='$team_name' $selected>$team_name</option>";
-									}
-									?>
-								</select>
-							</form>
+		<form method="post" action="">
+		<select id="moduleTeamSelect" onchange="this.form.submit()" style="text-align: center; max-width: 300px; color: white;" name="selected_team">
+			<option value="">Select Module Team</option>
+			<?php
+			while ($row_module_team = $result_module_teams->fetch_assoc()) {
+				$team_name = $row_module_team["name"];
+				$selected = ($team_name == $selected_team) ? "selected" : "";
+				echo "<option value='$team_name' $selected>$team_name</option>";
+			}
+			?>
+    	</select>
+		</form>
 			<div class="content">
 				<div class="inner">
 					<h1>DOMM</h1>

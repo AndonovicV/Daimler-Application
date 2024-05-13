@@ -123,7 +123,14 @@ $(document).ready(function () {
             url: 'actions.php',
             data: { agenda_id: agendaId },
             success: function (response) {
-                $('#agendaTableBody').html(response);
+                // Clear existing DataTable data and rows
+                var table = $('#agendaTable').DataTable();
+                table.clear().draw();
+                
+                // Add the new data to the DataTable
+                $.each(response, function(index, rowData) {
+                    table.row.add(rowData).draw();
+                });
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -135,7 +142,44 @@ $(document).ready(function () {
     function showTable() {
         $('#agendaTable').show();
     }
+// Event listener for clicking the "Create new agenda" button
+$('#createAgendaBtn').click(function () {
+    // Show the create agenda modal
+    $('#createAgendaModal').modal('show');
+});
 
+// Event listener for clicking the "Create" button in the create agenda modal
+$('#createAgendaConfirmBtn').click(function () {
+    // Get the values of agenda name and date from the modal inputs
+    var newAgendaName = $('#agendaName').val();
+    var newAgendaDate = $('#agendaDate').val();
+
+    // Validate if both name and date are provided
+    if (newAgendaName.trim() === '' || newAgendaDate.trim() === '') {
+        alert('Please provide both agenda name and date.');
+        return;
+    }
+
+    // Create new agenda
+    $.ajax({
+        type: 'POST',
+        url: 'actions.php',
+        data: { agenda_name: newAgendaName, agenda_date: newAgendaDate },
+        success: function (response) {
+            // Retrieve newly created agenda ID and populate the table
+            populateTable(response);
+            // Set the value of agendaSelect to the newly created agenda ID
+            $('#agendaSelect').val(response);
+            // Show the table after it's populated
+            showTable();
+            // Close the create agenda modal
+            $('#createAgendaModal').modal('hide');
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+});
     // Event listener for agenda selection change
     $('#agendaSelect').change(function () {
         var selectedAgendaId = $(this).val();
@@ -149,11 +193,12 @@ $(document).ready(function () {
                         type: 'POST',
                         url: 'actions.php',
                         data: { agenda_name: newAgendaName },
-                        success: function (response) {
-                            // Retrieve newly created agenda ID and populate the table
-                            populateTable(response);
-                            // Show the table after it's populated
-                            showTable();
+                        success: function (data) {
+                            // Clear existing DataTable data and rows
+                            table.clear().draw();
+                            // Add the new data to the DataTable
+                            table.rows.add(data).invalidate().draw(); // Use invalidate() method to update data
+                            $('#modalBtn').show();
                         },
                         error: function (xhr, status, error) {
                             console.error(error);
