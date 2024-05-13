@@ -1,5 +1,11 @@
 <?php
 include 'conn.php';
+session_start(); // Start the session if not already started
+if (isset($_POST['selected_team']) && !empty($_POST['selected_team'])) {
+    $_SESSION['selected_team'] = $_POST['selected_team'];
+}
+$sql_module_teams = "SELECT DISTINCT lead_module_team FROM package";
+$result_module_teams = $conn->query($sql_module_teams);
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -8,7 +14,6 @@ include 'conn.php';
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-
 <head>
 	<!--TEMPLATE-->
 	<title>DOMM</title>
@@ -52,9 +57,18 @@ include 'conn.php';
 	<div id="wrapper">
 		<!-- Header -->
 		<header id="header">
-			<!-- <div class="logo">
-							<h1>DOMM</h1>
-						</div> -->
+							<form method="post" action="">
+								<select id="moduleTeamSelect" onchange="this.form.submit()" style="text-align: center; max-width: 200px;" name="selected_team">
+									<option value="">Select Module Team</option>
+									<?php
+									while ($row_module_team = $result_module_teams->fetch_assoc()) {
+										$team_name = $row_module_team["lead_module_team"];
+										$selected = ($team_name == $selected_team) ? "selected" : "";
+										echo "<option value='$team_name' $selected>$team_name</option>";
+									}
+									?>
+								</select>
+							</form>
 			<div class="content">
 				<div class="inner">
 					<h1>DOMM</h1>

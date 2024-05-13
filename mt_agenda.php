@@ -1,6 +1,17 @@
 <?php
 include_once('php-attendance\inc\navigationAgenda.php');
 include 'conn.php';
+session_start(); // Start the session if not already started
+
+// Check if the session variable is set
+if (isset($_SESSION['selected_team'])) {
+    $selected_team = $_SESSION['selected_team'];
+    echo($selected_team);
+} else {
+    $selected_team = ""; // Default value if not set
+}
+
+
 ?>
 
 <!DOCTYPE html>
