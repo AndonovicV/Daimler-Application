@@ -1,6 +1,26 @@
 $(document).ready(function () {
     $('#agendaTable').hide();
     $('#modalBtn').hide();
+    showTable()
+    // Datatable Settings
+    $('#agendaTable').dataTable( {
+        "order": [],
+        "paging": false // Disable pagination
+        ,searchable: true,
+        "bDestroy": true, //Ignores the error pop up (cannot reinitialize), it works even with the error but puerly for estetic purpose. Might delete later
+        layout: {
+            topStart: {
+                buttons: ['csvHtml5', 'pdfHtml5']
+            }
+        },
+        "columns": [
+            null, // Module team
+            null, // Type
+            null, // Responsible
+            null, // Actions
+            null  // Empty column
+        ]
+    });
 
     $('#agendaSelect').change(function () {
         var selectedAgenda = $(this).val();
@@ -31,13 +51,6 @@ $(document).ready(function () {
         var newRowHtml = `
     <tr id="${meanId}" data-agenda-id="${agendaId}">
         <td contenteditable="true">${meanId}</td>
-        <td contenteditable="true">${counter}</td>
-        <td contenteditable="true">${counter}</td>
-        <td contenteditable="true">${counter}</td>
-        <td contenteditable="true">${counter}</td>
-        <td contenteditable="true">${counter}</td>
-        <td contenteditable="true">${counter}</td>
-        <td contenteditable="true">${counter}</td>
         <td contenteditable="true">${counter}</td>
         <td contenteditable="true">${counter}</td>
         <td><button class="btn btn-primary addRow">New Row</button></td>

@@ -44,33 +44,48 @@ if (isset($_POST['rowId'])) {
     //echo "RowId not provided.";
 }
 // fetching agenda data based on the selected agenda ID
-if (isset($_POST['agenda_id']) && $_POST['agenda_id'] != 'new') {
-    $agenda_id = $_POST['agenda_id'];
-    $sql = "SELECT * FROM mt_agenda WHERE agenda_id = $agenda_id";
+// Check if agenda_id is set in the POST request
+if(isset($_POST['agenda_id'])) {
+    // Sanitize the input to prevent SQL injection
+    $agendaId = mysqli_real_escape_string($conn, $_POST['agenda_id']);
+
+    // Fetch agenda data from the database based on the agenda_id
+    $sql = "SELECT * FROM agenda_data WHERE agenda_id = '$agendaId'";
     $result = $conn->query($sql);
 
+    // Check if there are any rows returned
     if ($result->num_rows > 0) {
+        // Initialize an empty string to store HTML
+        $html = '';
+
+        // Loop through each row of data and construct HTML
         while ($row = $result->fetch_assoc()) {
-            // Echo each row as HTML
-            echo "<tr id='" . $row["item_id"] . "'>"; 
-            echo "<td>" . $row["item_id"] . "</td>";
-            echo "<td>" . $row["GFT"] . "</td>";
-            echo "<td>" . $row["Topic"] . "</td>";
-            echo "<td>" . $row["Status"] . "</td>";
-            echo "<td>" . $row["Change_Request"] . "</td>";
-            echo "<td>" . $row["Task"] . "</td>";
-            echo "<td>" . $row["Comment"] . "</td>";
-            echo "<td>" . $row["Milestone"] . "</td>";
-            echo "<td>" . $row["Responsible"] . "</td>";
-            echo "<td>" . $row["Start"] . "</td>";
-            echo "<td><button class='btn btn-primary addRow'>New</button></td>";
-            echo "<td><button class='btn btn-danger deleteRow'>Delete</button></td>";
-            echo "</tr>";
+            // Construct HTML for each row
+            $html .= "<tr id='" . $row["item_id"] . "'>";
+            $html .= "<td>" . $row["item_id"] . "</td>";
+            $html .= "<td>" . $row["GFT"] . "</td>";
+            $html .= "<td>" . $row["Topic"] . "</td>";
+            $html .= "<td>" . $row["Status"] . "</td>";
+            $html .= "<td>" . $row["Change_Request"] . "</td>";
+            $html .= "<td>" . $row["Task"] . "</td>";
+            $html .= "<td>" . $row["Comment"] . "</td>";
+            $html .= "<td>" . $row["Milestone"] . "</td>";
+            $html .= "<td>" . $row["Responsible"] . "</td>";
+            $html .= "<td>" . $row["Start"] . "</td>";
+            $html .= "<td><button class='btn btn-primary addRow'>New</button></td>";
+            $html .= "<td><button class='btn btn-danger deleteRow'>Delete</button></td>";
+            $html .= "</tr>";
         }
+
+        // Echo the generated HTML
+        echo $html;
     } else {
-        // Handle case when no data is found
-        echo "<tr><td colspan='12'>No data found.</td></tr>";
+        // If no data found, echo an empty row or a message
+        echo '<tr><td colspan="12">No data found for the selected agenda.</td></tr>';
     }
+} else {
+    // If agenda_id is not set in the POST request, return an error message
+    echo '<tr><td colspan="12">Error: Agenda ID not provided.</td></tr>';
 }
 
 // Insert new row (Table) into mt_agenda_list table
