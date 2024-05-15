@@ -151,17 +151,28 @@ $result_gfts = $conn->query($sql_gfts);
                             echo "<td></td>"; // Empty column for module team
                             echo "<td>" . $row_change_request["title"] . "</td>"; // Type (title)
                             echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
-                            echo "<td></td>"; // No actions for individual titles
+                            echo "<td><button class='btn btn-primary addRow'>New Row</button></td>"; // Actions
                             echo "<td></td>"; // Empty column
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td></tr>";
+                        echo "<tr>";
+                        echo "<td></td>"; // Empty column for module team
+                        echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
+                        echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
+                        echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
+                        echo "<td></td>"; // Empty column
+                        echo "</tr>";
                     }
                 }
             } else {
-                echo "<tr><td colspan='5'>No GFTs connected to the selected team</td></tr>";
-            }
+                echo "<tr>";
+                echo "<td></td>"; // Empty column for module team
+                echo "<td colspan='5'>No change requests for this team </td>";
+                echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
+                echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
+                echo "<td></td>"; // Empty column
+                echo "</tr>";            }
             ?>
             </tbody>
 </body>

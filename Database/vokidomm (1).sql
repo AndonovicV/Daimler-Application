@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:8888
--- Generation Time: May 14, 2024 at 09:12 PM
+-- Generation Time: May 15, 2024 at 07:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -2004,6 +2004,7 @@ CREATE TABLE `mt_agenda` (
 --
 
 INSERT INTO `mt_agenda` (`item_id`, `GFT`, `Topic`, `Status`, `Change_Request`, `Task`, `Comment`, `Milestone`, `Responsible`, `Start`, `New_Row`, `Delete_Row`, `agenda_id`) VALUES
+(0, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 0),
 (1, 'GFT1', 'Topic1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (1.25, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
 (1.4375, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
@@ -2077,15 +2078,7 @@ CREATE TABLE `mt_agenda_list` (
 
 INSERT INTO `mt_agenda_list` (`agenda_id`, `agenda_name`, `created_by`, `created_date`, `last_modified`, `agenda_date`, `module_team`) VALUES
 (1, 'AgendaName1', '', '0000-00-00', '0000-00-00', NULL, NULL),
-(2, 'AgendaName2', '', '0000-00-00', '0000-00-00', NULL, NULL),
-(23, 'agenda3', '', '0000-00-00', '0000-00-00', NULL, NULL),
-(24, 'New Agenda 56', '', '0000-00-00', '0000-00-00', NULL, NULL),
-(25, 'new agenda 55', '', '0000-00-00', '0000-00-00', NULL, NULL),
-(26, '1', '', '0000-00-00', '0000-00-00', NULL, NULL),
-(54, 'giving up', '', '0000-00-00', '0000-00-00', '2024-06-09', NULL),
-(55, 'test2', '', '0000-00-00', '0000-00-00', '2024-06-01', NULL),
-(56, 'Bond243243', '', '0000-00-00', '0000-00-00', '2024-05-25', 'MT Transmission J'),
-(57, 'bondwatch', '', '0000-00-00', '0000-00-00', '2515-01-02', 'Entire Vehicle');
+(2, 'AgendaName2', '', '0000-00-00', '0000-00-00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -19087,6 +19080,38 @@ INSERT INTO `spec_book` (`Module_Team`, `GFT`, `Project`, `Component`, `CRS_Sign
 ('MT Exterior', 'EX52 - Crankshaft position sensor', 'Axle 2', '2-2024-00045: something', '2024-03-06', 'Yes', 'supplier 45', '2024-11-20', 'Yes', NULL, NULL, NULL, NULL, NULL),
 ('MT Mechatronics', 'ME70 - Battery tray', 'Axle 3', '2-2024-00049: something', '2024-09-11', 'Yes', 'supplier 49', '2024-11-07', NULL, '2024-04-03', NULL, NULL, NULL, NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tasks`
+--
+
+CREATE TABLE `tasks` (
+  `id` int(11) NOT NULL,
+  `agenda_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `responsible` varchar(255) DEFAULT NULL,
+  `gft` varchar(50) DEFAULT NULL,
+  `cr` varchar(50) DEFAULT NULL,
+  `details` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `topics`
+--
+
+CREATE TABLE `topics` (
+  `id` int(11) NOT NULL,
+  `agenda_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `responsible` varchar(255) DEFAULT NULL,
+  `gft` varchar(50) DEFAULT NULL,
+  `cr` varchar(50) DEFAULT NULL,
+  `details` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -19176,6 +19201,20 @@ ALTER TABLE `spec_book`
   ADD PRIMARY KEY (`Component`);
 
 --
+-- Indexes for table `tasks`
+--
+ALTER TABLE `tasks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `agenda_id` (`agenda_id`);
+
+--
+-- Indexes for table `topics`
+--
+ALTER TABLE `topics`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `agenda_id` (`agenda_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -19246,14 +19285,32 @@ ALTER TABLE `org_moduleteams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `tasks`
+--
+ALTER TABLE `tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `topics`
+--
+ALTER TABLE `topics`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `mt_agenda`
+-- Constraints for table `tasks`
 --
-ALTER TABLE `mt_agenda`
-  ADD CONSTRAINT `mt_agenda_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`);
+ALTER TABLE `tasks`
+  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`);
+
+--
+-- Constraints for table `topics`
+--
+ALTER TABLE `topics`
+  ADD CONSTRAINT `topics_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
