@@ -10,22 +10,42 @@ if (isset($_SESSION['selected_team'])) {
     $selected_team = ""; // Default value if not set
 }
 
-// mt_agenda new row
-if (isset($_POST['meanId']) && isset($_POST['counter']) && isset($_POST['agendaId'])) {
-    $meanId = $_POST['meanId'];
-    $counter = $_POST['counter'];
-    $agendaId = $_POST['agendaId']; // Get the agenda_id
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if the necessary data is set
+    if (isset($_POST['agendaId'])) {
+        // Assign POST data to variables
+        $agendaId = $_POST['agendaId'];
+        $content = $_POST['content'];
+        $responsible = $_POST['responsible'];
+        $gft = $_POST['gft'];
+        $cr = $_POST['cr'];
 
-    $sql = "INSERT INTO mt_agenda (item_id, agenda_id, GFT, Topic, Status, Change_Request, Task, Comment, Milestone, Responsible, Start, New_Row, Delete_Row)
-            VALUES ( '$meanId', '$agendaId', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', '$counter', 'Yes', 'No')";
-    echo "SQL query: " . $sql; // Echo the SQL query
-    if ($conn->query($sql) === TRUE) {
-        echo "New record inserted successfully";
+        // Check if it's a task or a topic
+        if (isset($_POST['taskContent'])) {
+            // It's a task
+            $sql = "INSERT INTO tasks (agenda_id, name, responsible, gft, cr, details) 
+                    VALUES ('$agendaId', '$content', '$responsible', '$gft', '$cr', '')";
+        } elseif (isset($_POST['topicContent'])) {
+            // It's a topic
+            $sql = "INSERT INTO topics (agenda_id,name, responsible, gft, cr, details) 
+                    VALUES ('$agendaId', '$content', '$responsible', '$gft', '$cr', '')";
+        }
+
+        // Execute the SQL query
+        if ($conn->query($sql) === TRUE) {
+            // If the query was successful, send a success message
+            echo "Data saved successfully";
+        } else {
+            // If there was an error with the query, send an error message
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // If agendaId is not set, send an error message
+        echo "Error: Agenda ID is not set";
     }
 } else {
-    //echo "Mean ID, Counter value, or Agenda ID is not set";
+    // If it's not a POST request, send an error message
+    echo "Error: Invalid request method";
 }
 
 

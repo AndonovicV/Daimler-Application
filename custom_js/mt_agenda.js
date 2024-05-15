@@ -28,19 +28,61 @@ $(document).ready(function () {
 
     // Creating New Row
     var counter = 1;
-
-    function addNewRow(clickedCell, meanId, agendaId) {
-        var newRowHtml = `
-    <tr id="${meanId}" data-agenda-id="${agendaId}">
-        <td contenteditable="true"></td>
-        <td contenteditable="true">${counter}</td>
-        <td contenteditable="true">${counter}</td>
-        <td><button class="btn btn-primary addRow">New Row</button></td>
-        <td><button class="btn btn-danger deleteRow">Delete Row</button></td>
-    </tr>`;
+    
+    function addNewRow(clickedCell) {
+        var newRow = $(`
+            <tr id="${counter}">
+                <td>
+                    <select class="form-select">
+                        <option value="Topic" selected>Topic</option>
+                        <option value="Task">Task</option>
+                    </select>
+                </td>
+                <td class="contenteditable" contenteditable="true">Placeholder</td>
+                <td class="contenteditable" contenteditable="true">Responsible</td>
+                <td><button style="text-align: center;" class="btn btn-primary addRow">New Row</button></td>
+                <td><button style="text-align: center;" class="btn btn-danger deleteRow">Delete</button></td>
+            </tr>
+        `);
         counter++;
-        $(newRowHtml).insertAfter($(clickedCell).closest('tr'));
+    
+        newRow.insertAfter($(clickedCell).closest('tr'));
+    
+    
+        // Find GFT and Project names
+        var gft = "";
+        var project = "";
+        var gftFound = false; // Track if GFT name is found
+        var projectFound = false; // Track if GFT name is found
+        var currentRow = newRow.prev();
+        // Search for GFT and Project names in preceding rows
+        while (currentRow.length > 0 && !gftFound) {
+            var cells = currentRow.find('td:eq(1)'); // Only search in the 2nd column
+            var cellContent = cells.text().trim();
+            if (cellContent.startsWith("GFT")) {
+                gft = cellContent;
+                gftFound = true; // Set flag to true if GFT name is found
+            } else if (cellContent.startsWith("title") && !projectFound) {
+                project = cellContent;
+                projectFound = true;
+            }
+            currentRow = currentRow.prev();
+        }
+        project = project.substring("title for".length).trim();
+        gft = gft.substring("GFT".length).trim();
+        alert(project)
+        alert(gft)
+        setTimeout(function() {
+            saveToDatabase(newRow, gft, project, agendaId);
+        }, 10000);
     }
+
+    $(document).ready(function(){ //adding new row
+        $(document).on('click', '.addRow', function(){
+            addNewRow(this);
+            saveToDatabase();
+        });
+    });
 
     function deleteRow(clickedCell) {
         var row = $(clickedCell).closest('tr');
@@ -64,43 +106,45 @@ $(document).ready(function () {
         deleteRow(this);
     });
 
-    function saveToDatabase(meanId, agendaId) {
+    function saveToDatabase(newRow, gft, cr, agendaId) {
+        var selectedOption = newRow.find('select').val();
+        var content = newRow.find('td:eq(1)').text().trim();
+        var responsible = newRow.find('td:eq(2)').text().trim();
+        var ajaxData = {};
+        //alert(gft)
+        //alert(cr)
+        if (selectedOption === "Task") {
+            ajaxData = {
+                taskContent: content,
+                taskResponsible: responsible,
+                taskGft: gft, // Use taskGft instead of gft
+                taskcr: cr, // Use taskProject instead of project
+                agendaId:agendaId
+            };
+        } else if (selectedOption === "Topic") {
+            ajaxData = {
+                topicContent: content,
+                topicResponsible: responsible,
+                topicGft: gft, // Use taskGft instead of gft
+                topiccr: cr, // Use taskProject instead of project
+                agendaId:agendaId
+            };
+        }
+    
         $.ajax({
             type: 'POST',
-            url: "actions.php",
-            data: {
-                meanId: meanId,
-                counter: counter,
-                agendaId: agendaId // Include agendaId in the data
-            },
-            success: function (response) {
+            url: 'actions.php',
+            data: ajaxData, // Send the modified data object
+            success: function(response) {
                 console.log(response);
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 console.error(xhr.responseText);
             }
         });
     }
-
-    $(document).on('click', '.addRow', function () {
-        var currentRow = $(this).closest('tr'); // Get the current row
-        var currentRowId = parseFloat(currentRow.attr('id')); // Get the ID of the current row
-        var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
-
-        var nextRow = currentRow.next(); // Get the next row
-        var nextRowId = nextRow.attr('id'); // Get the ID of the next row
-
-        if (nextRowId === undefined) {
-            // If there is no next row, set nextRowId to currentRowId + 1
-            nextRowId = currentRowId + 1;
-        } else {
-            nextRowId = parseFloat(nextRowId);
-        }
-
-        var meanId = (currentRowId + nextRowId) / 2;
-        addNewRow(this, meanId, agendaId); // Pass agendaId to addNewRow function
-        saveToDatabase(meanId, agendaId); // Pass agendaId to saveToDatabase function
-    });
+    
+    
 
     function populateTable(agendaId) {
         $.ajax({
