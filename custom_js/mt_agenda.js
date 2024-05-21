@@ -68,6 +68,7 @@ $(document).ready(function () {
             var selectedOption = $(this).val();
             if (selectedOption === "Topic") {
                 newRow.find('.description').text('Topic Description');
+                newRow.find('.responsible').text('');
                 newRow.find('.deadlineDatePicker').hide();
                 newRow.find('.asapBtn').hide();
             } else if (selectedOption === "Task") {

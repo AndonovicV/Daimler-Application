@@ -137,7 +137,7 @@ $result_gfts = $conn->query($sql_gfts);
                     <th align="center">Responsible</th>
                     <th align="center">Deadline</th>
                     <th align="center" class="actions">Actions</th>
-                    <th align="center">Meeting Resubmition</th>
+                    <th align="center">M.R.</th>
                 </tr>
             </thead>
             <tbody>
