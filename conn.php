@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "vokidomm";
+$dbname = "dom_cockpit_dummy";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);

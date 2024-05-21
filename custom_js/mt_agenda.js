@@ -38,16 +38,20 @@ $(document).ready(function () {
         var newRow = $(`
             <tr id="${counter}">
                 <td>
-                    <select class="form-select" style ="width:100px;">
+                    <select class="form-select task-topic-select" style="width:100px;">
                         <option value="Topic" selected>Topic</option>
                         <option value="Task">Task</option>
                     </select>
                 </td>
-                <td class="contenteditable" contenteditable="true">Task Description</td>
-                <td class="contenteditable" contenteditable="true">Responsible</td>
-                <td><input id='deadlineDatePicker' type='text' value='Date' style = 'width:50px;margin-right: 5px;'><button>ASAP</button></td>
-                <td><button style="text-align: center;" class="btn btn-primary addRow">New Row</button></td>
-                <!-- <td><button style="text-align: center;" class="btn btn-danger deleteRow">Delete</button></td> -->
+                <td class="contenteditable description" contenteditable="true"></td>
+                <td class="contenteditable responsible" contenteditable="true"></td>
+                <td style="width:200px;">
+                    <input type="text" class="deadlineDatePicker" style="width:100px;">
+                    <button class="asapBtn" role="button">ASAP</button>
+                </td>
+                <td>
+                    <button class="button-12 addRow" role="button">New Row</button>
+                </td>
                 <td><input type='checkbox'></td>
             </tr>
         `);
@@ -55,20 +59,38 @@ $(document).ready(function () {
     
         newRow.insertAfter($(clickedCell).closest('tr'));
     
+        // Initialize the date picker for the new deadline input
+        new DateTime(newRow.find('.deadlineDatePicker')[0], {
+            format: 'D/M/YYYY'
+        });
     
-        // Find GFT and Project names
+        newRow.find('.task-topic-select').change(function () {
+            var selectedOption = $(this).val();
+            if (selectedOption === "Topic") {
+                newRow.find('.description').text('Topic Description');
+            } else if (selectedOption === "Task") {
+                newRow.find('.description').text('Task Description');
+            }
+        });
+    
+        newRow.find('.task-topic-select').trigger('change');
+    
+        // Add toggle functionality for the ASAP button
+        newRow.find('.asapBtn').click(function () {
+            $(this).toggleClass('asap-active');
+        });
+    
         var gft = "";
         var project = "";
-        var gftFound = false; // Track if GFT name is found
-        var projectFound = false; // Track if GFT name is found
+        var gftFound = false;
+        var projectFound = false;
         var currentRow = newRow.prev();
-        // Search for GFT and Project names in preceding rows
         while (currentRow.length > 0 && !gftFound) {
-            var cells = currentRow.find('td:eq(1)'); // Only search in the 2nd column
+            var cells = currentRow.find('td:eq(1)');
             var cellContent = cells.text().trim();
             if (cellContent.startsWith("GFT")) {
                 gft = cellContent;
-                gftFound = true; // Set flag to true if GFT name is found
+                gftFound = true;
             } else if (cellContent.startsWith("title") && !projectFound) {
                 project = cellContent;
                 projectFound = true;
@@ -77,13 +99,14 @@ $(document).ready(function () {
         }
         project = project.substring("title for".length).trim();
         gft = gft.substring("GFT".length).trim();
-        alert(project)
-        alert(gft)
-        setTimeout(function() {
+        alert(project);
+        alert(gft);
+        setTimeout(function () {
             saveToDatabase(newRow, gft, project, agendaId);
         }, 10000);
     }
 
+    
     $(document).ready(function(){ //adding new row
         $(document).on('click', '.addRow', function(){
             addNewRow(this);

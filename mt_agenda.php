@@ -132,12 +132,12 @@ $result_gfts = $conn->query($sql_gfts);
         <table id="agendaTable" class="display">
             <thead>
                 <tr>
-                    <th>Type</th>
-                    <th></th> <!--GFT/Change Request/Task description -->
-                    <th>Responsible</th>
-                    <th>Deadline</th>
-                    <th class="actions">Actions</th>
-                    <th>Meeting Resubmition</th>
+                    <th align="center">Type</th>
+                    <th align="center"></th> <!--GFT/Change Request/Task description -->
+                    <th align="center">Responsible</th>
+                    <th align="center">Deadline</th>
+                    <th align="center" class="actions">Actions</th>
+                    <th align="center">Meeting Resubmition</th>
                 </tr>
             </thead>
             <tbody>
@@ -149,10 +149,9 @@ $result_gfts = $conn->query($sql_gfts);
                     echo "<td><strong>GFT " . $row_gft["name"] . "</strong></td>"; // GFT
                     echo "<td></td>"; // Responsible 
                     echo "<td></td>"; // Deadline
-                    echo "<td><button class='btn btn-primary addRow'>New Row</button></td>"; // Actions
+                    echo "<td><button class='button-12 addRow' role='button'>New Row</button></td>"; // Actions
                     echo "<td><input type='checkbox'></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
                     echo "</tr>";
-
                     // Fetch change requests based on $selected_team and $row_gft["name"]
                     $selected_team = $row_gft["moduleteam"];
                     $selected_gft = $row_gft["name"];
@@ -166,7 +165,7 @@ $result_gfts = $conn->query($sql_gfts);
                             echo "<td> <a href='#'>" . $row_change_request["title"] . "</a></td>"; // Change Request
                             echo "<td></td>"; // Responsible
                             echo "<td></td>"; // Deadline
-                            echo "<td><button class='btn btn-primary addRow'>New Row</button></td>"; // Actions
+                            echo "<td><button class='button-12 addRow' role='button'>New Row</button></td>"; // Actions
                             echo "<td><input type='checkbox'></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
                             echo "</tr>";
                         }
@@ -175,8 +174,8 @@ $result_gfts = $conn->query($sql_gfts);
                         echo "<td></td>"; // Type
                         echo "<td>No change requests for GFT " . $row_gft["name"] . "</td>"; //text for no GFT
                         echo "<td></td>"; // Responsible
-                        echo "<td><input id='deadlineDatePicker' type='text' value='Date' style = 'width:50px;margin-right: 5px;'><button>ASAP</button></td>"; // Deadline
-                        echo "<td><button class='btn btn-primary addRow'>New Row</button></td>"; // Actions
+                        echo "<td></td>"; // Deadline
+                        echo "<td><button class='button-12 addRow' role='button'>New Row</button></td>"; // Actions
                         echo "<td><input type='checkbox'></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
                         echo "</tr>";
                     }
