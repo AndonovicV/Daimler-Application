@@ -35,11 +35,23 @@ $result_gfts = $conn->query($sql_gfts);
     <link rel="stylesheet" href="plugins\virtual_select\virtual-select.min.css">
     <!--Link to Virtual select Plugin JS-->
     <script src="plugins/virtual_select/virtual-select.min.js"></script>
+   
+    <!--DATATABLE LIBRARIES-->
+
+    <!--Link to datepicker 1 JS-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!--Link to datepicker 2 JS-->
+    <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.5.2/js/dataTables.dateTime.min.js"></script>
+    <!--Link to checkbox CSS-->
+    <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <!--Link to checkbox JS-->
+    <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
 
     <!-- Custom CSS -->
     <link href="custom_css\mt_agenda.css" rel="stylesheet">
     <!-- Custom JS -->
     <script src="custom_js/mt_agenda.js"></script>
+
 </head>
 
 <body>
@@ -120,11 +132,12 @@ $result_gfts = $conn->query($sql_gfts);
         <table id="agendaTable" class="display">
             <thead>
                 <tr>
-                    <th>Module team</th>
                     <th>Type</th>
+                    <th></th> <!--GFT/Change Request/Task description -->
                     <th>Responsible</th>
+                    <th>Deadline</th>
                     <th class="actions">Actions</th>
-                    <th></th>
+                    <th>Meeting Resubmition</th>
                 </tr>
             </thead>
             <tbody>
@@ -132,11 +145,12 @@ $result_gfts = $conn->query($sql_gfts);
             if ($result_gfts->num_rows > 0) {
                 while ($row_gft = $result_gfts->fetch_assoc()) {
                     echo "<tr>";
-                    echo "<td>" . $row_gft["moduleteam"] . "</td>"; // Module team
-                    echo "<td><strong>GFT " . $row_gft["name"] . "</strong></td>"; // Type
-                    echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
+                    echo "<td>Topic</td>"; // Type
+                    echo "<td><strong>GFT " . $row_gft["name"] . "</strong></td>"; // GFT
+                    echo "<td></td>"; // Responsible 
+                    echo "<td></td>"; // Deadline
                     echo "<td><button class='btn btn-primary addRow'>New Row</button></td>"; // Actions
-                    echo "<td></td>"; // Empty column
+                    echo "<td><input type='checkbox'></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
                     echo "</tr>";
 
                     // Fetch change requests based on $selected_team and $row_gft["name"]
@@ -148,31 +162,26 @@ $result_gfts = $conn->query($sql_gfts);
                     if ($result_change_requests->num_rows > 0) {
                         while ($row_change_request = $result_change_requests->fetch_assoc()) {
                             echo "<tr>";
-                            echo "<td></td>"; // Empty column for module team
-                            echo "<td>" . $row_change_request["title"] . "</td>"; // Type (title)
-                            echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
+                            echo "<td></td>"; // Type
+                            echo "<td> <a href='#'>" . $row_change_request["title"] . "</a></td>"; // Change Request
+                            echo "<td></td>"; // Responsible
+                            echo "<td></td>"; // Deadline
                             echo "<td><button class='btn btn-primary addRow'>New Row</button></td>"; // Actions
-                            echo "<td></td>"; // Empty column
+                            echo "<td><input type='checkbox'></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
                             echo "</tr>";
                         }
                     } else {
                         echo "<tr>";
-                        echo "<td></td>"; // Empty column for module team
-                        echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
-                        echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
-                        echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
-                        echo "<td></td>"; // Empty column
+                        echo "<td></td>"; // Type
+                        echo "<td>No change requests for GFT " . $row_gft["name"] . "</td>"; //text for no GFT
+                        echo "<td></td>"; // Responsible
+                        echo "<td><input id='deadlineDatePicker' type='text' value='Date' style = 'width:50px;margin-right: 5px;'><button>ASAP</button></td>"; // Deadline
+                        echo "<td><button class='btn btn-primary addRow'>New Row</button></td>"; // Actions
+                        echo "<td><input type='checkbox'></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
                         echo "</tr>";
                     }
                 }
-            } else {
-                echo "<tr>";
-                echo "<td></td>"; // Empty column for module team
-                echo "<td colspan='5'>No change requests for this team </td>";
-                echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
-                echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
-                echo "<td></td>"; // Empty column
-                echo "</tr>";            }
+            }
             ?>
             </tbody>
 </body>

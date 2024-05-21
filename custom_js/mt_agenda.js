@@ -5,6 +5,7 @@ $(document).ready(function () {
 
     // Initial DataTable initialization
     $('#agendaTable').dataTable({
+       
         "order": [],
         "paging": false, // Disable pagination
         "searchable": true,
@@ -16,6 +17,10 @@ $(document).ready(function () {
         }
     });
 
+    //Datatable Deadline Date Picker
+    new DateTime(document.getElementById('deadlineDatePicker'), {
+        format: 'D/M/YYYY'
+    });
     $('#agendaSelect').change(function () {
         var selectedAgenda = $(this).val();
         if (selectedAgenda !== "") {
@@ -33,15 +38,17 @@ $(document).ready(function () {
         var newRow = $(`
             <tr id="${counter}">
                 <td>
-                    <select class="form-select">
+                    <select class="form-select" style ="width:100px;">
                         <option value="Topic" selected>Topic</option>
                         <option value="Task">Task</option>
                     </select>
                 </td>
-                <td class="contenteditable" contenteditable="true">Placeholder</td>
+                <td class="contenteditable" contenteditable="true">Task Description</td>
                 <td class="contenteditable" contenteditable="true">Responsible</td>
+                <td><input id='deadlineDatePicker' type='text' value='Date' style = 'width:50px;margin-right: 5px;'><button>ASAP</button></td>
                 <td><button style="text-align: center;" class="btn btn-primary addRow">New Row</button></td>
-                <td><button style="text-align: center;" class="btn btn-danger deleteRow">Delete</button></td>
+                <!-- <td><button style="text-align: center;" class="btn btn-danger deleteRow">Delete</button></td> -->
+                <td><input type='checkbox'></td>
             </tr>
         `);
         counter++;
