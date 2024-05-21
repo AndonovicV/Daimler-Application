@@ -68,8 +68,13 @@ $(document).ready(function () {
             var selectedOption = $(this).val();
             if (selectedOption === "Topic") {
                 newRow.find('.description').text('Topic Description');
+                newRow.find('.deadlineDatePicker').hide();
+                newRow.find('.asapBtn').hide();
             } else if (selectedOption === "Task") {
                 newRow.find('.description').text('Task Description');
+                newRow.find('.responsible').text('Task Responcible');
+                newRow.find('.deadlineDatePicker').show();
+                newRow.find('.asapBtn').show();
             }
         });
     
