@@ -1,11 +1,9 @@
 $(document).ready(function () {
-    //$('#agendaTable').hide();
-    $('#modalBtn').hide();
-    showTable();
+
 
     // Initial DataTable initialization
     $('#agendaTable').dataTable({
-       
+
         "order": [],
         "paging": false, // Disable pagination
         "searchable": true,
@@ -33,7 +31,7 @@ $(document).ready(function () {
 
     // Creating New Row
     var counter = 1;
-    
+
     function addNewRow(clickedCell) {
         var newRow = $(`
             <tr id="${counter}">
@@ -56,14 +54,14 @@ $(document).ready(function () {
             </tr>
         `);
         counter++;
-    
+
         newRow.insertAfter($(clickedCell).closest('tr'));
-    
+
         // Initialize the date picker for the new deadline input
         new DateTime(newRow.find('.deadlineDatePicker')[0], {
             format: 'D/M/YYYY'
         });
-    
+
         newRow.find('.task-topic-select').change(function () {
             var selectedOption = $(this).val();
             if (selectedOption === "Topic") {
@@ -73,19 +71,19 @@ $(document).ready(function () {
                 newRow.find('.asapBtn').hide();
             } else if (selectedOption === "Task") {
                 newRow.find('.description').text('Task Description');
-                newRow.find('.responsible').text('Task Responcible');
+                newRow.find('.responsible').text('Task Responsible');
                 newRow.find('.deadlineDatePicker').show();
                 newRow.find('.asapBtn').show();
             }
         });
-    
+
         newRow.find('.task-topic-select').trigger('change');
-    
+
         // Add toggle functionality for the ASAP button
         newRow.find('.asapBtn').click(function () {
             $(this).toggleClass('asap-active');
         });
-    
+
         var gft = "";
         var project = "";
         var gftFound = false;
@@ -112,9 +110,9 @@ $(document).ready(function () {
         }, 10000);
     }
 
-    
-    $(document).ready(function(){ //adding new row
-        $(document).on('click', '.addRow', function(){
+
+    $(document).ready(function () { //adding new row
+        $(document).on('click', '.addRow', function () {
             addNewRow(this);
             saveToDatabase();
         });
@@ -155,7 +153,7 @@ $(document).ready(function () {
                 taskResponsible: responsible,
                 taskGft: gft, // Use taskGft instead of gft
                 taskcr: cr, // Use taskProject instead of project
-                agendaId:agendaId
+                agendaId: agendaId
             };
         } else if (selectedOption === "Topic") {
             ajaxData = {
@@ -163,24 +161,24 @@ $(document).ready(function () {
                 topicResponsible: responsible,
                 topicGft: gft, // Use taskGft instead of gft
                 topiccr: cr, // Use taskProject instead of project
-                agendaId:agendaId
+                agendaId: agendaId
             };
         }
-    
+
         $.ajax({
             type: 'POST',
             url: 'actions.php',
             data: ajaxData, // Send the modified data object
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error(xhr.responseText);
             }
         });
     }
-    
-    
+
+
 
     function populateTable(agendaId) {
         $.ajax({
@@ -190,7 +188,7 @@ $(document).ready(function () {
             success: function (response) {
                 //var table = $('#agendaTable').DataTable();
                 table.clear().draw();
-                $.each(response, function(index, rowData) {
+                $.each(response, function (index, rowData) {
                     table.row.add(rowData).draw();
                 });
             },
@@ -236,20 +234,24 @@ $(document).ready(function () {
     $('#agendaSelect').change(function () {
         var selectedAgendaId = $(this).val();
         if (selectedAgendaId) {
-                populateTable(selectedAgendaId);
-                showTable();
-            }
+            populateTable(selectedAgendaId);
+            showTable();
         }
+    }
     );
 
-    document.getElementById('agendaSelect').addEventListener('change', function () {
-        var selectedAgendaId = this.value;
+    $('#personalTaskBtn').click(function () {
+        var summary = $('#summary').val();
+        var user_id = 1;  //example. later will be read from user_id
         $.ajax({
             type: 'POST',
-            url: 'actions.php', // Create this PHP file to handle the request
-            data: { selectedAgendaId: selectedAgendaId },
+            url: 'actions.php',
+            data: { summary: summary,user_id: user_id},
             success: function (response) {
-                $('#personalTaskLabel').text(response);
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
             }
         });
     });
