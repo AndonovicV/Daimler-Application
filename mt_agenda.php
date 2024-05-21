@@ -35,6 +35,7 @@ include 'conn.php';
                 <h3>Select or Create Agenda:</h3>
                 <select id="agendaSelect" data-search="true">
                     <option value="">Select Agenda...</option>
+                    <option value="new">Create New Agenda</option>
                     <?php
                     // Fetching data from mt_agenda_list table
                     $sql = "SELECT * FROM mt_agenda_list";
@@ -46,7 +47,6 @@ include 'conn.php';
                         }
                     }
                     ?>
-                    <option value="new">Create New Agenda</option>
                 </select>
                 <script>
                     VirtualSelect.init({
