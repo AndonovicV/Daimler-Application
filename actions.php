@@ -181,4 +181,34 @@ if(isset($_POST['selectedAgendaId'])) {
         echo "Agenda not found";
     }
 }
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $summary = $conn->real_escape_string($_POST['summary']);
+    $user_id = intval($_POST['user_id']);
+
+    // Check if there's already a record for the user
+    $check_sql = "SELECT * FROM personal_tasks WHERE user_id = $user_id";
+    $check_result = $conn->query($check_sql);
+
+    if ($check_result->num_rows > 0) {
+        // Update existing record
+        $update_sql = "UPDATE personal_tasks SET summary = '$summary' WHERE user_id = $user_id";
+
+        if ($conn->query($update_sql) === TRUE) {
+            echo "Record updated successfully";
+        } else {
+            echo "Error updating record: " . $conn->error;
+        }
+    } else {
+        // Insert new record if no record found for the user
+        $insert_sql = "INSERT INTO personal_tasks (user_id, summary) VALUES ($user_id, '$summary')";
+
+        if ($conn->query($insert_sql) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $insert_sql . "<br>" . $conn->error;
+        }
+    }
+}
 ?>  

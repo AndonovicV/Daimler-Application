@@ -1,11 +1,10 @@
 $(document).ready(function () {
     //$('#agendaTable').hide();
-    $('#modalBtn').hide();
     showTable();
 
     // Initial DataTable initialization
     $('#agendaTable').dataTable({
-       
+
         "order": [],
         "paging": false, // Disable pagination
         "searchable": true,
@@ -27,14 +26,13 @@ $(document).ready(function () {
             // Load new data into the DataTable (not reinitializing)
             // You may need to implement the logic to fetch and load new data based on the selection
             //$('#agendaTable').DataTable().ajax.reload();
-            $('#modalBtn').show();
         }
     });
 
     // Creating New Row
     var counter = 1;
-    
-    function addNewRow(clickedCell,agendaId) {
+
+    function addNewRow(clickedCell, agendaId) {
         var newRow = $(`
             <tr id="${counter}">
                 <td>
@@ -56,14 +54,14 @@ $(document).ready(function () {
             </tr>
         `);
         counter++;
-    
+
         newRow.insertAfter($(clickedCell).closest('tr'));
-    
+
         // Initialize the date picker for the new deadline input
         new DateTime(newRow.find('.deadlineDatePicker')[0], {
             format: 'D/M/YYYY'
         });
-    
+
         newRow.find('.task-topic-select').change(function () {
             var selectedOption = $(this).val();
             if (selectedOption === "Topic") {
@@ -78,14 +76,14 @@ $(document).ready(function () {
                 newRow.find('.asapBtn').show();
             }
         });
-    
+
         newRow.find('.task-topic-select').trigger('change');
-    
+
         // Add toggle functionality for the ASAP button
         newRow.find('.asapBtn').click(function () {
             $(this).toggleClass('asap-active');
         });
-    
+
         var gft = "";
         var project = "";
         var gftFound = false;
@@ -105,22 +103,22 @@ $(document).ready(function () {
         }
         project = project.substring("title for".length).trim();
         gft = gft.substring("GFT".length).trim();
-        newRow.find('.contenteditable').on('blur', function() {
+        newRow.find('.contenteditable').on('blur', function () {
             saveToDatabase(newRow, gft, project, agendaId);
         });
     }
 
-    
-    $(document).ready(function(){ //adding new row
-        
-        $(document).on('click', '.addRow', function(){
+
+    $(document).ready(function () { //adding new row
+
+        $(document).on('click', '.addRow', function () {
             var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
             if (agendaId) {
-            addNewRow(this,agendaId);
-            saveToDatabase();
+                addNewRow(this, agendaId);
+                saveToDatabase();
             }
-            else{
-            alert("Please select or create an agenda to continue.")
+            else {
+                alert("Please select or create an agenda to continue.")
             }
 
         });
@@ -160,27 +158,27 @@ $(document).ready(function () {
             gft: gft,
             cr: project
         };
-    
+
         if (selectedOption === "Task") {
             ajaxData.taskContent = content;
         } else if (selectedOption === "Topic") {
             ajaxData.topicContent = content;
         }
-    
+
         $.ajax({
             type: 'POST',
             url: 'actions.php',
             data: ajaxData,
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error(xhr.responseText);
             }
         });
     }
-    
-    
+
+
 
     function populateTable(agendaId) {
         $.ajax({
@@ -190,7 +188,7 @@ $(document).ready(function () {
             success: function (response) {
                 //var table = $('#agendaTable').DataTable();
                 table.clear().draw();
-                $.each(response, function(index, rowData) {
+                $.each(response, function (index, rowData) {
                     table.row.add(rowData).draw();
                 });
             },
@@ -237,18 +235,22 @@ $(document).ready(function () {
         var selectedAgendaId = $(this).val();
         if (selectedAgendaId) {
             window.location.href = 'mt_agenda.php?agenda_id=' + selectedAgendaId;
-            }
         }
+    }
     );
 
-    document.getElementById('agendaSelect').addEventListener('change', function () {
-        var selectedAgendaId = this.value;
+    $('#personalTaskBtn').click(function () {
+        var summary = $('#summary').val();
+        var user_id = 1;  //example. later will be read from user_id
         $.ajax({
             type: 'POST',
-            url: 'actions.php', // Create this PHP file to handle the request
-            data: { selectedAgendaId: selectedAgendaId },
+            url: 'actions.php',
+            data: { summary: summary, user_id: user_id },
             success: function (response) {
-                $('#personalTaskLabel').text(response);
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
             }
         });
     });
