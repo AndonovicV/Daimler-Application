@@ -13,32 +13,50 @@ if (isset($_SESSION['selected_team'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the necessary data is set
     if (isset($_POST['agendaId'])) {
-        // Assign POST data to variables
+        // Assign POST data to variables, using null coalescing to handle missing keys
         $agendaId = $_POST['agendaId'];
-        $content = $_POST['content'];
-        $responsible = $_POST['responsible'];
-        $gft = $_POST['gft'];
-        $cr = $_POST['cr'];
+        $content = $_POST['content'] ?? '';
+        $responsible = $_POST['responsible'] ?? '';
+        $gft = $_POST['gft'] ?? '';
+        $cr = $_POST['cr'] ?? '';
+
+        // Debugging: Echo the received data
+        echo "Received Data:<br>";
+        echo "Agenda ID: " . htmlspecialchars($agendaId) . "<br>";
+        echo "Content: " . htmlspecialchars($content) . "<br>";
+        echo "Responsible: " . htmlspecialchars($responsible) . "<br>";
+        echo "GFT: " . htmlspecialchars($gft) . "<br>";
+        echo "CR: " . htmlspecialchars($cr) . "<br>";
 
         // Check if it's a task or a topic
         if (isset($_POST['taskContent'])) {
             // It's a task
             $sql = "INSERT INTO tasks (agenda_id, name, responsible, gft, cr, details) 
-                    VALUES ('$agendaId', '$content', '$responsible', '$gft', '$cr', '')";
+                    VALUES (?, ?, ?, ?, ?, '')";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("issss", $agendaId, $content, $responsible, $gft, $cr);
+            echo "Inserting as Task<br>";
         } elseif (isset($_POST['topicContent'])) {
             // It's a topic
-            $sql = "INSERT INTO topics (agenda_id,name, responsible, gft, cr, details) 
-                    VALUES ('$agendaId', '$content', '$responsible', '$gft', '$cr', '')";
+            $sql = "INSERT INTO topics (agenda_id, name, responsible, gft, cr, details) 
+                    VALUES (?, ?, ?, ?, ?, '')";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("issss", $agendaId, $content, $responsible, $gft, $cr);
+            echo "Inserting as Topic<br>";
+        } else {
+            echo "Error: Neither taskContent nor topicContent is set<br>";
         }
 
-        // Execute the SQL query
-        if ($conn->query($sql) === TRUE) {
-            // If the query was successful, send a success message
+        // Debugging: Echo the SQL query
+        echo "SQL Query: " . htmlspecialchars($sql) . "<br>";
+
+        if ($stmt->execute()) {
             echo "Data saved successfully";
         } else {
-            // If there was an error with the query, send an error message
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $stmt->error;
         }
+
+        $stmt->close();
     } else {
         // If agendaId is not set, send an error message
         echo "Error: Agenda ID is not set";

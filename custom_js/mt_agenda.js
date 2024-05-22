@@ -34,7 +34,7 @@ $(document).ready(function () {
     // Creating New Row
     var counter = 1;
     
-    function addNewRow(clickedCell) {
+    function addNewRow(clickedCell,agendaId) {
         var newRow = $(`
             <tr id="${counter}">
                 <td>
@@ -44,7 +44,7 @@ $(document).ready(function () {
                     </select>
                 </td>
                 <td class="contenteditable description" contenteditable="true"></td>
-                <td class="contenteditable responsible" contenteditable="true"></td>
+                <td class="contenteditable responsible" contenteditable="true">Responsible</td>
                 <td style="width:200px;">
                     <input type="text" class="deadlineDatePicker" style="width:100px;">
                     <button class="asapBtn" role="button">ASAP</button>
@@ -68,12 +68,12 @@ $(document).ready(function () {
             var selectedOption = $(this).val();
             if (selectedOption === "Topic") {
                 newRow.find('.description').text('Topic Description');
-                newRow.find('.responsible').text('');
+                newRow.find('.responsible').text('Topic Responsible');
                 newRow.find('.deadlineDatePicker').hide();
                 newRow.find('.asapBtn').hide();
             } else if (selectedOption === "Task") {
                 newRow.find('.description').text('Task Description');
-                newRow.find('.responsible').text('Task Responcible');
+                newRow.find('.responsible').text('Task Responsible');
                 newRow.find('.deadlineDatePicker').show();
                 newRow.find('.asapBtn').show();
             }
@@ -105,20 +105,27 @@ $(document).ready(function () {
         }
         project = project.substring("title for".length).trim();
         gft = gft.substring("GFT".length).trim();
-        alert(project);
-        alert(gft);
-        setTimeout(function () {
+        newRow.find('.contenteditable').on('blur', function() {
             saveToDatabase(newRow, gft, project, agendaId);
-        }, 10000);
+        });
     }
 
     
     $(document).ready(function(){ //adding new row
+        
         $(document).on('click', '.addRow', function(){
-            addNewRow(this);
+            var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
+            if (agendaId) {
+            addNewRow(this,agendaId);
             saveToDatabase();
+            }
+            else{
+            alert("Please select or create an agenda to continue.")
+            }
+
         });
     });
+
 
     function deleteRow(clickedCell) {
         var row = $(clickedCell).closest('tr');
@@ -142,35 +149,28 @@ $(document).ready(function () {
         deleteRow(this);
     });
 
-    function saveToDatabase(newRow, gft, cr, agendaId) {
+    function saveToDatabase(newRow, gft, project) {
         var selectedOption = newRow.find('select').val();
         var content = newRow.find('td:eq(1)').text().trim();
         var responsible = newRow.find('td:eq(2)').text().trim();
-        var ajaxData = {};
-        //alert(gft)
-        //alert(cr)
+        var ajaxData = {
+            agendaId: $('#agendaSelect').val(),
+            content: content,
+            responsible: responsible,
+            gft: gft,
+            cr: project
+        };
+    
         if (selectedOption === "Task") {
-            ajaxData = {
-                taskContent: content,
-                taskResponsible: responsible,
-                taskGft: gft, // Use taskGft instead of gft
-                taskcr: cr, // Use taskProject instead of project
-                agendaId:agendaId
-            };
+            ajaxData.taskContent = content;
         } else if (selectedOption === "Topic") {
-            ajaxData = {
-                topicContent: content,
-                topicResponsible: responsible,
-                topicGft: gft, // Use taskGft instead of gft
-                topiccr: cr, // Use taskProject instead of project
-                agendaId:agendaId
-            };
+            ajaxData.topicContent = content;
         }
     
         $.ajax({
             type: 'POST',
             url: 'actions.php',
-            data: ajaxData, // Send the modified data object
+            data: ajaxData,
             success: function(response) {
                 console.log(response);
             },
@@ -236,8 +236,7 @@ $(document).ready(function () {
     $('#agendaSelect').change(function () {
         var selectedAgendaId = $(this).val();
         if (selectedAgendaId) {
-                populateTable(selectedAgendaId);
-                showTable();
+            window.location.href = 'mt_agenda.php?agenda_id=' + selectedAgendaId;
             }
         }
     );
