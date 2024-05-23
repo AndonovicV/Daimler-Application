@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:8888
--- Generation Time: May 15, 2024 at 07:00 AM
+-- Generation Time: May 23, 2024 at 06:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -2005,14 +2005,11 @@ CREATE TABLE `mt_agenda` (
 
 INSERT INTO `mt_agenda` (`item_id`, `GFT`, `Topic`, `Status`, `Change_Request`, `Task`, `Comment`, `Milestone`, `Responsible`, `Start`, `New_Row`, `Delete_Row`, `agenda_id`) VALUES
 (0, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 0),
-(1, 'GFT1', 'Topic1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (1.25, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
 (1.4375, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
 (1.5, 'GFT2', 'Topic2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (1.75, '3', '3', '3', '3', '3', '3', '3', '3', '3', 'Yes', 'No', 1),
 (2.5, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
-(3, 'GFT 1', 'Top 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4, 'Change Request 1', 'Top 2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
 (4.125, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 2),
 (4.25, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 2),
 (4.5, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 2),
@@ -2054,7 +2051,14 @@ INSERT INTO `mt_agenda` (`item_id`, `GFT`, `Topic`, `Status`, `Change_Request`, 
 (36, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 54),
 (37, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 55),
 (38, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 56),
-(39, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 57);
+(39, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 57),
+(40, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 58),
+(41, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 59),
+(42, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 60),
+(43, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 61),
+(44, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 62),
+(45, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 63),
+(46, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 64);
 
 -- --------------------------------------------------------
 
@@ -2078,7 +2082,14 @@ CREATE TABLE `mt_agenda_list` (
 
 INSERT INTO `mt_agenda_list` (`agenda_id`, `agenda_name`, `created_by`, `created_date`, `last_modified`, `agenda_date`, `module_team`) VALUES
 (1, 'AgendaName1', '', '0000-00-00', '0000-00-00', NULL, NULL),
-(2, 'AgendaName2', '', '0000-00-00', '0000-00-00', NULL, NULL);
+(2, 'AgendaName2', '', '0000-00-00', '0000-00-00', NULL, NULL),
+(58, 'Test1', '', '0000-00-00', '0000-00-00', '2025-01-01', 'MT Exterior'),
+(59, 'Test2', '', '0000-00-00', '0000-00-00', '2025-02-02', 'MT Exterior'),
+(60, 'testentire', '', '0000-00-00', '0000-00-00', '2026-05-05', 'Entire Vehicle'),
+(61, 'Voki3', '', '0000-00-00', '0000-00-00', '2024-06-01', 'MT Exterior'),
+(62, 'Voki34', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior'),
+(63, 'bb', '', '0000-00-00', '0000-00-00', '2024-06-06', 'MT Exterior'),
+(64, 'bbb', '', '0000-00-00', '0000-00-00', '2024-06-09', 'MT Exterior');
 
 -- --------------------------------------------------------
 
@@ -19004,6 +19015,27 @@ INSERT INTO `org_moduleteams` (`id`, `name`, `product_type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `personal_tasks`
+--
+
+CREATE TABLE `personal_tasks` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `summary` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `personal_tasks`
+--
+
+INSERT INTO `personal_tasks` (`id`, `user_id`, `summary`) VALUES
+(1, 1, 'MT_Agenda\nHave every agenda linked to a specific module team.\nMake CSV & Pdf work (no data is currently found in the table)\n	*Not priority: See if there\'s a quick fix for the csv, so that it has a better outlook. If not, fuck it the pdf is is good enough.\nMake the table editable\nMake Search and Sort work (if you fix CSV & PDF this will probably be automatically fixed too)\nChange the outlook of the table:\n	Rename \'Module\' team column to \"type\" and no need to show module team, show topic/task instead\n	Rename \'Type\' column into blank (or something else if you have an idea)\n	Add new Column after Responcible and call it Deadline (will have 2 buttons datapicker or ASAP) Should be only shown in \"task\" rows.\n	Add new Column at end called \"Meeting Resubmition\" will only have a checkbox that is saved (0 or 1).\n	Add button \"Push to next Agenda\" (to be discussed)\n	Have both add new and delete row in same column\nHave personal tasks linked to database\n	Remove option to have them linked ot every MT Agenda\n	Assign them to personal ID (requires registration) create a user selection instead, they can later use their own user id\'s\nSend data to Protokoll (to be discussed)\nMake table fully functional:\n	Adding new row should stay, can\'t add rows in js. has to be made in php with a ajax trigger to push to db using a php script (one version already exists in master branch so a merge should fix it)\n	fix bug with adding topic rows: it ads multiple times\n	The 2 buttons in deadline (ASAP and Datepicker) should have a function and have that be saved to the database.\n	Save the checkboxes to the database (remains checked or unchecked, same as attendance list)\n	Next Agenda Should take all the data from the previous agenda (to be discussed)\nColumns: Task and Topic should be integrated iniside the mt_agenda table'),
+(6, 2, 'hi there\r\n\r\ncan you hear me?\r\n\r\nbut yeah, now we chillin'),
+(7, 0, '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `spec_book`
 --
 
@@ -19093,8 +19125,22 @@ CREATE TABLE `tasks` (
   `responsible` varchar(255) DEFAULT NULL,
   `gft` varchar(50) DEFAULT NULL,
   `cr` varchar(50) DEFAULT NULL,
-  `details` text DEFAULT NULL
+  `details` text DEFAULT NULL,
+  `ASAP` tinyint(1) NOT NULL DEFAULT 0,
+  `deadline_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tasks`
+--
+
+INSERT INTO `tasks` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`, `ASAP`, `deadline_date`) VALUES
+(9, 59, 'Task Description', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', 'I180082701', '', 0, NULL),
+(10, 59, 'Task Description', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', 'I180082701', '', 0, NULL),
+(12, 59, 'Task Description', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', '', '', 0, NULL),
+(13, 59, 'Fix mt agenda', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', '', '', 0, NULL),
+(14, 59, 'Fix mt agenda', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', '', '', 0, NULL),
+(15, 59, 'Fix mt agenda', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', '', '', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -19111,6 +19157,22 @@ CREATE TABLE `topics` (
   `cr` varchar(50) DEFAULT NULL,
   `details` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `topics`
+--
+
+INSERT INTO `topics` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`) VALUES
+(1, 58, '', '', '', '', ''),
+(2, 58, '', '', '', '', ''),
+(3, 58, '', '', '', '', ''),
+(7, 59, 'Placeholderasd', 'Responsible', 'EX53 - Clinometer', 'I200039001', ''),
+(11, 60, 'RimRim', 'Responsible', 'EV02 - Rims', '', ''),
+(12, 58, 'Topic Descriptionadas', '', '', 'I180077801', ''),
+(26, 62, 'Slay', 'Voki', 'EX53 - Clinometer', 'I180077801', ''),
+(28, 59, 'Topic Description', 'Topic Responsible', 'EX53 - Clinometer', 'I180077801', ''),
+(38, 59, 'lkkljllj', 'Topic Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', '', ''),
+(39, 59, 'csdad', 'Topic Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', '', '');
 
 --
 -- Indexes for dumped tables
@@ -19195,6 +19257,12 @@ ALTER TABLE `org_moduleteams`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `personal_tasks`
+--
+ALTER TABLE `personal_tasks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `spec_book`
 --
 ALTER TABLE `spec_book`
@@ -19252,7 +19320,7 @@ ALTER TABLE `members_tbl`
 -- AUTO_INCREMENT for table `mt_agenda_list`
 --
 ALTER TABLE `mt_agenda_list`
-  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `org_boards`
@@ -19285,16 +19353,22 @@ ALTER TABLE `org_moduleteams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `personal_tasks`
+--
+ALTER TABLE `personal_tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables

@@ -364,6 +364,13 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId) {
                 $result_change_requests = $conn->query($sql_change_requests);
 
                 if ($result_change_requests->num_rows > 0) {
+                    echo "<tr>";
+                    echo "<td></td>"; // Type
+                    echo "<td><strong>Change requests:</strong></td>"; // Change Request
+                    echo "<td></td>"; // Responsible
+                    echo "<td></td>"; // Actions
+                    echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
+                    echo "</tr>";
                     while ($row_change_request = $result_change_requests->fetch_assoc()) {
                         echo "<tr>";
                         echo "<td></td>"; // Type
