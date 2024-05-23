@@ -70,16 +70,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // mt_agenda delete row
 if (isset($_POST['rowId'])) {
     $rowId = $_POST['rowId'];
-    //echo $rowId; // Corrected variable name
-    $sql = "DELETE FROM mt_agenda WHERE CONCAT(`mt_agenda`.`item_id`) = '$rowId'";
-    echo "SQL query: " . $sql; // Echo the SQL query
-    if ($conn->query($sql) === TRUE) {
-        //echo "Row deleted successfully.";
-    } else {
-        //echo "Error deleting row: " . $conn->error;
+    $rowType = $_POST['rowType'];
+
+    switch ($rowType) {
+        case 'topic':
+            // Delete Topic logic
+            $sql = "DELETE FROM topics WHERE id = ?";
+            break;
+        case 'task':
+            // Delete Task logic
+            $sql = "DELETE FROM tasks WHERE id = ?";
+            break;
+        default:
+            echo "Invalid row type";
+            exit;
     }
-} else {
-    //echo "RowId not provided.";
+    echo $stmt;
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $rowId);
+    if ($stmt->execute()) {
+        echo "Row deleted successfully";
+    } else {
+        echo "Error deleting row: " . $conn->error;
+    }
+
+    $stmt->close();
+    $conn->close();
 }
 // fetching agenda data based on the selected agenda ID
 // Check if agenda_id is set in the POST request
@@ -158,8 +174,6 @@ if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda
     } else {
         echo "Error creating new agenda: " . $conn->error;
     }
-} else {
-    echo "Agenda name or date not provided.";
 }
 // PERSONAL NOTES
 if(isset($_POST['selectedAgendaId'])) {

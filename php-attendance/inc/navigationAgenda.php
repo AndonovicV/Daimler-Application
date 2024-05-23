@@ -28,6 +28,9 @@ if (isset($_SESSION['selected_team'])) {
                  <li class="nav-item">
                     <a class="nav-link <?= (isset($page)) && $page == 'mdt_list' ? 'active' : '' ?>" href="/Daimler/mt_agenda.php">MT Agenda</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= (isset($page)) && $page == 'mdt_list' ? 'active' : '' ?>" href="/Daimler/protokol.php">Protokol</a>
+                </li>
                 <!--<li class="nav-item">
                     <a class="nav-link <?= (isset($page)) && $page == 'member_list' ? 'active' : '' ?>" href="./?page=member_list">Members</a>
                 </li> -->
