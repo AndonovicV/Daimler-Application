@@ -97,8 +97,11 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId) {
     <!--Link to Virtual select Plugin JS-->
     <script src="plugins/virtual_select/virtual-select.min.js"></script>
 
-    <!--DATATABLE LIBRARIES-->
+    <!--Link to Bootstrap Datepicker Plugin-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
+    <!--DATATABLE LIBRARIES-->
     <!--Link to datepicker 1 JS-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!--Link to datepicker 2 JS-->
@@ -195,7 +198,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId) {
                         </div>
                         <div class="mb-3">
                             <label for="agendaDate" class="form-label">Agenda Date:</label>
-                            <input type="date" class="form-control" id="agendaDate">
+                            <input for="agendaDate" class="form-control" id="agendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
                         </div>
                     </div>
                     <div class="modal-footer">

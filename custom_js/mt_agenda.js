@@ -239,4 +239,10 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#agendaDate').datepicker({
+        format: 'yyyy/mm/dd',
+        autoclose: true,
+        todayHighlight: true
+    });
 });
