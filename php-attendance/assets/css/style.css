@@ -1,4 +1,4 @@
-@import url("fontawesome-all.min.css");  /* Importing FontAwesome */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css");  /* Importing FontAwesome */
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600"); /* Importing Source Sans Pro */
 
 :root {
@@ -149,4 +149,12 @@ tbody #attendance-rpt-tbl td:first-child {
 
 .bg-dark-subtle {
     background-color: black;
+}
+
+
+#agenda_id {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }

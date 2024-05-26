@@ -9,7 +9,7 @@ $page_title = ucwords(str_replace("_", " ", $page));
 <html lang="en">
 <?php include_once('inc/header.php'); ?>
 <body>
-<?php include_once('inc/navigation.php'); ?>
+<?php include_once('inc/navigationDeckblat.php'); ?>
     <div class="container-md py-3">
         <?php if(isset($_SESSION['flashdata']) && !empty($_SESSION['flashdata'])): ?>
             <div class="flashdata flashdata-<?= $_SESSION['flashdata']['type'] ?? 'default' ?> mb-3">
@@ -23,7 +23,14 @@ $page_title = ucwords(str_replace("_", " ", $page));
         <?php unset($_SESSION['flashdata']); ?>
         <?php endif; ?>
         <div class="main-wrapper">
-            <?php include_once("pages/{$page}.php"); ?>
+            <?php 
+            $page_path = "pages/{$page}.php";
+            if (file_exists($page_path)) {
+                include_once($page_path);
+            } else {
+                echo "<p>Page not found. Please check the URL and try again.</p>";
+            }
+            ?>
         </div>
     </div>
     <?php include_once('inc/footer.php'); ?>

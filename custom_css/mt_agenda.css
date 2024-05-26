@@ -1,0 +1,49 @@
+
+
+ #mt_agenda_test2 { 
+    margin-top: 50em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20em;
+    border: 1px solid white;
+}
+
+
+.asap-active {
+    color: red;
+}
+.col-md-6{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container{
+text-align: center;
+}
+
+
+.button-12 {
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+
+  background: #6E6D70;
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+  color: #DFDEDF;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-12:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+.asap-active {
+  color: red;
+}

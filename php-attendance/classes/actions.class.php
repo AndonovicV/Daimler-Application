@@ -67,6 +67,13 @@ class Actions{
         $result = $qry->fetch_assoc();
         return $result;
     }
+
+    public function list_agendas(){
+        $sql = "SELECT * FROM `mt_agenda_list` ORDER BY `agenda_name` ASC";
+        $qry = $this->conn->query($sql);
+        return $qry->fetch_all(MYSQLI_ASSOC);
+    }
+
     /**
      * member Actions
      */
@@ -130,12 +137,11 @@ class Actions{
         $result = $qry->fetch_assoc();
         return $result;
     }
-
-    public function attendancemembers($mdt_id = "", $meeting_date = ""){
-        if(empty($mdt_id) || empty($meeting_date))
+    public function attendancemembersByAgenda($agenda_id = "", $meeting_date = "YYYY-MM-DD"){
+        if(empty($agenda_id) || empty($meeting_date))
             return [];
         
-        // Modified SQL query to include the department name
+        // Modified SQL query to include the department name and filter by agenda_id
         $sql = "SELECT 
                     members_tbl.*, 
                     COALESCE((SELECT `status` FROM `attendance_tbl` WHERE `member_id` = `members_tbl`.id AND `meeting_date` = '{$meeting_date}'), 0) AS `status`,
@@ -145,7 +151,7 @@ class Actions{
                 JOIN 
                     dept_tbl ON members_tbl.dept_id = dept_tbl.id -- Join with dept_tbl table
                 WHERE 
-                    members_tbl.mdt_id = '{$mdt_id}' 
+                    members_tbl.agenda_id = '{$agenda_id}' 
                 ORDER BY 
                     members_tbl.name ASC";
         
@@ -271,83 +277,27 @@ class Actions{
     public function list_guest(){
         $sql = "SELECT `guests_tbl`.*, `dept_tbl`.`name` as `dept` FROM `guests_tbl` inner join `dept_tbl` on `guests_tbl`.`dept_id` = `dept_tbl`.`id` order by `guests_tbl`.`name` ASC";
         $qry = $this->conn->query($sql);
-        return $qry->fetch_all(MYSQLI_ASSOC);
+        $result = $qry->fetch_all(MYSQLI_ASSOC);
+        
+        // Add the 'present' and 'substitute' keys to each guest row
+        foreach ($result as &$row) {
+            // Initialize the 'present' and 'substitute' keys if they are not set
+            if (!isset($row['present'])) {
+                $row['present'] = ''; // Set default value for 'present'
+            }
+            if (!isset($row['substitute'])) {
+                $row['substitute'] = ''; // Set default value for 'substitute'
+            }
+        }
+        
+        return $result;
     }
+    
     public function get_guest($id=""){
         $sql = "SELECT `guests_tbl`.*, `dept_tbl`.`name` as `dept` FROM `guests_tbl` inner join `dept_tbl` on `guests_tbl`.`dept_id` = `dept_tbl`.`id` where `guests_tbl`.`id` = '{$id}'";
         $qry = $this->conn->query($sql);
         $result = $qry->fetch_assoc();
         return $result;
-    // }
-    // public function attendanceguests($mdt_id = "", $meeting_date = ""){
-    //     if(empty($mdt_id) || empty($meeting_date))
-    //         return [];
-    //     $sql = "SELECT `guests_tbl`.*, COALESCE((SELECT `status` FROM `attendance_tbl` where `guest_id` = `guests_tbl`.id and `meeting_date` = '{$meeting_date}' ), 0) as `status` FROM `guests_tbl` where `mdt_id` = '{$mdt_id}' order by `name` ASC";
-    //     $qry = $this->conn->query($sql);
-    //     $result = $qry->fetch_all(MYSQLI_ASSOC);
-    //     return $result;
-    // }
-
-    // public function attendanceguestsMonthly($mdt_id = "", $mdt_month = ""){
-    //     if(empty($mdt_id) || empty($mdt_month))
-    //         return [];
-    //     $sql = "SELECT `guests_tbl`.* FROM `guests_tbl` where `mdt_id` = '{$mdt_id}' order by `name` ASC";
-    //     $qry = $this->conn->query($sql);
-    //     $result = $qry->fetch_all(MYSQLI_ASSOC);
-    //     foreach($result as $k => $row){
-    //         $att_sql = "SELECT `status`, `meeting_date` FROM `attendance_tbl` where `guest_id` = '{$row['id']}' ";
-    //         $att_qry = $this->conn->query($att_sql);
-    //         foreach($att_qry as $att_row){
-    //             $result[$k]['attendance'][$att_row['meeting_date']] = $att_row['status'];
-    //         }
-    //     }
-    //     return $result;
-    // }
-    // public function save_guests_attendance(){
-    //     extract($_POST);
-
-    //     $sql_values = "";
-    //     $errors = "";
-    //     foreach($guest_id as $k => $sid){
-    //         $stat = $status[$k] ?? 3;
-
-    //         $check = $this->conn->query("SELECT id FROM `attendance_tbl` where `guest_id` = '{$sid}' and `meeting_date` = '{$meeting_date}'");
-    //         if($check->num_rows > 0){
-                
-    //             $result = $check->fetch_assoc();
-    //             $att_id = $result['id'];
-
-    //             try{
-    //                 $update = $this->conn->query("UPDATE `attendance_tbl` set `status` = '{$stat}' where `id` = '{$att_id}'");
-
-    //             }catch(Exception $e){
-    //                 if(!empty($errors)) $errors .= "<br>";
-    //                 $errors .= $e->getMessage();
-    //             }
-            
-    //         }else{
-    //             if(!empty($sql_values)) $sql_values .= ", ";
-    //             $sql_values .= "( '{$sid}', '{$meeting_date}', '{$stat}' )";
-    //         }
-    //     }
-    //     if(!empty($sql_values))
-    //     {
-    //         try{
-    //             $sql =  $this->conn->query("INSERT INTO `attendance_tbl` ( `guest_id`, `meeting_date`, `status` ) VALUES {$sql_values}");
-    //         }catch(Exception $e){
-    //             if(!empty($errors)) $errors .= "<br>";
-    //             $errors .= $e->getMessage();
-    //         }
-    //     }
-    //     if(empty($errors)){
-    //         $resp['status'] = "success";
-    //         $_SESSION['flashdata'] = [ "type" => "success", "msg" => "Module Team Attendance Data has been saved successfully." ];
-    //     }else{
-    //         $resp['status'] = "error";
-    //         $resp['msg'] = $errors;
-    //     }
-
-    //     return $resp;
     }
 
 // Department

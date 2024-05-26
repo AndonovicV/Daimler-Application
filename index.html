@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+
 <!--
 	Dimension by HTML5 UP
 	html5up.net | @ajlkn
@@ -43,7 +44,7 @@
 				<!-- Header -->
 					<header id="header">
 						<div class="logo">
-							<span img src="images/mercedes.png"></span>
+							<span class="icon fa-gem"></span>
 						</div>
 						<div class="content">
 							<div class="inner">
@@ -54,10 +55,9 @@
 						</div>
 						<nav>
 							<ul>
-								<li><a href="php-attendance/?page=attendance">Deckblatt</a></li>
 								<li><a href="#contact">Add MM</a></li>
 								<li><a href="#list_mm">List MM</a></li>
-								<li><a href="plugins\datatables\datatable.php">MT Agenda</a></li>
+								<li><a href="mt_agenda.php">MT Agenda</a></li>
 								<li><a href="plugins\calendar\calendar.html">Calendar</a></li>
 								<li><a href="#elements">Elements</a></li>
 							</ul>
@@ -92,46 +92,6 @@
 									Location:
 								</a>
 							</article>
-
-							<article id="Deckblatt">
-								<img src="logo.png" alt="Modulteam Logo">
-								<h3 class="major">Modulteam - Minutes</h3>
-								<div style="display: flex;">
-									<div style="width: auto; padding: 5px; margin-left: auto;">
-										<select class="text">
-											<option vlaue="" disable selected>Department</option>
-											<option value="option1">Department 1</option>
-											<option value="option2">Department 2</option>
-											<option value="option3">Department 3</option>
-											<option value="option3">None</option>
-										</select>
-									</div>
-								</div>
-								<div class="container">
-									<section class="members">
-										<h2>Module Team Members</h2>
-										<div class="member-list"></div>
-											<div class="member">
-												<input type="checkbox" id="member1">
-												<input type="text" class="member-name" placeholder="Last name, first name" aria-label="Member name">
-											</div>
-									</section>
-									<section class="guests">
-										<h2>Guests/Substitutes</h2>
-										<div class="guest-list">
-											<div class="add-guest">
-												<button>Add Guest</button>
-											</div>
-											<div class="guest">
-												<input type="checkbox" id="guest1">
-												<input type="text" class="guest-name" placeholder="Last name, first name" aria-label="Guest name">
-												<button class="remove-guest">Remove</button>
-											</div>
-										</div>
-									</section>
-								</div>
-							</article>
-
 
 			<!-- MT Agenda -->
 			<article id="mt_agenda">
@@ -200,7 +160,6 @@
 									<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
 								</ul>
 							</article>
-
 
 						<!-- Calendar -->
 						<article id="about">
