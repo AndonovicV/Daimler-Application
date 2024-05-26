@@ -1,21 +1,17 @@
-<div class="page-title mb-3">Manage Attendance</div>
+<div class="page-title mb-3 text-light">Manage Attendance</div>
 <hr>
 <?php
 include 'db-connect.php';
-// $memberList = $actionClass->list_member();
 $mdtList = $actionClass->list_mdt();
 $mdt_id = $_GET['mdt_id'] ?? "";
 $meeting_date = $_GET['meeting_date'] ?? "";
-$agendaList = $actionClass->list_agendas(); // Assuming you have a function to list agendas
+$agendaList = $actionClass->list_agendas();
 $agenda_id = $_GET['agenda_id'] ?? "";
-$memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll need to adjust this function
+$memberList = $actionClass->attendanceMembersByAgenda($agenda_id);
 ?>
-<!-- <pre>
-    <?php print_r($memberList) ?>
-</pre> -->
 
 <form action="" id="manage-attendance">
-    <select name="agenda_id" id="agenda_id" class="form-select" required="required">
+    <select name="agenda_id" id="agenda_id" class="form-select styled-select-dark" required="required">
         <option value="" disabled <?= empty($agenda_id) ? "selected" : "" ?>> -- Select Agenda -- </option>
         <?php if (!empty($agendaList) && is_array($agendaList)) : ?>
             <?php foreach ($agendaList as $row) : ?>
@@ -24,14 +20,14 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
         <?php endif; ?>
     </select>
     <?php if (!empty($agenda_id)) : ?>
-        <div class="card shadow mb-3">
+        <div class="card shadow mb-3 dark-card">
             <div class="card-header rounded-0">
-                <div class="card-title">Attendance Sheet</div>
+                <div class="card-title text-light">Attendance Sheet</div>
             </div>
             <div class="card-body">
                 <div class="container-fluid">
                     <div class="table-responsive">
-                        <table id="attendance-tbl" class="table table-bordered">
+                        <table id="attendance-tbl" class="table table-bordered dark-table">
                             <colgroup>
                                 <col width="30%">
                                 <col width="30%">
@@ -39,7 +35,7 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
                                 <col width="15%">
                                 <col width="15%">
                             </colgroup>
-                            <thead class="bg-primary">
+                            <thead>
                                 <tr>
                                     <th class="text-center bg-transparent text-light">Members</th>
                                     <th class="text-center bg-transparent text-light">Department</th>
@@ -52,22 +48,22 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
                                 <?php if (!empty($memberList) && is_array($memberList)) : ?>
                                     <?php foreach ($memberList as $row) : ?>
                                         <tr class="member-row">
-                                            <td class="px-2 py-1 text-dark-emphasis fw-bold">
+                                            <td class="px-2 py-1 text-light-emphasis fw-bold">
                                                 <input type="hidden" name="member_id[]" value="<?= $row['id'] ?>">
                                                 <?= $row['name'] ?>
                                             </td>
-                                            <td class="text-center px-2 py-1 text-dark-emphasis"><?= $row['dept'] ?></td>
-                                            <td class="text-center px-2 py-1 text-dark-emphasis">
+                                            <td class="text-center px-2 py-1 text-light-emphasis"><?= $row['dept'] ?></td>
+                                            <td class="text-center px-2 py-1 text-light-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
                                                     <input class="form-check-input" type="checkbox" name="status[<?= $row['id'] ?>]" value="1" id="status_p_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 1) ? "checked" : "" ?>>
                                                 </div>
                                             </td>
-                                            <td class="text-center px-2 py-1 text-dark-emphasis">
+                                            <td class="text-center px-2 py-1 text-light-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
                                                     <input class="form-check-input" type="checkbox" name="status[<?= $row['id'] ?>]" value="2" id="status_a_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 2) ? "checked" : "" ?>>
                                                 </div>
                                             </td>
-                                            <td class="text-center px-2 py-1 text-dark-emphasis">
+                                            <td class="text-center px-2 py-1 text-light-emphasis">
                                                 <div class="form-check d-flex w-100 justify-content-center">
                                                     <input class="form-check-input" type="checkbox" name="status[<?= $row['id'] ?>]" value="3" id="status_s_<?= $row['id'] ?>" <?= (isset($row['status']) && $row['status'] == 3) ? "checked" : "" ?>>
                                                 </div>
@@ -76,7 +72,7 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
                                     <?php endforeach; ?>
                                 <?php else : ?>
                                     <tr>
-                                        <td colspan="5" class="px-2 py-1 text-center">No Member Listed Yet</td>
+                                        <td colspan="5" class="px-2 py-1 text-center text-light">No Member Listed Yet</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
@@ -87,14 +83,14 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
         </div>
         <hr>
         <div></div>
-        <h1 style="color:white; text-align:center;">Guest List</h1>
+        <h1 class="text-light text-center">Guest List</h1>
         <hr>
         <?php
         $guestList = $actionClass->list_guest();
         ?>
         <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                <div class="card shadow">
+            <div class="col-lg-12">
+                <div class="card shadow dark-card">
                     <div class="card-header rounded-0">
                         <div class="d-flex w-100 justify-content-end align-items-center">
                             <button class="btn btn-sm rounded-0 btn-primary" type="button" id="add_guest"><i class="far fa-plus-square"></i> Add New</button>
@@ -103,7 +99,7 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
                     <div class="card-body rounded-0">
                         <div class="container-fluid">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hovered table-stripped">
+                                <table class="table table-bordered table-hovered table-striped dark-table">
                                     <colgroup>
                                         <col width="20%">
                                         <col width="20%">
@@ -111,22 +107,22 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
                                         <col width="20%">
                                         <col width="25%">
                                     </colgroup>
-                                    <thead class="bg-dark-subtle">
-                                        <tr class="bg-transparent">
-                                            <th class="bg-transparent text-center">Guest Name</th>
-                                            <th class="bg-transparent text-center">Department</th>
-                                            <th class="bg-transparent text-center">Substitute</th>
-                                            <th class="bg-transparent text-center">Present</th>
-                                            <th class="bg-transparent text-center">Actions</th>
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center bg-transparent text-light">Guest Name</th>
+                                            <th class="text-center bg-transparent text-light">Department</th>
+                                            <th class="text-center bg-transparent text-light">Substitute</th>
+                                            <th class="text-center bg-transparent text-light">Present</th>
+                                            <th class="text-center bg-transparent text-light">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php if (!empty($guestList) && is_array($guestList)) : ?>
                                             <?php foreach ($guestList as $row) : ?>
                                                 <tr>
-                                                    <td class="px-2 py-1"><?= $row['name'] ?></td>
-                                                    <td class="px-2 py-1"><?= $row['dept'] ?></td>
-                                                    <td class="px-2 py-1"><?= $row['substitute'] ?></td>
+                                                    <td class="px-2 py-1 text-light-emphasis fw-bold"><?= $row['name'] ?></td>
+                                                    <td class="text-center px-2 py-1 text-light-emphasis"><?= $row['dept'] ?></td>
+                                                    <td class="px-2 py-1 text-light"><?= $row['substitute'] ?></td>
                                                     <td class="text-center px-2 py-1">
                                                         <input class="form-check-input" type="checkbox" name="present[<?= $row['id'] ?>]" id="present_<?= $row['id'] ?>" <?= ($row['present'] == 'Yes') ? 'checked' : '' ?>>
                                                     </td>
@@ -140,7 +136,7 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
                                             <?php endforeach; ?>
                                         <?php else : ?>
                                             <tr>
-                                                <th class="text-center px-2 py-1" colspan="5">No data found.</th>
+                                                <th class="text-center px-2 py-1 text-light" colspan="5">No data found.</th>
                                             </tr>
                                         <?php endif; ?>
                                     </tbody>
@@ -152,9 +148,9 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
             </div>
         </div>
         <hr>
-        <div class="d-flex w-100 justify-content-center align-items-center">
+        <div class="d-flex w-100 justify-content-center align-items-center"> 
             <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                <button class="btn btn-primary rounded-pill w-100" type="submit">Save Attendance</button>
+                <button class="btn btn-primary rounded-pill w-100"  type="submit">Save Attendance</button>
             </div>
         </div>
     <?php endif; ?>

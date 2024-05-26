@@ -117,64 +117,69 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId) {
 
 <body>
     <div class="container">
-        <h3>Select or Create Agenda:</h3>
-        <select id="agendaSelect" data-search="true">
-            <option value="">Select Agenda...</option>
-            <?php
+    <div class="container mt-5">
+    <h1 style="color: #777" class='mt-4'>MT AGENDA</h1>
+        <div class="mb-3">
+            <select 
+                id="agendaSelect" 
+                data-search="true" 
+                class="styled-select w-100" 
+                style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
+                <option value="">Select Agenda...</option>
+                <?php
+                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                $stmt = $conn->prepare($sql);
 
-            // Prepare the SQL query with a placeholder for the selected team
-            $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                if ($stmt) {
+                    $stmt->bind_param('s', $selected_team);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
 
-            // Initialize the statement
-            $stmt = $conn->prepare($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
+                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>" . htmlspecialchars($row["agenda_name"]) . "</option>";
 
-            // Check if the statement was prepared successfully
-            if ($stmt) {
-                // Bind the parameter to the prepared statement
-                $stmt->bind_param('s', $selected_team); // Use 'i' if module_team is an integer
-                // Execute the statement
-                $stmt->execute();
-                // Get the result
-                $result = $stmt->get_result();
-
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        // Check if the current option is the selected one
-                        $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                        echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>" . htmlspecialchars($row["agenda_name"]) . "</option>";
-
-                        // Display the agenda_date if this option is the selected one
-                        if ($selected) {
-                            $agenda_date = htmlspecialchars($row["agenda_date"]);
+                            if ($selected) {
+                                $agenda_date = htmlspecialchars($row["agenda_date"]);
+                            }
                         }
                     }
+
+                    $stmt->close();
+                } else {
+                    echo "Error: " . $conn->error;
                 }
+                ?>
+            </select>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
 
-                // Close the statement
-                $stmt->close();
-            } else {
-                // Handle potential errors
-                echo "Error: " . $conn->error;
-            }
-            ?>
-        </select>
+            <button type="button" class="btn btn-light flex-fill mx-1" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
+                Personal Task
+            </button>
+            <button type="button" id="createAgendaBtn"  class="btn btn-primary flex-fill mx-1" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
+                Create a new agenda
+            </button>
+            <button type="button" class="btn btn-primary flex-fill mx-1" onclick="window.location.href = 'protokol.php?protokol_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
+                To Protokol
+            </button>
+        </div>
 
+        <?php
+        if (isset($agenda_date)) {
+            echo "<h3 class='mt-4'>Agenda Date: $agenda_date</h3>";
+        }
+        ?>
+
+        <script src="path/to/your/bootstrap.bundle.min.js"></script>
+        <script src="path/to/virtual-select.min.js"></script>
         <script>
             VirtualSelect.init({
                 ele: '#agendaSelect'
             });
         </script>
-
-        <!-- Button trigger modal -->
-        <button type="button" class="button-12 addRow" style="float: right; margin-left: 10px;" onclick="window.location.href = 'protokol.php?protokol_id=<?php echo $selectedAgendaId; ?>'">To Protokol</button>
-        <button type="button" class="btn btn-light" id="createAgendaBtn">Create new agenda</button>
-        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn" style="float: right">Personal Task</button>
-        <?php
-        // Display the agenda_date if it was set
-        if (isset($agenda_date)) {
-            echo "<h3>Agenda Date: $agenda_date</h3>";
-        }
-        ?>
+    </div>
         <!-- Modal for creating a new agenda -->
         <div class="modal fade" id="createAgendaModal" tabindex="-1" aria-labelledby="createAgendaModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -202,6 +207,27 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId) {
         </div>
 
         <!-- Personal Task Modal -->
+                <!-- Personal Task Modal -->
+                <div class="modal fade" id="personalTaskModal" tabindex="-1" aria-labelledby="personalTaskLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- Display the selected agenda ID in the modal title -->
+                        <h1 class="modal-title fs-5" id="personalTaskLabel">Personal Tasks</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="field">
+                            <textarea name="summary" id="summary" rows="16" class="text" style="width: 100%;">><?php echo htmlspecialchars($summary); ?></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="personalTaskBtn">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 <!-- Personal Task Modal -->
 <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -270,8 +296,9 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId) {
 
             </div>
             <div class="modal-footer">
+                
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="forwardModalsave">Save changes</button>
+                <button type="button" class="btn btn-primary" id="forwardModalsave"style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">Save changes</button>
             </div>
         </div>
     </div>

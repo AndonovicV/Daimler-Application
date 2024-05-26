@@ -1,3 +1,19 @@
+<?php
+//include_once('php-attendance\inc\navigationAgenda.php');
+//include 'conn.php';
+//session_start(); // Start the session if not already started
+
+// Check if the session variable is set
+if (isset($_SESSION['selected_team'])) {
+    $selected_team = $_SESSION['selected_team'];
+    //echo($selected_team);
+} else {
+    $selected_team = ""; // Default value if not set
+}
+
+
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-dark sticky-top" data-bs-theme="dark">
     <div class="container-fluid">
         <!-- <a class="navbar-brand" href="#">Deckblatt</a> -->
@@ -12,16 +28,27 @@
                  <li class="nav-item">
                     <a class="nav-link <?= (isset($page)) && $page == 'mdt_list' ? 'active' : '' ?>" href="/Daimler/mt_agenda.php">MT Agenda</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= (isset($page)) && $page == 'mdt_list' ? 'active' : '' ?>" href="/Daimler/protokol.php">Protokoll</a>
+                </li>
                 <!--<li class="nav-item">
                     <a class="nav-link <?= (isset($page)) && $page == 'member_list' ? 'active' : '' ?>" href="./?page=member_list">Members</a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link <?= (isset($page)) && $page == 'attendance' ? 'active' : '' ?>" href="./?page=attendance">Attendance</a>
+                    <a class="nav-link <?= (isset($page)) && $page == 'attendance' ? 'active' : '' ?>" href="/Daimler/php-attendance/?page=attendance">Attendance</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= (isset($page)) && $page == 'attendance_report' ? 'active' : '' ?>" href="./?page=attendance_report">Report</a>
+                    <a class="nav-link <?= (isset($page)) && $page == 'attendance_report' ? 'active' : '' ?>" href="/Daimler/php-attendance/?page=attendance_report">Report</a>
                 </li>
             </ul>
+        </div>
+        <?php if(empty($selected_team) || $selected_team === ""): ?>
+        <div class="error-message" style="margin-top: 10px; border-top: 2px solid red; padding-top: 5px; color: white;">
+            Error, Please select a module team from DOMM main page to proceed
+        </div>
+        <?php endif; ?>
+        <div class="selected-team" style="position: absolute; top: 0; right: 15px; line-height: 50px; color: rgba(255, 255, 255, 0.55);">
+            <span><?= $selected_team ?></span>
         </div>
     </div>
     </nav>

@@ -47,3 +47,33 @@ text-align: center;
 .asap-active {
   color: red;
 }
+
+.styled-select-dark {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('path/to/your-arrow-icon-light.png'); /* Custom arrow icon for dark mode */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  transition: border-color 0.3s ease;
+}
+
+.styled-select-dark:focus {
+  border-color: #888;
+  outline: none;
+  box-shadow: 0 0 8px rgba(136, 136, 136, 0.6);
+}
+
+.styled-select-dark option {
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+}
