@@ -162,7 +162,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId) {
                 Create a new agenda
             </button>
             <button type="button" class="btn btn-primary flex-fill mx-1" onclick="window.location.href = 'protokol.php?protokol_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
-                To Protokol
+                To Protokoll
             </button>
         </div>
 
