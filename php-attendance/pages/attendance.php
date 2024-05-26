@@ -9,9 +9,6 @@ $meeting_date = $_GET['meeting_date'] ?? "";
 $agendaList = $actionClass->list_agendas(); // Assuming you have a function to list agendas
 $agenda_id = $_GET['agenda_id'] ?? "";
 $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll need to adjust this function
-
-
-
 ?>
 <!-- <pre>
     <?php print_r($memberList) ?>
@@ -108,26 +105,31 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hovered table-stripped">
                                     <colgroup>
-                                        <col width="10%">
-                                        <col width="10%">
-                                        <col width="60%">
                                         <col width="20%">
+                                        <col width="20%">
+                                        <col width="15%">
+                                        <col width="20%">
+                                        <col width="25%">
                                     </colgroup>
                                     <thead class="bg-dark-subtle">
                                         <tr class="bg-transparent">
+                                            <th class="bg-transparent text-center">Guest Name</th>
                                             <th class="bg-transparent text-center">Department</th>
-                                            <th class="bg-transparent text-center">ID</th>
-                                            <th class="bg-transparent text-center">Name</th>
-                                            <th class="bg-transparent text-center">Action</th>
+                                            <th class="bg-transparent text-center">Substitute</th>
+                                            <th class="bg-transparent text-center">Present</th>
+                                            <th class="bg-transparent text-center">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php if (!empty($guestList) && is_array($guestList)) : ?>
                                             <?php foreach ($guestList as $row) : ?>
                                                 <tr>
-                                                    <td class="px-2 py-1"><?= $row['dept'] ?></td>
-                                                    <td class="text-center px-2 py-1"><?= $row['id'] ?></td>
                                                     <td class="px-2 py-1"><?= $row['name'] ?></td>
+                                                    <td class="px-2 py-1"><?= $row['dept'] ?></td>
+                                                    <td class="px-2 py-1"><?= $row['substitute'] ?></td>
+                                                    <td class="text-center px-2 py-1">
+                                                        <input class="form-check-input" type="checkbox" name="present[<?= $row['id'] ?>]" id="present_<?= $row['id'] ?>" <?= ($row['present'] == 'Yes') ? 'checked' : '' ?>>
+                                                    </td>
                                                     <td class="text-center px-2 py-1">
                                                         <div class="input-group input-group-sm justify-content-center">
                                                             <button class="btn btn-sm btn-outline-primary rounded-0 edit_guest" type="button" data-id="<?= $row['id'] ?>" title="Edit"><i class="fas fa-edit"></i></button>
@@ -138,7 +140,7 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id); // You'll nee
                                             <?php endforeach; ?>
                                         <?php else : ?>
                                             <tr>
-                                                <th class="text-center px-2 py-1" colspan="4">No data found.</th>
+                                                <th class="text-center px-2 py-1" colspan="5">No data found.</th>
                                             </tr>
                                         <?php endif; ?>
                                     </tbody>
