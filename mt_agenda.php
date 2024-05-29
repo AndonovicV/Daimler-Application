@@ -152,6 +152,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                     }
                     ?>
                 </select>
+                <!--Virtual Select Trigger-->
                 <script>
                     VirtualSelect.init({
                         ele: '#agendaSelect'
@@ -169,6 +170,25 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                 <button type="button" class="btn btn-primary flex-fill mx-1" onclick="window.location.href = 'protokol.php?protokol_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
                     To Protokoll
                 </button>
+                <select id="changeRequestSelect" data-search="true" class="styled-select w-10" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
+                    <option value="">Change Request Filter</option>
+                    <?php
+                    $sql = "SELECT * FROM change_requests WHERE fasttrack = 'Yes' AND `lead_module_team` = '$selected_team'";
+                    $stmt = $conn->prepare($sql);
+                    // No need for bind_param as the SQL query has no placeholders
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<option value="' . htmlspecialchars($row['title']) . '">' . htmlspecialchars($row['title']) . '</option>';
+                    }
+                    ?>
+                </select>
+                <script>
+                    VirtualSelect.init({
+                        multiple: true,
+                        ele: '#changeRequestSelect'
+                    });
+                </script>
             </div>
 
             <?php
@@ -385,7 +405,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         // Fetch change requests based on $selected_team and $row_gft["name"]
                         $selected_team = $row_gft["moduleteam"];
                         $selected_gft = $row_gft["name"];
-                        $sql_change_requests = "SELECT title FROM change_requests WHERE lead_module_team = '$selected_team' AND lead_gft = '$selected_gft'";
+                        $sql_change_requests = "SELECT title FROM change_requests WHERE lead_module_team = '$selected_team' AND lead_gft = '$selected_gft' AND fasttrack = 'Yes'";
                         $result_change_requests = $conn->query($sql_change_requests);
 
                         if ($result_change_requests->num_rows > 0) {

@@ -242,7 +242,7 @@ if ($result_personal_tasks->num_rows > 0) {
                 // Fetch change requests based on $selected_team and $row_gft["name"]
                 $selected_team = $row_gft["moduleteam"];
                 $selected_gft = $row_gft["name"];
-                $sql_change_requests = "SELECT title FROM change_requests WHERE lead_module_team = '$selected_team' AND lead_gft = '$selected_gft'";
+                $sql_change_requests = "SELECT title FROM change_requests WHERE lead_module_team = '$selected_team' AND lead_gft = '$selected_gft' AND fasttrack = 'Yes'";
                 $result_change_requests = $conn->query($sql_change_requests);
 
                 if ($result_change_requests->num_rows > 0) {
