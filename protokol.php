@@ -76,7 +76,7 @@ if ($result_personal_tasks->num_rows > 0) {
         id="protokolSelect" 
         data-search="true" 
         class="styled-select w-100 mb-3" 
-        style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
+        style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;"> <!-- This should work but it doesn't -->
         <option value="">Select protocol...</option>
         <?php
         $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
@@ -111,7 +111,11 @@ if ($result_personal_tasks->num_rows > 0) {
         }
         ?>
     </select>
-
+    <script>
+                    VirtualSelect.init({
+                        ele: '#protokolSelect'
+                    });
+                </script>
     <div class="d-flex justify-content-between mb-3">
 
         <button type="button" class="btn btn-light flex-fill mx-1" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">

@@ -11,7 +11,7 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id);
 ?>
 
 <form action="" id="manage-attendance">
-    <select name="agenda_id" id="agenda_id" class="form-select styled-select-dark" required="required">
+    <select id="agenda_id" name="agenda_id" data-search="true" class="styled-select w-100 mb-3" required="required" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;"> <!-- This should work but it doesn't -->
         <option value="" disabled <?= empty($agenda_id) ? "selected" : "" ?>> -- Select Agenda -- </option>
         <?php if (!empty($agendaList) && is_array($agendaList)) : ?>
             <?php foreach ($agendaList as $row) : ?>
@@ -19,6 +19,12 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id);
             <?php endforeach; ?>
         <?php endif; ?>
     </select>
+    <!--Activates Virtual Selector-->
+    <script>
+        VirtualSelect.init({
+            ele: '#agenda_id'
+        });
+    </script>
     <?php if (!empty($agenda_id)) : ?>
         <div class="card shadow mb-3 dark-card">
             <div class="card-header rounded-0">
@@ -148,9 +154,9 @@ $memberList = $actionClass->attendanceMembersByAgenda($agenda_id);
             </div>
         </div>
         <hr>
-        <div class="d-flex w-100 justify-content-center align-items-center"> 
+        <div class="d-flex w-100 justify-content-center align-items-center">
             <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                <button class="btn btn-primary rounded-pill w-100"  type="submit">Save Attendance</button>
+                <button class="btn btn-primary rounded-pill w-100" type="submit">Save Attendance</button>
             </div>
         </div>
     <?php endif; ?>

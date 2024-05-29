@@ -19,6 +19,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <!--Link to Select2 Plugin JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
+    <!--Link to Virtual select Plugin CSS-->
+    <link rel="stylesheet" href="../plugins\virtual_select\virtual-select.min.css">
+    <!--Link to Virtual select Plugin JS-->
+    <script src="../plugins/virtual_select/virtual-select.min.js"></script>
 
 </head>

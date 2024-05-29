@@ -61,6 +61,8 @@ text-align: center;
   box-shadow: 0 0 5px #4caf50; /* Add a subtle shadow when focused */
   background-color: #37474f; /* Slightly darker blue-grey background when focused */
 }
+
+/** Is this all needed? **/ 
 .styled-select-dark {
   width: 100px !important;
   padding: 10px !important;
@@ -89,4 +91,27 @@ text-align: center;
   padding: 10px !important;
   background-color: #333 !important;
   color: #fff !important;
+}
+
+/** until here? **/
+
+
+/** Virtual Selector CSS **/
+.styled-select-dark option {
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+}
+
+.vscomp-toggle-button{
+	background-color: #333;
+  color:white;
+  border-radius: 2%;
+  border-color: #444;
+}
+
+.vscomp-ele-wrapper{
+  margin-left: auto;
+  margin-right: auto;
+  /**width: 50em !important; **/
 }
