@@ -14,7 +14,7 @@
 }
 
 a {
-	color:white;
+	color:white !important;
 	text-decoration: none;
 }
 
@@ -91,4 +91,14 @@ input::placeholder{
 
 #calendar {
 	color: white;
+}
+
+#personalTaskLabel{
+	color:white !important;
+	margin-left: 3.7em;
+
+}
+
+.vscomp-value{
+	color:black;
 }
