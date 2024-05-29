@@ -40,6 +40,9 @@ if (isset($_SESSION['selected_team'])) {
                 <li class="nav-item">
                     <a class="nav-link <?= (isset($page)) && $page == 'attendance_report' ? 'active' : '' ?>" href="/Daimler/php-attendance/?page=attendance_report">Report</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= (isset($page)) && $page == 'attendance_report' ? 'active' : '' ?>" href="/Daimler/search.php">Search</a>
+                </li>
             </ul>
         </div>
         <?php if(empty($selected_team) || $selected_team === ""): ?>
