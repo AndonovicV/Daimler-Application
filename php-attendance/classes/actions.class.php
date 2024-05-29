@@ -277,8 +277,22 @@ class Actions{
     public function list_guest(){
         $sql = "SELECT `guests_tbl`.*, `dept_tbl`.`name` as `dept` FROM `guests_tbl` inner join `dept_tbl` on `guests_tbl`.`dept_id` = `dept_tbl`.`id` order by `guests_tbl`.`name` ASC";
         $qry = $this->conn->query($sql);
-        return $qry->fetch_all(MYSQLI_ASSOC);
+        $result = $qry->fetch_all(MYSQLI_ASSOC);
+        
+        // Add the 'present' and 'substitute' keys to each guest row
+        foreach ($result as &$row) {
+            // Initialize the 'present' and 'substitute' keys if they are not set
+            if (!isset($row['present'])) {
+                $row['present'] = ''; // Set default value for 'present'
+            }
+            if (!isset($row['substitute'])) {
+                $row['substitute'] = ''; // Set default value for 'substitute'
+            }
+        }
+        
+        return $result;
     }
+    
     public function get_guest($id=""){
         $sql = "SELECT `guests_tbl`.*, `dept_tbl`.`name` as `dept` FROM `guests_tbl` inner join `dept_tbl` on `guests_tbl`.`dept_id` = `dept_tbl`.`id` where `guests_tbl`.`id` = '{$id}'";
         $qry = $this->conn->query($sql);

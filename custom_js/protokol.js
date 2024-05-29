@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    //$('#agendaTable').hide();
+    //$('#protokolTable').hide();
     showTable();
 
     // Initial DataTable initialization
-    $('#agendaTable').dataTable({
+    $('#protokolTable').dataTable({
 
         "order": [],
         "paging": false, // Disable pagination
@@ -20,19 +20,19 @@ $(document).ready(function () {
     new DateTime(document.getElementById('deadlineDatePicker'), {
         format: 'D/M/YYYY'
     });
-    $('#agendaSelect').change(function () {
-        var selectedAgenda = $(this).val();
-        if (selectedAgenda !== "") {
+    $('#protokolSelect').change(function () {
+        var selectedProtokol = $(this).val();
+        if (selectedProtokol !== "") {
             // Load new data into the DataTable (not reinitializing)
             // You may need to implement the logic to fetch and load new data based on the selection
-            //$('#agendaTable').DataTable().ajax.reload();
+            //$('#protokolTable').DataTable().ajax.reload();
         }
     });
 
     // Creating New Row
     var counter = 1;
 
-    function addNewRow(clickedCell, agendaId) {
+    function addNewRow(clickedCell, protokolId) {
         var newRow = $(`
             <tr id="${counter}">
                 <td>
@@ -42,15 +42,15 @@ $(document).ready(function () {
                     </select>
                 </td>
                 <td class="contenteditable description" contenteditable="true"></td>
-                <td style="width:300px;">
-                    <input type="text" class="contenteditable responsible" style="width:100px;">
-                    <input type="text" class="deadlineDatePicker" style="width:50px;">
+                <td class="contenteditable responsible" contenteditable="true">Responsible</td>
+                <td style="width:200px;">
+                    <input type="text" class="deadlineDatePicker" style="width:100px;">
                     <button class="asapBtn" role="button">ASAP</button>
                 </td>
                 <td>
                     <button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button>
                 </td>
-                <td><button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→</button></td>
+                <td><input type='checkbox'></td>
             </tr>
         `);
         counter++;
@@ -104,7 +104,7 @@ $(document).ready(function () {
         project = project.substring("title for".length).trim();
         gft = gft.substring("GFT".length).trim();
         newRow.find('.contenteditable').on('blur', function () {
-            saveToDatabase(newRow, gft, project, agendaId);
+            saveToDatabase(newRow, gft, project, protokolId);
         });
     }
 
@@ -112,13 +112,13 @@ $(document).ready(function () {
     $(document).ready(function () { //adding new row
 
         $(document).on('click', '.addRow', function () {
-            var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
-            if (agendaId) {
-                addNewRow(this, agendaId);
+            var protokolId = $('#protokolSelect').val(); // Get the selected protokol_id
+            if (protokolId) {
+                addNewRow(this, protokolId);
                 saveToDatabase();
             }
             else {
-                alert("Please select or create an agenda to continue.")
+                alert("Please select or create a protokol to continue.")
             }
 
         });
@@ -155,7 +155,7 @@ $(document).ready(function () {
         var content = newRow.find('td:eq(1)').text().trim();
         var responsible = newRow.find('td:eq(2)').text().trim();
         var ajaxData = {
-            agendaId: $('#agendaSelect').val(),
+            protokolId: $('#protokolSelect').val(),
             content: content,
             responsible: responsible,
             gft: gft,
@@ -183,43 +183,43 @@ $(document).ready(function () {
 
 
     function showTable() {
-        $('#agendaTable').show();
+        $('#protokolTable').show();
     }
 
-    $('#createAgendaBtn').click(function () {
-        $('#createAgendaModal').modal('show');
+    $('#createProtokolBtn').click(function () {
+        $('#createProtokolModal').modal('show');
     });
 
-    $('#createAgendaConfirmBtn').click(function () {
-        var newAgendaName = $('#agendaName').val();
-        var newAgendaDate = $('#agendaDate').val();
-        var agendaid
-        if (newAgendaName.trim() === '' || newAgendaDate.trim() === '') {
-            alert('Please provide both agenda name and date.');
+    $('#createProtokolConfirmBtn').click(function () {
+        var newProtokolName = $('#protokolName').val();
+        var newProtokolDate = $('#protokolDate').val();
+        var protokolid
+        if (newProtokolName.trim() === '' || newProtokolDate.trim() === '') {
+            alert('Please provide both protokol name and date.');
             return;
         }
 
         $.ajax({
             type: 'POST',
             url: 'actions.php',
-            data: { agenda_name: newAgendaName, agenda_date: newAgendaDate },
+            data: { protokol_name: newProtokolName, protokol_date: newProtokolDate },
             success: function (response) {
                 alert(response);
-                agendaid = response;
+                protokolid = response;
             },
             error: function (xhr, status, error) {
                 console.error(error);
             }
         });
 
-        window.location.href = 'mt_agenda.php?agenda_id=' + agendaid;
+        window.location.href = 'mt_protokol.php?protokol_id=' + protokolid;
 
     });
 
-    $('#agendaSelect').change(function () {
-        var selectedAgendaId = $(this).val();
-        if (selectedAgendaId) {
-            window.location.href = 'mt_agenda.php?agenda_id=' + selectedAgendaId;
+    $('#protokolSelect').change(function () {
+        var selectedProtokolId = $(this).val();
+        if (selectedProtokolId) {
+            window.location.href = 'protokol.php?protokol_id=' + selectedProtokolId;
         }
     }
     );
@@ -238,11 +238,5 @@ $(document).ready(function () {
                 console.error(error);
             }
         });
-    });
-
-    $('#agendaDate').datepicker({
-        format: 'yyyy/mm/dd',
-        autoclose: true,
-        todayHighlight: true
     });
 });

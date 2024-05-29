@@ -1,0 +1,117 @@
+
+
+ #mt_protokol_test2 { 
+    margin-top: 50em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20em;
+    border: 1px solid white;
+}
+
+
+.asap-active {
+    color: red;
+}
+.col-md-6{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container{
+text-align: center;
+}
+
+
+.button-12 {
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+
+  background: #6E6D70;
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+  color: #DFDEDF;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-12:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+.asap-active {
+  color: red;
+}
+
+.editable-cell {
+  background-color: #263238; /* Dark blue-grey background */
+  color: #ffffff; /* White text color */
+  border: 1px dashed #4caf50; /* Dashed border in green */
+  padding: 5px; /* Some padding for better readability */
+  cursor: text; /* Indicate text editing */
+}
+
+.editable-cell:focus {
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 5px #4caf50; /* Add a subtle shadow when focused */
+  background-color: #37474f; /* Slightly darker blue-grey background when focused */
+}
+
+/** Is this all needed? **/ 
+.styled-select-dark {
+  width: 100px !important;
+  padding: 10px !important;
+  font-size: 16px !important;
+  border: 1px solid #444 !important;
+  border-radius: 4px !important;
+  background-color: #333 !important;
+  color: #ffffff !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url('path/to/your-arrow-icon-light.png') !important; /* Custom arrow icon for dark mode */
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 12px !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.styled-select-dark:focus {
+  border-color: #888 !important;
+  outline: none !important;
+  box-shadow: 0 0 8px rgba(136, 136, 136, 0.6) !important;
+}
+
+.styled-select-dark option {
+  padding: 10px !important;
+  background-color: #333 !important;
+  color: #fff !important;
+}
+
+/** until here? **/
+
+
+/** Virtual Selector CSS **/
+.styled-select-dark option {
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+}
+
+.vscomp-toggle-button{
+	background-color: #333;
+  color:white;
+  border-radius: 2%;
+  border-color: #444;
+}
+
+.vscomp-ele-wrapper{
+  margin-left: auto;
+  margin-right: auto;
+  /**width: 50em !important; **/
+}

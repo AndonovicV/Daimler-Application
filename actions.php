@@ -13,32 +13,50 @@ if (isset($_SESSION['selected_team'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the necessary data is set
     if (isset($_POST['agendaId'])) {
-        // Assign POST data to variables
+        // Assign POST data to variables, using null coalescing to handle missing keys
         $agendaId = $_POST['agendaId'];
-        $content = $_POST['content'];
-        $responsible = $_POST['responsible'];
-        $gft = $_POST['gft'];
-        $cr = $_POST['cr'];
+        $content = $_POST['content'] ?? '';
+        $responsible = $_POST['responsible'] ?? '';
+        $gft = $_POST['gft'] ?? '';
+        $cr = $_POST['cr'] ?? '';
+
+        // Debugging: Echo the received data
+        echo "Received Data:<br>";
+        echo "Agenda ID: " . htmlspecialchars($agendaId) . "<br>";
+        echo "Content: " . htmlspecialchars($content) . "<br>";
+        echo "Responsible: " . htmlspecialchars($responsible) . "<br>";
+        echo "GFT: " . htmlspecialchars($gft) . "<br>";
+        echo "CR: " . htmlspecialchars($cr) . "<br>";
 
         // Check if it's a task or a topic
         if (isset($_POST['taskContent'])) {
             // It's a task
             $sql = "INSERT INTO tasks (agenda_id, name, responsible, gft, cr, details) 
-                    VALUES ('$agendaId', '$content', '$responsible', '$gft', '$cr', '')";
+                    VALUES (?, ?, ?, ?, ?, '')";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("issss", $agendaId, $content, $responsible, $gft, $cr);
+            echo "Inserting as Task<br>";
         } elseif (isset($_POST['topicContent'])) {
             // It's a topic
-            $sql = "INSERT INTO topics (agenda_id,name, responsible, gft, cr, details) 
-                    VALUES ('$agendaId', '$content', '$responsible', '$gft', '$cr', '')";
+            $sql = "INSERT INTO topics (agenda_id, name, responsible, gft, cr, details) 
+                    VALUES (?, ?, ?, ?, ?, '')";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("issss", $agendaId, $content, $responsible, $gft, $cr);
+            echo "Inserting as Topic<br>";
+        } else {
+            echo "Error: Neither taskContent nor topicContent is set<br>";
         }
 
-        // Execute the SQL query
-        if ($conn->query($sql) === TRUE) {
-            // If the query was successful, send a success message
+        // Debugging: Echo the SQL query
+        echo "SQL Query: " . htmlspecialchars($sql) . "<br>";
+
+        if ($stmt->execute()) {
             echo "Data saved successfully";
         } else {
-            // If there was an error with the query, send an error message
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $stmt->error;
         }
+
+        $stmt->close();
     } else {
         // If agendaId is not set, send an error message
         echo "Error: Agenda ID is not set";
@@ -52,16 +70,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // mt_agenda delete row
 if (isset($_POST['rowId'])) {
     $rowId = $_POST['rowId'];
-    //echo $rowId; // Corrected variable name
-    $sql = "DELETE FROM mt_agenda WHERE CONCAT(`mt_agenda`.`item_id`) = '$rowId'";
-    echo "SQL query: " . $sql; // Echo the SQL query
-    if ($conn->query($sql) === TRUE) {
-        //echo "Row deleted successfully.";
-    } else {
-        //echo "Error deleting row: " . $conn->error;
+    $rowType = $_POST['rowType'];
+
+    switch ($rowType) {
+        case 'topic':
+            // Delete Topic logic
+            $sql = "DELETE FROM topics WHERE id = ?";
+            break;
+        case 'task':
+            // Delete Task logic
+            $sql = "DELETE FROM tasks WHERE id = ?";
+            break;
+        default:
+            echo "Invalid row type";
+            exit;
     }
-} else {
-    //echo "RowId not provided.";
+    echo $stmt;
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $rowId);
+    if ($stmt->execute()) {
+        echo "Row deleted successfully";
+    } else {
+        echo "Error deleting row: " . $conn->error;
+    }
+
+    $stmt->close();
+    $conn->close();
 }
 // fetching agenda data based on the selected agenda ID
 // Check if agenda_id is set in the POST request
@@ -140,8 +174,6 @@ if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda
     } else {
         echo "Error creating new agenda: " . $conn->error;
     }
-} else {
-    echo "Agenda name or date not provided.";
 }
 // PERSONAL NOTES
 if(isset($_POST['selectedAgendaId'])) {
@@ -164,6 +196,38 @@ if(isset($_POST['selectedAgendaId'])) {
     }
 }
 
+//PERSONAL TASK index.php
+if (isset($_POST['save_task_trigger'])) {
+    $summary = $conn->real_escape_string($_POST['summary']);
+    $user_id = intval($_POST['user_id']);
+
+    // Check if there's already a record for the user
+    $check_sql = "SELECT * FROM personal_tasks WHERE user_id = $user_id";
+    $check_result = $conn->query($check_sql);
+
+    if ($check_result->num_rows > 0) {
+        // Update existing record
+        $update_sql = "UPDATE personal_tasks SET summary = '$summary' WHERE user_id = $user_id";
+
+        if ($conn->query($update_sql) === TRUE) {
+            echo "Record updated successfully";
+            header("Location:index.php");
+        } else {
+            echo "Error updating record: " . $conn->error;
+        }
+    } else {
+        // Insert new record if no record found for the user
+        $insert_sql = "INSERT INTO personal_tasks (user_id, summary) VALUES ($user_id, '$summary')";
+
+        if ($conn->query($insert_sql) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $insert_sql . "<br>" . $conn->error;
+        }
+    }
+}
+
+//PERSONAL TASK mt agenda and protokoll
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $summary = $conn->real_escape_string($_POST['summary']);
     $user_id = intval($_POST['user_id']);

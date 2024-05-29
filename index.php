@@ -14,18 +14,17 @@ if (isset($_SESSION['selected_team'])) {
 $sql_module_teams = "SELECT name FROM org_moduleteams";
 $result_module_teams = $conn->query($sql_module_teams);
 
-
 //Personal task variables
 $user_id = 1; // Example user ID
 $sql_personal_tasks = "SELECT summary FROM personal_tasks WHERE user_id = $user_id ORDER BY id DESC LIMIT 1";
 $result_personal_tasks = $conn->query($sql_personal_tasks);
 
 if ($result_personal_tasks->num_rows > 0) {
-    // Output data of each row
-    $row = $result_personal_tasks->fetch_assoc();
-    $summary = $row['summary'];
+	// Output data of each row
+	$row = $result_personal_tasks->fetch_assoc();
+	$summary = $row['summary'];
 } else {
-    $summary = "";
+	$summary = "";
 }
 ?>
 <!DOCTYPE HTML>
@@ -101,8 +100,8 @@ if ($result_personal_tasks->num_rows > 0) {
 			<nav>
 				<ul>
 					<li><a href="mt_agenda.php">MT Agenda</a></li>
-					<li><a href="#contact">Protokoll</a></li>
-					<li><a href="php-attendance/?page=attendance">Deckblatt</a></li>
+					<li><a href="protokol.php">Protokoll</a></li>
+					<li><a href="php-attendance/?page=attendance">Attendance</a></li>
 					<!-- <li><a href="#list_mm">List MM</a></li> -->
 					<li><a href="#personalTaskModal">Personal Task</a></li>
 					<li><a href="plugins\calendar\calendar.html">Calendar</a></li>
@@ -261,17 +260,19 @@ if ($result_personal_tasks->num_rows > 0) {
 
 			<!-- Personal Task Modal -->
 			<article id="personalTaskModal">
-        <h2 id="personalTaskLabel">Personal Task</h2>
-        <div class="modal-body">
-            <form action="actions.php" method="POST">
-                <div class="field">
-                    <textarea name="summary" id="summary" rows="16" class="text" style="width: 100%;"><?php echo htmlspecialchars($summary); ?></textarea>
-                </div>
-                <input type="hidden" name="user_id" value="1"> <!-- Example user ID -->
-                <button type="submit">Save Task</button>
-            </form>
-        </div>
-    </article>
+				<!-- Agenda Select -->
+				<h2 id="personalTaskLabel">Personal Task</h2>
+				<div class="modal-body">
+					<form action="actions.php" method="POST">
+						<div class="field">
+							<textarea name="summary" id="summary" rows="16" class="text" style="width: 100%;"><?php echo htmlspecialchars($summary); ?></textarea>
+						</div>
+						<input type="hidden" name="user_id" value="<?php echo $user_id; ?>"> <!-- Example user ID -->
+						<input type="hidden" name="save_task_trigger" value="1"> <!-- Trigger for saving task -->
+						<button type="submit">Save Task</button>
+					</form>
+				</div>
+			</article>
 		</div>
 
 		<!-- Footer -->
