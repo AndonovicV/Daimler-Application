@@ -171,9 +171,9 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                     To Protokoll
                 </button>
                 <select id="changeRequestSelect" data-search="true" class="styled-select w-10" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
-                    <option value="">Change Request Filter</option>
+                    <option value="">Filter Change Request</option>
                     <?php
-                    $sql = "SELECT * FROM change_requests WHERE fasttrack = 'Yes' AND `lead_module_team` = '$selected_team'";
+                    $sql = "SELECT title FROM change_requests WHERE lead_module_team = '$selected_team' AND fasttrack = 'Yes'";
                     $stmt = $conn->prepare($sql);
                     // No need for bind_param as the SQL query has no placeholders
                     $stmt->execute();
