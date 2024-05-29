@@ -35,21 +35,19 @@ $conn->close();
 
 <body>
 <div class="container">
-    <div class="container mt-5">
-        <h1 style="color: #777" class='mt-4'>Search</h1>
-        <div class="mb-3">
-            <input 
-                type="text" 
-                id="searchBox" 
-                class="w-100" 
-                style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align: center!important;" 
-                placeholder="Enter your search query..." />
-        </div>
-        <div class="d-flex justify-content-center mb-3">
-            <button type="button" class="btn btn-primary" id="searchButton" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
-                Search
-            </button>
-        </div>
+<div class="container mt-5">
+    <h1 style="color: #777" class='mt-4'>Search</h1>
+    <div class="d-flex mb-3">
+        <input 
+            type="text" 
+            id="searchBox" 
+            class="w-100" 
+            style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align: center!important;" 
+            placeholder="                     Enter your search query..." />
+        <button type="button" class="btn btn-primary ms-2" id="searchButton" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
+            Search
+        </button>
+    </div>
         
         <div id="searchResults" class="mt-4" style="color: #777"></div>
 

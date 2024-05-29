@@ -17,7 +17,7 @@ $tables = [
     'change_requests' => ['title', 'project', 'lead_gft', 'lead_module_team'],
     'dept_tbl' => ['name'],
     'guests_tbl' => ['name'],
-    'mt_agenda_list' => ['agenda_date', 'module_team'],
+    'mt_agenda_list' => ['agenda_date', 'module_team', 'agenda_id'], // Include agenda_id here
     'org_gfts' => ['name', 'moduleteam'],
     'tasks' => ['name', 'responsible', 'gft', 'cr'],
     'topics' => ['name', 'responsible', 'gft', 'cr'],
@@ -43,19 +43,35 @@ foreach ($tables as $table => $columns) {
     }
 
     if ($result && $result->num_rows > 0) {
+        // Start a new section for the table's results
+        $resultsHTML .= "<div class='table-results'>";
         $resultsHTML .= "<h2>Results from Table: $table</h2>";
+        
+        // Start a new section for the table's results
         while ($row = $result->fetch_assoc()) {
-            $resultsHTML .= "<p>";
+            // Format each row of the result as a card
+            $resultsHTML .= "<div class='card'>";
+            $resultsHTML .= "<div class='card-body'>";
             foreach ($row as $key => $value) {
-                $resultsHTML .= "<strong>$key:</strong> $value<br>";
+                // Customize the formatting of each key-value pair
+                if ($key === 'cr' or $key === 'ID') {
+                // Make agenda IDs clickable links
+                $value = "<a href='cr.php?agenda_id=$value'>$value</a>";
+                }
+                // Customize the formatting of each key-value pair
+                if ($key === 'agenda_id') {
+                    // Make agenda IDs clickable links
+                    $value = "<a href='mt_agenda.php?agenda_id=$value'>$value</a>";
+                }
+                $resultsHTML .= "<p><strong>$key:</strong> $value</p>";
             }
-            $resultsHTML .= "</p>";
+            $resultsHTML .= "</div>"; // Close card-body
+            $resultsHTML .= "</div>"; // Close card
         }
+        $resultsHTML .= "</div>"; // Close table-results
     } else {
-        error_log("No results found for query: $sql");
-    }
-    if ($resultsHTML == "") {
-        $resultsHTML .= "<p>No results found.</p>";
+        // No results found for the table
+        $resultsHTML .= "<p>No results found in Table: $table</p>";
     }
 }
 
