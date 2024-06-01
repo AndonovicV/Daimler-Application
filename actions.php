@@ -36,6 +36,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("issss", $agendaId, $content, $responsible, $gft, $cr);
             echo "Inserting as Task<br>";
+            if ($stmt->execute()) {
+                echo "Data saved successfully";
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+            echo 'Task successfully created';
+            $sql_get_task_id = "SELECT id FROM tasks WHERE agenda_id = ? AND name = ?";
+            $stmt_get_task_id = $conn->prepare($sql_get_task_id);
+            $stmt_get_task_id->bind_param("is", $agendaId, $content);
+            $stmt_get_task_id->execute();
+            $result_task_id = $stmt_get_task_id->get_result();
+            
+            $row_task_id = $result_task_id->fetch_assoc();
+            $taskId = $row_task_id['id'];
+                        
+            // Insert into information table
+            $sql_information = "INSERT INTO information (agenda_id, gft, cr, task_id, content) VALUES (?, ?, ?, ?, ?)";
+            $stmt_information = $conn->prepare($sql_information);
+            $stmt_information->bind_param("isiss", $agendaId, $gft, $cr, $taskId, $content);
+            $stmt_information->execute();
+            
+            // Insert into assignment table
+            $sql_assignment = "INSERT INTO assignment (agenda_id, gft, cr, task_id, content) VALUES (?, ?, ?, ?, ?)";
+            $stmt_assignment = $conn->prepare($sql_assignment);
+            $stmt_assignment->bind_param("isiss", $agendaId, $gft, $cr, $taskId, $content);
+            $stmt_assignment->execute();
+            
+            // Insert into decision table
+            $sql_decision = "INSERT INTO decision (agenda_id, gft, cr, task_id, content) VALUES (?, ?, ?, ?, ?)";
+            $stmt_decision = $conn->prepare($sql_decision);
+            $stmt_decision->bind_param("isiss", $agendaId, $gft, $cr, $taskId, $content);
+            $stmt_decision->execute();
+
         } elseif (isset($_POST['topicContent'])) {
             // It's a topic
             $sql = "INSERT INTO topics (agenda_id, name, responsible, gft, cr, details) 
@@ -43,6 +76,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("issss", $agendaId, $content, $responsible, $gft, $cr);
             echo "Inserting as Topic<br>";
+            if ($stmt->execute()) {
+                echo "Data saved successfully";
+            } else {
+                echo "Error: " . $stmt->error;
+            }
         } else {
             echo "Error: Neither taskContent nor topicContent is set<br>";
         }
@@ -50,12 +88,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Debugging: Echo the SQL query
         echo "SQL Query: " . htmlspecialchars($sql) . "<br>";
 
-        if ($stmt->execute()) {
-            echo "Data saved successfully";
-        } else {
-            echo "Error: " . $stmt->error;
-        }
 
+
+        $stmt_task->close();
+        $stmt_information->close();
+        $stmt_assignment->close();
+        $stmt_decision->close();
         $stmt->close();
     } else {
         // If agendaId is not set, send an error message

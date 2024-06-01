@@ -159,7 +159,7 @@ if ($result_personal_tasks->num_rows > 0) {
         </div>
 
 
-        <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
+    <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -218,6 +218,38 @@ if ($result_personal_tasks->num_rows > 0) {
         </div>
     </div>
 </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add event listener for the ✓ button
+                document.querySelectorAll('.save-btn').forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var taskId = this.getAttribute('data-task-id');
+                        var rowType = this.getAttribute('data-row-type');
+                        var content = this.closest('tr').querySelector('.editable-cell').innerText;
+
+                        // Send AJAX request to save the content
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'saveContent.php', true);
+                        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                if (xhr.status === 200) {
+                                    console.log('Content saved successfully');
+                                } else {
+                                    console.error('Failed to save content');
+                                }
+                            }
+                        };
+                        xhr.send(JSON.stringify({
+                            task_id: taskId,
+                            row_type: rowType,
+                            content: content
+                        }));
+                    });
+                });
+            });
+        </script>
+
 
 
         <table id="protokolTable" class="display">
@@ -320,29 +352,54 @@ if ($result_personal_tasks->num_rows > 0) {
                     echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button> <button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→</button></td>"; // Actions
                     echo "</tr>";
 
-                    echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
-                    echo "<td><strong>I</strong></td>"; // Empty column for module team
-                    echo "<td class='editable-cell' contenteditable='true'> Information for the task </td>"; // Type
-                    echo "<td></td>"; // Responsible
-                    echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button></td>"; // Actions
-                    echo "</tr>";
+                    // Load rows from information table
+                    $sql_information = "SELECT * FROM information WHERE task_id = ?";
+                    $stmt_information = $conn->prepare($sql_information);
+                    $stmt_information->bind_param('i', $row_task["id"]);
+                    $stmt_information->execute();
+                    $result_information = $stmt_information->get_result();
 
-                    echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
-                    echo "<td><strong>A</strong></td>"; // Empty column for module team
-                    echo "<td class='editable-cell' contenteditable='true'> Assignment for the task </td>"; // Type
-                    echo "<td></td>"; // Responsible
-                    echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button></td>"; // Actions
-                    echo "</tr>";
+                    while ($row_information = $result_information->fetch_assoc()) {
+                        echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                        echo "<td><strong>I</strong></td>"; // Empty column for module team
+                        echo "<td class='editable-cell' contenteditable='true'>"  .  htmlspecialchars($row_information["content"]) . "</td>"; // Type
+                        echo "<td></td>"; // Responsible
+                        echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button> <button class='button-12 save-btn' data-task-id='{$row_task["id"]}' data-row-type='I' role='button'>✓</button></td>"; // Actions
+                        echo "</tr>";
+                    }
 
-                    echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
-                    echo "<td><strong>D</strong></td>"; // Empty column for module team
-                    echo "<td class='editable-cell' contenteditable='true'> Decision for the task </td>"; // Type
-                    echo "<td></td>"; // Responsible
-                    echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button></td>"; // Actions
-                    echo "</tr>";
+                    // Load rows from assignment table (similar process as information)
+                    $sql_assignment = "SELECT * FROM assignment WHERE task_id = ?";
+                    $stmt_assignment = $conn->prepare($sql_assignment);
+                    $stmt_assignment->bind_param('i', $row_task["id"]);
+                    $stmt_assignment->execute();
+                    $result_assignment = $stmt_assignment->get_result();
 
+                    while ($row_assignment = $result_assignment->fetch_assoc()) {
+                        echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                        echo "<td><strong>A</strong></td>"; // Empty column for module team
+                        echo "<td class='editable-cell' contenteditable='true'>" .  htmlspecialchars($row_assignment["content"]) . "</td>"; // Type
+                        echo "<td></td>"; // Responsible
+                        echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button> <button class='button-12 save-btn' data-task-id='{$row_task["id"]}' data-row-type='A' role='button'>✓</button></td>"; // Actions
+                        echo "</tr>";
+                    }
+
+                    // Load rows from decision table (similar process as information)
+                    $sql_decision = "SELECT * FROM decision WHERE task_id = ?";
+                    $stmt_decision = $conn->prepare($sql_decision);
+                    $stmt_decision->bind_param('i', $row_task["id"]);
+                    $stmt_decision->execute();
+                    $result_decision = $stmt_decision->get_result();
+
+                    while ($row_decision = $result_decision->fetch_assoc()) {
+                        echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                        echo "<td><strong>D</strong></td>"; // Empty column for module team
+                        echo "<td class='editable-cell' contenteditable='true'>" . htmlspecialchars($row_decision["content"]) . "</td>"; // Type
+                        echo "<td></td>"; // Responsible
+                        echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button> <button class='button-12 save-btn' data-task-id='{$row_task["id"]}' data-row-type='D' role='button'>✓</button></td>"; // Actions
+                        echo "</tr>";
+                    }
                 }
-
             }
         }
         ?>
