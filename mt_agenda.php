@@ -246,149 +246,132 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                 </div>
             </div>
         </div>
-        <!-- Personal Task Modal -->
-        <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="forwardModal">Forward task</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="field">
-                            <label for="agendaSelect">Select Agenda:</label>
-                            <select id="agendaSelect" data-search="true" class="form-select">
-                                <option value="">Select Agenda...</option>
-                                <?php
-                                // Example variables
-                                $selectedAgendaId = 1; // Example selected agenda ID
+<div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="forwardModalLabel">Forward</h1>
+            </div>
+            <div class="modal-body">
+                <div class="field">
+                    <label for="agendaSelectTask">Select Agenda:</label>
+                    <select id="agendaSelectTask" data-search="true" class="form-select">
+                        <option value="">Select Agenda...</option>
+                        <?php
 
-                                // Enable error reporting
-                                ini_set('display_errors', 1);
-                                ini_set('display_startup_errors', 1);
-                                error_reporting(E_ALL);
+                        $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                        $stmt = $conn->prepare($sql);
 
-                                // Prepare the SQL query with a placeholder for the selected team
-                                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                        if ($stmt) {
+                            $stmt->bind_param('s', $selected_team);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
 
-                                // Initialize the statement
-                                $stmt = $conn->prepare($sql);
-
-                                // Check if the statement was prepared successfully
-                                if ($stmt) {
-                                    // Bind the parameter to the prepared statement
-                                    $stmt->bind_param('s', $selected_team); // Use 'i' if module_team is an integer
-
-                                    // Print the SQL statement and parameters to the console
-                                    echo "<script>console.log('SQL: " . $sql . "');</script>";
-                                    echo "<script>console.log('Selected Team: " . $selected_team . "');</script>";
-
-                                    // Execute the statement
-                                    $stmt->execute();
-
-                                    // Get the result
-                                    $result = $stmt->get_result();
-
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            // Check if the current option is the selected one
-                                            $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
-                                                . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
-                                                . "</option>";
-                                        }
-                                    } else {
-                                        echo "<script>console.log('No results found');</script>";
-                                    }
-
-                                    // Close the statement
-                                    $stmt->close();
-                                } else {
-                                    // Handle potential errors
-                                    echo "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
-                                    echo "<script>console.log('Error: " . htmlspecialchars($conn->error) . "');</script>";
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
+                                    echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
+                                        . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
+                                        . "</option>";
                                 }
-                                ?>
-                            </select>
-                        </div>
+                            }
 
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="forwardModalsave" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">Save changes</button>
-                    </div>
+                            $stmt->close();
+                        } else {
+                            echo "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
             </div>
-        </div>
-        <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="forwardModal">Forward task</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="field">
-                            <label for="agendaSelect">Select Agenda:</label>
-                            <select id="agendaSelect" data-search="true" class="form-select">
-                                <option value="">Select Agenda...</option>
-                                <?php
-                                // Example variables
-                                $selected_team = 'TeamA'; // Example team
-                                $selectedAgendaId = 1; // Example selected agenda ID
-
-                                // Prepare the SQL query with a placeholder for the selected team
-                                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
-
-                                // Initialize the statement
-                                $stmt = $conn->prepare($sql);
-
-                                // Check if the statement was prepared successfully
-                                if ($stmt) {
-                                    echo "EYO";
-                                    // Bind the parameter to the prepared statement
-                                    $stmt->bind_param('s', $selected_team); // Use 'i' if module_team is an integer
-                                    // Execute the statement
-                                    $stmt->execute();
-                                    // Get the result
-                                    $result = $stmt->get_result();
-
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            // Check if the current option is the selected one
-                                            $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
-                                                . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
-                                                . "</option>";
-                                        }
-                                    }
-
-                                    // Close the statement
-                                    $stmt->close();
-                                } else {
-                                    // Handle potential errors
-                                    echo "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="forwardModalsave">Save changes</button>
-                    </div>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-light" id="sendTaskBtn" data-bs-dismiss="modal">Send</button>
             </div>
         </div>
-        <table id="agendaTable" class="display">
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
+    var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
+    var forwardModal = document.getElementById('forwardModal');
+    var sendTaskBtn = document.getElementById('sendTaskBtn');
+
+    forwardTaskBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var taskId = this.getAttribute('data-id');
+            forwardModal.setAttribute('data-task-id', taskId);
+
+            var modalTitle = forwardModal.querySelector('.modal-title');
+            modalTitle.textContent = 'Forward Task ID: ' + taskId;
+        });
+    });
+
+    forwardTopicBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var topicId = this.getAttribute('data-id');
+            forwardModal.setAttribute('data-topic-id', topicId);
+
+            var modalTitle = forwardModal.querySelector('.modal-title');
+            modalTitle.textContent = 'Forward Topic ID: ' + topicId;
+        });
+    });
+
+sendTaskBtn.addEventListener('click', function() {
+        console.log("Send button clicked");
+        var taskId = forwardModal.getAttribute('data-task-id');
+        var topicId = forwardModal.getAttribute('data-topic-id');
+        var selectedAgendaId = document.getElementById('agendaSelectTask').value;
+        console.log('Task ID:', taskId);
+        console.log('Topic ID:', topicId);
+        console.log('Selected Agenda ID:', selectedAgendaId);
+
+        // Create an object with the data to be sent
+        
+        var data = {};
+        if (taskId) {
+            data = {
+                task_id: taskId,
+                agenda_id: selectedAgendaId
+            };
+        } else {
+            data = {
+                topic_id: topicId,
+                agenda_id: selectedAgendaId
+            };
+        }
+
+        console.log('Data to send:', data);
+
+        // Perform the AJAX request
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'forwardtask.php', true);  // Changed URL to forwardtask.php
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log('Task successfully copied to the agenda');
+                } else {
+                    console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(data));
+
+    });
+});
+</script>
+
+       
+<table id="agendaTable" class="display">
             <thead>
                 <tr>
                     <th align="center">Type</th>
                     <th align="center"></th> <!--GFT/Change Request/Task description -->
                     <th align="center">Responsible</th>
-                    <th align="center" class="actions">Actions</th>
-                    <th align="center">M.R.</th>
+                    <th align="center" style="width: 225px;">Actions</th> <!-- Adjust the width as needed -->
                 </tr>
             </thead>
             <tbody>
@@ -400,7 +383,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         echo "<td><strong>GFT " . $row_gft["name"] . "</strong></td>"; // GFT
                         echo "<td></td>"; // Responsible 
                         echo "<td><button class='button-12 addRow' role='button'>+</button> </td>"; // Actions
-                        echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
+                        //echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
                         echo "</tr>";
                         // Fetch change requests based on $selected_team and $row_gft["name"]
                         $selected_team = $row_gft["moduleteam"];
@@ -414,7 +397,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                             echo "<td><strong>Change requests:</strong></td>"; // Change Request
                             echo "<td></td>"; // Responsible
                             echo "<td></td>"; // Actions
-                            echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
+                            //echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
                             echo "</tr>";
                             while ($row_change_request = $result_change_requests->fetch_assoc()) {
                                 echo "<tr>";
@@ -422,7 +405,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                 echo "<td>" . $row_change_request["title"] . "</a></td>"; // Change Request
                                 echo "<td></td>"; // Responsible
                                 echo "<td><button class='button-12 addRow' role='button'>+</button> </td>"; // Actions
-                                echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
+                                //echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
                                 echo "</tr>";
 
                                 // Fetch topics and tasks for this change request
@@ -434,7 +417,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                             echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
                             echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
                             echo "<td></td>"; // Empty column
-                            echo "<td></td>"; // Empty column
+                            //echo "<td></td>"; // Empty column
                             echo "</tr>";
 
                             // Fetch topics and tasks for this GFT only
@@ -447,7 +430,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                     echo "<td colspan='5'>No change requests for this team</td>";
                     echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
                     echo "<td></td>"; // Empty column
-                    echo "<td></td>"; // Empty column
+                    //echo "<td></td>"; // Empty column
                     echo "</tr>";
                 }
 
@@ -473,26 +456,38 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                             echo "<td><strong>Topic</strong></td>"; // Empty column for module team
                             echo "<td>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Type
                             echo "<td>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
-                            echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button></td>"; // Actions
-                            echo "<td><button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→</button></td>"; // Actions
+                            echo "<td><button class='button-12 addRow' role='button'>+</button> 
+                                    <button class='button-12 deleteRow' role='button'>-</button> 
+                                    <button data-bs-toggle='modal' data-bs-target='#forwardModal' 
+                                            data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' 
+                                            role='button'>→</button>  
+                                    <button data-bs-toggle='modal' data-bs-target='#forwardModal' 
+                                            data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' 
+                                            role='button'>→ →</button></td>"; // Actions
                             echo "</tr>";
                         }
                     }
-
+                    
                     $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL)";
                     $stmt_tasks = $conn->prepare($sql_tasks);
                     $stmt_tasks->bind_param('isss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped);
                     $stmt_tasks->execute();
                     $result_tasks = $stmt_tasks->get_result();
-
+                    
                     if ($result_tasks->num_rows > 0) {
                         while ($row_task = $result_tasks->fetch_assoc()) {
                             echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
                             echo "<td><strong>Task</strong></td>"; // Empty column for module team
                             echo "<td>" . htmlspecialchars($row_task["name"]) . "</td>"; // Type
                             echo "<td>" . htmlspecialchars($row_task["responsible"]) . "</td>"; // Responsible
-                            echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button></td>"; // Actions
-                            echo "<td><button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→</button></td>"; // Actions
+                            echo "<td><button class='button-12 addRow' role='button'>+</button> 
+                                    <button class='button-12 deleteRow' role='button'>-</button> 
+                                    <button data-bs-toggle='modal' data-bs-target='#forwardModal' 
+                                            data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' 
+                                            role='button'>→</button>  
+                                    <button data-bs-toggle='modal' data-bs-target='#forwardModal' 
+                                            data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' 
+                                            role='button'>→ →</button></td>"; // Actions
                             echo "</tr>";
                         }
                     }

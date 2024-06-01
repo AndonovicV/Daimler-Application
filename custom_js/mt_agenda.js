@@ -48,9 +48,8 @@ $(document).ready(function () {
                     <button class="asapBtn" role="button">ASAP</button>
                 </td>
                 <td>
-                    <button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button>
+                    <button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button> <button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→</button> <button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→ →</button>
                 </td>
-                <td><button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→</button></td>
             </tr>
         `);
         counter++;
