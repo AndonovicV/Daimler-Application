@@ -48,9 +48,14 @@ $(document).ready(function () {
                     <button class="asapBtn" role="button">ASAP</button>
                 </td>
                 <td>
+<<<<<<< HEAD
                     <button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button>
                 </td>
                 <td><button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→</button></td>
+=======
+                    <button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button> <button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→</button> <button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→ →</button>
+                </td>
+>>>>>>> aly2
             </tr>
         `);
         counter++;
@@ -109,7 +114,10 @@ $(document).ready(function () {
     }
 
 
+<<<<<<< HEAD
     $(document).ready(function () { //adding new row
+=======
+>>>>>>> aly2
 
         $(document).on('click', '.addRow', function () {
             var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
@@ -122,8 +130,11 @@ $(document).ready(function () {
             }
 
         });
+<<<<<<< HEAD
     });
 
+=======
+>>>>>>> aly2
 
     function deleteRow(clickedCell) {
         var row = $(clickedCell).closest('tr');
@@ -239,4 +250,62 @@ $(document).ready(function () {
             }
         });
     });
+<<<<<<< HEAD
 });
+=======
+
+    $('#agendaDate').datepicker({
+        format: 'yyyy/mm/dd',
+        autoclose: true,
+        todayHighlight: true
+    });
+
+    //Triggers the virtual select
+    VirtualSelect.init({
+        multiple: true,
+        search: true,
+        ele: '#changeRequestSelect'
+    });
+
+    // Track when the filter is focused
+    let filterDivFocused = false;
+    $('#changeRequestSelect').on('click', function () {
+        filterDivFocused = true;
+    });
+
+    // Warn if user selects filter before choosing agenda
+    $(document).on('click', '#changeRequestSelect', function () {
+        var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
+        if (agendaId) {
+           // Do stuff
+        } else {
+            alert("Please select or create an agenda to continue.");
+            $('#changeRequestSelect').hide();
+        }
+    });
+
+    // Add event listener to handle clicks outside the filterDiv
+    $(document).on('click', function (event) {
+        if (filterDivFocused && !$(event.target).closest('#filterDiv').length) {
+            filterDivFocused = false;
+            var selectedValues = $('#changeRequestSelect').val();
+            sendFilterData(selectedValues);
+        }
+    });
+
+    function sendFilterData(selectedValues) {
+        $.ajax({
+            type: "POST",
+            url: "actions.php", // Your PHP script to handle the data
+            data: { selected_titles: selectedValues },
+            success: function (response) {
+                console.log(response); // Handle success response
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("An error occurred: " + status + " " + error);
+            }
+        });
+    }
+});
+>>>>>>> aly2

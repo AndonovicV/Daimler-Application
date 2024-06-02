@@ -158,3 +158,27 @@ tbody #attendance-rpt-tbl td:first-child {
     margin-right: auto;
     width: 50%;
 }
+<<<<<<< HEAD
+=======
+
+/** Virtual Selector CSS **/
+.styled-select-dark option {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .vscomp-toggle-button{
+    background-color: #333;
+    color: black;
+    border-radius: 2%;
+    border-color: #444;
+  }
+  
+  .vscomp-ele-wrapper{
+    margin-left: auto;
+    margin-right: auto;
+    /**width: 50em !important; **/
+  }
+  
+>>>>>>> aly2

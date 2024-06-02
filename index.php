@@ -2,6 +2,7 @@
 include 'conn.php';
 session_start(); // Start the session if not already started
 if (isset($_POST['selected_team']) && !empty($_POST['selected_team'])) {
+<<<<<<< HEAD
     $_SESSION['selected_team'] = $_POST['selected_team'];
 }
 // Check if the session variable is set
@@ -13,6 +14,32 @@ if (isset($_SESSION['selected_team'])) {
 }
 $sql_module_teams = "SELECT name FROM org_moduleteams";
 $result_module_teams = $conn->query($sql_module_teams);
+=======
+	$_SESSION['selected_team'] = $_POST['selected_team'];
+}
+// Check if the session variable is set
+if (isset($_SESSION['selected_team'])) {
+	$selected_team = $_SESSION['selected_team'];
+	//echo($selected_team);
+} else {
+	$selected_team = ""; // Default value if not set
+}
+$sql_module_teams = "SELECT name FROM org_moduleteams";
+$result_module_teams = $conn->query($sql_module_teams);
+
+//Personal task variables
+$user_id = 1; // Example user ID
+$sql_personal_tasks = "SELECT summary FROM personal_tasks WHERE user_id = $user_id ORDER BY id DESC LIMIT 1";
+$result_personal_tasks = $conn->query($sql_personal_tasks);
+
+if ($result_personal_tasks->num_rows > 0) {
+	// Output data of each row
+	$row = $result_personal_tasks->fetch_assoc();
+	$summary = $row['summary'];
+} else {
+	$summary = "";
+}
+>>>>>>> aly2
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -21,6 +48,10 @@ $result_module_teams = $conn->query($sql_module_teams);
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aly2
 <head>
 	<!--TEMPLATE-->
 	<title>DOMM</title>
@@ -64,6 +95,7 @@ $result_module_teams = $conn->query($sql_module_teams);
 	<div id="wrapper">
 		<!-- Header -->
 		<header id="header">
+<<<<<<< HEAD
 		<form method="post" action="">
 		<select id="moduleTeamSelect" onchange="this.form.submit()" style="text-align: center; max-width: 300px; color: white;" name="selected_team">
 			<option value="">Select Module Team</option>
@@ -76,6 +108,20 @@ $result_module_teams = $conn->query($sql_module_teams);
 			?>
     	</select>
 		</form>
+=======
+			<form method="post" action="">
+				<select id="moduleTeamSelect" onchange="this.form.submit()" style="text-align: center; max-width: 300px; color: white;" name="selected_team">
+					<option value="">Select Module Team</option>
+					<?php
+					while ($row_module_team = $result_module_teams->fetch_assoc()) {
+						$team_name = $row_module_team["name"];
+						$selected = ($team_name == $selected_team) ? "selected" : "";
+						echo "<option value='$team_name' $selected>$team_name</option>";
+					}
+					?>
+				</select>
+			</form>
+>>>>>>> aly2
 			<div class="content">
 				<div class="inner">
 					<h1>DOMM</h1>
@@ -87,7 +133,11 @@ $result_module_teams = $conn->query($sql_module_teams);
 				<ul>
 					<li><a href="mt_agenda.php">MT Agenda</a></li>
 					<li><a href="protokol.php">Protokoll</a></li>
+<<<<<<< HEAD
 					<li><a href="php-attendance/?page=attendance">Deckblatt</a></li>
+=======
+					<li><a href="php-attendance/?page=attendance">Attendance</a></li>
+>>>>>>> aly2
 					<!-- <li><a href="#list_mm">List MM</a></li> -->
 					<li><a href="#personalTaskModal">Personal Task</a></li>
 					<li><a href="plugins\calendar\calendar.html">Calendar</a></li>
@@ -244,6 +294,7 @@ $result_module_teams = $conn->query($sql_module_teams);
 			<article id="about">
 			</article>
 
+<<<<<<< HEAD
 			<!--  al Task Modal -->
 			<article id="personalTaskModal">
 				<!-- Agenda Select -->
@@ -267,6 +318,21 @@ $result_module_teams = $conn->query($sql_module_teams);
 					<div class="field">
 						<textarea name="summary" id="summary" rows="4" class="text" style="width: 100%;"></textarea>
 					</div>
+=======
+			<!-- Personal Task Modal -->
+			<article id="personalTaskModal">
+				<!-- Agenda Select -->
+				<h2 id="personalTaskLabel">Personal Task</h2>
+				<div class="modal-body">
+					<form action="actions.php" method="POST">
+						<div class="field">
+							<textarea name="summary" id="summary" rows="16" class="text" style="width: 100%;"><?php echo htmlspecialchars($summary); ?></textarea>
+						</div>
+						<input type="hidden" name="user_id" value="<?php echo $user_id; ?>"> <!-- Example user ID -->
+						<input type="hidden" name="save_task_trigger" value="1"> <!-- Trigger for saving task -->
+						<button type="submit">Save Task</button>
+					</form>
+>>>>>>> aly2
 				</div>
 			</article>
 		</div>
