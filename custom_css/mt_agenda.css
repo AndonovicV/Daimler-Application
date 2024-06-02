@@ -83,12 +83,3 @@ text-align: center;
   border-color: #444;
 }
 
-.vscomp-ele-wrapper{
-  margin-left: auto;
-  margin-right: auto;
-  /**width: 50em !important; **/
-}
-
-.actionscolumn {
-  width: 250px; /* Adjust the width as needed */
-}

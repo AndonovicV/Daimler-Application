@@ -266,7 +266,7 @@ if (isset($_POST['save_task_trigger'])) {
 }
 
 //PERSONAL TASK mt agenda and protokoll
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {    // needs to be an if (isset($_POST trigger
     $summary = $conn->real_escape_string($_POST['summary']);
     $user_id = intval($_POST['user_id']);
 
@@ -294,4 +294,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+if (isset($_POST['selected_titles'])) {
+    $selected_titles = $_POST['selected_titles'];
+
+    // Sanitize and prepare the selected titles for use in SQL
+    $selected_titles_placeholder = implode(',', array_fill(0, count($selected_titles), '?'));
+
+    // Create the SQL query to update only the selected titles
+    $sql = "UPDATE change_requests SET filter_checkbox = CASE 
+            WHEN title IN ($selected_titles_placeholder) THEN 1 
+            ELSE 0 
+            END 
+            WHERE lead_module_team = ? AND fasttrack = 'Yes'";
+
+    $stmt = $conn->prepare($sql);
+
+    // Merge the selected titles with the team parameter
+    $params = array_merge($selected_titles, [$selected_team]);
+
+    // Dynamically bind the parameters
+    $types = str_repeat('s', count($selected_titles)) . 's'; // 's' for each title and one for $selected_team
+    $stmt->bind_param($types, ...$params);
+
+    if ($stmt->execute()) {
+        echo "Success";
+    } else {
+        echo "Error: " . $conn->error;
+    }
+} else {
+    echo "No data received";
+}
+
 ?>  
