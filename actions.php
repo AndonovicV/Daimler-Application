@@ -42,9 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Error: " . $stmt->error;
             }
             echo 'Task successfully created';
-            $sql_get_task_id = "SELECT id FROM tasks WHERE agenda_id = ? AND name = ?";
+            $sql_get_task_id = "SELECT id FROM tasks WHERE agenda_id = ? ORDER BY id DESC LIMIT 1";
             $stmt_get_task_id = $conn->prepare($sql_get_task_id);
-            $stmt_get_task_id->bind_param("is", $agendaId, $content);
+            $stmt_get_task_id->bind_param("i", $agendaId);
             $stmt_get_task_id->execute();
             $result_task_id = $stmt_get_task_id->get_result();
             

@@ -385,8 +385,19 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                             echo "<td><strong>GFT "; // Type
                             echo "<td><strong>GFT " . $row_gft["name"] . "</strong></td>"; // GFT
                             echo "<td></td>"; // Responsible 
-                            echo "<td><button class='button-12 addRow' role='button'>+</button> </td>"; // Actions
-                            //echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
+            
+                            echo "<td>
+                            <div class='button-container'>
+                            <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                            <div class='dropdown-menu'>
+                                <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                            </div>
+                        </div>
+                            </div>
+                          </td>"; // Actions
+            
+            
                             echo "</tr>";
                             // Fetch change requests based on $selected_team and $row_gft["name"]
                             $selected_team = $row_gft["moduleteam"];
@@ -407,9 +418,17 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                     echo "<td></td>"; // Type
                                     echo "<td>" . $row_change_request["title"] . "</a></td>"; // Change Request
                                     echo "<td></td>"; // Responsible
-                                    echo "<td><button class='button-12 addRow' role='button'>+</button> </td>"; // Actions
-                                    //echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
-                                    echo "</tr>";
+            
+                                    echo "<td>
+                                    <div class='button-container'>
+                                    <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                    <div class='dropdown-menu'>
+                                        <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                        <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    </div>
+                                </div>
+                                  </td>"; // Actions
+                                echo "</tr>";
 
                                     // Fetch topics and tasks for this change request
                                     fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
@@ -455,18 +474,21 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
 
                         if ($result_topics->num_rows > 0) {
                             while ($row_topic = $result_topics->fetch_assoc()) {
-                                echo "<tr id='topic-{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
+                                echo "<tr id='{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
                                 echo "<td><strong>Topic</strong></td>"; // Empty column for module team
-                                echo "<td>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Type
-                                echo "<td>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
-                                echo "<td><button class='button-12 addRow' role='button'>+</button> 
-                                    <button class='button-12 deleteRow' role='button'>-</button> 
-                                    <button data-bs-toggle='modal' data-bs-target='#forwardModal' 
-                                            data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' 
-                                            role='button'>→</button>  
-                                    <button data-bs-toggle='modal' data-bs-target='#forwardModal' 
-                                            data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' 
-                                            role='button'>→ →</button></td>"; // Actions
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Type
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
+                                echo "<td>
+                                        <div class='button-container'>
+                                            <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                            <div class='dropdown-menu'>
+                                                <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                                <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                            </div>
+                                            <button class='button-12 deleteRow' role='button'>-</button>
+                                            <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' role='button'>→</button>  
+                                        </div>
+                                      </td>"; 
                                 echo "</tr>";
                             }
                         }
@@ -479,18 +501,24 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
 
                         if ($result_tasks->num_rows > 0) {
                             while ($row_task = $result_tasks->fetch_assoc()) {
-                                echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                                echo "<tr id='{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
                                 echo "<td><strong>Task</strong></td>"; // Empty column for module team
-                                echo "<td>" . htmlspecialchars($row_task["name"]) . "</td>"; // Type
-                                echo "<td>" . htmlspecialchars($row_task["responsible"]) . "</td>"; // Responsible
-                                echo "<td><button class='button-12 addRow' role='button'>+</button> 
-                                    <button class='button-12 deleteRow' role='button'>-</button> 
-                                    <button data-bs-toggle='modal' data-bs-target='#forwardModal' 
-                                            data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' 
-                                            role='button'>→</button>  
-                                    <button data-bs-toggle='modal' data-bs-target='#forwardModal' 
-                                            data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' 
-                                            role='button'>→ →</button></td>"; // Actions
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_task["name"]) . "</td>"; // Type
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_task["responsible"]) . "</td>"; // Responsible
+                                echo "<td>
+                                <div class='button-container'>
+                                <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                <div class='dropdown-menu'>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    <button class='dropdown-item' onclick='addTopic()'>Information</button>
+                                    <button class='dropdown-item' onclick='addTopic()'>Assignment</button>
+                                    <button class='dropdown-item' onclick='addTopic()'>Decision</button>
+                                </div>
+                                <button class='button-12 deleteRow' role='button'>-</button>
+                                <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' role='button'>→</button>  
+                                </div>
+                              </td>"; // Actions
                                 echo "</tr>";
                             }
                         }

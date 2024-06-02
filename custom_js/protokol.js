@@ -11,7 +11,20 @@ $(document).ready(function () {
         "bDestroy": true, // Ignores the error popup (cannot reinitialize), it works even with the error but purely for aesthetic purpose. Might delete later
         "layout": {
             "topStart": {
-                "buttons": ['csvHtml5', 'pdfHtml5']
+                "buttons":[
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (typically the actions column)
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (typically the actions column)
+                        }
+                    }
+                ]            
             }
         }
     });
@@ -32,97 +45,6 @@ $(document).ready(function () {
     // Creating New Row
     var counter = 1;
 
-    function addNewRow(clickedCell, protokolId) {
-        var newRow = $(`
-            <tr id="${counter}">
-                <td>
-                    <select class="form-select task-topic-select" style="width:100px;">
-                        <option value="Topic" selected>Topic</option>
-                        <option value="Task">Task</option>
-                    </select>
-                </td>
-                <td class="contenteditable description" contenteditable="true"></td>
-                <td class="contenteditable responsible" contenteditable="true">Responsible</td>
-                <td style="width:200px;">
-                    <input type="text" class="deadlineDatePicker" style="width:100px;">
-                    <button class="asapBtn" role="button">ASAP</button>
-                </td>
-                <td>
-                    <button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button>
-                </td>
-                <td><input type='checkbox'></td>
-            </tr>
-        `);
-        counter++;
-
-        newRow.insertAfter($(clickedCell).closest('tr'));
-
-        // Initialize the date picker for the new deadline input
-        new DateTime(newRow.find('.deadlineDatePicker')[0], {
-            format: 'D/M/YYYY'
-        });
-
-        newRow.find('.task-topic-select').change(function () {
-            var selectedOption = $(this).val();
-            if (selectedOption === "Topic") {
-                newRow.find('.description').text('Topic Description');
-                newRow.find('.responsible').text('Topic Responsible');
-                newRow.find('.deadlineDatePicker').hide();
-                newRow.find('.asapBtn').hide();
-            } else if (selectedOption === "Task") {
-                newRow.find('.description').text('Task Description');
-                newRow.find('.responsible').text('Task Responsible');
-                newRow.find('.deadlineDatePicker').show();
-                newRow.find('.asapBtn').show();
-            }
-        });
-
-        newRow.find('.task-topic-select').trigger('change');
-
-        // Add toggle functionality for the ASAP button
-        newRow.find('.asapBtn').click(function () {
-            $(this).toggleClass('asap-active');
-        });
-
-        var gft = "";
-        var project = "";
-        var gftFound = false;
-        var projectFound = false;
-        var currentRow = newRow.prev();
-        while (currentRow.length > 0 && !gftFound) {
-            var cells = currentRow.find('td:eq(1)');
-            var cellContent = cells.text().trim();
-            if (cellContent.startsWith("GFT")) {
-                gft = cellContent;
-                gftFound = true;
-            } else if (cellContent.startsWith("title") && !projectFound) {
-                project = cellContent;
-                projectFound = true;
-            }
-            currentRow = currentRow.prev();
-        }
-        project = project.substring("title for".length).trim();
-        gft = gft.substring("GFT".length).trim();
-        newRow.find('.contenteditable').on('blur', function () {
-            saveToDatabase(newRow, gft, project, protokolId);
-        });
-    }
-
-
-    $(document).ready(function () { //adding new row
-
-        $(document).on('click', '.addRow', function () {
-            var protokolId = $('#protokolSelect').val(); // Get the selected protokol_id
-            if (protokolId) {
-                addNewRow(this, protokolId);
-                saveToDatabase();
-            }
-            else {
-                alert("Please select or create a protokol to continue.")
-            }
-
-        });
-    });
 
 
     function deleteRow(clickedCell) {
@@ -150,36 +72,7 @@ $(document).ready(function () {
         deleteRow(this);
     });
 
-    function saveToDatabase(newRow, gft, project) {
-        var selectedOption = newRow.find('select').val();
-        var content = newRow.find('td:eq(1)').text().trim();
-        var responsible = newRow.find('td:eq(2)').text().trim();
-        var ajaxData = {
-            protokolId: $('#protokolSelect').val(),
-            content: content,
-            responsible: responsible,
-            gft: gft,
-            cr: project
-        };
-
-        if (selectedOption === "Task") {
-            ajaxData.taskContent = content;
-        } else if (selectedOption === "Topic") {
-            ajaxData.topicContent = content;
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: 'actions.php',
-            data: ajaxData,
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
+    
 
 
     function showTable() {
@@ -240,3 +133,126 @@ $(document).ready(function () {
         });
     });
 });
+
+
+$(document).ready(function() {
+    $('td[class=editabletasktopic-cell]').on('blur', function() {
+        var $cell = $(this);
+        var newValue = $cell.text();
+        var rowId = $cell.closest('tr').data('id');
+        var cellIndex = $cell.index();
+        var type = $cell.closest('tr').data('type');
+        var columnName = (cellIndex === 1) ? 'name' : 'responsible';
+
+        $.ajax({
+            url: 'update_cell.php',
+            method: 'POST',
+            data: {
+                id: rowId,
+                value: newValue,
+                column: columnName,
+                type: type
+            },
+            success: function(response) {
+                console.log('Update successful');
+            },
+            error: function() {
+                console.log('Update failed');
+            }
+        });
+    });
+});
+
+function toggleDropdown(button) {
+    const dropdown = button.nextElementSibling;
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.dropdown-toggle')) {
+        const dropdowns = document.getElementsByClassName('dropdown-menu');
+        for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.style.display === 'block') {
+                openDropdown.style.display = 'none';
+            }
+        }
+    }
+}
+
+function addNewRow(type, clickedCell, protokolId) {
+    var gft = "";
+    var project = "";
+    var gftFound = false;
+    var projectFound = false;
+    var currentRow = $(clickedCell).closest('tr');
+    console.log(currentRow)
+    while (currentRow.length > 0 && !gftFound) {
+        var cells = currentRow.find('td:eq(1)');
+        var cellContent = cells.text().trim();
+        if (cellContent.startsWith("GFT")) {
+            console.log(cellContent)
+            gft = cellContent;
+            gftFound = true;
+        } else if (cellContent.startsWith("title") && !projectFound) {
+            console.log(cellContent)
+            project = cellContent;
+            projectFound = true;
+        }
+        currentRow = currentRow.prev();
+    }
+    
+    project = project.substring("title for".length).trim();
+    gft = gft.substring("GFT".length).trim();
+    saveToDatabase(type, gft, project, protokolId);
+}
+
+function addTask(cell) {
+    var protokolId = $('#protokolSelect').val(); // Get the selected protokol_id
+    //alert('Add Task button clicked!');
+    addNewRow("Task", cell, protokolId);
+}
+
+function addTopic(cell) {
+    var protokolId = $('#protokolSelect').val(); // Get the selected protokol_id
+    //alert('Add Topic button clicked!');
+    addNewRow("Topic", cell, protokolId);
+}
+function saveToDatabase(newRow, gft, project) {
+    console.log(newRow)
+    console.log(gft)
+    console.log(project)
+
+    var selectedOption = newRow;
+    var content = "content";
+    var responsible = "responsible";
+    var ajaxData = {
+        agendaId: $('#protokolSelect').val(),
+        content: content,
+        responsible: responsible,
+        gft: gft,
+        cr: project
+    };
+
+    console.log(ajaxData)
+
+    if (selectedOption === "Task") {
+        ajaxData.taskContent = content;
+    } else if (selectedOption === "Topic") {
+        ajaxData.topicContent = content;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: 'actions.php',
+        data: ajaxData,
+        success: function (response) {
+            console.log(response);
+            location.reload();
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+}
