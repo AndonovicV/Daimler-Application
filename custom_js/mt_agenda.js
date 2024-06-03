@@ -231,32 +231,36 @@ window.onclick = function(event) {
     }
 }
 
-function addNewRow(type, clickedCell, protokolId) {
+async function addNewRow(type, clickedCell) {
     var gft = "";
     var project = "";
     var gftFound = false;
     var projectFound = false;
     var currentRow = $(clickedCell).closest('tr');
-    console.log(currentRow)
+    console.log(currentRow);
+
     while (currentRow.length > 0 && !gftFound) {
         var cells = currentRow.find('td:eq(1)');
         var cellContent = cells.text().trim();
         if (cellContent.startsWith("GFT")) {
-            console.log(cellContent)
+            console.log(cellContent);
             gft = cellContent;
             gftFound = true;
         } else if (cellContent.startsWith("title") && !projectFound) {
-            console.log(cellContent)
+            console.log(cellContent);
             project = cellContent;
             projectFound = true;
         }
         currentRow = currentRow.prev();
     }
-    
+
     project = project.substring("title for".length).trim();
     gft = gft.substring("GFT".length).trim();
-    saveToDatabase(type, gft, project, protokolId);
+
+    // Await the saveToDatabase call
+    await saveToDatabase(type, gft, project);
 }
+
 
 async function addTask(cell) {
     var protokolId = $('#agendaSelect').val(); // Get the selected protokol_id
@@ -300,6 +304,7 @@ async function addTask(cell) {
     `);
     newRow.insertAfter($(cell).closest('tr'));
 }
+
 async function addTopic(cell) {
     var protokolId = $('#agendaSelect').val(); // Get the selected protokol_id
     console.log('Add Topic button clicked, protokolId:', protokolId);
@@ -315,56 +320,39 @@ async function addTopic(cell) {
     let data;
     try {
         data = JSON.parse(text);
+        var lastTopic = data.last_id; 
+        console.log('Last Topic ID:', lastTopic);
+    
+        var newRow = $(`
+            <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
+                <td><strong>Topic</strong></td>
+                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
+                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
+                <td>
+                    <div class="button-container">
+                        <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" onclick="addTask(this)">Task</button>
+                            <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
+                        </div>
+                        <button class="button-12 deleteRow" role="button">-</button>
+                        <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTopic}" class="button-12 forwardTopicBtns" role="button">→</button>
+                    </div>
+                </td>
+            </tr>
+        `);
+        newRow.insertAfter($(cell).closest('tr'));
     } catch (error) {
         console.error('Error parsing JSON:', error);
         return;
     }
-    var lastTopic = data.last_id; 
-    console.log('Last Topic ID:', lastTopic);
 
-    var newRow = $(`
-        <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
-            <td><strong>Topic</strong></td>
-            <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
-            <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
-            <td>
-                <div class="button-container">
-                    <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
-                    <div class="dropdown-menu">
-                        <button class="dropdown-item" onclick="addTask(this)">Task</button>
-                        <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
-                    </div>
-                    <button class="button-12 deleteRow" role="button">-</button>
-                    <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTopic}" class="button-12 forwardTopicBtns" role="button">→</button>
-                </div>
-            </td>
-        </tr>
-    `);
-    newRow.insertAfter($(cell).closest('tr'));
-}
-
-
-
-
-
-// Function to get the last task ID
-async function getLastTask() {
-    try {
-        const response = await fetch('getlast.php?type=task');
-        if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-        }
-        const data = await response.json();
-        return data.last_id; // Assuming the response contains { "last_id": <id> }
-    } catch (error) {
-        console.error('There has been a problem with your fetch operation:', error);
-    }
 }
 
 function saveToDatabase(newRow, gft, project) {
-    console.log(newRow)
-    console.log(gft)
-    console.log(project)
+    console.log(newRow);
+    console.log(gft);
+    console.log(project);
 
     var selectedOption = newRow;
     var content = "content";
@@ -377,7 +365,7 @@ function saveToDatabase(newRow, gft, project) {
         cr: project
     };
 
-    console.log(ajaxData)
+    console.log(ajaxData);
 
     if (selectedOption === "Task") {
         ajaxData.taskContent = content;
@@ -385,16 +373,21 @@ function saveToDatabase(newRow, gft, project) {
         ajaxData.topicContent = content;
     }
 
-    $.ajax({
-        type: 'POST',
-        url: 'actions.php',
-        data: ajaxData,
-        success: function (response) {
-            console.log(response);
-            //location.reload();
-        },
-        error: function (xhr, status, error) {
-            console.error(xhr.responseText);
-        }
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: 'POST',
+            url: 'actions.php',
+            data: ajaxData,
+            success: function (response) {
+                console.log(response);
+                resolve(response); // Resolve the promise with the response
+                // location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                reject(error); // Reject the promise with the error
+            }
+        });
     });
 }

@@ -221,41 +221,7 @@ if ($result_personal_tasks->num_rows > 0) {
             </div>
         </div>
     </div>
-</div>
-        <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Add event listener for the blur event on contenteditable cells
-                    document.querySelectorAll('.editable-cell').forEach(function(cell) {
-                        cell.addEventListener('blur', function() {
-                            var $cell = $(this);
-                            var newValue = $cell.text();
-                            var taskId = $cell.closest('tr').data('id');
-                            var rowType = $cell.closest('tr').data('type');
-
-                            // Send AJAX request to save the content
-                            var xhr = new XMLHttpRequest();
-                            xhr.open('POST', 'saveContent.php', true);
-                            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-                            xhr.onreadystatechange = function() {
-                                if (xhr.readyState === XMLHttpRequest.DONE) {
-                                    if (xhr.status === 200) {
-                                        console.log('Content saved successfully');
-                                    } else {
-                                        console.error('Failed to save content');
-                                    }
-                                }
-                            };
-                            xhr.send(JSON.stringify({
-                                task_id: taskId,
-                                row_type: rowType,
-                                content: newValue
-                            }));
-                        });
-                    });
-                });
-        </script>
-
-
+</div>            
             <?php
             if (isset($protokol_date)) {
                 echo "<h3 class='mt-4'>Agenda Date: $protokol_date</h3>";
@@ -385,7 +351,7 @@ if ($result_personal_tasks->num_rows > 0) {
 
             if ($result_tasks->num_rows > 0) {
                 while ($row_task = $result_tasks->fetch_assoc()) {
-                    echo "<tr id='{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                    echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
                     echo "<td><strong>Task</strong></td>"; // Empty column for module team
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_task["name"]) . "</td>"; // Type
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_task["responsible"]) . "</td>"; // Responsible
