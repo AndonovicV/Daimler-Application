@@ -73,6 +73,30 @@ $(document).ready(function () {
     });
 
     
+    function deleteIADRow(clickedCell) {
+        var row = $(clickedCell).closest('tr');
+        var rowId = row.data('id');
+        var rowType = row.data('type');
+    
+        row.remove();
+        $.ajax({
+            type: 'POST',
+            url: "deleteIAD.php",
+            data: {
+                rowId: rowId,
+                rowType: rowType
+            },
+            success: function (response) {
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    $(document).on('click', '.deleteIADRow', function () {
+        deleteIADRow(this);
+    });
 
 
     function showTable() {
@@ -167,7 +191,7 @@ $(document).ready(function() {
     $(document).on('blur', '.editable-cell', function() {
         var $cell = $(this);
         var newValue = $cell.text();
-        var taskId = $cell.closest('tr').data('id');
+        var Id = $cell.closest('tr').data('id');
         var rowType = $cell.closest('tr').data('type');
 
         $.ajax({
@@ -175,7 +199,7 @@ $(document).ready(function() {
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
-                task_id: taskId,
+                id: Id,
                 row_type: rowType,
                 content: newValue
             }),
@@ -238,7 +262,6 @@ async function addNewRow(type, clickedCell) {
     await saveToDatabase(type, gft, project);
 }
 
-
 async function addTask(cell) {
     const urlParams = new URLSearchParams(window.location.search);
     const protokolId = urlParams.get('protokol_id');
@@ -251,7 +274,7 @@ async function addTask(cell) {
     const response = await fetch('getlast.php?type=task');
     const text = await response.text();    
     console.log('Response Text:', text);  // Log the response text
-        
+
     // Try parsing the response as JSON
     let data;
     try {
@@ -260,11 +283,24 @@ async function addTask(cell) {
         console.error('Error parsing JSON:', error);
         return;
     }
-    var lastTask = data.last_id; 
-    console.log('Last Task ID:', lastTask);
+    
+    if (data.error) {
+        console.error('Error in response:', data.error);
+        return;
+    }
+
+    var lastTaskId = data.last_task_id;
+    var lastInformationId = data.last_information_id;
+    var lastAssignmentId = data.last_assignment_id;
+    var lastDecisionId = data.last_decision_id;
+
+    console.log('Last Task ID:', lastTaskId);
+    console.log('Last Information ID:', lastInformationId);
+    console.log('Last Assignment ID:', lastAssignmentId);
+    console.log('Last Decision ID:', lastDecisionId);
 
     var newRow = $(`
-        <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
+        <tr id="${lastTaskId}" data-type="task" data-id="${lastTaskId}">
             <td><strong>Task</strong></td>
             <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
             <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
@@ -274,16 +310,16 @@ async function addTask(cell) {
                     <div class="dropdown-menu">
                         <button class="dropdown-item" onclick="addTask(this)">Task</button>
                         <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
-                        <button class="dropdown-item" onclick="addInformation(this)">Information</button>
-                        <button class="dropdown-item" onclick="addAssignment(this)">Assignment</button>
-                        <button class="dropdown-item" onclick="addDecision(this)">Decision</button>
+                        <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                        <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                        <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                     </div>
                     <button class="button-12 deleteRow" role="button">-</button>
-                    <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTask}" class="button-12 forwardTaskBtns" role="button">→</button>
+                    <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTaskId}" class="button-12 forwardTaskBtns" role="button">→</button>
                 </div>
             </td>
         </tr>
-        <tr id="task-${lastTask}" data-type="I" data-id="${lastTask}">
+        <tr id="${lastInformationId}" data-type="I" data-id="${lastInformationId}">
             <td><strong>I</strong></td>
             <td class="editable-cell" contenteditable="true"></td>
             <td></td>
@@ -293,15 +329,15 @@ async function addTask(cell) {
                     <div class="dropdown-menu">
                         <button class="dropdown-item" onclick="addTask(this)">Task</button>
                         <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
-                        <button class="dropdown-item" onclick="addInformation(this)">Information</button>
-                        <button class="dropdown-item" onclick="addAssignment(this)">Assignment</button>
-                        <button class="dropdown-item" onclick="addDecision(this)">Decision</button>
+                        <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                        <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                        <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                     </div>
                     <button class="button-12 deleteRow" role="button">-</button>
                 </div>
             </td>
         </tr>
-        <tr id="task-${lastTask}" data-type="A" data-id="${lastTask}">
+        <tr id="${lastAssignmentId}" data-type="A" data-id="${lastAssignmentId}">
             <td><strong>A</strong></td>
             <td class="editable-cell" contenteditable="true"></td>
             <td></td>
@@ -311,15 +347,15 @@ async function addTask(cell) {
                     <div class="dropdown-menu">
                         <button class="dropdown-item" onclick="addTask(this)">Task</button>
                         <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
-                        <button class="dropdown-item" onclick="addInformation(this)">Information</button>
-                        <button class="dropdown-item" onclick="addAssignment(this)">Assignment</button>
-                        <button class="dropdown-item" onclick="addDecision(this)">Decision</button>
+                        <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                        <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                        <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                     </div>
                     <button class="button-12 deleteRow" role="button">-</button>
                 </div>
             </td>
         </tr>
-        <tr id="task-${lastTask}" data-type="D" data-id="${lastTask}">
+        <tr id="${lastDecisionId}" data-type="D" data-id="${lastDecisionId}">
             <td><strong>D</strong></td>
             <td class="editable-cell" contenteditable="true"></td>
             <td></td>
@@ -329,9 +365,9 @@ async function addTask(cell) {
                     <div class="dropdown-menu">
                         <button class="dropdown-item" onclick="addTask(this)">Task</button>
                         <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
-                        <button class="dropdown-item" onclick="addInformation(this)">Information</button>
-                        <button class="dropdown-item" onclick="addAssignment(this)">Assignment</button>
-                        <button class="dropdown-item" onclick="addDecision(this)">Decision</button>
+                        <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                        <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                        <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                     </div>
                     <button class="button-12 deleteRow" role="button">-</button>
                 </div>

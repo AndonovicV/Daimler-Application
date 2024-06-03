@@ -21,28 +21,33 @@ async function addnew(type, cell) {
     }
 
     if (lastTaskId) {
-        var newRow = $(`
-            <tr id="task-${lastTaskId}" data-type="${type}" data-id="${lastTaskId}">
-                <td><strong>${type}</strong></td>
-                <td class="editable-cell" contenteditable="true"></td>
-                <td></td>
-                <td>
-                    <div class="button-container">
-                        <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
-                        <div class="dropdown-menu">
-                            <button class="dropdown-item" onclick="addTask(this)">Task</button>
-                            <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
-                            <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
-                            <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
-                            <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
+        try {
+            const newid = await saveIAD(lastTaskId, type); // Wait for the new ID
+
+            var newRow = $(`
+                <tr id="${newid}" data-type="${type}" data-id="${newid}">
+                    <td><strong>${type}</strong></td>
+                    <td class="editable-cell" contenteditable="true"></td>
+                    <td></td>
+                    <td>
+                        <div class="button-container">
+                            <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
+                            <div class="dropdown-menu">
+                                <button class="dropdown-item" onclick="addTask(this)">Task</button>
+                                <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
+                                <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                                <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                                <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
+                            </div>
+                            <button class="button-12 deleteRow" role="button">-</button>
                         </div>
-                        <button class="button-12 deleteRow" role="button">-</button>
-                    </div>
-                </td>
-            </tr>
-        `);
-        newRow.insertAfter(clickedCell.closest('tr'));
-        saveIAD(lastTaskId, type);
+                    </td>
+                </tr>
+            `);
+            newRow.insertAfter(clickedCell.closest('tr'));
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
     } else {
         console.error('No previous task ID found.');
     }
@@ -69,10 +74,17 @@ async function saveIAD(taskId, rowType) {
             throw new Error('Failed to save content');
         }
 
-        const result = await response.text();
-        console.log(result); 
+        const result = await response.json();
+        if (result.status === 'success') {
+            console.log('Content saved successfully');
+            console.log('New ID:', result.id); // Log the new ID
+            return result.id; // Return the new ID
+        } else {
+            throw new Error(result.message);
+        }
 
     } catch (error) {
         console.error('Error:', error.message);
+        return null; // Return null in case of error
     }
 }

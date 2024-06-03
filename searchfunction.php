@@ -11,6 +11,7 @@ ini_set('error_log', 'error_log.txt'); // Make sure this path is writable
 $query = isset($_GET['query']) ? $conn->real_escape_string($_GET['query']) : '';
 
 $resultsHTML = '';
+$found = false; // Initialize found variable
 
 // Define an array of tables and the columns to search
 $tables = [
@@ -21,6 +22,10 @@ $tables = [
     'org_gfts' => ['name', 'moduleteam'],
     'tasks' => ['name', 'responsible', 'gft', 'cr'],
     'topics' => ['name', 'responsible', 'gft', 'cr'],
+    'information' => ['agenda_id', 'content', 'gft', 'cr'],
+    'assignment' => ['agenda_id', 'content', 'gft', 'cr'],
+    'decision' => ['agenda_id', 'content', 'gft', 'cr'],
+
 ];
 
 // Iterate through each table and perform the search
@@ -41,24 +46,24 @@ foreach ($tables as $table => $columns) {
         error_log("Error executing query: " . $conn->error);
         continue;
     }
-
+    
     if ($result && $result->num_rows > 0) {
         // Start a new section for the table's results
         $resultsHTML .= "<div class='table-results'>";
         $resultsHTML .= "<h2>Results from Table: $table</h2>";
         
-        // Start a new section for the table's results
+        // Fetch and display results
         while ($row = $result->fetch_assoc()) {
             // Format each row of the result as a card
             $resultsHTML .= "<div class='card'>";
             $resultsHTML .= "<div class='card-body'>";
             foreach ($row as $key => $value) {
+                $found = true;
                 // Customize the formatting of each key-value pair
                 if ($key === 'cr' or $key === 'ID') {
-                // Make agenda IDs clickable links
-                $value = "<a href='cr.php?agenda_id=$value'>$value</a>";
+                    // Make agenda IDs clickable links
+                    $value = "<a href='cr.php?agenda_id=$value'>$value</a>";
                 }
-                // Customize the formatting of each key-value pair
                 if ($key === 'agenda_id') {
                     // Make agenda IDs clickable links
                     $value = "<a href='mt_agenda.php?agenda_id=$value'>$value</a>";
@@ -69,10 +74,11 @@ foreach ($tables as $table => $columns) {
             $resultsHTML .= "</div>"; // Close card
         }
         $resultsHTML .= "</div>"; // Close table-results
-    } else {
-        // No results found for the table
-        $resultsHTML .= "<p>No results found in Table: $table</p>";
     }
+}
+
+if (!$found) {
+    $resultsHTML .= "<p>No results found.</p>";
 }
 
 $conn->close();

@@ -352,6 +352,9 @@ if ($result_personal_tasks->num_rows > 0) {
 
             if ($result_tasks->num_rows > 0) {
                 while ($row_task = $result_tasks->fetch_assoc()) {
+                    
+                    if($row_task["deleted"] == "0"){
+                
                     echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
                     echo "<td><strong>Task</strong></td>"; // Empty column for module team
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_task["name"]) . "</td>"; // Type
@@ -371,7 +374,7 @@ if ($result_personal_tasks->num_rows > 0) {
                     </div>
                   </td>"; // Actions
                     echo "</tr>";
-
+                }
                     // Load rows from information table
                     $sql_information = "SELECT * FROM information WHERE task_id = ?";
                     $stmt_information = $conn->prepare($sql_information);
@@ -380,7 +383,7 @@ if ($result_personal_tasks->num_rows > 0) {
                     $result_information = $stmt_information->get_result();
 
                     while ($row_information = $result_information->fetch_assoc()) {
-                        echo "<tr id='task-{$row_task["id"]}' data-type='I' data-id='{$row_task["id"]}'>";
+                        echo "<tr id='{$row_information["id"]}' data-type='I' data-id='{$row_information["id"]}'>";
                         echo "<td><strong>I</strong></td>"; // Empty column for module team
                         echo "<td class='editable-cell' contenteditable='true'>"  .  htmlspecialchars($row_information["content"]) . "</td>"; // Content
                         echo "<td></td>"; // Responsible
@@ -394,8 +397,7 @@ if ($result_personal_tasks->num_rows > 0) {
                             <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
                             <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                         </div>
-                        <button class='button-12 deleteRow' role='button'>-</button>
-                        
+                        <button class='button-12 deleteIADRow' role='button'>-</button>                        
                     </div>
                       </td>"; // Actions
                      echo "</tr>";
@@ -409,7 +411,7 @@ if ($result_personal_tasks->num_rows > 0) {
                     $result_assignment = $stmt_assignment->get_result();
 
                     while ($row_assignment = $result_assignment->fetch_assoc()) {
-                        echo "<tr id='task-{$row_task["id"]}' data-type='A' data-id='{$row_task["id"]}'>";
+                        echo "<tr id='{$row_assignment["id"]}' data-type='A' data-id='{$row_assignment["id"]}'>";
                         echo "<td><strong>A</strong></td>"; // Empty column for module team
                         echo "<td class='editable-cell' contenteditable='true'>" .  htmlspecialchars($row_assignment["content"]) . "</td>"; // Content
                         echo "<td></td>"; // Responsible
@@ -423,7 +425,7 @@ if ($result_personal_tasks->num_rows > 0) {
                             <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
                             <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                         </div>
-                        <button class='button-12 deleteRow' role='button'>-</button>
+                        <button class='button-12 deleteIADRow' role='button'>-</button>
                     </div>
                       </td>"; // Actions
                         echo "</tr>";
@@ -437,7 +439,7 @@ if ($result_personal_tasks->num_rows > 0) {
                     $result_decision = $stmt_decision->get_result();
 
                     while ($row_decision = $result_decision->fetch_assoc()) {
-                        echo "<tr id='task-{$row_task["id"]}' data-type='D' data-id='{$row_task["id"]}'>";
+                        echo "<tr id='{$row_decision["id"]}' data-type='D' data-id='{$row_decision["id"]}'>";
                         echo "<td><strong>D</strong></td>"; // Empty column for module team
                         echo "<td class='editable-cell' contenteditable='true'>" . htmlspecialchars($row_decision["content"]) . "</td>"; // Content
                         echo "<td></td>"; // Responsible
@@ -452,7 +454,7 @@ if ($result_personal_tasks->num_rows > 0) {
                             <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
 
                         </div>
-                        <button class='button-12 deleteRow' role='button'>-</button>
+                        <button class='button-12 deleteIADRow' role='button'>-</button>
                     </div>
                       </td>"; // Actions
                     echo "</tr>";
