@@ -65,6 +65,7 @@ if ($result_personal_tasks->num_rows > 0) {
     <link href="custom_css\protokol.css" rel="stylesheet">
     <!-- Custom JS -->
     <script src="custom_js/protokol.js"></script>
+    <script src="custom_js/protokolspecific.js"></script>
 
 </head>
 
@@ -361,9 +362,9 @@ if ($result_personal_tasks->num_rows > 0) {
                     <div class='dropdown-menu'>
                         <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                         <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
-                        <button class='dropdown-item' onclick='addTopic()'>Information</button>
-                        <button class='dropdown-item' onclick='addTopic()'>Assignment</button>
-                        <button class='dropdown-item' onclick='addTopic()'>Decision</button>
+                        <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                        <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                        <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                     </div>
                     <button class='button-12 deleteRow' role='button'>-</button>
                     <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' role='button'>→</button>  
@@ -389,9 +390,9 @@ if ($result_personal_tasks->num_rows > 0) {
                         <div class='dropdown-menu'>
                             <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                             <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
-                            <button class='dropdown-item' onclick='addTopic()'>Information</button>
-                            <button class='dropdown-item' onclick='addTopic()'>Assignment</button>
-                            <button class='dropdown-item' onclick='addTopic()'>Decision</button>
+                            <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                            <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                            <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                         </div>
                         <button class='button-12 deleteRow' role='button'>-</button>
                         
@@ -418,9 +419,9 @@ if ($result_personal_tasks->num_rows > 0) {
                         <div class='dropdown-menu'>
                             <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                             <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
-                            <button class='dropdown-item' onclick='addTopic()'>Information</button>
-                            <button class='dropdown-item' onclick='addTopic()'>Assignment</button>
-                            <button class='dropdown-item' onclick='addTopic()'>Decision</button>
+                            <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                            <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                            <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                         </div>
                         <button class='button-12 deleteRow' role='button'>-</button>
                     </div>
@@ -444,11 +445,11 @@ if ($result_personal_tasks->num_rows > 0) {
                         <div class='button-container'>
                         <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
                         <div class='dropdown-menu'>
-                            <button class='dropdown-item' onclick='addTask()'>Task</button>
-                            <button class='dropdown-item' onclick='addTopic()'>Topic</button>
-                            <button class='dropdown-item' onclick='addTopic()'>Information</button>
-                            <button class='dropdown-item' onclick='addTopic()'>Assignment</button>
-                            <button class='dropdown-item' onclick='addTopic()'>Decision</button>
+                            <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                            <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                            <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                            <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                            <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
 
                         </div>
                         <button class='button-12 deleteRow' role='button'>-</button>
