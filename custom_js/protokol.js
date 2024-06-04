@@ -213,6 +213,65 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $(document).on('blur', 'input.editabletasktopic-cell', function() {
+        var $cell = $(this);
+        var newValue = $cell.val(); // Use .val() to get the value of the input
+        var rowId = $cell.closest('tr').attr('id'); // Use .attr('id') to get the row's ID attribute
+        var type = $cell.closest('tr').data('type');
+        var columnName = $cell.data('column'); // Get the column name from data attribute
+
+        // Only proceed if columnName is defined
+        if (columnName) {
+            $.ajax({
+                url: 'update_cell.php',
+                method: 'POST',
+                data: {
+                    id: rowId,
+                    value: newValue,
+                    column: columnName,
+                    type: type
+                },
+                success: function(response) {
+                    console.log('Update successful');
+                },
+                error: function() {
+                    console.log('Update failed');
+                }
+            });
+        }
+    });
+});
+
+$(document).on('click', '.asap-button', function() {
+    var $button = $(this);
+    var rowId = $button.closest('tr').attr('id'); // Use .attr('id') to get the row's ID attribute
+    var type = $button.closest('tr').data('type');
+    var currentAsap = $button.data('asap');
+    var newAsap = currentAsap ? 0 : 1; // Toggle ASAP value
+
+    // Update button appearance
+    $button.data('asap', newAsap);
+    $button.css('color', newAsap ? 'red' : 'white');
+
+    // Send AJAX request to update ASAP value
+    $.ajax({
+        url: 'update_cell.php',
+        method: 'POST',
+        data: {
+            id: rowId,
+            value: newAsap,
+            column: 'asap',
+            type: type
+        },
+        success: function(response) {
+            console.log('ASAP update successful');
+        },
+        error: function() {
+            console.log('ASAP update failed');
+        }
+    });
+});
 
 function toggleDropdown(button) {
     const dropdown = button.nextElementSibling;

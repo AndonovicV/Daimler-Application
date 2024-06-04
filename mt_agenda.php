@@ -101,7 +101,8 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
     <!--Link to Bootstrap Datepicker Plugin-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!--DATATABLE LIBRARIES-->
     <!--Link to datepicker 1 JS-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -111,7 +112,14 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
     <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
     <!--Link to checkbox JS-->
     <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
-
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                flatpickr('.datepicker', {
+                    dateFormat: 'Y-m-d',
+                    // Add any additional options here
+                });
+            });
+    </script>
     <!-- Custom CSS -->
     <link href="custom_css\mt_agenda.css" rel="stylesheet">
     <!-- Custom JS -->
@@ -476,7 +484,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                             while ($row_topic = $result_topics->fetch_assoc()) {
                                 echo "<tr id='{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
                                 echo "<td><strong>Topic</strong></td>"; // Empty column for module team
-                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Type
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_topic["name"]) . "</td>";
                                 echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
                                 echo "<td>
                                         <div class='button-container'>
@@ -501,27 +509,35 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
 
                         if ($result_tasks->num_rows > 0) {
                             while ($row_task = $result_tasks->fetch_assoc()) {
+                                $asap = $row_task["asap"];
+                                $asapButtonStyle = $asap ? 'color: red;' : 'color: white;';
                                 echo "<tr id='{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
-                                echo "<td><strong>Task</strong></td>"; // Empty column for module team
-                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_task["name"]) . "</td>"; // Type
-                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_task["responsible"]) . "</td>"; // Responsible
+                                echo "<td><strong>Task</strong></td>"; // Static task name or type
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>";
+                                echo "<td style='background-color: #212529 !important; width: 100px !important;'>"; // Apply background color and minimum width
+                                echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>"; // Adjust width to fill the container
+                                echo "<br>"; 
+                                echo "<br>"; 
+                                echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 70%;' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
+                                echo "<button class='asap-button' data-asap='{$asap}' style='width: 30%; {$asapButtonStyle}'>ASAP</button>"; // Add ASAP button with 30% width
+                                echo "</td>";
                                 echo "<td>
-                                <div class='button-container'>
-                                <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
-                                <div class='dropdown-menu'>
-                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
-                                    <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
-                                    <button class='dropdown-item' onclick='addTopic()'>Information</button>
-                                    <button class='dropdown-item' onclick='addTopic()'>Assignment</button>
-                                    <button class='dropdown-item' onclick='addTopic()'>Decision</button>
-                                </div>
-                                <button class='button-12 deleteRow' role='button'>-</button>
-                                <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' role='button'>→</button>  
-                                </div>
-                              </td>"; // Actions
+                                        <div class='button-container'>
+                                            <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                            <div class='dropdown-menu'>
+                                                <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                                <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                            </div>
+                                            <button class='button-12 deleteRow' role='button'>-</button>
+                                            <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' role='button'>→</button>  
+                                        </div>
+                                      </td>"; // Actions
                                 echo "</tr>";
                             }
                         }
+                        
+                        
+                        
                     }
                     ?>
                 </div>
