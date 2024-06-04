@@ -1,3 +1,5 @@
+src="https://cdn.jsdelivr.net/npm/flatpickr"
+src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"
 $(document).ready(function () {
     //$('#agendaTable').hide();
     showTable();
@@ -89,19 +91,19 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: 'actions.php',
+            url: 'createAgenda.php',
             data: { agenda_name: newAgendaName, agenda_date: newAgendaDate },
             success: function (response) {
-                alert(response);
-                agendaid = response;
+                //alert(response);
+                var agendaid = response; // Assuming 'response' is the agenda_id returned from PHP
+                // Use the agendaid as needed, for example, redirect to a page using it
+                window.location.href = 'mt_agenda.php?id=' + agendaid;
             },
             error: function (xhr, status, error) {
                 console.error(error);
             }
         });
-
-        window.location.href = 'mt_agenda.php?agenda_id=' + agendaid;
-
+        
     });
 
     $('#agendaSelect').change(function () {
@@ -128,11 +130,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#agendaDate').datepicker({
-        format: 'yyyy/mm/dd',
-        autoclose: true,
-        todayHighlight: true
-    });
+
 
     //Triggers the virtual select
     VirtualSelect.init({
@@ -211,6 +209,9 @@ $(document).ready(function() {
         });
     });
 });
+
+
+
 $(document).ready(function() {
     $(document).on('blur', 'input.editabletasktopic-cell', function() {
         var $cell = $(this);
@@ -319,6 +320,13 @@ async function addNewRow(type, clickedCell) {
     await saveToDatabase(type, gft, project);
 }
 
+// Initialize flatpickr on document ready
+$(document).ready(function() {
+    flatpickr('.datepicker', {
+        dateFormat: 'Y-m-d',
+        // Add any additional options here
+    });
+});
 
 async function addTask(cell) {
     var protokolId = $('#agendaSelect').val(); // Get the selected protokol_id
@@ -339,26 +347,33 @@ async function addTask(cell) {
         console.error('Error parsing JSON:', error);
         return;
     }
-    var lastTask = data.last_id; 
+    var lastTask = data.last_task_id;
     console.log('Last Task ID:', lastTask);
 
     var newRow = $(`
-        <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
-            <td><strong>Task</strong></td>
-            <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
-            <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
-            <td>
-                <div class="button-container">
-                    <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
-                    <div class="dropdown-menu">
-                        <button class="dropdown-item" onclick="addTask(this)">Task</button>
-                        <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
-                    </div>
-                    <button class="button-12 deleteRow" role="button">-</button>
-                    <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTask}" class="button-12 forwardTaskBtns" role="button">→</button>
+    <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
+        <td><strong>Task</strong></td>
+        <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white; max-width: 200px;"></td>
+        <td style="background-color: #212529 !important; width: 100px !important;">
+            <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 100%;" value="">
+            <br>
+            <br>
+            <div class="flex-container">
+                <input class="editabletasktopic-cell datepicker" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 70%;" value=""><button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
+            </div>
+        </td>
+        <td>
+            <div class="button-container">
+                <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item" onclick="addTask(this)">Task</button>
+                    <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
                 </div>
-            </td>
-        </tr>
+                <button class="button-12 deleteRow" role="button">-</button>
+                <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTask}" class="button-12 forwardTaskBtns" role="button">→</button>
+            </div>
+        </td>
+    </tr>
     `);
     newRow.insertAfter($(cell).closest('tr'));
 }

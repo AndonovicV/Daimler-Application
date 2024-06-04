@@ -222,8 +222,8 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                             <input type="text" class="form-control" id="agendaName">
                         </div>
                         <div class="mb-3">
-                            <label for="agendaDate" class="form-label">Agenda Date:</label>
-                            <input for="agendaDate" class="form-control" id="agendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
+                                <label for="agendaDate" class="form-label">Agenda Date:</label>
+                                <input class="form-control datepicker" id="agendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
                         </div>
                     </div>
                     <div class="modal-footer">

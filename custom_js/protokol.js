@@ -321,6 +321,16 @@ async function addNewRow(type, clickedCell) {
     await saveToDatabase(type, gft, project);
 }
 
+$(document).ready(function() {
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr('.datepicker', {
+            dateFormat: 'Y-m-d',
+            // Add any additional options here
+        });
+    });
+});
+
+
 async function addTask(cell) {
     const urlParams = new URLSearchParams(window.location.search);
     const protokolId = urlParams.get('protokol_id');
@@ -361,17 +371,19 @@ async function addTask(cell) {
     var newRow = $(`
         <tr id="${lastTaskId}" data-type="task" data-id="${lastTaskId}">
             <td><strong>Task</strong></td>
-            <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
-            <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
+            <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white; max-width: 200px;"></td>
+            <td style="background-color: #212529 !important; width: 100px !important;">
+                <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 100%;" value="">
+                <br>
+                <br>
+                <input class="editabletasktopic-cell datepicker" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 70%;" value=""><button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
+            </td>
             <td>
                 <div class="button-container">
                     <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
                     <div class="dropdown-menu">
                         <button class="dropdown-item" onclick="addTask(this)">Task</button>
                         <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
-                        <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
-                        <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
-                        <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                     </div>
                     <button class="button-12 deleteRow" role="button">-</button>
                     <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTaskId}" class="button-12 forwardTaskBtns" role="button">→</button>
@@ -433,7 +445,11 @@ async function addTask(cell) {
             </td>
         </tr>
     `);
-
+    // Re-initialize flatpickr on the newly added input elements
+    flatpickr('.datepicker', {
+        dateFormat: 'Y-m-d',
+        // Add any additional options here
+    });
     newRow.insertAfter($(cell).closest('tr'));
 }
 
