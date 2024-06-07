@@ -1,17 +1,31 @@
+src="https://cdn.jsdelivr.net/npm/flatpickr"
+src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"
 $(document).ready(function () {
     //$('#agendaTable').hide();
     showTable();
 
     // Initial DataTable initialization
     $('#agendaTable').dataTable({
-
         "order": [],
         "paging": false, // Disable pagination
         "searchable": true,
         "bDestroy": true, // Ignores the error popup (cannot reinitialize), it works even with the error but purely for aesthetic purpose. Might delete later
         "layout": {
             "topStart": {
-                "buttons": ['csvHtml5', 'pdfHtml5']
+                "buttons":[
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (typically the actions column)
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column (typically the actions column)
+                        }
+                    }
+                ]
             }
         }
     });
@@ -32,6 +46,7 @@ $(document).ready(function () {
     // Creating New Row
     var counter = 1;
 
+<<<<<<< HEAD
     function addNewRow(clickedCell, agendaId) {
         var newRow = $(`
             <tr id="${counter}">
@@ -135,6 +150,8 @@ $(document).ready(function () {
 
 =======
 >>>>>>> aly2
+=======
+>>>>>>> aly2
 
     function deleteRow(clickedCell) {
         var row = $(clickedCell).closest('tr');
@@ -161,38 +178,6 @@ $(document).ready(function () {
         deleteRow(this);
     });
 
-    function saveToDatabase(newRow, gft, project) {
-        var selectedOption = newRow.find('select').val();
-        var content = newRow.find('td:eq(1)').text().trim();
-        var responsible = newRow.find('td:eq(2)').text().trim();
-        var ajaxData = {
-            agendaId: $('#agendaSelect').val(),
-            content: content,
-            responsible: responsible,
-            gft: gft,
-            cr: project
-        };
-
-        if (selectedOption === "Task") {
-            ajaxData.taskContent = content;
-        } else if (selectedOption === "Topic") {
-            ajaxData.topicContent = content;
-        }
-
-        $.ajax({
-            type: 'POST',
-            url: 'actions.php',
-            data: ajaxData,
-            success: function (response) {
-                console.log(response);
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    }
-
-
     function showTable() {
         $('#agendaTable').show();
     }
@@ -212,19 +197,19 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: 'actions.php',
+            url: 'createAgenda.php',
             data: { agenda_name: newAgendaName, agenda_date: newAgendaDate },
             success: function (response) {
-                alert(response);
-                agendaid = response;
+                //alert(response);
+                var agendaid = response; // Assuming 'response' is the agenda_id returned from PHP
+                // Use the agendaid as needed, for example, redirect to a page using it
+                window.location.href = 'mt_agenda.php?id=' + agendaid;
             },
             error: function (xhr, status, error) {
                 console.error(error);
             }
         });
-
-        window.location.href = 'mt_agenda.php?agenda_id=' + agendaid;
-
+        
     });
 
     $('#agendaSelect').change(function () {
@@ -254,11 +239,7 @@ $(document).ready(function () {
 });
 =======
 
-    $('#agendaDate').datepicker({
-        format: 'yyyy/mm/dd',
-        autoclose: true,
-        todayHighlight: true
-    });
+
 
     //Triggers the virtual select
     VirtualSelect.init({
@@ -308,4 +289,291 @@ $(document).ready(function () {
         });
     }
 });
+<<<<<<< HEAD
+>>>>>>> aly2
+=======
+
+
+$(document).ready(function() {
+    $(document).on('blur', 'td[contenteditable=true]', function() {
+        var $cell = $(this);
+        var newValue = $cell.text();
+        var rowId = $cell.closest('tr').attr('id');  // Use .attr('id') to get the row's ID attribute
+        var cellIndex = $cell.index();
+        var type = $cell.closest('tr').data('type');
+        var columnName = (cellIndex === 1) ? 'name' : 'responsible';
+
+        $.ajax({
+            url: 'update_cell.php',
+            method: 'POST',
+            data: {
+                id: rowId,
+                value: newValue,
+                column: columnName,
+                type: type
+            },
+            success: function(response) {
+                console.log('Update successful');
+            },
+            error: function() {
+                console.log('Update failed');
+            }
+        });
+    });
+});
+
+
+
+$(document).ready(function() {
+    $(document).on('blur', 'input.editabletasktopic-cell', function() {
+        var $cell = $(this);
+        var newValue = $cell.val(); // Use .val() to get the value of the input
+        var rowId = $cell.closest('tr').attr('id'); // Use .attr('id') to get the row's ID attribute
+        var type = $cell.closest('tr').data('type');
+        var columnName = $cell.data('column'); // Get the column name from data attribute
+
+        // Only proceed if columnName is defined
+        if (columnName) {
+            $.ajax({
+                url: 'update_cell.php',
+                method: 'POST',
+                data: {
+                    id: rowId,
+                    value: newValue,
+                    column: columnName,
+                    type: type
+                },
+                success: function(response) {
+                    console.log('Update successful');
+                },
+                error: function() {
+                    console.log('Update failed');
+                }
+            });
+        }
+    });
+});
+
+$(document).on('click', '.asap-button', function() {
+    var $button = $(this);
+    var rowId = $button.closest('tr').attr('id'); // Use .attr('id') to get the row's ID attribute
+    var type = $button.closest('tr').data('type');
+    var currentAsap = $button.data('asap');
+    var newAsap = currentAsap ? 0 : 1; // Toggle ASAP value
+
+    // Update button appearance
+    $button.data('asap', newAsap);
+    $button.css('color', newAsap ? 'red' : 'white');
+
+    // Send AJAX request to update ASAP value
+    $.ajax({
+        url: 'update_cell.php',
+        method: 'POST',
+        data: {
+            id: rowId,
+            value: newAsap,
+            column: 'asap',
+            type: type
+        },
+        success: function(response) {
+            console.log('ASAP update successful');
+        },
+        error: function() {
+            console.log('ASAP update failed');
+        }
+    });
+});
+
+function toggleDropdown(button) {
+    const dropdown = button.nextElementSibling;
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.dropdown-toggle')) {
+        const dropdowns = document.getElementsByClassName('dropdown-menu');
+        for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.style.display === 'block') {
+                openDropdown.style.display = 'none';
+            }
+        }
+    }
+}
+
+async function addNewRow(type, clickedCell) {
+    var gft = "";
+    var project = "";
+    var gftFound = false;
+    var projectFound = false;
+    var currentRow = $(clickedCell).closest('tr');
+    console.log(currentRow);
+
+    while (currentRow.length > 0 && !gftFound) {
+        var cells = currentRow.find('td:eq(1)');
+        var cellContent = cells.text().trim();
+        if (cellContent.startsWith("GFT")) {
+            console.log(cellContent);
+            gft = cellContent;
+            gftFound = true;
+        } else if (cellContent.startsWith("title") && !projectFound) {
+            console.log(cellContent);
+            project = cellContent;
+            projectFound = true;
+        }
+        currentRow = currentRow.prev();
+    }
+
+    project = project.substring("title for".length).trim();
+    gft = gft.substring("GFT".length).trim();
+
+    // Await the saveToDatabase call
+    await saveToDatabase(type, gft, project);
+}
+
+// Initialize flatpickr on document ready
+$(document).ready(function() {
+    flatpickr('.datepicker', {
+        dateFormat: 'Y-m-d',
+        // Add any additional options here
+    });
+});
+
+async function addTask(cell) {
+    var protokolId = $('#agendaSelect').val(); // Get the selected protokol_id
+    console.log('Add Task button clicked, protokolId:', protokolId);
+
+    // Ensure addNewRow completes before proceeding
+    await addNewRow("Task", cell, protokolId);
+
+    const response = await fetch('getlast.php?type=task');
+    const text = await response.text();    
+    console.log('Response Text:', text);  // Log the response text
+        
+    // Try parsing the response as JSON
+    let data;
+    try {
+        data = JSON.parse(text);
+    } catch (error) {
+        console.error('Error parsing JSON:', error);
+        return;
+    }
+    var lastTask = data.last_task_id;
+    console.log('Last Task ID:', lastTask);
+
+    var newRow = $(`
+    <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
+        <td><strong>Task</strong></td>
+        <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white; max-width: 200px;"></td>
+        <td style="background-color: #212529 !important; width: 100px !important;">
+            <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 100%;" value="">
+            <br>
+            <br>
+            <div class="flex-container">
+                <input class="editabletasktopic-cell datepicker" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 70%;" value=""><button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
+            </div>
+        </td>
+        <td>
+            <div class="button-container">
+                <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item" onclick="addTask(this)">Task</button>
+                    <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
+                </div>
+                <button class="button-12 deleteRow" role="button">-</button>
+                <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTask}" class="button-12 forwardTaskBtns" role="button">→</button>
+            </div>
+        </td>
+    </tr>
+    `);
+    newRow.insertAfter($(cell).closest('tr'));
+}
+
+async function addTopic(cell) {
+    var protokolId = $('#agendaSelect').val(); // Get the selected protokol_id
+    console.log('Add Topic button clicked, protokolId:', protokolId);
+
+    // Ensure addNewRow completes before proceeding
+    await addNewRow("Topic", cell, protokolId);
+
+    const response = await fetch('getlast.php?type=topic');
+    const text = await response.text();    
+    console.log('Response Text:', text);  // Log the response text
+        
+    // Try parsing the response as JSON
+    let data;
+    try {
+        data = JSON.parse(text);
+        var lastTopic = data.last_id; 
+        console.log('Last Topic ID:', lastTopic);
+    
+        var newRow = $(`
+            <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
+                <td><strong>Topic</strong></td>
+                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
+                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
+                <td>
+                    <div class="button-container">
+                        <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" onclick="addTask(this)">Task</button>
+                            <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
+                        </div>
+                        <button class="button-12 deleteRow" role="button">-</button>
+                        <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTopic}" class="button-12 forwardTopicBtns" role="button">→</button>
+                    </div>
+                </td>
+            </tr>
+        `);
+        newRow.insertAfter($(cell).closest('tr'));
+    } catch (error) {
+        console.error('Error parsing JSON:', error);
+        return;
+    }
+
+}
+
+function saveToDatabase(newRow, gft, project) {
+    console.log(newRow);
+    console.log(gft);
+    console.log(project);
+
+    var selectedOption = newRow;
+    var content = "content";
+    var responsible = "responsible";
+    var ajaxData = {
+        agendaId: $('#agendaSelect').val(),
+        content: content,
+        responsible: responsible,
+        gft: gft,
+        cr: project
+    };
+
+    console.log(ajaxData);
+
+    if (selectedOption === "Task") {
+        ajaxData.taskContent = content;
+    } else if (selectedOption === "Topic") {
+        ajaxData.topicContent = content;
+    }
+
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: 'POST',
+            url: 'actions.php',
+            data: ajaxData,
+            success: function (response) {
+                console.log(response);
+                resolve(response); // Resolve the promise with the response
+                // location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                reject(error); // Reject the promise with the error
+            }
+        });
+    });
+}
 >>>>>>> aly2

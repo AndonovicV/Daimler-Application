@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = json_decode($postData, true);
 
     // Fetch data from the JSON request
-    $taskId = $data['task_id'];
+    $Id = $data['id'];
     $rowType = $data['row_type'];
     $content = $data['content'];
 
@@ -29,9 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Update content in the respective table
-    $sql = "UPDATE $columnName SET content = ? WHERE task_id = ?";
+    $sql = "UPDATE $columnName SET content = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si", $content, $taskId);
+    $stmt->bind_param("si", $content, $Id);
 
     if ($stmt->execute()) {
         // Content updated successfully

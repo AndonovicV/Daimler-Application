@@ -31,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if it's a task or a topic
         if (isset($_POST['taskContent'])) {
             // It's a task
-            $sql = "INSERT INTO tasks (agenda_id, name, responsible, gft, cr, details) 
-                    VALUES (?, ?, ?, ?, ?, '')";
+            $sql = "INSERT INTO tasks (agenda_id, name, responsible, gft, cr, details, deleted) 
+                    VALUES (?, ?, ?, ?, ?, '', 0)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("issss", $agendaId, $content, $responsible, $gft, $cr);
             echo "Inserting as Task<br>";
@@ -44,9 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Error: " . $stmt->error;
             }
             echo 'Task successfully created';
-            $sql_get_task_id = "SELECT id FROM tasks WHERE agenda_id = ? AND name = ?";
+            $sql_get_task_id = "SELECT id FROM tasks WHERE agenda_id = ? ORDER BY id DESC LIMIT 1";
             $stmt_get_task_id = $conn->prepare($sql_get_task_id);
-            $stmt_get_task_id->bind_param("is", $agendaId, $content);
+            $stmt_get_task_id->bind_param("i", $agendaId);
             $stmt_get_task_id->execute();
             $result_task_id = $stmt_get_task_id->get_result();
             
@@ -132,7 +132,7 @@ if (isset($_POST['rowId'])) {
             break;
         case 'task':
             // Delete Task logic
-            $sql = "DELETE FROM tasks WHERE id = ?";
+            $sql = "UPDATE tasks SET deleted = 1 WHERE id = ?;";
             break;
         default:
             echo "Invalid row type";

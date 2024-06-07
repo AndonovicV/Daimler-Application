@@ -43,48 +43,45 @@ $conn->close();
             id="searchBox" 
             class="w-100" 
             style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align: center!important;" 
-            placeholder="                     Enter your search query..." />
-        <button type="button" class="btn btn-primary ms-2" id="searchButton" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
-            Search
-        </button>
+            placeholder="Press Enter to search..." />
     </div>
         
-        <div id="searchResults" class="mt-4" style="color: #777"></div>
+    <div id="searchResults" class="mt-4" style="color: #777"></div>
 
-        <script>
+    <script>
         $(document).ready(function() {
-                $('#searchBox').keypress(function(event) {
-                    // Check if the Enter key is pressed (key code 13)
-                    if (event.keyCode === 13) {
-                        // Prevent the default action of the Enter key (form submission)
-                        event.preventDefault();
-                        // Trigger the click event on the search button
-                        $('#searchButton').click();
-                    }
-                });
-
-                $('#searchButton').click(function() {
-                    var query = $('#searchBox').val();
-                    if (query) {
-                        $.ajax({
-                            url: 'searchfunction.php',
-                            type: 'GET',
-                            data: { query: query },
-                            success: function(data) {
-                                console.log("Data received from PHP:", data);  // Log raw data
-                                $('#searchResults').html(data); // Display HTML response directly
-                            },
-                            error: function() {
-                                $('#searchResults').html('<p>An error occurred while searching.</p>');
-                            }
-                        });
-                    } else {
-                        $('#searchResults').html('<p>Please enter a search query.</p>');
-                    }
-                });
+            $('#searchBox').keypress(function(event) {
+                // Check if the Enter key is pressed (key code 13)
+                if (event.keyCode === 13) {
+                    // Prevent the default action of the Enter key (form submission)
+                    event.preventDefault();
+                    // Perform the search
+                    performSearch();
+                }
             });
-        </script>
-    </div>
+
+            function performSearch() {
+                var query = $('#searchBox').val();
+                if (query) {
+                    $.ajax({
+                        url: 'searchfunction.php',
+                        type: 'GET',
+                        data: { query: query },
+                        success: function(data) {
+                            console.log("Data received from PHP:", data);  // Log raw data
+                            $('#searchResults').html(data); // Display HTML response directly
+                        },
+                        error: function() {
+                            $('#searchResults').html('<p>An error occurred while searching.</p>');
+                        }
+                    });
+                } else {
+                    $('#searchResults').html('<p>Please enter a search query.</p>');
+                }
+            }
+        });
+    </script>
+</div>
 </div>
 
 </body>

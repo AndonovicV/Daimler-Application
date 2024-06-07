@@ -60,15 +60,27 @@ if ($result_personal_tasks->num_rows > 0) {
     <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
     <!--Link to checkbox JS-->
     <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                flatpickr('.datepicker', {
+                    dateFormat: 'Y-m-d',
+                    // Add any additional options here
+                });
+            });
+    </script>
     <!-- Custom CSS -->
     <link href="custom_css\protokol.css" rel="stylesheet">
     <!-- Custom JS -->
     <script src="custom_js/protokol.js"></script>
+    <script src="custom_js/protokolspecific.js"></script>
 
 </head>
 
 <body>
+    
     <div class="container">
 <<<<<<< HEAD
         <select id="protokolSelect" data-search="true">
@@ -158,6 +170,9 @@ if ($result_personal_tasks->num_rows > 0) {
                             echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>" 
                                  . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
                                  . "</option>";
+                            if ($selected) {
+                                    $agenda_date = htmlspecialchars($row["agenda_date"]);
+                                }
                         }
                     }
                 }
@@ -191,7 +206,7 @@ if ($result_personal_tasks->num_rows > 0) {
         echo "<h3 class='mt-4'>Agenda Date: $agenda_date</h3>";
     }
     ?>
-</div>
+    </div>
 
 >>>>>>> aly2
 
@@ -280,6 +295,7 @@ if ($result_personal_tasks->num_rows > 0) {
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </div>
 <<<<<<< HEAD
 =======
@@ -319,6 +335,16 @@ if ($result_personal_tasks->num_rows > 0) {
 
 
         <table id="protokolTable" class="display">
+=======
+</div>            
+            <?php
+            if (isset($protokol_date)) {
+                echo "<h3 class='mt-4'>Agenda Date: $protokol_date</h3>";
+            }
+            ?>
+
+    <table id="protokolTable" class="display">
+>>>>>>> aly2
     <thead>
         <tr>
             <th align="center">Type</th>
@@ -335,7 +361,19 @@ if ($result_personal_tasks->num_rows > 0) {
                 echo "<td><strong>GFT "; // Type
                 echo "<td><strong>GFT " . $row_gft["name"] . "</strong></td>"; // GFT
                 echo "<td></td>"; // Responsible 
-                echo "<td><button class='button-12 addRow' role='button'>+</button> </td>"; // Actions
+
+                echo "<td>
+                <div class='button-container'>
+                <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                <div class='dropdown-menu'>
+                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                    <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                </div>
+            </div>
+                </div>
+              </td>"; // Actions
+
+
                 echo "</tr>";
                 // Fetch change requests based on $selected_team and $row_gft["name"]
                 $selected_team = $row_gft["moduleteam"];
@@ -353,8 +391,17 @@ if ($result_personal_tasks->num_rows > 0) {
                         echo "<td></td>"; // Type
                         echo "<td>" . $row_change_request["title"] . "</a></td>"; // Change Request
                         echo "<td></td>"; // Responsible
-                        echo "<td><button class='button-12 addRow' role='button'>+</button> </td>"; // Actions
-                        echo "</tr>";
+
+                        echo "<td>
+                        <div class='button-container'>
+                        <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                        <div class='dropdown-menu'>
+                            <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                            <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                        </div>
+                    </div>
+                      </td>"; // Actions
+                    echo "</tr>";
 
                         // Fetch topics and tasks for this change request
                         fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
@@ -395,14 +442,23 @@ if ($result_personal_tasks->num_rows > 0) {
             $stmt_topics->bind_param('isss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped);
             $stmt_topics->execute();
             $result_topics = $stmt_topics->get_result();
-
             if ($result_topics->num_rows > 0) {
                 while ($row_topic = $result_topics->fetch_assoc()) {
                     echo "<tr id='topic-{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
                     echo "<td><strong>Topic</strong></td>"; // Empty column for module team
-                    echo "<td>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Type
-                    echo "<td>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
-                    echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button></td>"; // Actions
+                    echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Type
+                    echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
+                    echo "<td>
+                            <div class='button-container'>
+                                <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                <div class='dropdown-menu'>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                </div>
+                                <button class='button-12 deleteRow' role='button'>-</button>
+                                <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' role='button'>→</button>  
+                            </div>
+                          </td>"; 
                     echo "</tr>";
                 }
             }
@@ -415,6 +471,7 @@ if ($result_personal_tasks->num_rows > 0) {
 
             if ($result_tasks->num_rows > 0) {
                 while ($row_task = $result_tasks->fetch_assoc()) {
+<<<<<<< HEAD
                     echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
                     echo "<td><strong>Task</strong></td>"; // Empty column for module team
                     echo "<td>" . htmlspecialchars($row_task["name"]) . "</td>"; // Type
@@ -447,6 +504,35 @@ if ($result_personal_tasks->num_rows > 0) {
                 }
 
 =======
+=======
+                    
+                    if($row_task["deleted"] == "0"){
+                        $asap = $row_task["asap"];
+                        $asapButtonStyle = $asap ? 'color: red;' : 'color: white;';
+                        echo "<tr id='{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                        echo "<td><strong>Task</strong></td>"; // Static task name or type
+                        echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>";
+                        echo "<td style='background-color: #212529 !important; width: 100px !important;'>"; // Apply background color and minimum width
+                        echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>"; // Adjust width to fill the container
+                        echo "<br>"; 
+                        echo "<br>"; 
+                        echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 70%;' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
+                        echo "<button class='asap-button' data-asap='{$asap}' style='width: 30%; {$asapButtonStyle}'>ASAP</button>"; // Add ASAP button with 30% width
+                        echo "</td>";
+                        echo "<td>
+                                <div class='button-container'>
+                                    <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                    <div class='dropdown-menu'>
+                                        <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                        <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    </div>
+                                    <button class='button-12 deleteRow' role='button'>-</button>
+                                    <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' role='button'>→</button>  
+                                </div>
+                              </td>"; // Actions
+                        echo "</tr>";
+                }
+>>>>>>> aly2
                     // Load rows from information table
                     $sql_information = "SELECT * FROM information WHERE task_id = ?";
                     $stmt_information = $conn->prepare($sql_information);
@@ -455,12 +541,24 @@ if ($result_personal_tasks->num_rows > 0) {
                     $result_information = $stmt_information->get_result();
 
                     while ($row_information = $result_information->fetch_assoc()) {
-                        echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                        echo "<tr id='{$row_information["id"]}' data-type='I' data-id='{$row_information["id"]}'>";
                         echo "<td><strong>I</strong></td>"; // Empty column for module team
-                        echo "<td class='editable-cell' contenteditable='true'>"  .  htmlspecialchars($row_information["content"]) . "</td>"; // Type
+                        echo "<td class='editable-cell' contenteditable='true'>"  .  htmlspecialchars($row_information["content"]) . "</td>"; // Content
                         echo "<td></td>"; // Responsible
-                        echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button> <button class='button-12 save-btn' data-task-id='{$row_task["id"]}' data-row-type='I' role='button'>✓</button></td>"; // Actions
-                        echo "</tr>";
+                        echo "<td>
+                        <div class='button-container'>
+                        <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                        <div class='dropdown-menu'>
+                            <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                            <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                            <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                            <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                            <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
+                        </div>
+                        <button class='button-12 deleteIADRow' role='button'>-</button>                        
+                    </div>
+                      </td>"; // Actions
+                     echo "</tr>";
                     }
 
                     // Load rows from assignment table (similar process as information)
@@ -471,11 +569,23 @@ if ($result_personal_tasks->num_rows > 0) {
                     $result_assignment = $stmt_assignment->get_result();
 
                     while ($row_assignment = $result_assignment->fetch_assoc()) {
-                        echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                        echo "<tr id='{$row_assignment["id"]}' data-type='A' data-id='{$row_assignment["id"]}'>";
                         echo "<td><strong>A</strong></td>"; // Empty column for module team
-                        echo "<td class='editable-cell' contenteditable='true'>" .  htmlspecialchars($row_assignment["content"]) . "</td>"; // Type
+                        echo "<td class='editable-cell' contenteditable='true'>" .  htmlspecialchars($row_assignment["content"]) . "</td>"; // Content
                         echo "<td></td>"; // Responsible
-                        echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button> <button class='button-12 save-btn' data-task-id='{$row_task["id"]}' data-row-type='A' role='button'>✓</button></td>"; // Actions
+                        echo "<td>
+                        <div class='button-container'>
+                        <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                        <div class='dropdown-menu'>
+                            <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                            <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                            <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                            <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                            <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
+                        </div>
+                        <button class='button-12 deleteIADRow' role='button'>-</button>
+                    </div>
+                      </td>"; // Actions
                         echo "</tr>";
                     }
 
@@ -487,12 +597,25 @@ if ($result_personal_tasks->num_rows > 0) {
                     $result_decision = $stmt_decision->get_result();
 
                     while ($row_decision = $result_decision->fetch_assoc()) {
-                        echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                        echo "<tr id='{$row_decision["id"]}' data-type='D' data-id='{$row_decision["id"]}'>";
                         echo "<td><strong>D</strong></td>"; // Empty column for module team
-                        echo "<td class='editable-cell' contenteditable='true'>" . htmlspecialchars($row_decision["content"]) . "</td>"; // Type
+                        echo "<td class='editable-cell' contenteditable='true'>" . htmlspecialchars($row_decision["content"]) . "</td>"; // Content
                         echo "<td></td>"; // Responsible
-                        echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button> <button class='button-12 save-btn' data-task-id='{$row_task["id"]}' data-row-type='D' role='button'>✓</button></td>"; // Actions
-                        echo "</tr>";
+                        echo "<td>
+                        <div class='button-container'>
+                        <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                        <div class='dropdown-menu'>
+                            <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                            <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                            <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                            <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                            <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
+
+                        </div>
+                        <button class='button-12 deleteIADRow' role='button'>-</button>
+                    </div>
+                      </td>"; // Actions
+                    echo "</tr>";
                     }
                 }
 >>>>>>> aly2
