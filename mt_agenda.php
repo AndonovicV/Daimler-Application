@@ -1,5 +1,5 @@
 <?php
-include_once('php-attendance\inc\navigationAgenda.php');
+include_once('navigation.php');
 include 'conn.php';
 
 // Check if the session variable is set
@@ -215,8 +215,8 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                             <input type="text" class="form-control" id="agendaName">
                         </div>
                         <div class="mb-3">
-                                <label for="agendaDate" class="form-label">Agenda Date:</label>
-                                <input class="form-control datepicker" id="agendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
+                            <label for="agendaDate" class="form-label">Agenda Date:</label>
+                            <input class="form-control datepicker" id="agendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -386,7 +386,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                             echo "<td><strong>GFT "; // Type
                             echo "<td><strong>GFT " . $row_gft["name"] . "</strong></td>"; // GFT
                             echo "<td></td>"; // Responsible 
-            
+
                             echo "<td>
                             <div class='button-container'>
                             <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
@@ -397,8 +397,8 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         </div>
                             </div>
                           </td>"; // Actions
-            
-            
+
+
                             echo "</tr>";
                             // Fetch change requests based on $selected_team and $row_gft["name"]
                             $selected_team = $row_gft["moduleteam"];
@@ -419,7 +419,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                     echo "<td></td>"; // Type
                                     echo "<td>" . $row_change_request["title"] . "</a></td>"; // Change Request
                                     echo "<td></td>"; // Responsible
-            
+
                                     echo "<td>
                                     <div class='button-container'>
                                     <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
@@ -429,7 +429,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                     </div>
                                 </div>
                                   </td>"; // Actions
-                                echo "</tr>";
+                                    echo "</tr>";
 
                                     // Fetch topics and tasks for this change request
                                     fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
@@ -489,7 +489,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                             <button class='button-12 deleteRow' role='button'>-</button>
                                             <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' role='button'>→</button>  
                                         </div>
-                                      </td>"; 
+                                      </td>";
                                 echo "</tr>";
                             }
                         }
@@ -509,8 +509,8 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                 echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>";
                                 echo "<td style='background-color: #212529 !important; width: 100px !important;'>"; // Apply background color and minimum width
                                 echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>"; // Adjust width to fill the container
-                                echo "<br>"; 
-                                echo "<br>"; 
+                                echo "<br>";
+                                echo "<br>";
                                 echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 70%;' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
                                 echo "<button class='asap-button' data-asap='{$asap}' style='width: 30%; {$asapButtonStyle}'>ASAP</button>"; // Add ASAP button with 30% width
                                 echo "</td>";
@@ -528,9 +528,6 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                 echo "</tr>";
                             }
                         }
-                        
-                        
-                        
                     }
                     ?>
                 </div>

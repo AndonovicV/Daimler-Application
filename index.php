@@ -101,7 +101,7 @@ if ($result_personal_tasks->num_rows > 0) {
 				<ul>
 					<li><a href="mt_agenda.php">MT Agenda</a></li>
 					<li><a href="protokol.php">Protokoll</a></li>
-					<li><a href="php-attendance/?page=attendance">Attendance</a></li>
+					<li><a href="attendance.php">Attendance</a></li>
 					<!-- <li><a href="#list_mm">List MM</a></li> -->
 					<li><a href="#personalTaskModal">Personal Task</a></li>
 					<li><a href="plugins\calendar\calendar.html">Calendar</a></li>
