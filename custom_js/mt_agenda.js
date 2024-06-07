@@ -324,7 +324,6 @@ async function addNewRow(type, clickedCell) {
 $(document).ready(function() {
     flatpickr('.datepicker', {
         dateFormat: 'Y-m-d',
-        // Add any additional options here
     });
 });
 
@@ -359,7 +358,7 @@ async function addTask(cell) {
             <br>
             <br>
             <div class="flex-container">
-                <input class="editabletasktopic-cell datepicker" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 70%;" value=""><button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
+                    <input class="editabletasktopic-cell new-datepicker-${lastTask}" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 70%;" value=""><button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
             </div>
         </td>
         <td>
@@ -374,7 +373,15 @@ async function addTask(cell) {
             </div>
         </td>
     </tr>
+
     `);
+
+    // Initialize flatpickr for the new datepicker input
+    flatpickr('.new-datepicker-' + lastTask, {
+            dateFormat: 'Y-m-d',
+            // Add any additional options here
+        });
+
     newRow.insertAfter($(cell).closest('tr'));
 }
 

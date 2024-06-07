@@ -112,14 +112,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
     <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
     <!--Link to checkbox JS-->
     <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
-    <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                flatpickr('.datepicker', {
-                    dateFormat: 'Y-m-d',
-                    // Add any additional options here
-                });
-            });
-    </script>
+
     <!-- Custom CSS -->
     <link href="custom_css\mt_agenda.css" rel="stylesheet">
     <!-- Custom JS -->
