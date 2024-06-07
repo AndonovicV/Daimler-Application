@@ -30,6 +30,11 @@ $(document).ready(function () {
         }
     });
 
+    // Initialize flatpickr for existing datepicker elements
+    flatpickr('.datepicker', {
+        dateFormat: 'Y-m-d',
+    });
+
     //Datatable Deadline Date Picker
     new DateTime(document.getElementById('deadlineDatePicker'), {
         format: 'D/M/YYYY'
@@ -104,6 +109,11 @@ $(document).ready(function () {
             }
         });
         
+    });
+
+    // Initialize flatpickr for existing datepicker elements
+    flatpickr('.datepicker', {
+        dateFormat: 'Y-m-d',
     });
 
     $('#agendaSelect').change(function () {
@@ -242,16 +252,24 @@ $(document).ready(function() {
     });
 });
 
+// Event listener for the ASAP button
 $(document).on('click', '.asap-button', function() {
     var $button = $(this);
-    var rowId = $button.closest('tr').attr('id'); // Use .attr('id') to get the row's ID attribute
-    var type = $button.closest('tr').data('type');
-    var currentAsap = $button.data('asap');
-    var newAsap = currentAsap ? 0 : 1; // Toggle ASAP value
+    var $datepickerInput = $button.siblings('input[data-column="deadline"]');
+    var newAsap = !$button.data('asap'); // Toggle ASAP value
 
-    // Update button appearance
+    // Update button appearance and datepicker visibility
     $button.data('asap', newAsap);
     $button.css('color', newAsap ? 'red' : 'white');
+    // fixing datepicker not initalizing immediately after task creation
+    if (newAsap) {
+        $datepickerInput.hide();
+    } else {
+        $datepickerInput.show();
+    }
+
+    var rowId = $button.closest('tr').attr('id');
+    var type = $button.closest('tr').data('type');
 
     // Send AJAX request to update ASAP value
     $.ajax({
@@ -290,23 +308,28 @@ window.onclick = function(event) {
     }
 }
 
+// Initialize flatpickr on document ready
+$(document).ready(function() {
+    flatpickr('.datepicker', {
+        dateFormat: 'Y-m-d',
+    });
+});
+
+// Function to add a new row
 async function addNewRow(type, clickedCell) {
     var gft = "";
     var project = "";
     var gftFound = false;
     var projectFound = false;
     var currentRow = $(clickedCell).closest('tr');
-    console.log(currentRow);
 
     while (currentRow.length > 0 && !gftFound) {
         var cells = currentRow.find('td:eq(1)');
         var cellContent = cells.text().trim();
         if (cellContent.startsWith("GFT")) {
-            console.log(cellContent);
             gft = cellContent;
             gftFound = true;
         } else if (cellContent.startsWith("title") && !projectFound) {
-            console.log(cellContent);
             project = cellContent;
             projectFound = true;
         }
@@ -316,29 +339,16 @@ async function addNewRow(type, clickedCell) {
     project = project.substring("title for".length).trim();
     gft = gft.substring("GFT".length).trim();
 
-    // Await the saveToDatabase call
     await saveToDatabase(type, gft, project);
 }
 
-// Initialize flatpickr on document ready
-$(document).ready(function() {
-    flatpickr('.datepicker', {
-        dateFormat: 'Y-m-d',
-    });
-});
-
 async function addTask(cell) {
-    var protokolId = $('#agendaSelect').val(); // Get the selected protokol_id
-    console.log('Add Task button clicked, protokolId:', protokolId);
-
-    // Ensure addNewRow completes before proceeding
+    var protokolId = $('#agendaSelect').val();
     await addNewRow("Task", cell, protokolId);
 
     const response = await fetch('getlast.php?type=task');
-    const text = await response.text();    
-    console.log('Response Text:', text);  // Log the response text
-        
-    // Try parsing the response as JSON
+    const text = await response.text();
+    
     let data;
     try {
         data = JSON.parse(text);
@@ -347,18 +357,17 @@ async function addTask(cell) {
         return;
     }
     var lastTask = data.last_task_id;
-    console.log('Last Task ID:', lastTask);
 
     var newRow = $(`
     <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
         <td><strong>Task</strong></td>
         <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white; max-width: 200px;"></td>
         <td style="background-color: #212529 !important; width: 100px !important;">
-            <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 100%;" value="">
-            <br>
-            <br>
+            <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 100%; color: grey;" placeholder="Enter responsible person">
+            <br><br>
             <div class="flex-container">
-                    <input class="editabletasktopic-cell new-datepicker-${lastTask}" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 70%;" value=""><button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
+                <input class="editabletasktopic-cell new-datepicker-${lastTask}" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 70%;" value="" placeholder="Select date">
+                <button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
             </div>
         </td>
         <td>
@@ -373,16 +382,15 @@ async function addTask(cell) {
             </div>
         </td>
     </tr>
-
     `);
+
+    // Insert the new row into the table
+    newRow.insertAfter($(cell).closest('tr'));
 
     // Initialize flatpickr for the new datepicker input
     flatpickr('.new-datepicker-' + lastTask, {
-            dateFormat: 'Y-m-d',
-            // Add any additional options here
-        });
-
-    newRow.insertAfter($(cell).closest('tr'));
+        dateFormat: 'Y-m-d',
+    });
 }
 
 async function addTopic(cell) {
