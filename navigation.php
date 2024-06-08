@@ -1,7 +1,6 @@
 <?php
-//include_once('php-attendance\inc\navigationAgenda.php');
-//include 'conn.php';
-//session_start(); // Start the session if not already started
+include 'conn.php';
+session_start(); // Start the session if not already started
 
 // Check if the session variable is set
 if (isset($_SESSION['selected_team'])) {
@@ -35,10 +34,7 @@ if (isset($_SESSION['selected_team'])) {
                     <a class="nav-link <?= (isset($page)) && $page == 'member_list' ? 'active' : '' ?>" href="./?page=member_list">Members</a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link <?= (isset($page)) && $page == 'attendance' ? 'active' : '' ?>" href="/Daimler/php-attendance/?page=attendance">Attendance</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= (isset($page)) && $page == 'attendance_report' ? 'active' : '' ?>" href="/Daimler/php-attendance/?page=attendance_report">Report</a>
+                    <a class="nav-link <?= (isset($page)) && $page == 'attendance' ? 'active' : '' ?>" href="/Daimler/attendance.php">Attendance</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?= (isset($page)) && $page == 'attendance_report' ? 'active' : '' ?>" href="/Daimler/search.php">Search</a>

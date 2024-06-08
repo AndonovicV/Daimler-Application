@@ -1,5 +1,5 @@
 <?php
-include_once('php-attendance\inc\navigationAgenda.php');
+include_once('navigation.php');
 include 'conn.php';
 
 // Check if the session variable is set
