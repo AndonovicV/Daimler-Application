@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8888
--- Generation Time: Jun 08, 2024 at 03:36 PM
+-- Generation Time: Jun 09, 2024 at 01:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -8455,18 +8455,18 @@ CREATE TABLE `module_team_guest_guest_attendance` (
 --
 
 INSERT INTO `module_team_guest_guest_attendance` (`id`, `agenda_id`, `guest_id`, `department`, `substitute`, `present`) VALUES
-(9, 67, 3, 'Finance', 'sus', 1),
-(10, 67, 4, 'HR', NULL, 1),
-(11, 67, 5, 'Marketing', NULL, 1),
-(12, 67, 6, 'Finance', NULL, 0),
-(13, 67, 8, 'HR', NULL, 0),
-(14, 67, 9, 'Finance', NULL, 0),
-(15, 69, 3, 'Finance', 'and', 1),
-(16, 69, 4, 'HR', 'yes what', 1),
-(17, 69, 5, 'Marketing', 'si si claro', 0),
-(18, 69, 6, 'Finance', '', 0),
-(19, 69, 8, 'HR', NULL, 0),
-(20, 69, 9, 'Finance', NULL, 0);
+(44, 73, 3, 'Finance', NULL, 1),
+(45, 73, 4, 'HR', NULL, 0),
+(46, 73, 5, 'Marketing', NULL, 1),
+(47, 73, 6, 'Finance', NULL, 0),
+(48, 73, 8, 'HR', 'Emily', 1),
+(49, 73, 9, 'Finance', NULL, 0),
+(50, 74, 3, 'Finance', NULL, 1),
+(51, 74, 4, 'HR', NULL, 0),
+(52, 74, 5, 'Marketing', NULL, 1),
+(53, 74, 6, 'Finance', NULL, 1),
+(54, 74, 8, 'HR', NULL, 1),
+(55, 74, 9, 'Finance', 'Chris', 0);
 
 -- --------------------------------------------------------
 
@@ -8512,41 +8512,16 @@ CREATE TABLE `module_team_member_attendance` (
 --
 
 INSERT INTO `module_team_member_attendance` (`id`, `agenda_id`, `member_id`, `department`, `present`, `absent`, `substituted`) VALUES
-(1, 60, 1, 'Engineering', 0, 1, 0),
-(2, 60, 2, 'Marketing', 0, 0, 1),
-(3, 60, 3, 'Finance', 0, 1, 0),
-(4, 60, 4, 'HR', 0, 0, 0),
-(5, 60, 5, 'IT', 1, 0, 0),
-(6, 61, 1, 'Engineering', 0, 1, 0),
-(7, 61, 2, 'Marketing', 1, 0, 0),
-(8, 61, 3, 'Finance', 0, 1, 0),
-(9, 61, 4, 'HR', 1, 0, 0),
-(10, 61, 5, 'IT', 0, 0, 1),
-(11, 65, 1, '', 1, 0, 0),
-(12, 65, 2, 'Unknown', 0, 1, 0),
-(13, 65, 3, 'Unknown', 0, 0, 1),
-(14, 65, 4, 'Unknown', 0, 1, 0),
-(15, 65, 5, 'Unknown', 1, 0, 0),
-(16, 66, 1, 'Engineering', 0, 0, 0),
-(17, 66, 2, 'Marketing', 0, 0, 0),
-(18, 66, 3, 'Finance', 0, 0, 0),
-(19, 66, 4, 'HR', 0, 0, 0),
-(20, 66, 5, 'IT', 0, 0, 0),
-(21, 67, 1, 'Engineering', 0, 0, 0),
-(22, 67, 2, 'Marketing', 1, 0, 0),
-(23, 67, 3, 'Finance', 0, 1, 0),
-(24, 67, 4, 'HR', 1, 0, 0),
-(25, 67, 5, 'IT', 1, 0, 0),
-(26, 68, 1, 'Engineering', 0, 0, 0),
-(27, 68, 2, 'Marketing', 0, 0, 0),
-(28, 68, 3, 'Finance', 0, 0, 0),
-(29, 68, 4, 'HR', 0, 0, 0),
-(30, 68, 5, 'IT', 0, 0, 0),
-(31, 69, 1, 'Engineering', 1, 0, 0),
-(32, 69, 2, 'Marketing', 0, 0, 1),
-(33, 69, 3, 'Finance', 0, 0, 1),
-(34, 69, 4, 'HR', 0, 0, 0),
-(35, 69, 5, 'IT', 1, 0, 0);
+(51, 73, 1, 'Engineering', 1, 0, 0),
+(52, 73, 2, 'Marketing', 1, 0, 0),
+(53, 73, 3, 'Finance', 1, 0, 0),
+(54, 73, 4, 'HR', 0, 0, 1),
+(55, 73, 5, 'IT', 0, 1, 0),
+(56, 74, 1, 'Engineering', 1, 0, 0),
+(57, 74, 2, 'Marketing', 0, 1, 0),
+(58, 74, 3, 'Finance', 0, 1, 0),
+(59, 74, 4, 'HR', 1, 0, 0),
+(60, 74, 5, 'IT', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -8657,14 +8632,8 @@ INSERT INTO `mt_agenda_list` (`agenda_id`, `agenda_name`, `created_by`, `created
 (59, 'Agenda newwer', '', '0000-00-00', '0000-00-00', '2024-05-24', 'MT Exterior'),
 (60, 'Sunday Agenda', '', '0000-00-00', '0000-00-00', '2024-05-26', 'MT Exterior'),
 (61, 'My name is Boby Brown', '', '0000-00-00', '0000-00-00', '2024-05-29', 'MT Exterior'),
-(62, 'am i created', '', '0000-00-00', '0000-00-00', '2024-06-07', ''),
-(63, 'asshol', '', '0000-00-00', '0000-00-00', '2024-06-08', ''),
-(64, 'does it work aly?', '', '0000-00-00', '0000-00-00', '2024-06-07', 'MT Exterior'),
-(65, 'Attendance test 1', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior'),
-(66, 'attendance test 2', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior'),
-(67, 'attendance test 3', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior'),
-(68, 'attendance test 4', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior'),
-(69, 'attendance test 5', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior');
+(73, 'Attendance test 1', '', '0000-00-00', '0000-00-00', '2024-06-09', 'MT Exterior'),
+(74, 'attendnance test 2', '', '0000-00-00', '0000-00-00', '2024-06-09', 'MT Exterior');
 
 -- --------------------------------------------------------
 
@@ -9805,7 +9774,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `guests`
 --
 ALTER TABLE `guests`
-  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `information`
@@ -9823,7 +9792,7 @@ ALTER TABLE `mdt_tbl`
 -- AUTO_INCREMENT for table `module_team_guest_guest_attendance`
 --
 ALTER TABLE `module_team_guest_guest_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `module_team_members`
@@ -9835,13 +9804,13 @@ ALTER TABLE `module_team_members`
 -- AUTO_INCREMENT for table `module_team_member_attendance`
 --
 ALTER TABLE `module_team_member_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `mt_agenda_list`
 --
 ALTER TABLE `mt_agenda_list`
-  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `org_boards`

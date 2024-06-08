@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8888
--- Generation Time: Jun 08, 2024 at 12:56 PM
+-- Generation Time: Jun 08, 2024 at 03:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -8444,7 +8444,7 @@ INSERT INTO `mdt_tbl` (`id`, `name`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `module_team_guest_guest_attendance` (
   `id` int(11) NOT NULL,
   `agenda_id` int(11) NOT NULL,
-  `guest_name` varchar(255) NOT NULL,
+  `guest_id` int(11) NOT NULL,
   `department` varchar(255) DEFAULT NULL,
   `substitute` varchar(255) DEFAULT NULL,
   `present` tinyint(1) NOT NULL
@@ -8454,21 +8454,19 @@ CREATE TABLE `module_team_guest_guest_attendance` (
 -- Dumping data for table `module_team_guest_guest_attendance`
 --
 
-INSERT INTO `module_team_guest_guest_attendance` (`id`, `agenda_id`, `guest_name`, `department`, `substitute`, `present`) VALUES
-(1, 61, 'Tom Brown', 'Engineering', 'Sarah Green', 1),
-(2, 61, 'Emily White', 'Marketing', NULL, 1),
-(3, 61, 'Michael Black', 'Finance', 'David Blue', 0),
-(4, 60, 'Alice White', 'External Consultant', 'N/A', 1),
-(5, 60, 'Bob Green', 'Freelancer', 'N/A', 0),
-(6, 60, 'Charlie Black', 'External Advisor', 'N/A', 1),
-(7, 60, 'Diana Blue', 'Guest Speaker', 'N/A', 1),
-(8, 60, 'Evan Purple', 'External Auditor', 'N/A', 0),
-(9, 67, 'Eric Clapton', 'Finance', NULL, 1),
-(10, 67, 'B.B. King', 'HR', NULL, 0),
-(11, 67, 'Robert Plant', 'Marketing', NULL, 1),
-(12, 67, 'Jimmy Page', 'Finance', NULL, 1),
-(13, 67, 'Keith Richards', 'HR', NULL, 0),
-(14, 67, 'Stevie Ray Vaughan', 'Finance', NULL, 0);
+INSERT INTO `module_team_guest_guest_attendance` (`id`, `agenda_id`, `guest_id`, `department`, `substitute`, `present`) VALUES
+(9, 67, 3, 'Finance', 'sus', 1),
+(10, 67, 4, 'HR', NULL, 1),
+(11, 67, 5, 'Marketing', NULL, 1),
+(12, 67, 6, 'Finance', NULL, 0),
+(13, 67, 8, 'HR', NULL, 0),
+(14, 67, 9, 'Finance', NULL, 0),
+(15, 69, 3, 'Finance', 'and', 1),
+(16, 69, 4, 'HR', 'yes what', 1),
+(17, 69, 5, 'Marketing', 'si si claro', 0),
+(18, 69, 6, 'Finance', '', 0),
+(19, 69, 8, 'HR', NULL, 0),
+(20, 69, 9, 'Finance', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -8537,8 +8535,18 @@ INSERT INTO `module_team_member_attendance` (`id`, `agenda_id`, `member_id`, `de
 (21, 67, 1, 'Engineering', 0, 0, 0),
 (22, 67, 2, 'Marketing', 1, 0, 0),
 (23, 67, 3, 'Finance', 0, 1, 0),
-(24, 67, 4, 'HR', 0, 0, 0),
-(25, 67, 5, 'IT', 1, 0, 0);
+(24, 67, 4, 'HR', 1, 0, 0),
+(25, 67, 5, 'IT', 1, 0, 0),
+(26, 68, 1, 'Engineering', 0, 0, 0),
+(27, 68, 2, 'Marketing', 0, 0, 0),
+(28, 68, 3, 'Finance', 0, 0, 0),
+(29, 68, 4, 'HR', 0, 0, 0),
+(30, 68, 5, 'IT', 0, 0, 0),
+(31, 69, 1, 'Engineering', 1, 0, 0),
+(32, 69, 2, 'Marketing', 0, 0, 1),
+(33, 69, 3, 'Finance', 0, 0, 1),
+(34, 69, 4, 'HR', 0, 0, 0),
+(35, 69, 5, 'IT', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -8654,7 +8662,9 @@ INSERT INTO `mt_agenda_list` (`agenda_id`, `agenda_name`, `created_by`, `created
 (64, 'does it work aly?', '', '0000-00-00', '0000-00-00', '2024-06-07', 'MT Exterior'),
 (65, 'Attendance test 1', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior'),
 (66, 'attendance test 2', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior'),
-(67, 'attendance test 3', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior');
+(67, 'attendance test 3', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior'),
+(68, 'attendance test 4', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior'),
+(69, 'attendance test 5', '', '0000-00-00', '0000-00-00', '2024-06-08', 'MT Exterior');
 
 -- --------------------------------------------------------
 
@@ -9683,7 +9693,8 @@ ALTER TABLE `mdt_tbl`
 --
 ALTER TABLE `module_team_guest_guest_attendance`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `agenda_id` (`agenda_id`);
+  ADD KEY `agenda_id` (`agenda_id`),
+  ADD KEY `guest_id` (`guest_id`);
 
 --
 -- Indexes for table `module_team_members`
@@ -9812,7 +9823,7 @@ ALTER TABLE `mdt_tbl`
 -- AUTO_INCREMENT for table `module_team_guest_guest_attendance`
 --
 ALTER TABLE `module_team_guest_guest_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `module_team_members`
@@ -9824,13 +9835,13 @@ ALTER TABLE `module_team_members`
 -- AUTO_INCREMENT for table `module_team_member_attendance`
 --
 ALTER TABLE `module_team_member_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `mt_agenda_list`
 --
 ALTER TABLE `mt_agenda_list`
-  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `org_boards`
@@ -9888,7 +9899,8 @@ ALTER TABLE `topics`
 -- Constraints for table `module_team_guest_guest_attendance`
 --
 ALTER TABLE `module_team_guest_guest_attendance`
-  ADD CONSTRAINT `module_team_guest_guest_attendance_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`);
+  ADD CONSTRAINT `module_team_guest_guest_attendance_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`),
+  ADD CONSTRAINT `module_team_guest_guest_attendance_ibfk_2` FOREIGN KEY (`guest_id`) REFERENCES `guests` (`guest_id`);
 
 --
 -- Constraints for table `module_team_member_attendance`
