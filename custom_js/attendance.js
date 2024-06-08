@@ -151,4 +151,62 @@ $(document).ready(function () {
             });
         }
     });
+
+     // Open modal for adding new guest
+    $('#add_guest').on('click', function () {
+        $('#addGuestModal').modal('show');
+    });
+
+    // Add guest event
+    $('#saveGuestBtn').on('click', function () {
+        var guestName = $('#guestNameInput').val();
+        var department = $('#guestDepartmentInput').val();
+        var substitute = $('#guestSubstituteInput').val();
+        var agendaId = $('input[name="agenda_id"]').val();
+
+        if (guestName) {
+            $.ajax({
+                url: 'add_guest.php',
+                type: 'POST',
+                data: {
+                    agenda_id: agendaId,
+                    guest_name: guestName,
+                    department: department,
+                    substitute: substitute
+                },
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    if (data.status === 'success') {
+                        var newRow = `
+                            <tr>
+                                <td class='guest_name editable' class='px-2 py-1 text-light-emphasis fw-bold'>
+                                    <input type='hidden' name='guest_id' value='${data.guest_id}'>
+                                    ${data.guest_name}
+                                </td>
+                                <td class='department editable' class='text-center px-2 py-1 text-light-emphasis'>${data.department}</td>
+                                <td class='substitute editable' class='px-2 py-1 text-light'>${data.substitute}</td>
+                                <td class='text-center px-2 py-1'>
+                                    <input class='form-check-input' type='checkbox' name='present[${data.guest_id}]' id='present_${data.guest_id}' data-status='1'>
+                                </td>
+                                <td class='text-center px-2 py-1'>
+                                    <div class='btn-group' role='group' aria-label='Basic example'>
+                                        <button class='btn btn-sm btn-outline-primary rounded-0' type='button' title='Edit'><i class='fas fa-edit'></i></button>
+                                        <button class='btn btn-sm btn-outline-danger rounded-0' type='button' id='deleteBtnGuest' title='Delete'><i class='fas fa-trash'></i></button>
+                                    </div>
+                                </td>
+                            </tr>`;
+                        $('#guest-list-tbl-body').append(newRow);
+                        $('#addGuestModal').modal('hide');
+                    } else {
+                        alert('Error adding guest: ' + data.message);
+                    }
+                },
+                error: function () {
+                    alert('Error adding guest.');
+                }
+            });
+        } else {
+            alert('Please enter a guest name.');
+        }
+    });
 });

@@ -58,7 +58,7 @@ include 'conn.php';
         <!-- Placeholder for the tables -->
         <div id="tables-container" style="display: none;">
             <form action="" id="manage-attendance">
-            <input type="hidden" name="agenda_id" value="">
+                <input type="hidden" name="agenda_id" value="">
                 <div class="card shadow mb-3 dark-card">
                     <div class="card-header rounded-0">
                         <div class="card-title text-light">Attendance Sheet</div>
@@ -121,6 +121,39 @@ include 'conn.php';
                                                 <th class="text-center bg-transparent text-light">Actions</th>
                                             </tr>
                                         </thead>
+                                        <!-- Add Guest Modal -->
+                                        <div class="modal fade" id="addGuestModal" tabindex="-1" aria-labelledby="addGuestModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content dark-card">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title text-light" id="addGuestModalLabel">Add New Guest</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="addGuestForm">
+                                                            <div class="form-group">
+                                                                <label for="guestNameInput" class="text-light">Guest Name</label>
+                                                                <input type="text" class="form-control" id="guestNameInput" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="guestDepartmentInput" class="text-light">Department</label>
+                                                                <input type="text" class="form-control" id="guestDepartmentInput" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="guestSubstituteInput" class="text-light">Substitute</label>
+                                                                <input type="text" class="form-control" id="guestSubstituteInput">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" id="saveGuestBtn">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <tbody id="guest-list-tbl-body">
                                             <!-- Rows will be inserted here dynamically -->
                                         </tbody>
@@ -140,4 +173,5 @@ include 'conn.php';
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="custom_js/attendance.js"></script>
 </body>
+
 </html>
