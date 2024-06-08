@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         // Prepare and execute the query to insert the new task or topic with the new agenda_id
         if ($old_task_id !== null) {
-            $insert_stmt = $conn->prepare("INSERT INTO tasks (name, responsible, gft, cr, details, agenda_id) VALUES (?, ?, ?, ?, ?, ?)");
+            $insert_stmt = $conn->prepare("INSERT INTO tasks (name, responsible, gft, cr, details, agenda_id, deleted) VALUES (?, ?, ?, ?, ?, ?, 0)");
         } elseif ($old_topic_id !== null) {
             $insert_stmt = $conn->prepare("INSERT INTO topics (name, responsible, gft, cr, details, agenda_id) VALUES (?, ?, ?, ?, ?, ?)");
         }
