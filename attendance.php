@@ -130,13 +130,6 @@ include 'conn.php';
                         </div>
                     </div>
                 </div>
-
-                <hr>
-                <div class="d-flex w-100 justify-content-center align-items-center">
-                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
-                        <button class="btn btn-primary rounded-pill w-100" type="submit">Save Attendance</button>
-                    </div>
-                </div>
             </form>
         </div>
     </div>

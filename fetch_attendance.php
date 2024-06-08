@@ -31,17 +31,17 @@ if (isset($_GET['agenda_id'])) {
             <td class='text-center px-2 py-1 text-light-emphasis'>{$row['department']}</td>
             <td class='text-center px-2 py-1 text-light-emphasis'>
                 <div class='form-check d-flex w-100 justify-content-center'>
-                    <input class='form-check-input' type='checkbox' name='status[{$memberId}]' value='1' id='status_p_{$memberId}' {$presentChecked}>
+                    <input class='form-check-input' type='checkbox' name='status[{$memberId}]' value='1' id='status_p_{$memberId}' data-status='1' {$presentChecked}>
                 </div>
             </td>
             <td class='text-center px-2 py-1 text-light-emphasis'>
                 <div class='form-check d-flex w-100 justify-content-center'>
-                    <input class='form-check-input' type='checkbox' name='status[{$memberId}]' value='2' id='status_a_{$memberId}' {$absentChecked}>
+                    <input class='form-check-input' type='checkbox' name='status[{$memberId}]' value='2' id='status_a_{$memberId}' data-status='1' {$absentChecked}>
                 </div>
             </td>
             <td class='text-center px-2 py-1 text-light-emphasis'>
                 <div class='form-check d-flex w-100 justify-content-center'>
-                    <input class='form-check-input' type='checkbox' name='status[{$memberId}]' value='3' id='status_s_{$memberId}' {$substitutedChecked}>
+                    <input class='form-check-input' type='checkbox' name='status[{$memberId}]' value='3' id='status_s_{$memberId}' data-status='1' {$substitutedChecked}>
                 </div>
             </td>
         </tr>";
@@ -58,7 +58,7 @@ if (isset($_GET['agenda_id'])) {
             <td class='text-center px-2 py-1 text-light-emphasis'>{$row['department']}</td>
             <td class='px-2 py-1 text-light'>{$row['substitute']}</td>
             <td class='text-center px-2 py-1'>
-                <input class='form-check-input' type='checkbox' name='present[{$guestId}]' id='present_{$guestId}' {$presentChecked}>
+                <input class='form-check-input' type='checkbox' name='present[{$guestId}]' id='present_{$guestId}' data-status='1' {$presentChecked}>
             </td>
             <td class='text-center px-2 py-1'>
                 <div class='btn-group' role='group' aria-label='Basic example'>

@@ -22,25 +22,35 @@ $(document).ready(function () {
         }
     });
 
-    $('#manage-attendance').on('submit', function (e) {
-        e.preventDefault();
-
-        var formData = $(this).serialize();
+    function updateAttendance(agendaId, memberId, status) {
         $.ajax({
             url: 'save_attendance.php',
             type: 'POST',
-            data: formData,
+            data: {
+                agenda_id: agendaId,
+                'member_id[]': [memberId],
+                ['status[' + memberId + ']']: status
+            },
             success: function (response) {
                 var data = JSON.parse(response);
-                if (data.status === 'success') {
-                    alert('Attendance saved successfully.');
-                } else {
-                    alert('Error saving attendance.');
+                if (data.status === 'error') {
+                    alert('Error updating attendance: ' + data.message);
                 }
             },
             error: function () {
-                alert('Error saving attendance.');
+                alert('Error updating attendance.');
             }
         });
+    }
+
+    $('#attendance-tbl-body').on('change', 'input[type="checkbox"]', function () {
+        var agendaId = $('input[name="agenda_id"]').val();
+        var memberId = $(this).closest('tr').find('input[name="member_id[]"]').val();
+        var status = $(this).is(':checked') ? $(this).val() : 0;
+
+        // Uncheck other checkboxes in the same row
+        $(this).closest('tr').find('input[type="checkbox"]').not(this).prop('checked', false);
+
+        updateAttendance(agendaId, memberId, status);
     });
 });
