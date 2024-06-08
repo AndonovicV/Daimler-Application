@@ -109,8 +109,8 @@ include 'conn.php';
                                             <col width="20%">
                                             <col width="20%">
                                             <col width="15%">
-                                            <col width="20%">
-                                            <col width="25%">
+                                            <col width="8%">
+                                            <col width="5%">
                                         </colgroup>
                                         <thead>
                                             <tr>

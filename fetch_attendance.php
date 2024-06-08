@@ -71,12 +71,11 @@ if (isset($_GET['agenda_id'])) {
             </td>
             <td class='department editable' class='text-center px-2 py-1 text-light-emphasis'>{$row['guest_department']}</td>
             <td class='substitute editable' class='px-2 py-1 text-light'>{$row['substitute']}</td>
-            <td class='text-center px-2 py-1'>
+            <td class='text-center px-2 py-1 text-light-emphasis'>
                 <input class='form-check-input' type='checkbox' name='present[{$guestId}]' id='present_{$guestId}' data-status='1' {$presentChecked}>
             </td>
             <td class='text-center px-2 py-1'>
                 <div class='btn-group' role='group' aria-label='Basic example'>
-                    <button class='btn btn-sm btn-outline-primary rounded-0' type='button' title='Edit'><i class='fas fa-edit'></i></button>
                     <button class='btn btn-sm btn-outline-danger rounded-0' type='button' id='deleteBtnGuest' title='Delete'><i class='fas fa-trash'></i></button>
                 </div>
             </td>
