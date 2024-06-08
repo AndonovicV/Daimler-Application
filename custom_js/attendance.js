@@ -125,4 +125,30 @@ $(document).ready(function () {
             });
         });
     });
+
+     // Delete guest event
+     $('#guest-list-tbl-body').on('click', '#deleteBtnGuest', function () {
+        var $row = $(this).closest('tr');
+        var guestId = $row.find('input[name="guest_id"]').val();
+        var agendaId = $('input[name="agenda_id"]').val();
+
+        if (confirm('Are you sure you want to delete this guest?')) {
+            $.ajax({
+                url: 'delete_guest.php',
+                type: 'POST',
+                data: { guest_id: guestId, agenda_id: agendaId },
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    if (data.status === 'success') {
+                        $row.remove();
+                    } else {
+                        alert('Error deleting guest: ' + data.message);
+                    }
+                },
+                error: function () {
+                    alert('Error deleting guest.');
+                }
+            });
+        }
+    });
 });
