@@ -54,7 +54,10 @@ if (isset($_GET['agenda_id'])) {
         $guestId = $row['id'];
         $presentChecked = $row['present'] ? 'checked' : '';
         $guestRows .= "<tr>
-            <td class='px-2 py-1 text-light-emphasis fw-bold'>{$row['guest_name']}</td>
+            <td class='px-2 py-1 text-light-emphasis fw-bold'>
+                <input type='hidden' name='guest_id' value='{$guestId}'
+                {$row['guest_name']}
+            </td>
             <td class='text-center px-2 py-1 text-light-emphasis'>{$row['department']}</td>
             <td class='px-2 py-1 text-light'>{$row['substitute']}</td>
             <td class='text-center px-2 py-1'>

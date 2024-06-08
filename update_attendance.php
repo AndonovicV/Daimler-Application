@@ -2,12 +2,17 @@
 include 'conn.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!isset($_POST['member_id'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Member ID or Guest ID not provided.']);
+        exit;
+    }
+
     $agenda_id = intval($_POST['agenda_id']);
     $member_id = intval($_POST['member_id']);
     $status = intval($_POST['status']);
     $checkbox_name = $_POST['checkbox_name'];
 
-    if ($checkbox_name == 'status[' . $member_id . ']') {
+    if (strpos($checkbox_name, 'status[') !== false) {
         $present = ($status == 1) ? 1 : 0;
         $absent = ($status == 2) ? 1 : 0;
         $substituted = ($status == 3) ? 1 : 0;
@@ -27,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Prepare failed: ' . $conn->error]);
         }
-    } elseif ($checkbox_name == 'present[' . $member_id . ']') {  // Changed $guest_id to $member_id
-        $guest_id = intval($member_id);  // Since it's actually a guest ID in this context
+    } elseif (strpos($checkbox_name, 'present[') !== false) {
+        $guest_id = intval($member_id);  // Reuse member_id as guest_id in this context
         $present = ($status == 1) ? 1 : 0;
 
         $sql = "UPDATE module_team_guest_guest_attendance 
