@@ -44,4 +44,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Invalid request.']);
 }
+
+
+//User Input update
+if (isset($_POST['agenda_id']) && isset($_POST['guest_id']) && isset($_POST['department']) && isset($_POST['substitute'])) {
+    $agenda_id = $_POST['agenda_id'];
+    $guest_id = $_POST['guest_id'];
+    $department = $_POST['department'];
+    $substitute = $_POST['substitute'];
+
+    $sql = "UPDATE module_team_guest_guest_attendance 
+            SET department = ?, substitute = ? 
+            WHERE agenda_id = ? AND guest_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ssii', $department, $substitute, $agenda_id, $guest_id);
+
+    if ($stmt->execute()) {
+        echo json_encode(['status' => 'success']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => $stmt->error]);
+    }
+
+    $stmt->close();
+    $conn->close();
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
+}
 ?>

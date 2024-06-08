@@ -84,4 +84,45 @@ $(document).ready(function () {
 
         updateGuestAttendance(agendaId, guestId, present);
     });
+
+    $('#attendance-tbl-body, #guest-list-tbl-body').on('dblclick', 'td.editable', function () {
+        var $this = $(this);
+        var originalText = $this.text();
+        var input = $('<input type="text" class="edit-input" />').val(originalText);
+        $this.html(input);
+        input.focus();
+
+        input.on('blur', function () {
+            var newText = $(this).val();
+            $this.text(newText);
+
+            var agendaId = $('input[name="agenda_id"]').val();
+            var row = $this.closest('tr');
+            var guestId = row.find('input[name="guest_id"]').val();
+            var department = row.find('.department').text();
+            var substitute = row.find('.substitute').text();
+
+            $.ajax({
+                url: 'save_attendance.php',
+                type: 'POST',
+                data: {
+                    agenda_id: agendaId,
+                    guest_id: guestId,
+                    department: department,
+                    substitute: substitute
+                },
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    if (data.status === 'error') {
+                        alert('Error saving data: ' + data.message);
+                        $this.text(originalText); // Revert text on error
+                    }
+                },
+                error: function () {
+                    alert('Error saving data.');
+                    $this.text(originalText); // Revert text on error
+                }
+            });
+        });
+    });
 });
