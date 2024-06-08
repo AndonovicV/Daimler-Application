@@ -4,18 +4,29 @@ include 'conn.php';
 if (isset($_GET['agenda_id'])) {
     $agendaId = intval($_GET['agenda_id']);
 
-    // Fetch attendance data
-    $attendanceResult = $conn->query("SELECT * FROM module_team_member_attendance WHERE agenda_id = $agendaId");
+    // Fetch attendance data with member names
+    $sql = "SELECT 
+                a.*, 
+                m.member_name
+            FROM 
+                module_team_member_attendance a
+            JOIN 
+                module_team_members m ON a.member_id = m.member_id
+            WHERE 
+                a.agenda_id = $agendaId";
+    $attendanceResult = $conn->query($sql);
+    
     $attendanceRows = '';
     while ($row = $attendanceResult->fetch_assoc()) {
-        $memberId = $row['id'];
+        $memberId = $row['member_id'];
+        $memberName = $row['member_name'];
         $presentChecked = $row['present'] ? 'checked' : '';
         $absentChecked = $row['absent'] ? 'checked' : '';
         $substitutedChecked = $row['substituted'] ? 'checked' : '';
         $attendanceRows .= "<tr class='member-row'>
             <td class='px-2 py-1 text-light-emphasis fw-bold'>
                 <input type='hidden' name='member_id[]' value='{$memberId}'>
-                {$row['members']}
+                {$memberName}
             </td>
             <td class='text-center px-2 py-1 text-light-emphasis'>{$row['department']}</td>
             <td class='text-center px-2 py-1 text-light-emphasis'>

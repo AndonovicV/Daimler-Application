@@ -58,6 +58,7 @@ include 'conn.php';
         <!-- Placeholder for the tables -->
         <div id="tables-container" style="display: none;">
             <form action="" id="manage-attendance">
+            <input type="hidden" name="agenda_id" value="">
                 <div class="card shadow mb-3 dark-card">
                     <div class="card-header rounded-0">
                         <div class="card-title text-light">Attendance Sheet</div>
