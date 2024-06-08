@@ -79,6 +79,79 @@ if ($result_personal_tasks->num_rows > 0) {
 
 </head>
 
+       <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
+                var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
+                var forwardModal = document.getElementById('forwardModal');
+                var sendTaskBtn = document.getElementById('sendTaskBtn');
+
+                forwardTaskBtns.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var taskId = this.getAttribute('data-id');
+                        forwardModal.setAttribute('data-task-id', taskId);
+
+                        var modalTitle = forwardModal.querySelector('.modal-title');
+                        modalTitle.textContent = 'Forward Task ID: ' + taskId;
+                    });
+                });
+
+                forwardTopicBtns.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var topicId = this.getAttribute('data-id');
+                        forwardModal.setAttribute('data-topic-id', topicId);
+
+                        var modalTitle = forwardModal.querySelector('.modal-title');
+                        modalTitle.textContent = 'Forward Topic ID: ' + topicId;
+                    });
+                });
+
+                sendTaskBtn.addEventListener('click', function() {
+                    console.log("Send button clicked");
+                    var taskId = forwardModal.getAttribute('data-task-id');
+                    var topicId = forwardModal.getAttribute('data-topic-id');
+                    var selectedAgendaId = document.getElementById('agendaSelectTask').value;
+                    console.log('Task ID:', taskId);
+                    console.log('Topic ID:', topicId);
+                    console.log('Selected Agenda ID:', selectedAgendaId);
+
+                    // Create an object with the data to be sent
+
+                    var data = {};
+                    if (taskId) {
+                        data = {
+                            task_id: taskId,
+                            agenda_id: selectedAgendaId
+                        };
+                    } else {
+                        data = {
+                            topic_id: topicId,
+                            agenda_id: selectedAgendaId
+                        };
+                    }
+
+                    console.log('Data to send:', data);
+
+                    // Perform the AJAX request
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'forwardtask.php', true); // Changed URL to forwardtask.php
+                    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                console.log('Task successfully copied to the agenda');
+                            } else {
+                                console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify(data));
+
+                });
+            });
+        </script>
+
+
 <body>
     
     <div class="container">
@@ -176,62 +249,48 @@ if ($result_personal_tasks->num_rows > 0) {
 
     <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="forwardModal">Forward task</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="field">
-                    <label for="agendaSelect">Select Agenda:</label>
-                    <select id="agendaSelect" data-search="true" class="form-select">
-                        <option value="">Select Agenda...</option>
-                        <?php
-                        // Example variables
-                        $selectedAgendaId = 1; // Example selected agenda ID
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="forwardModalLabel">Forward</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div class="field">
+                            <label for="agendaSelectTask">Select Agenda:</label>
+                            <select id="agendaSelectTask" data-search="true" class="form-select">
+                                <option value="">Select Agenda...</option>
+                                <?php
 
-                        // Prepare the SQL query with a placeholder for the selected team
-                        $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                                $stmt = $conn->prepare($sql);
 
-                        // Initialize the statement
-                        $stmt = $conn->prepare($sql);
-                        
-                        // Check if the statement was prepared successfully
-                        if ($stmt) {
-                            echo "EYO"; 
-                            // Bind the parameter to the prepared statement
-                            $stmt->bind_param('s', $selected_team); // Use 'i' if module_team is an integer
-                            // Execute the statement
-                            $stmt->execute();
-                            // Get the result
-                            $result = $stmt->get_result();
+                                if ($stmt) {
+                                    $stmt->bind_param('s', $selected_team);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
 
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    // Check if the current option is the selected one
-                                    $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                                    echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>" 
-                                         . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
-                                         . "</option>";
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
+                                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
+                                                . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
+                                                . "</option>";
+                                        }
+                                    }
+
+                                    $stmt->close();
+                                } else {
+                                    echo "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
                                 }
-                            }
-
-                            // Close the statement
-                            $stmt->close();
-                        } else {
-                            // Handle potential errors
-                            echo "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
-                        }
-                        ?>
-                    </select>
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-light" id="sendTaskBtn" data-bs-dismiss="modal">Send</button>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="forwardModalsave">Save changes</button>
-            </div>
-        </div>
-    </div>
 </div>            
             <?php
             if (isset($protokol_date)) {
