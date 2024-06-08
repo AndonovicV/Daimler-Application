@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $sql = "UPDATE module_team_guest_guest_attendance 
                 SET present = ? 
-                WHERE agenda_id = ? AND id = ?";
+                WHERE agenda_id = ? AND guest_id = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param('iii', $present, $agenda_id, $guest_id);

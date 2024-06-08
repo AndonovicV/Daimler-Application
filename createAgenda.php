@@ -55,15 +55,16 @@ if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda
 
         if ($guestResult->num_rows > 0) {
             while ($guestRow = $guestResult->fetch_assoc()) {
+                $guestId = $guestRow['guest_id'];
                 $guestName = $guestRow['guest_name'];
                 $department = $guestRow['department'];
 
                 // Insert into module_team_guest_guest_attendance table
-                $insertGuestAttendanceSql = "INSERT INTO module_team_guest_guest_attendance (agenda_id, guest_name, department, substitute, present) VALUES ($agendaId, '$guestName', '$department', NULL, 0)";
+                $insertGuestAttendanceSql = "INSERT INTO module_team_guest_guest_attendance (agenda_id, guest_id, department, substitute, present) VALUES ($agendaId, $guestId, '$department', NULL, 0)";
                 if ($conn->query($insertGuestAttendanceSql) === TRUE) {
-                    echo "Inserted guest name: $guestName with department: $department into guest attendance for agenda ID: $agendaId<br>";
+                    echo "Inserted guest ID: $guestId with name: $guestName and department: $department into guest attendance for agenda ID: $agendaId<br>";
                 } else {
-                    echo "Error inserting guest name: $guestName into guest attendance: " . $conn->error . "<br>";
+                    echo "Error inserting guest ID: $guestId into guest attendance: " . $conn->error . "<br>";
                 }
             }
         } else {

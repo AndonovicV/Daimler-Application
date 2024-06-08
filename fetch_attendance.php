@@ -48,17 +48,28 @@ if (isset($_GET['agenda_id'])) {
     }
 
     // Fetch guest list data
-    $guestResult = $conn->query("SELECT * FROM module_team_guest_guest_attendance WHERE agenda_id = $agendaId");
+    $sql = "SELECT 
+                g.*, 
+                ga.guest_name, 
+                ga.department AS guest_department 
+            FROM 
+                module_team_guest_guest_attendance g
+            JOIN 
+                guests ga ON g.guest_id = ga.guest_id
+            WHERE 
+                g.agenda_id = $agendaId";
+    $guestResult = $conn->query($sql);
     $guestRows = '';
     while ($row = $guestResult->fetch_assoc()) {
-        $guestId = $row['id'];
+        $guestId = $row['guest_id'];
+        $guestName = $row['guest_name'];
         $presentChecked = $row['present'] ? 'checked' : '';
         $guestRows .= "<tr>
             <td class='px-2 py-1 text-light-emphasis fw-bold'>
-                <input type='hidden' name='guest_id' value='{$guestId}'
-                {$row['guest_name']}
+                <input type='hidden' name='guest_id' value='{$guestId}'>
+                {$guestName}
             </td>
-            <td class='text-center px-2 py-1 text-light-emphasis'>{$row['department']}</td>
+            <td class='text-center px-2 py-1 text-light-emphasis'>{$row['guest_department']}</td>
             <td class='px-2 py-1 text-light'>{$row['substitute']}</td>
             <td class='text-center px-2 py-1'>
                 <input class='form-check-input' type='checkbox' name='present[{$guestId}]' id='present_{$guestId}' data-status='1' {$presentChecked}>
