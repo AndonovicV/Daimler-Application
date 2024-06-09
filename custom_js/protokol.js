@@ -11,7 +11,7 @@ $(document).ready(function () {
         "bDestroy": true, // Ignores the error popup (cannot reinitialize), it works even with the error but purely for aesthetic purpose. Might delete later
         "layout": {
             "topStart": {
-                "buttons":[
+                "buttons": [
                     {
                         extend: 'csvHtml5',
                         exportOptions: {
@@ -24,7 +24,7 @@ $(document).ready(function () {
                             columns: ':not(:last-child)' // Exclude the last column (typically the actions column)
                         }
                     }
-                ]            
+                ]
             }
         }
     });
@@ -42,16 +42,61 @@ $(document).ready(function () {
         }
     });
 
+        //Triggers the virtual select
+        VirtualSelect.init({
+            multiple: true,
+            search: true,
+            ele: '#changeRequestSelect'
+        });
+    
+        // Track when the filter is focused
+        let filterDivFocused = false;
+        $('#changeRequestSelect').on('click', function () {
+            filterDivFocused = true;
+        });
+    
+        // Warn if user selects filter before choosing agenda
+        $(document).on('click', '#changeRequestSelect', function () {
+            var agendaId = $('#protokolSelect').val(); // Get the selected protokol_id
+            if (agendaId) {
+               // Do stuff
+            } else {
+                alert("Please select protokol to continue.");
+                $('#changeRequestSelect').hide();
+            }
+        });
+    
+        // Add event listener to handle clicks outside the filterDiv
+        $(document).on('click', function (event) {
+            if (filterDivFocused && !$(event.target).closest('#filterDiv').length) {
+                filterDivFocused = false;
+                var selectedValues = $('#changeRequestSelect').val();
+                sendFilterData(selectedValues);
+            }
+        });
+    
+        function sendFilterData(selectedValues) {
+            $.ajax({
+                type: "POST",
+                url: "actions.php", // Your PHP script to handle the data
+                data: { selected_titles: selectedValues },
+                success: function (response) {
+                    console.log(response); // Handle success response
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred: " + status + " " + error);
+                }
+            });
+        }
     // Creating New Row
     var counter = 1;
-
-
 
     function deleteRow(clickedCell) {
         var row = $(clickedCell).closest('tr');
         var rowId = row.data('id');
         var rowType = row.data('type');
-    
+
         row.remove();
         $.ajax({
             type: 'POST',
@@ -72,12 +117,12 @@ $(document).ready(function () {
         deleteRow(this);
     });
 
-    
+
     function deleteIADRow(clickedCell) {
         var row = $(clickedCell).closest('tr');
         var rowId = row.data('id');
         var rowType = row.data('type');
-    
+
         row.remove();
         $.ajax({
             type: 'POST',
@@ -159,8 +204,8 @@ $(document).ready(function () {
 });
 
 
-$(document).ready(function() {
-    $(document).on('blur', 'td[contenteditable=true]:not(.editable-cell)', function() {
+$(document).ready(function () {
+    $(document).on('blur', 'td[contenteditable=true]:not(.editable-cell)', function () {
         var $cell = $(this);
         var newValue = $cell.text();
         var rowId = $cell.closest('tr').attr('id');  // Use .attr('id') to get the row's ID attribute
@@ -177,18 +222,18 @@ $(document).ready(function() {
                 column: columnName,
                 type: type
             },
-            success: function(response) {
+            success: function (response) {
                 console.log('Update successful');
             },
-            error: function() {
+            error: function () {
                 console.log('Update failed');
             }
         });
     });
 });
 
-$(document).ready(function() {
-    $(document).on('blur', '.editable-cell', function() {
+$(document).ready(function () {
+    $(document).on('blur', '.editable-cell', function () {
         var $cell = $(this);
         var newValue = $cell.text();
         var Id = $cell.closest('tr').data('id');
@@ -203,18 +248,18 @@ $(document).ready(function() {
                 row_type: rowType,
                 content: newValue
             }),
-            success: function(response) {
+            success: function (response) {
                 console.log('Content saved successfully');
             },
-            error: function() {
+            error: function () {
                 console.error('Failed to save content');
             }
         });
     });
 });
 
-$(document).ready(function() {
-    $(document).on('blur', 'input.editabletasktopic-cell', function() {
+$(document).ready(function () {
+    $(document).on('blur', 'input.editabletasktopic-cell', function () {
         var $cell = $(this);
         var newValue = $cell.val(); // Use .val() to get the value of the input
         var rowId = $cell.closest('tr').attr('id'); // Use .attr('id') to get the row's ID attribute
@@ -232,10 +277,10 @@ $(document).ready(function() {
                     column: columnName,
                     type: type
                 },
-                success: function(response) {
+                success: function (response) {
                     console.log('Update successful');
                 },
-                error: function() {
+                error: function () {
                     console.log('Update failed');
                 }
             });
@@ -243,7 +288,7 @@ $(document).ready(function() {
     });
 });
 
-$(document).on('click', '.asap-button', function() {
+$(document).on('click', '.asap-button', function () {
     var $button = $(this);
     var rowId = $button.closest('tr').attr('id'); // Use .attr('id') to get the row's ID attribute
     var type = $button.closest('tr').data('type');
@@ -264,10 +309,10 @@ $(document).on('click', '.asap-button', function() {
             column: 'asap',
             type: type
         },
-        success: function(response) {
+        success: function (response) {
             console.log('ASAP update successful');
         },
-        error: function() {
+        error: function () {
             console.log('ASAP update failed');
         }
     });
@@ -279,7 +324,7 @@ function toggleDropdown(button) {
 }
 
 // Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (!event.target.matches('.dropdown-toggle')) {
         const dropdowns = document.getElementsByClassName('dropdown-menu');
         for (let i = 0; i < dropdowns.length; i++) {
@@ -321,8 +366,8 @@ async function addNewRow(type, clickedCell) {
     await saveToDatabase(type, gft, project);
 }
 
-$(document).ready(function() {
-    document.addEventListener('DOMContentLoaded', function() {
+$(document).ready(function () {
+    document.addEventListener('DOMContentLoaded', function () {
         flatpickr('.datepicker', {
             dateFormat: 'Y-m-d',
             // Add any additional options here
@@ -341,7 +386,7 @@ async function addTask(cell) {
     await addNewRow("Task", cell, protokolId);
 
     const response = await fetch('getlast.php?type=task');
-    const text = await response.text();    
+    const text = await response.text();
     console.log('Response Text:', text);  // Log the response text
 
     // Try parsing the response as JSON
@@ -352,7 +397,7 @@ async function addTask(cell) {
         console.error('Error parsing JSON:', error);
         return;
     }
-    
+
     if (data.error) {
         console.error('Error in response:', data.error);
         return;
@@ -463,16 +508,16 @@ async function addTopic(cell) {
     await addNewRow("Topic", cell, protokolId);
 
     const response = await fetch('getlast.php?type=topic');
-    const text = await response.text();    
+    const text = await response.text();
     console.log('Response Text:', text);  // Log the response text
-        
+
     // Try parsing the response as JSON
     let data;
     try {
         data = JSON.parse(text);
-        var lastTopic = data.last_id; 
+        var lastTopic = data.last_id;
         console.log('Last Topic ID:', lastTopic);
-    
+
         var newRow = $(`
             <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
                 <td><strong>Topic</strong></td>
