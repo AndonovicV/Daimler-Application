@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8888
--- Generation Time: Jun 02, 2024 at 01:59 AM
+-- Generation Time: Jun 09, 2024 at 10:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -42,60 +42,59 @@ CREATE TABLE `assignment` (
 
 INSERT INTO `assignment` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`) VALUES
 (1, 61, 'EX50 - Subwoofer', '0', NULL, 'sa'),
-(2, 61, 'EX50 - Subwoofer', '0', '30', 'testrun'),
+(2, 61, 'EX50 - Subwoofer', '0', '30', 'tringjo grudo bitchface'),
 (3, 61, 'EX50 - Subwoofer', '0', '31', 'trial'),
-(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `attendance_tbl`
---
-
-CREATE TABLE `attendance_tbl` (
-  `id` int(11) NOT NULL,
-  `member_id` int(11) NOT NULL,
-  `meeting_date` date NOT NULL,
-  `status` tinyint(1) NOT NULL COMMENT '1 = Present, 2 = Absent. 3 = Substituted',
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `attendance_tbl`
---
-
-INSERT INTO `attendance_tbl` (`id`, `member_id`, `meeting_date`, `status`, `created_at`, `updated_at`) VALUES
-(1, 4, '2023-11-30', 2, '2023-11-30 08:52:11', '2023-11-30 09:07:40'),
-(2, 3, '2023-11-30', 1, '2023-11-30 08:52:11', '2023-11-30 09:06:53'),
-(3, 1, '2023-11-30', 1, '2023-11-30 08:52:11', NULL),
-(4, 5, '2023-11-30', 3, '2023-11-30 08:52:11', '2023-11-30 09:07:40'),
-(5, 6, '2023-11-30', 1, '2023-11-30 08:52:11', '2023-11-30 09:06:53'),
-(6, 4, '2023-11-27', 4, '2023-11-30 09:08:16', NULL),
-(7, 3, '2023-11-27', 4, '2023-11-30 09:08:16', NULL),
-(158, 3, '2024-05-09', 2, '2024-05-11 02:25:54', NULL),
-(159, 2, '2024-05-09', 3, '2024-05-11 02:25:54', NULL),
-(160, 1, '2024-05-09', 3, '2024-05-11 02:25:54', NULL),
-(161, 10, '2024-05-09', 2, '2024-05-11 02:25:54', NULL),
-(162, 4, '2024-05-09', 4, '2024-05-11 02:25:54', NULL),
-(163, 5, '2024-05-09', 2, '2024-05-11 02:25:54', NULL),
-(164, 3, '2024-05-08', 2, '2024-05-11 12:27:41', NULL),
-(165, 2, '2024-05-08', 3, '2024-05-11 12:27:41', NULL),
-(166, 1, '2024-05-08', 3, '2024-05-11 12:27:41', NULL),
-(167, 10, '2024-05-08', 2, '2024-05-11 12:27:41', NULL),
-(168, 4, '2024-05-08', 2, '2024-05-11 12:27:41', NULL),
-(169, 5, '2024-05-08', 2, '2024-05-11 12:27:41', NULL),
-(170, 3, '2024-05-11', 2, '2024-05-11 12:31:09', NULL),
-(171, 2, '2024-05-11', 2, '2024-05-11 12:31:09', NULL),
-(172, 1, '2024-05-11', 3, '2024-05-11 12:31:09', NULL),
-(173, 10, '2024-05-11', 3, '2024-05-11 12:31:09', NULL),
-(174, 4, '2024-05-11', 2, '2024-05-11 12:31:09', NULL),
-(175, 5, '2024-05-11', 2, '2024-05-11 12:31:09', NULL),
-(176, 3, '0000-00-00', 3, '2024-05-11 18:28:15', NULL),
-(177, 2, '0000-00-00', 1, '2024-05-11 18:28:15', NULL),
-(178, 1, '0000-00-00', 1, '2024-05-11 18:28:15', '2024-05-11 18:28:21'),
-(179, 4, '0000-00-00', 3, '2024-05-12 19:56:09', NULL),
-(180, 5, '0000-00-00', 3, '2024-05-12 19:56:09', NULL);
+(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr'),
+(5, 61, 'EX50 - Subwoofer', '0', '33', 'test'),
+(6, 61, 'EX52 - Crankshaft position sensor', '0', '37', 'pr'),
+(7, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
+(8, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
+(9, 60, 'EX50 - Subwoofer', '0', '40', 'MIAUsda'),
+(10, 60, 'EX50 - Subwoofer', '0', '41', 'Slay'),
+(11, 60, 'EX53 - Clinometer', '0', '42', 'dfsfs'),
+(12, 60, 'EX50 - Subwoofer', '0', '43', 'content'),
+(13, 60, 'EX50 - Subwoofer', '0', '44', 'content'),
+(14, 60, 'EX53 - Clinometer', '0', '44', 'content'),
+(15, 60, 'EX53 - Clinometer', '0', '44', 'content'),
+(16, 60, 'EX53 - Clinometer', '0', '47', 'content'),
+(17, 60, 'EX53 - Clinometer', '0', '47', 'content'),
+(18, 60, 'EX53 - Clinometer', '0', '58', 'content'),
+(19, 60, 'EX52 - Crankshaft position sensor', '0', '59', 'content'),
+(20, 60, 'EX52 - Crankshaft position sensor', '0', '60', 'content'),
+(21, 60, 'EX51 - Automatic transmission speed sensor', '0', '61', 'content'),
+(22, 60, 'EX51 - Automatic transmission speed sensor', '0', '62', 'content'),
+(23, 60, 'EX52 - Crankshaft position sensor', '0', '63', 'content'),
+(24, 60, 'EX52 - Crankshaft position sensor', '0', '64', 'content'),
+(25, 60, 'EX51 - Automatic transmission speed sensor', '0', '65', 'sads'),
+(26, 60, 'EX52 - Crankshaft position sensor', '0', '66', 'content'),
+(27, 60, 'EX51 - Automatic transmission speed sensor', '0', '67', 'content'),
+(28, 60, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content'),
+(29, 61, 'EX52 - Crankshaft position sensor', '0', '69', 'content'),
+(30, 60, 'EX52 - Crankshaft position sensor', '0', '70', 'content'),
+(31, 60, 'EX51 - Automatic transmission speed sensor', '0', '71', 'content'),
+(32, 60, 'EX50 - Subwoofer', '0', '72', 'content'),
+(33, 60, 'EX50 - Subwoofer', '0', '73', 'content'),
+(34, 60, 'EX51 - Automatic transmission speed sensor', '0', '74', 'content'),
+(35, 60, 'EX51 - Automatic transmission speed sensor', '0', '75', 'it works'),
+(36, 60, 'EX50 - Subwoofer', '0', '76', 'content'),
+(37, 60, 'EX50 - Subwoofer', '0', '77', 'content'),
+(38, 60, 'EX51 - Automatic transmission speed sensor', '0', '78', 'content'),
+(39, 60, 'EX50 - Subwoofer', '0', '79', 'content'),
+(40, 60, 'EX53 - Clinometer', '0', '80', 'sdsaasdas'),
+(41, 59, 'EX51 - Automatic transmission speed sensor', '0', '81', 'content'),
+(42, 59, 'EX51 - Automatic transmission speed sensor', '0', '82', 'content'),
+(44, 59, 'EX50 - Subwoofer', '0', '84', 'content'),
+(45, 59, 'EX51 - Automatic transmission speed sensor', '0', '85', 'content'),
+(46, 61, 'EX52 - Crankshaft position sensor', '0', '86', 'content'),
+(47, 61, 'EX52 - Crankshaft position sensor', '0', '87', 'content'),
+(48, 61, 'EX53 - Clinometer', '0', '88', 'content'),
+(49, 61, 'EX50 - Subwoofer', '0', '89', 'content'),
+(50, 61, 'EX51 - Automatic transmission speed sensor', '0', '90', 'content'),
+(51, 61, 'EX51 - Automatic transmission speed sensor', '0', '91', 'content'),
+(52, 61, 'EX51 - Automatic transmission speed sensor', '0', '92', 'content'),
+(53, 58, 'EX51 - Automatic transmission speed sensor', '0', '95', 'content'),
+(54, 0, 'EX50 - Subwoofer', '0', NULL, 'content'),
+(55, 76, 'EX50 - Subwoofer', '0', '1', 'content');
 
 -- --------------------------------------------------------
 
@@ -429,7 +428,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I160063401', 'title for I160063401', 'Powertrain A', 'AR30 - Oil pressure sensor', 'MT Architecture', 'No', 1),
 ('I160063501', 'title for I160063501', '01-Series', 'TT01 - something', 'MT Axle B', 'No', 1),
 ('I160063601', 'title for I160063601', '01-Series', 'CO43 - Odometer', 'MT Components', 'Yes', 1),
-('I160063701', 'title for I160063701', 'eActros 1', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 0),
+('I160063701', 'title for I160063701', 'eActros 1', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 1),
 ('I160063801', 'title for I160063801', '01-Series', 'TT90 - Dashcam', 'MT Test & Te/st', 'No', 0),
 ('I160064001', 'title for I160064001', 'Axle 2', 'CS11 - Ignition Coil Connector', 'MT Cab Structure', 'No', 1),
 ('I160064101', 'title for I160064101', 'eAtego 3', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1),
@@ -618,7 +617,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I160100101', 'title for I160100101', 'Bus C', 'TT01 - something', 'MT Axle D', 'No', 0),
 ('I160100401', 'title for I160100401', 'Bus A', 'TT04 - something', 'MT Axle J', 'Yes', 1),
 ('I160100601', 'title for I160100601', '02-Project', 'TT01 - something', 'MT Axle F', 'No', 1),
-('I160100901', 'title for I160100901', '01-Series', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 0),
+('I160100901', 'title for I160100901', '01-Series', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 1),
 ('I160101001', 'title for I160101001', 'eAtego 3', 'CS13 - Ignition coil parts', 'MT Cab Structure', 'No', 1);
 INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
 ('I160101101', 'title for I160101101', 'eAtego 2', 'IN61 - Quarter panel', 'MT Interior', 'Yes', 1),
@@ -2648,7 +2647,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I180050601', 'title for I180050601', 'eActros 1', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1),
 ('I180050701', 'title for I180050701', '02-Project', 'TT05 - something', 'MT Axle G', 'No', 1),
 ('I180050801', 'title for I180050801', 'eActros 3', 'TT03 - something', 'MT Transmission C', 'No', 1),
-('I180051301', 'title for I180051301', '03-Mixed', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 1),
+('I180051301', 'title for I180051301', '03-Mixed', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 0),
 ('I180052201', 'title for I180052201', 'eAtego 3', 'TT04 - something', 'MT Axle E', 'No', 1),
 ('I180052301', 'title for I180052301', 'eActros 1', 'TT03 - something', 'MT Axle D', 'Yes', 1),
 ('I180052401', 'title for I180052401', '01-Series', 'TT01 - something', 'MT Axle H', 'No', 1),
@@ -2789,7 +2788,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I180081801', 'title for I180081801', 'eAtego 3', 'TM83 - Mass airflow sensor', 'MT Thermomanagement', 'No', 1),
 ('I180082001', 'title for I180082001', 'eActros 1', 'TT05 - something', 'MT Axle I', 'No', 1),
 ('I180082201', 'title for I180082201', '02-Project', 'TT01 - something', 'MT Axle J', 'No', 1),
-('I180082601', 'title for I180082601', 'Bus C', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 1),
+('I180082601', 'title for I180082601', 'Bus C', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 0),
 ('I180082701', 'title for I180082701', 'eActros 1', 'TT04 - something', 'MT Transmission B', 'No', 0),
 ('I180082801', 'title for I180082801', 'eActros 2', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 1),
 ('I180083101', 'title for I180083101', 'Bus B', 'TT93 - Fascia', 'MT Test & Te/st', 'No', 1),
@@ -2942,7 +2941,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I180114101', 'title for I180114101', 'Powertrain B', 'TT03 - something', 'MT Transmission G', 'No', 1),
 ('I180114601', 'title for I180114601', 'Axle 3', 'TT04 - something', 'MT Transmission D', 'No', 1),
 ('I180114701', 'title for I180114701', 'eActros 1', 'CH20 - Battery', 'MT Chassis', 'No', 1),
-('I180114801', 'title for I180114801', 'eActros 1', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 1),
+('I180114801', 'title for I180114801', 'eActros 1', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 0),
 ('I180114901', 'title for I180114901', 'eAtego 2', 'EX50 - Subwoofer', 'MT Exterior', 'No', 1),
 ('I180115201', 'title for I180115201', 'Axle 3', 'TT04 - something', 'MT Transmission B', 'No', 0),
 ('I180115501', 'title for I180115501', 'Axle 2', 'CO40 - Ammeter', 'MT Components', 'No', 1),
@@ -3233,7 +3232,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I190033901', 'title for I190033901', 'eAtego 2', 'AR30 - Oil pressure sensor', 'MT Architecture', 'Yes', 1),
 ('I190034001', 'title for I190034001', 'eAtego 1', 'TT02 - something', 'MT Axle H', 'No', 1),
 ('I190034101', 'title for I190034101', 'Powertrain B', 'CH20 - Battery', 'MT Chassis', 'No', 1),
-('I190034201', 'title for I190034201', '01-Series', 'EX53 - Clinometer', 'MT Exterior', 'Yes', 1),
+('I190034201', 'title for I190034201', '01-Series', 'EX53 - Clinometer', 'MT Exterior', 'Yes', 0),
 ('I190034301', 'title for I190034301', '02-Project', 'TT94 - Distilled Water', 'MT Test & Te/st', 'Yes', 1),
 ('I190034801', 'title for I190034801', 'Powertrain C', 'TT04 - something', 'MT Transmission H', 'Yes', 1),
 ('I190035001', 'title for I190035001', 'Powertrain A', 'TT02 - something', 'MT Transmission J', 'No', 1),
@@ -3249,7 +3248,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I190036701', 'title for I190036701', 'eActros 1', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
 ('I190037101', 'title for I190037101', 'eActros 1', 'CH21 - Oil pressure gauge', 'MT Chassis', 'No', 1),
 ('I190037301', 'title for I190037301', 'Axle 3', 'TT03 - something', 'MT Transmission H', 'No', 1),
-('I190037801', 'title for I190037801', 'Bus B', 'EX53 - Clinometer', 'MT Exterior', 'Yes', 1),
+('I190037801', 'title for I190037801', 'Bus B', 'EX53 - Clinometer', 'MT Exterior', 'Yes', 0),
 ('I190037901', 'title for I190037901', 'eActros 3', 'TT01 - something', 'MT Transmission E', 'No', 1),
 ('I190038001', 'title for I190038001', 'eActros 2', 'TT03 - something', 'MT Transmission J', 'No', 1),
 ('I190038301', 'title for I190038301', 'eActros 3', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'No', 1),
@@ -3591,7 +3590,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I190105901', 'title for I190105901', 'eAtego 3', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
 ('I190106401', 'title for I190106401', 'eActros 3', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'No', 1),
 ('I190106501', 'title for I190106501', '03-Mixed', 'CH22 - Distributor', 'MT Chassis', 'No', 1),
-('I190106601', 'title for I190106601', '03-Mixed', 'EX50 - Subwoofer', 'MT Exterior', 'Yes', 1),
+('I190106601', 'title for I190106601', '03-Mixed', 'EX50 - Subwoofer', 'MT Exterior', 'Yes', 0),
 ('I190106701', 'title for I190106701', 'Bus C', 'EV01 - Exposed bumper', 'Entire Vehicle', 'Yes', 1),
 ('I190106901', 'title for I190106901', 'Bus B', 'ME72 - Knock sensor', 'MT Mechatronics', 'No', 1),
 ('I190107001', 'title for I190107001', 'Powertrain A', 'TT04 - something', 'MT Transmission J', 'No', 1),
@@ -3645,7 +3644,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I190117001', 'title for I190117001', 'Powertrain C', 'CH22 - Distributor', 'MT Chassis', 'No', 1),
 ('I190117201', 'title for I190117201', 'eAtego 2', 'TT02 - something', 'MT Axle J', 'No', 1),
 ('I190117301', 'title for I190117301', 'eAtego 1', 'TT01 - something', 'MT Axle B', 'No', 1),
-('I190117601', 'title for I190117601', '03-Mixed', 'EX53 - Clinometer', 'MT Exterior', 'Yes', 1),
+('I190117601', 'title for I190117601', '03-Mixed', 'EX53 - Clinometer', 'MT Exterior', 'Yes', 0),
 ('I190117901', 'title for I190117901', 'eAtego 1', 'TT03 - something', 'MT Transmission J', 'No', 1),
 ('I190118101', 'title for I190118101', 'Bus B', 'TT01 - something', 'MT Axle J', 'No', 1),
 ('I190118301', 'title for I190118301', '02-Project', 'CO43 - Odometer', 'MT Components', 'No', 0),
@@ -3794,7 +3793,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I200003201', 'title for I200003201', 'Bus A', 'TT01 - something', 'MT Axle J', 'No', 0),
 ('I200003401', 'title for I200003401', 'Axle 1', 'EV01 - Exposed bumper', 'Entire Vehicle', 'No', 1),
 ('I200003501', 'title for I200003501', 'Powertrain C', 'TT05 - something', 'MT Axle E', 'No', 1),
-('I200003801', 'title for I200003801', 'eAtego 1', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 1),
+('I200003801', 'title for I200003801', 'eAtego 1', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 0),
 ('I200003901', 'title for I200003901', 'Bus A', 'TT90 - Dashcam', 'MT Test & Te/st', 'No', 1),
 ('I200004001', 'title for I200004001', 'eActros 3', 'TM83 - Mass airflow sensor', 'MT Thermomanagement', 'No', 1),
 ('I200004101', 'title for I200004101', '03-Mixed', 'TT02 - something', 'MT Axle G', 'No', 1),
@@ -4111,7 +4110,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I200065201', 'title for I200065201', 'eAtego 3', 'TT01 - something', 'MT Axle H', 'No', 1),
 ('I200065701', 'title for I200065701', 'Axle 2', 'TT03 - something', 'MT Transmission D', 'No', 1),
 ('I200065901', 'title for I200065901', '01-Series', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
-('I200066401', 'title for I200066401', 'Powertrain C', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 1),
+('I200066401', 'title for I200066401', 'Powertrain C', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 0),
 ('I200066801', 'title for I200066801', 'Bus A', 'TT04 - something', 'MT Axle C', 'No', 1),
 ('I200067201', 'title for I200067201', 'Powertrain B', 'TT02 - something', 'MT Transmission B', 'No', 1),
 ('I200067501', 'title for I200067501', 'eActros 3', 'TT01 - something', 'MT Axle F', 'Yes', 1),
@@ -4325,7 +4324,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I200103401', 'title for I200103401', 'eActros 1', 'TT05 - something', 'MT Transmission C', 'No', 1),
 ('I200103501', 'title for I200103501', '02-Project', 'AR30 - Oil pressure sensor', 'MT Architecture', 'No', 1),
 ('I200103601', 'title for I200103601', 'Powertrain B', 'ME72 - Knock sensor', 'MT Mechatronics', 'No', 1),
-('I200103701', 'title for I200103701', 'Powertrain C', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 1),
+('I200103701', 'title for I200103701', 'Powertrain C', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 0),
 ('I200103801', 'title for I200103801', 'Axle 3', 'CS10 - Oil level sensor', 'MT Cab Structure', 'Yes', 1),
 ('I200104101', 'title for I200104101', 'eActros 2', 'TT02 - something', 'MT Axle B', 'No', 1),
 ('I200104301', 'title for I200104301', 'Powertrain B', 'TT01 - something', 'MT Transmission C', 'No', 1),
@@ -4705,7 +4704,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I210045901', 'title for I210045901', 'Axle 1', 'CO43 - Odometer', 'MT Components', 'No', 1),
 ('I210046501', 'title for I210046501', 'Axle 2', 'CS15 - Brake sensor', 'MT Cab Structure', 'No', 1),
 ('I210046701', 'title for I210046701', 'Powertrain A', 'CO44 - Hinges and springs', 'MT Components', 'No', 1),
-('I210046901', 'title for I210046901', 'eAtego 2', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 1),
+('I210046901', 'title for I210046901', 'eAtego 2', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 0),
 ('I210047001', 'title for I210047001', 'Bus A', 'TT03 - something', 'MT Axle G', 'No', 1),
 ('I210047101', 'title for I210047101', '02-Project', 'CS14 - Ignition magneto', 'MT Cab Structure', 'No', 1),
 ('I210047401', 'title for I210047401', 'Axle 1', 'TT05 - something', 'MT Axle H', 'No', 1),
@@ -5011,7 +5010,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I210108301', 'title for I210108301', 'eActros 1', 'TT04 - something', 'MT Transmission E', 'No', 1),
 ('I210108401', 'title for I210108401', 'eActros 1', 'TT05 - something', 'MT Transmission C', 'No', 1),
 ('I210108701', 'title for I210108701', 'eActros 1', 'CO40 - Ammeter', 'MT Components', 'No', 0),
-('I210108801', 'title for I210108801', 'Axle 3', 'EX50 - Subwoofer', 'MT Exterior', 'Yes', 1),
+('I210108801', 'title for I210108801', 'Axle 3', 'EX50 - Subwoofer', 'MT Exterior', 'Yes', 0),
 ('I210109001', 'title for I210109001', 'Bus A', 'TM81 - Welded assembly', 'MT Thermomanagement', 'No', 0),
 ('I210109401', 'title for I210109401', 'Bus A', 'TT05 - something', 'MT Transmission F', 'Yes', 1),
 ('I210109501', 'title for I210109501', 'Powertrain A', 'TT92 - Radiator core support', 'MT Test & Te/st', 'No', 1),
@@ -5376,7 +5375,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220022301', 'title for I220022301', 'eActros 3', 'TM83 - Mass airflow sensor', 'MT Thermomanagement', 'No', 1),
 ('I220022401', 'title for I220022401', 'eAtego 3', 'TT94 - Distilled Water', 'MT Test & Te/st', 'Yes', 1),
 ('I220022601', 'title for I220022601', 'Powertrain A', 'TT02 - something', 'MT Axle D', 'No', 1),
-('I220022701', 'title for I220022701', '03-Mixed', 'EX53 - Clinometer', 'MT Exterior', 'Yes', 1),
+('I220022701', 'title for I220022701', '03-Mixed', 'EX53 - Clinometer', 'MT Exterior', 'Yes', 0),
 ('I220022801', 'title for I220022801', 'Powertrain A', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 1),
 ('I220022901', 'title for I220022901', 'eActros 3', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 1),
 ('I220023201', 'title for I220023201', 'Bus C', 'TM80 - Speaker', 'MT Thermomanagement', 'No', 1),
@@ -5472,7 +5471,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220042501', 'title for I220042501', 'Axle 1', 'AR30 - Oil pressure sensor', 'MT Architecture', 'No', 1),
 ('I220042701', 'title for I220042701', '03-Mixed', 'IN60 - Camshaft position sensor', 'MT Interior', 'No', 1),
 ('I220042801', 'title for I220042801', 'Bus A', 'IN60 - Camshaft position sensor', 'MT Interior', 'No', 1),
-('I220042901', 'title for I220042901', '03-Mixed', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 1),
+('I220042901', 'title for I220042901', '03-Mixed', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 0),
 ('I220043101', 'title for I220043101', 'eActros 2', 'IN60 - Camshaft position sensor', 'MT Interior', 'No', 0),
 ('I220043301', 'title for I220043301', 'Powertrain C', 'TT04 - something', 'MT Transmission F', 'No', 1),
 ('I220043601', 'title for I220043601', 'eAtego 3', 'TT02 - something', 'MT Transmission C', 'No', 1),
@@ -6132,7 +6131,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220177901', 'title for I220177901', 'Powertrain C', 'TT05 - something', 'MT Axle E', 'No', 1),
 ('I220178001', 'title for I220178001', 'Bus A', 'TT05 - something', 'MT Transmission G', 'No', 1),
 ('I220178201', 'title for I220178201', 'eAtego 2', 'TT01 - something', 'MT Axle E', 'No', 1),
-('I220178301', 'title for I220178301', 'Bus A', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 1),
+('I220178301', 'title for I220178301', 'Bus A', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 0),
 ('I220178501', 'title for I220178501', 'Bus A', 'CS12 - Tachometer', 'MT Cab Structure', 'No', 1),
 ('I220178601', 'title for I220178601', '02-Project', 'EV01 - Exposed bumper', 'Entire Vehicle', 'No', 1),
 ('I220179101', 'title for I220179101', 'eActros 3', 'TT01 - something', 'MT Transmission B', 'No', 1),
@@ -6656,7 +6655,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230028301', 'title for I230028301', 'eActros 3', 'TM81 - Welded assembly', 'MT Thermomanagement', 'No', 1),
 ('I230028401', 'title for I230028401', 'Axle 3', 'TT91 - Rocker', 'MT Test & Te/st', 'Yes', 1),
 ('I230028501', 'title for I230028501', 'Powertrain A', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
-('I230028701', 'title for I230028701', 'eActros 2', 'EX50 - Subwoofer', 'MT Exterior', 'Yes', 1),
+('I230028701', 'title for I230028701', 'eActros 2', 'EX50 - Subwoofer', 'MT Exterior', 'Yes', 0),
 ('I230028901', 'title for I230028901', 'Bus A', 'CS11 - Ignition Coil Connector', 'MT Cab Structure', 'No', 1),
 ('I230029001', 'title for I230029001', '01-Series', 'TT01 - something', 'MT Transmission B', 'No', 0),
 ('I230029201', 'title for I230029201', 'Axle 3', 'TT04 - something', 'MT Axle H', 'No', 1),
@@ -6722,7 +6721,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230040901', 'title for I230040901', 'Powertrain C', 'EX50 - Subwoofer', 'MT Exterior', 'No', 1),
 ('I230041201', 'title for I230041201', 'Axle 3', 'TT05 - something', 'MT Transmission G', 'No', 1),
 ('I230041301', 'title for I230041301', 'Bus C', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 0),
-('I230041501', 'title for I230041501', '02-Project', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 1),
+('I230041501', 'title for I230041501', '02-Project', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 0),
 ('I230041801', 'title for I230041801', 'eActros 1', 'EX50 - Subwoofer', 'MT Exterior', 'No', 1),
 ('I230042201', 'title for I230042201', 'eAtego 3', 'IN63 - Sulphuric Acid', 'MT Interior', 'No', 0),
 ('I230042401', 'title for I230042401', 'Axle 1', 'ME72 - Knock sensor', 'MT Mechatronics', 'No', 1),
@@ -6866,7 +6865,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230070201', 'title for I230070201', '01-Series', 'TT03 - something', 'MT Transmission C', 'No', 1),
 ('I230070601', 'title for I230070601', 'Bus A', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1),
 ('I230070901', 'title for I230070901', 'Axle 3', 'TT03 - something', 'MT Axle D', 'Yes', 1),
-('I230071401', 'title for I230071401', 'eActros 2', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 1),
+('I230071401', 'title for I230071401', 'eActros 2', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 0),
 ('I230071601', 'title for I230071601', 'Bus C', 'EX50 - Subwoofer', 'MT Exterior', 'No', 1),
 ('I230071801', 'title for I230071801', 'eAtego 2', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
 ('I230072001', 'title for I230072001', 'Axle 1', 'TT04 - something', 'MT Axle H', 'No', 1),
@@ -6909,7 +6908,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230079401', 'title for I230079401', 'Axle 1', 'TT05 - something', 'MT Axle J', 'No', 1),
 ('I230079801', 'title for I230079801', 'eActros 3', 'TT01 - something', 'MT Axle A', 'No', 1),
 ('I230080501', 'title for I230080501', 'Bus A', 'TT04 - something', 'MT Transmission E', 'No', 1),
-('I230080601', 'title for I230080601', 'Bus B', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 1),
+('I230080601', 'title for I230080601', 'Bus B', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 0),
 ('I230080801', 'title for I230080801', '03-Mixed', 'TT03 - something', 'MT Axle A', 'No', 0),
 ('I230080901', 'title for I230080901', 'eAtego 2', 'TT05 - something', 'MT Transmission J', 'No', 1),
 ('I230081001', 'title for I230081001', 'Powertrain A', 'TT03 - something', 'MT Axle B', 'Yes', 1),
@@ -6955,7 +6954,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230088201', 'title for I230088201', 'eActros 1', 'TT92 - Radiator core support', 'MT Test & Te/st', 'No', 1),
 ('I230088301', 'title for I230088301', 'eActros 3', 'TT04 - something', 'MT Axle I', 'No', 1),
 ('I230088401', 'title for I230088401', 'eAtego 2', 'TT04 - something', 'MT Axle J', 'No', 1),
-('I230088701', 'title for I230088701', 'Axle 2', 'EX50 - Subwoofer', 'MT Exterior', 'Yes', 1),
+('I230088701', 'title for I230088701', 'Axle 2', 'EX50 - Subwoofer', 'MT Exterior', 'Yes', 0),
 ('I230088901', 'title for I230088901', '03-Mixed', 'TT04 - something', 'MT Transmission I', 'No', 1),
 ('I230089001', 'title for I230089001', 'Axle 1', 'TT02 - something', 'MT Transmission D', 'No', 0),
 ('I230089101', 'title for I230089101', 'eActros 1', 'TT94 - Distilled Water', 'MT Test & Te/st', 'No', 1),
@@ -7664,7 +7663,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I240015601', 'title for I240015601', 'eActros 1', 'TT04 - something', 'MT Transmission I', 'No', 1),
 ('I240015701', 'title for I240015701', '01-Series', 'TM81 - Welded assembly', 'MT Thermomanagement', 'No', 1),
 ('I240015801', 'title for I240015801', '03-Mixed', 'TT05 - something', 'MT Transmission G', 'No', 1),
-('I240015901', 'title for I240015901', 'eAtego 3', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 1),
+('I240015901', 'title for I240015901', 'eAtego 3', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 0),
 ('I240016101', 'title for I240016101', 'eAtego 2', 'TT01 - something', 'MT Axle E', 'No', 1),
 ('I240016401', 'title for I240016401', 'eAtego 1', 'TT05 - something', 'MT Axle B', 'No', 1),
 ('I240016501', 'title for I240016501', 'eActros 1', 'TT02 - something', 'MT Axle G', 'No', 1),
@@ -8050,7 +8049,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I240090301', 'title for I240090301', 'eActros 2', 'TT01 - something', 'MT Axle D', 'No', 1),
 ('I240090501', 'title for I240090501', 'Bus A', 'IN60 - Camshaft position sensor', 'MT Interior', 'No', 1),
 ('I240090701', 'title for I240090701', 'Powertrain B', 'TT05 - something', 'MT Transmission E', 'No', 1),
-('I240090801', 'title for I240090801', 'eActros 2', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 1),
+('I240090801', 'title for I240090801', 'eActros 2', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 0),
 ('I240090901', 'title for I240090901', 'Bus C', 'TM81 - Welded assembly', 'MT Thermomanagement', 'No', 0),
 ('I240091001', 'title for I240091001', 'eAtego 3', 'TT04 - something', 'MT Transmission H', 'No', 1),
 ('I240091401', 'title for I240091401', 'eActros 3', 'TM80 - Speaker', 'MT Thermomanagement', 'No', 1),
@@ -8232,59 +8231,55 @@ CREATE TABLE `decision` (
 --
 
 INSERT INTO `decision` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`) VALUES
-(1, 61, 'EX50 - Subwoofer', '0', NULL, 'sa'),
-(2, 61, 'EX50 - Subwoofer', '0', '30', 'testrun'),
-(3, 61, 'EX50 - Subwoofer', '0', '31', 'trial'),
-(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr');
+(1, 76, 'EX50 - Subwoofer', '0', '1', 'content'),
+(2, 76, 'EX50 - Subwoofer', '0', '2', 'Here you can add your decisions'),
+(3, 76, 'EX51 - Automatic transmission speed sensor', '0', '3', 'If you remove the task above, the decision will still remain');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dept_tbl`
+-- Table structure for table `departments`
 --
 
-CREATE TABLE `dept_tbl` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+CREATE TABLE `departments` (
+  `department_id` int(11) NOT NULL,
+  `department_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dept_tbl`
+-- Dumping data for table `departments`
 --
 
-INSERT INTO `dept_tbl` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'dept1', '2023-11-16 11:37:26', '2023-11-16 11:52:34'),
-(2, 'dept2', '2023-11-16 11:52:46', NULL),
-(5, 'dept5', '2024-04-25 17:53:03', '2024-05-11 00:17:58');
+INSERT INTO `departments` (`department_id`, `department_name`) VALUES
+(1, 'Engineering'),
+(2, 'Marketing'),
+(3, 'Finance'),
+(4, 'HR'),
+(5, 'IT');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guests_tbl`
+-- Table structure for table `guests`
 --
 
-CREATE TABLE `guests_tbl` (
-  `id` int(11) NOT NULL,
-  `dept_id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+CREATE TABLE `guests` (
+  `guest_id` int(11) NOT NULL,
+  `guest_name` varchar(255) NOT NULL,
+  `department` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `guests_tbl`
+-- Dumping data for table `guests`
 --
 
-INSERT INTO `guests_tbl` (`id`, `dept_id`, `name`, `created_at`, `updated_at`) VALUES
-(11, 1, 'Who this', '2024-04-27 17:50:53', '2024-05-10 15:19:58'),
-(12, 5, 'what', '2024-04-27 17:51:11', '2024-05-10 15:20:00'),
-(14, 5, 'test name', '2024-04-27 20:52:37', '2024-05-10 15:20:05'),
-(22, 0, 'Borat', '2024-05-10 15:33:33', NULL),
-(24, 2, 'Someone else', '2024-05-10 16:12:32', '2024-05-27 13:58:51'),
-(29, 2, 'sddss', '2024-05-10 23:28:14', NULL),
-(30, 1, 'Zoki', '2024-05-12 12:54:58', NULL);
+INSERT INTO `guests` (`guest_id`, `guest_name`, `department`) VALUES
+(3, 'Eric Clapton', 'Finance'),
+(4, 'B.B. King', 'HR'),
+(5, 'Robert Plant', 'Marketing'),
+(6, 'Jimmy Page', 'Finance'),
+(8, 'Keith Richards', 'HR'),
+(9, 'Stevie Ray Vaughan', 'Finance');
 
 -- --------------------------------------------------------
 
@@ -8309,7 +8304,67 @@ INSERT INTO `information` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`)
 (1, 61, 'EX50 - Subwoofer', '0', NULL, 'sa'),
 (2, 61, 'EX50 - Subwoofer', '0', '30', 'testrun on the testrun'),
 (3, 61, 'EX50 - Subwoofer', '0', '31', 'trial'),
-(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr');
+(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr'),
+(6, 61, 'EX50 - Subwoofer', '0', '33', 'test'),
+(7, 61, 'EX52 - Crankshaft position sensor', '0', '37', 'Test'),
+(8, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
+(9, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
+(10, 60, 'EX50 - Subwoofer', '0', '40', 'asdadasddd'),
+(11, 60, 'EX50 - Subwoofer', '0', '41', 'Slay'),
+(12, 60, 'EX53 - Clinometer', '0', '42', 'dfsfs'),
+(13, 60, 'EX50 - Subwoofer', '0', '43', 'content'),
+(14, 60, 'EX50 - Subwoofer', '0', '44', 'content'),
+(15, 60, 'EX53 - Clinometer', '0', '44', 'content'),
+(16, 60, 'EX53 - Clinometer', '0', '44', 'content'),
+(17, 60, 'EX53 - Clinometer', '0', '47', 'content'),
+(18, 60, 'EX53 - Clinometer', '0', '47', 'content'),
+(19, 60, 'EX53 - Clinometer', '0', '58', 'content'),
+(20, 60, 'EX52 - Crankshaft position sensor', '0', '59', 'content'),
+(21, 60, 'EX52 - Crankshaft position sensor', '0', '60', 'content'),
+(22, 60, 'EX51 - Automatic transmission speed sensor', '0', '61', 'content'),
+(23, 60, 'EX51 - Automatic transmission speed sensor', '0', '62', 'content'),
+(24, 60, 'EX52 - Crankshaft position sensor', '0', '63', 'content'),
+(25, 60, 'EX52 - Crankshaft position sensor', '0', '64', 'content'),
+(26, 60, 'EX51 - Automatic transmission speed sensor', '0', '65', 'savaadsasd'),
+(27, 60, 'EX52 - Crankshaft position sensor', '0', '66', 'content'),
+(28, 60, 'EX51 - Automatic transmission speed sensor', '0', '67', 'content'),
+(29, 60, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content'),
+(30, 61, 'EX52 - Crankshaft position sensor', '0', '69', 'content'),
+(31, 60, 'EX52 - Crankshaft position sensor', '0', '70', 'content'),
+(32, 60, 'EX51 - Automatic transmission speed sensor', '0', '71', 'content'),
+(33, 60, 'EX50 - Subwoofer', '0', '72', 'content'),
+(34, 60, 'EX50 - Subwoofer', '0', '73', 'content'),
+(35, 60, 'EX51 - Automatic transmission speed sensor', '0', '74', 'content'),
+(36, 60, 'EX51 - Automatic transmission speed sensor', '0', '75', 'but here'),
+(37, 60, 'EX50 - Subwoofer', '0', '76', 'content'),
+(38, 60, 'EX50 - Subwoofer', '0', '77', 'content'),
+(39, 60, 'EX51 - Automatic transmission speed sensor', '0', '78', 'content'),
+(40, 60, 'EX50 - Subwoofer', '0', '79', 'content'),
+(41, 60, 'EX53 - Clinometer', '0', '80', 'sdsasdasdasdasd'),
+(42, NULL, NULL, NULL, '40', 'asdadasddd'),
+(43, NULL, NULL, NULL, '40', 'asdadasddd'),
+(44, 59, 'EX51 - Automatic transmission speed sensor', '0', '81', 'content'),
+(45, 59, 'EX51 - Automatic transmission speed sensor', '0', '82', 'content'),
+(46, 59, 'EX53 - Clinometer', '0', '83', 'Your arsons match'),
+(47, 59, 'EX50 - Subwoofer', '0', '84', 'content'),
+(48, NULL, NULL, NULL, '82', ''),
+(49, NULL, NULL, NULL, '83', 'your dynamite'),
+(50, NULL, NULL, NULL, '83', 'and I still see it'),
+(51, 59, 'EX51 - Automatic transmission speed sensor', '0', '85', 'hjkhjk'),
+(52, NULL, NULL, NULL, '83', 'until I die'),
+(53, NULL, NULL, NULL, '83', 'you\'re the loss of my life'),
+(55, NULL, NULL, NULL, '82', 'MIAUZS'),
+(56, 61, 'EX52 - Crankshaft position sensor', '0', '86', 'content'),
+(57, 61, 'EX52 - Crankshaft position sensor', '0', '87', 'content'),
+(58, 61, 'EX53 - Clinometer', '0', '88', 'content'),
+(59, 61, 'EX50 - Subwoofer', '0', '89', 'content'),
+(60, 61, 'EX51 - Automatic transmission speed sensor', '0', '90', 'content'),
+(61, 61, 'EX51 - Automatic transmission speed sensor', '0', '91', 'content'),
+(62, 61, 'EX51 - Automatic transmission speed sensor', '0', '92', 'content'),
+(63, 58, 'EX51 - Automatic transmission speed sensor', '0', '95', 'content'),
+(64, 0, 'EX50 - Subwoofer', '0', NULL, 'content'),
+(65, 76, 'EX50 - Subwoofer', '0', '1', 'Any of these columns can be independently removed '),
+(66, 76, 'EX50 - Subwoofer', '0', '2', 'These fields are automatically generated underneath each task');
 
 -- --------------------------------------------------------
 
@@ -8336,31 +8391,79 @@ INSERT INTO `mdt_tbl` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `members_tbl`
+-- Table structure for table `module_team_guest_guest_attendance`
 --
 
-CREATE TABLE `members_tbl` (
+CREATE TABLE `module_team_guest_guest_attendance` (
   `id` int(11) NOT NULL,
-  `mdt_id` int(11) NOT NULL,
   `agenda_id` int(11) NOT NULL,
-  `dept_id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
+  `guest_id` int(11) NOT NULL,
+  `department` varchar(255) DEFAULT NULL,
+  `substitute` varchar(255) DEFAULT NULL,
+  `present` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `members_tbl`
+-- Dumping data for table `module_team_guest_guest_attendance`
 --
 
-INSERT INTO `members_tbl` (`id`, `mdt_id`, `agenda_id`, `dept_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 'John Smith', '2023-11-16 13:18:15', '2024-05-11 00:20:48'),
-(2, 1, 1, 2, 'John Doe', '2023-11-16 13:18:49', '2024-05-11 00:20:58'),
-(3, 1, 1, 5, 'Claire Blake', '2023-11-16 13:18:56', '2024-05-11 00:21:01'),
-(4, 1, 2, 1, 'Mark Cooper', '2023-11-16 13:19:18', '2024-05-11 00:21:05'),
-(5, 1, 2, 2, 'Samantha Lou', '2023-11-16 13:19:30', '2024-05-11 00:21:09'),
-(10, 1, 3, 5, 'Jonas', '2024-04-29 13:06:35', '2024-05-11 00:21:12'),
-(11, 5, 3, 1, 'Alek', '2024-04-29 13:06:44', '2024-05-11 00:21:20');
+INSERT INTO `module_team_guest_guest_attendance` (`id`, `agenda_id`, `guest_id`, `department`, `substitute`, `present`) VALUES
+(1, 76, 3, 'Finance', NULL, 0),
+(2, 76, 4, 'HR', NULL, 0),
+(3, 76, 5, 'Marketing', NULL, 0),
+(4, 76, 6, 'Finance', NULL, 0),
+(5, 76, 8, 'HR', NULL, 0),
+(6, 76, 9, 'Finance', NULL, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `module_team_members`
+--
+
+CREATE TABLE `module_team_members` (
+  `member_id` int(11) NOT NULL,
+  `member_name` varchar(255) NOT NULL,
+  `department` varchar(255) NOT NULL DEFAULT 'Unknown'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `module_team_members`
+--
+
+INSERT INTO `module_team_members` (`member_id`, `member_name`, `department`) VALUES
+(1, 'John Doe', 'Engineering'),
+(2, 'Jane Smith', 'Marketing'),
+(3, 'Michael Brown', 'Finance'),
+(4, 'Emily Davis', 'HR'),
+(5, 'Chris Johnson', 'IT');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `module_team_member_attendance`
+--
+
+CREATE TABLE `module_team_member_attendance` (
+  `id` int(11) NOT NULL,
+  `agenda_id` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  `department` varchar(255) NOT NULL,
+  `present` tinyint(1) DEFAULT 0,
+  `absent` tinyint(1) DEFAULT 0,
+  `substituted` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `module_team_member_attendance`
+--
+
+INSERT INTO `module_team_member_attendance` (`id`, `agenda_id`, `member_id`, `department`, `present`, `absent`, `substituted`) VALUES
+(1, 76, 1, 'Engineering', 0, 0, 0),
+(2, 76, 2, 'Marketing', 0, 0, 0),
+(3, 76, 3, 'Finance', 0, 0, 0),
+(4, 76, 4, 'HR', 0, 0, 0),
+(5, 76, 5, 'IT', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -8465,12 +8568,7 @@ CREATE TABLE `mt_agenda_list` (
 --
 
 INSERT INTO `mt_agenda_list` (`agenda_id`, `agenda_name`, `created_by`, `created_date`, `last_modified`, `agenda_date`, `module_team`) VALUES
-(1, 'AgendaName1', '', '0000-00-00', '0000-00-00', NULL, NULL),
-(2, 'AgendaName2', '', '0000-00-00', '0000-00-00', NULL, NULL),
-(58, 'Agenda new new', '', '0000-00-00', '0000-00-00', '2024-05-23', 'MT Exterior'),
-(59, 'Agenda newwer', '', '0000-00-00', '0000-00-00', '2024-05-24', 'MT Exterior'),
-(60, 'Sunday Agenda', '', '0000-00-00', '0000-00-00', '2024-05-26', 'MT Exterior'),
-(61, 'My name is Boby Brown', '', '0000-00-00', '0000-00-00', '2024-05-29', 'MT Exterior');
+(76, 'Agenda Test 1', '', '0000-00-00', '0000-00-00', '2024-06-09', 'MT Exterior');
 
 -- --------------------------------------------------------
 
@@ -9235,7 +9333,7 @@ CREATE TABLE `personal_tasks` (
 --
 
 INSERT INTO `personal_tasks` (`id`, `user_id`, `summary`) VALUES
-(1, 1, '>>>>>MT_Agenda\r\nHave every agenda linked to a specific module team.\r\nMake CSV & Pdf work (no data is currently found in the table)\r\n	*Not priority: See if there\'s a quick fix for the csv, so that it has a better outlook. If not, fuck it the pdf is is good enough.\r\nMake the table editable\r\nd be integrated iniside the mt_agenda table\r\n\r\nhi hi my mysadas\r\n\r\nsddada do you work here?\r\n\r\nso you do work?\r\n\r\nso do you?'),
+(1, 1, 'This is a personal task field.\n\nOnce your user ID is saved in DOMM, only you will be able to see this text.\n\nRight now everyone is looking at the same text :)'),
 (6, 2, 'hi there\r\n\r\ncan you hear me?\r\n\r\nbut yeah, now we chillin'),
 (7, 0, '');
 
@@ -9331,35 +9429,20 @@ CREATE TABLE `tasks` (
   `responsible` varchar(255) DEFAULT NULL,
   `gft` varchar(50) DEFAULT NULL,
   `cr` varchar(50) DEFAULT NULL,
-  `details` text DEFAULT NULL
+  `details` text DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  `asap` int(1) DEFAULT 0,
+  `deadline` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`) VALUES
-(1, 58, 'Task Description', 'he is', 'EX53 - Clinometer', 'I200039001', ''),
-(2, 58, 'Task Description', 'Task Responsible', 'EX53 - Clinometer', 'I200134101', ''),
-(3, 58, 'Task Description', 'her is', 'EX53 - Clinometer', 'I200134101', ''),
-(4, 58, 'do this and this', 'her is', 'EX53 - Clinometer', 'I200134101', ''),
-(5, 58, 'Task Description', 'hi there', 'EX53 - Clinometer', 'I180077801', ''),
-(6, 58, 'rockstarr', 'hi there', 'EX53 - Clinometer', 'I180077801', ''),
-(7, 58, 'Task Description', 'Task Responsible', 'EX53 - Clinometer', 'I180077801', ''),
-(8, 58, 'do this', 'Task Responsible', 'EX53 - Clinometer', 'I160162001', ''),
-(9, 58, 'do this', 'he do', 'EX53 - Clinometer', 'I160162001', ''),
-(11, 58, 'Log out k date', 'Task Responsible', 'EX53 - Clinometer', 'I160162001', ''),
-(12, 58, 'Log out k date', 'Someone', 'EX53 - Clinometer', 'I160162001', ''),
-(13, 58, 'Task Description', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', 'I160162001', ''),
-(14, 58, 'Task Description', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', 'I160162001', ''),
-(15, 58, 'Task Description', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', 'I160162001', ''),
-(17, 60, 'task for someon e', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', 'I190126401', ''),
-(18, 60, 'task 2', 'Task Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', 'I200039001', ''),
-(23, 59, 'Task Description', 'Task Responsible\n                    \n                    ASAP', 'EX50 - Subwoofer', 'I170034601', ''),
-(27, 60, 'Task Description', 'Task Responsible\n                    \n                    ASAP', 'EX50 - Subwoofer', 'I170034601', ''),
-(30, 61, 'testrun', 'Task Responsible\n                    \n                    ASAP', 'EX50 - Subwoofer', 'I210108801', ''),
-(31, 61, 'trial', 'Task Responsible\n                    \n                    ASAP', 'EX50 - Subwoofer', 'I230028701', ''),
-(32, 61, 'testerrrrr', 'Task Responsible\n                    \n                    ASAP', 'EX50 - Subwoofer', 'I220071801', '');
+INSERT INTO `tasks` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`, `deleted`, `asap`, `deadline`) VALUES
+(1, 76, 'content', 'responsible', 'EX50 - Subwoofer', 'I170129001', '', 1, 0, NULL),
+(2, 76, 'This is a task for the Topic above', 'Responcible person for the task', 'EX50 - Subwoofer', 'I170114801', '', 0, 0, '2024-06-20'),
+(3, 76, 'This is a task for the change request above', 'Someone responcible', 'EX51 - Automatic transmission speed sensor', 'I160063701', '', 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -9382,29 +9465,7 @@ CREATE TABLE `topics` (
 --
 
 INSERT INTO `topics` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`) VALUES
-(1, 58, 'Topic Description', 'Topic Responsible', 'EX53 - Clinometer', 'I180082701', ''),
-(2, 58, 'Topic Description', 'Topic Responsible', 'EX53 - Clinometer', 'I180082701', ''),
-(3, 58, 'heyhey', 'Topic Responsible', 'EX53 - Clinometer', 'I160162001', ''),
-(4, 58, 'heyhey', 'him him', 'EX53 - Clinometer', 'I160162001', ''),
-(5, 58, 'Topic Description', 'Topic Responsible', 'EX53 - Clinometer', 'I180077801', ''),
-(6, 58, 'Topic Description', 'Topic Responsible', 'EX53 - Clinometer', 'I180077801', ''),
-(7, 58, 'first text', 'Topic Responsible', 'EX53 - Clinometer', 'I180077801', ''),
-(8, 58, 'first text', 'first text', 'EX53 - Clinometer', 'I180077801', ''),
-(9, 58, 'hey hey', 'Topic Responsible', 'EX53 - Clinometer', 'I190083501', ''),
-(10, 58, 'hey hey', 'how many times', 'EX53 - Clinometer', 'I190083501', ''),
-(11, 58, 'hey hey', 'how many times', 'EX53 - Clinometer', 'I190083501', ''),
-(12, 59, 'Topic Description', 'Topic Responsible', 'EX53 - Clinometer', 'I160162001', ''),
-(13, 59, 'Topic Description', 'Topic Responsible', 'EX53 - Clinometer', 'I160162001', ''),
-(14, 58, 'Topic Description', 'Topic Responsible', 'EX53 - Clinometer', 'I160162001', ''),
-(15, 58, '2023-001223title', 'Topic Responsible', 'EX53 - Clinometer', 'I160162001', ''),
-(16, 59, 'Something with testing', 'Topic Responsible', 'EX53 - Clinometer', 'I180077801', ''),
-(18, 60, 'Beneath 2701', 'Topic Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', 'I180082701', ''),
-(25, 60, 'Topic Description', 'Topic Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', 'I190083501', ''),
-(26, 60, 'Topic Description', 'Topic Responsible\n                    \n                    ASAP', 'EX53 - Clinometer', 'I190083501', ''),
-(27, 61, 'Topic Description', 'Topic Responsible\n                    \n                    ASAP', 'EX50 - Subwoofer', 'I160097901', ''),
-(28, 60, 'Topic Description', 'Topic Responsible\n                    \n                    ASAP', 'EX50 - Subwoofer', 'I160097901', ''),
-(29, 60, 'Slay', 'Topic Responsible\n                    \n                    ASAP', 'EX50 - Subwoofer', 'I180029301', ''),
-(30, 61, 'Slay', 'Topic Responsible\n                    \n                    ASAP', 'EX50 - Subwoofer', 'I180029301', '');
+(1, 76, 'This is a topic responsible for the change request above', 'Perhaps a topic responsible', 'EX50 - Subwoofer', 'I170114801', '');
 
 --
 -- Indexes for dumped tables
@@ -9417,30 +9478,22 @@ ALTER TABLE `assignment`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `attendance_tbl`
---
-ALTER TABLE `attendance_tbl`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `member_id_fk` (`member_id`);
-
---
 -- Indexes for table `decision`
 --
 ALTER TABLE `decision`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `dept_tbl`
+-- Indexes for table `departments`
 --
-ALTER TABLE `dept_tbl`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `departments`
+  ADD PRIMARY KEY (`department_id`);
 
 --
--- Indexes for table `guests_tbl`
+-- Indexes for table `guests`
 --
-ALTER TABLE `guests_tbl`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `dept_id_fk` (`dept_id`) USING BTREE;
+ALTER TABLE `guests`
+  ADD PRIMARY KEY (`guest_id`);
 
 --
 -- Indexes for table `information`
@@ -9455,13 +9508,26 @@ ALTER TABLE `mdt_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `members_tbl`
+-- Indexes for table `module_team_guest_guest_attendance`
 --
-ALTER TABLE `members_tbl`
+ALTER TABLE `module_team_guest_guest_attendance`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `mdt_id_fk` (`mdt_id`),
-  ADD KEY `dept_id_fk` (`dept_id`),
-  ADD KEY `agenda_id` (`agenda_id`);
+  ADD KEY `agenda_id` (`agenda_id`),
+  ADD KEY `guest_id` (`guest_id`);
+
+--
+-- Indexes for table `module_team_members`
+--
+ALTER TABLE `module_team_members`
+  ADD PRIMARY KEY (`member_id`);
+
+--
+-- Indexes for table `module_team_member_attendance`
+--
+ALTER TABLE `module_team_member_attendance`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `agenda_id` (`agenda_id`),
+  ADD KEY `member_id` (`member_id`);
 
 --
 -- Indexes for table `mt_agenda`
@@ -9540,37 +9606,31 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT for table `assignment`
 --
 ALTER TABLE `assignment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `attendance_tbl`
---
-ALTER TABLE `attendance_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `decision`
 --
 ALTER TABLE `decision`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `dept_tbl`
+-- AUTO_INCREMENT for table `departments`
 --
-ALTER TABLE `dept_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `departments`
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `guests_tbl`
+-- AUTO_INCREMENT for table `guests`
 --
-ALTER TABLE `guests_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+ALTER TABLE `guests`
+  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `information`
 --
 ALTER TABLE `information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `mdt_tbl`
@@ -9579,16 +9639,28 @@ ALTER TABLE `mdt_tbl`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `members_tbl`
+-- AUTO_INCREMENT for table `module_team_guest_guest_attendance`
 --
-ALTER TABLE `members_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+ALTER TABLE `module_team_guest_guest_attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `module_team_members`
+--
+ALTER TABLE `module_team_members`
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `module_team_member_attendance`
+--
+ALTER TABLE `module_team_member_attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `mt_agenda_list`
 --
 ALTER TABLE `mt_agenda_list`
-  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `org_boards`
@@ -9630,17 +9702,31 @@ ALTER TABLE `personal_tasks`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `module_team_guest_guest_attendance`
+--
+ALTER TABLE `module_team_guest_guest_attendance`
+  ADD CONSTRAINT `module_team_guest_guest_attendance_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`),
+  ADD CONSTRAINT `module_team_guest_guest_attendance_ibfk_2` FOREIGN KEY (`guest_id`) REFERENCES `guests` (`guest_id`);
+
+--
+-- Constraints for table `module_team_member_attendance`
+--
+ALTER TABLE `module_team_member_attendance`
+  ADD CONSTRAINT `module_team_member_attendance_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`),
+  ADD CONSTRAINT `module_team_member_attendance_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `module_team_members` (`member_id`);
 
 --
 -- Constraints for table `tasks`
