@@ -16,7 +16,7 @@ if (isset($_POST['agenda_id']) && isset($_POST['guest_name'])) {
             $guestId = $stmt->insert_id;
             $stmt->close();
 
-            $sql = "INSERT INTO module_team_guest_guest_attendance (agenda_id, guest_id, substitute, present) VALUES (?, ?, ?, 0)";
+            $sql = "INSERT INTO module_team_guest_attendance (agenda_id, guest_id, substitute, present) VALUES (?, ?, ?, 0)";
             $stmt = $conn->prepare($sql);
             if ($stmt) {
                 $stmt->bind_param('iis', $agendaId, $guestId, $substitute);

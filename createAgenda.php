@@ -59,8 +59,8 @@ if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda
                 $guestName = $guestRow['guest_name'];
                 $department = $guestRow['department'];
 
-                // Insert into module_team_guest_guest_attendance table
-                $insertGuestAttendanceSql = "INSERT INTO module_team_guest_guest_attendance (agenda_id, guest_id, department, substitute, present) VALUES ($agendaId, $guestId, '$department', NULL, 0)";
+                // Insert into module_team_guest_attendance table
+                $insertGuestAttendanceSql = "INSERT INTO module_team_guest_attendance (agenda_id, guest_id, department, substitute, present) VALUES ($agendaId, $guestId, '$department', NULL, 0)";
                 if ($conn->query($insertGuestAttendanceSql) === TRUE) {
                     echo "Inserted guest ID: $guestId with name: $guestName and department: $department into guest attendance for agenda ID: $agendaId<br>";
                 } else {

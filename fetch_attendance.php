@@ -53,7 +53,7 @@ if (isset($_GET['agenda_id'])) {
                 ga.guest_name, 
                 ga.department AS guest_department 
             FROM 
-                module_team_guest_guest_attendance g
+                module_team_guest_attendance g
             JOIN 
                 guests ga ON g.guest_id = ga.guest_id
             WHERE 

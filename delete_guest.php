@@ -4,7 +4,7 @@ include 'conn.php';
 if (isset($_POST['guest_id'])) {
     $guestId = intval($_POST['guest_id']);
 
-    $sql = "DELETE FROM module_team_guest_guest_attendance WHERE guest_id = ?";
+    $sql = "DELETE FROM module_team_guest_attendance WHERE guest_id = ?";
     $stmt = $conn->prepare($sql);
     
     if ($stmt) {

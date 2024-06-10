@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $guest_id = intval($member_id);  // Reuse member_id as guest_id in this context
         $present = ($status == 1) ? 1 : 0;
 
-        $sql = "UPDATE module_team_guest_guest_attendance 
+        $sql = "UPDATE module_team_guest_attendance 
                 SET present = ? 
                 WHERE agenda_id = ? AND guest_id = ?";
         $stmt = $conn->prepare($sql);
