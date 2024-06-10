@@ -88,27 +88,29 @@ $(document).ready(function () {
     $('#createAgendaConfirmBtn').click(function () {
         var newAgendaName = $('#agendaName').val();
         var newAgendaDate = $('#agendaDate').val();
-        var agendaid
         if (newAgendaName.trim() === '' || newAgendaDate.trim() === '') {
             alert('Please provide both agenda name and date.');
             return;
         }
-
+    
         $.ajax({
             type: 'POST',
             url: 'createAgenda.php',
             data: { agenda_name: newAgendaName, agenda_date: newAgendaDate },
             success: function (response) {
-                //alert(response);
-                var agendaid = response; // Assuming 'response' is the agenda_id returned from PHP
-                // Use the agendaid as needed, for example, redirect to a page using it
-                window.location.href = 'mt_agenda.php?id=' + agendaid;
+                var data = JSON.parse(response);
+                if (data.success) {
+                    var agendaid = data.agenda_id;
+                    window.location.href = 'mt_agenda.php?id=' + agendaid;
+                } else {
+                    alert('Error: ' + data.error);
+                }
             },
             error: function (xhr, status, error) {
                 console.error(error);
+                alert('An error occurred: ' + xhr.responseText);
             }
         });
-        
     });
 
     // Initialize flatpickr for existing datepicker elements
