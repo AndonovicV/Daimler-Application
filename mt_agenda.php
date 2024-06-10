@@ -1,5 +1,5 @@
 <?php
-include_once('php-attendance\inc\navigationAgenda.php');
+include_once('navigation.php');
 include 'conn.php';
 
 // Check if the session variable is set
@@ -101,7 +101,8 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
     <!--Link to Bootstrap Datepicker Plugin-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!--DATATABLE LIBRARIES-->
     <!--Link to datepicker 1 JS-->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
@@ -170,25 +171,27 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                 <button type="button" class="btn btn-primary flex-fill mx-1" onclick="window.location.href = 'protokol.php?protokol_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
                     To Protokoll
                 </button>
-                <select id="changeRequestSelect" data-search="true" class="styled-select w-10" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
-                    <option value="">Filter Change Request</option>
-                    <?php
-                    $sql = "SELECT title FROM change_requests WHERE lead_module_team = '$selected_team' AND fasttrack = 'Yes'";
-                    $stmt = $conn->prepare($sql);
-                    // No need for bind_param as the SQL query has no placeholders
-                    $stmt->execute();
-                    $result = $stmt->get_result();
-                    while ($row = $result->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($row['title']) . '">' . htmlspecialchars($row['title']) . '</option>';
-                    }
-                    ?>
-                </select>
-                <script>
-                    VirtualSelect.init({
-                        multiple: true,
-                        ele: '#changeRequestSelect'
-                    });
-                </script>
+                <div id="filterDiv">
+                    <select id="changeRequestSelect" data-search="true" multiple class="styled-select w-10">
+                        <option value="">Filter Change Request</option>
+                        <?php
+                        // Modify the SQL query to select both filter_checkbox = 1 and filter_checkbox = 0
+                        $sql = "SELECT title, filter_checkbox FROM change_requests WHERE lead_module_team = ? AND fasttrack = 'Yes'";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param('s', $selected_team);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        while ($row = $result->fetch_assoc()) {
+                            // Check the value of filter_checkbox and set selected attribute if it's 1
+                            if ($row['filter_checkbox'] == '1') {
+                                echo '<option value="' . htmlspecialchars($row['title']) . '" selected>' . htmlspecialchars($row['title']) . '</option>';
+                            } else {
+                                echo '<option value="' . htmlspecialchars($row['title']) . '">' . htmlspecialchars($row['title']) . '</option>';
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
             </div>
 
             <?php
@@ -213,7 +216,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         </div>
                         <div class="mb-3">
                             <label for="agendaDate" class="form-label">Agenda Date:</label>
-                            <input for="agendaDate" class="form-control" id="agendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
+                            <input class="form-control datepicker" id="agendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -246,117 +249,29 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                 </div>
             </div>
         </div>
-        <!-- Personal Task Modal -->
         <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="forwardModal">Forward task</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title fs-5" id="forwardModalLabel">Forward</h1>
                     </div>
                     <div class="modal-body">
                         <div class="field">
-                            <label for="agendaSelect">Select Agenda:</label>
-                            <select id="agendaSelect" data-search="true" class="form-select">
+                            <label for="agendaSelectTask">Select Agenda:</label>
+                            <select id="agendaSelectTask" data-search="true" class="form-select">
                                 <option value="">Select Agenda...</option>
                                 <?php
-                                // Example variables
-                                $selectedAgendaId = 1; // Example selected agenda ID
 
-                                // Enable error reporting
-                                ini_set('display_errors', 1);
-                                ini_set('display_startup_errors', 1);
-                                error_reporting(E_ALL);
-
-                                // Prepare the SQL query with a placeholder for the selected team
                                 $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
-
-                                // Initialize the statement
                                 $stmt = $conn->prepare($sql);
 
-                                // Check if the statement was prepared successfully
                                 if ($stmt) {
-                                    // Bind the parameter to the prepared statement
-                                    $stmt->bind_param('s', $selected_team); // Use 'i' if module_team is an integer
-
-                                    // Print the SQL statement and parameters to the console
-                                    echo "<script>console.log('SQL: " . $sql . "');</script>";
-                                    echo "<script>console.log('Selected Team: " . $selected_team . "');</script>";
-
-                                    // Execute the statement
+                                    $stmt->bind_param('s', $selected_team);
                                     $stmt->execute();
-
-                                    // Get the result
                                     $result = $stmt->get_result();
 
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
-                                            // Check if the current option is the selected one
-                                            $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
-                                                . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
-                                                . "</option>";
-                                        }
-                                    } else {
-                                        echo "<script>console.log('No results found');</script>";
-                                    }
-
-                                    // Close the statement
-                                    $stmt->close();
-                                } else {
-                                    // Handle potential errors
-                                    echo "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
-                                    echo "<script>console.log('Error: " . htmlspecialchars($conn->error) . "');</script>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="forwardModalsave" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="forwardModal">Forward task</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="field">
-                            <label for="agendaSelect">Select Agenda:</label>
-                            <select id="agendaSelect" data-search="true" class="form-select">
-                                <option value="">Select Agenda...</option>
-                                <?php
-                                // Example variables
-                                $selected_team = 'TeamA'; // Example team
-                                $selectedAgendaId = 1; // Example selected agenda ID
-
-                                // Prepare the SQL query with a placeholder for the selected team
-                                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
-
-                                // Initialize the statement
-                                $stmt = $conn->prepare($sql);
-
-                                // Check if the statement was prepared successfully
-                                if ($stmt) {
-                                    echo "EYO";
-                                    // Bind the parameter to the prepared statement
-                                    $stmt->bind_param('s', $selected_team); // Use 'i' if module_team is an integer
-                                    // Execute the statement
-                                    $stmt->execute();
-                                    // Get the result
-                                    $result = $stmt->get_result();
-
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            // Check if the current option is the selected one
                                             $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
                                             echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
                                                 . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
@@ -364,10 +279,8 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                         }
                                     }
 
-                                    // Close the statement
                                     $stmt->close();
                                 } else {
-                                    // Handle potential errors
                                     echo "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
                                 }
                                 ?>
@@ -375,129 +288,249 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="forwardModalsave">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-light" id="sendTaskBtn" data-bs-dismiss="modal">Send</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
+                var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
+                var forwardModal = document.getElementById('forwardModal');
+                var sendTaskBtn = document.getElementById('sendTaskBtn');
+
+                forwardTaskBtns.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var taskId = this.getAttribute('data-id');
+                        forwardModal.setAttribute('data-task-id', taskId);
+
+                        var modalTitle = forwardModal.querySelector('.modal-title');
+                        modalTitle.textContent = 'Forward Task ID: ' + taskId;
+                    });
+                });
+
+                forwardTopicBtns.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var topicId = this.getAttribute('data-id');
+                        forwardModal.setAttribute('data-topic-id', topicId);
+
+                        var modalTitle = forwardModal.querySelector('.modal-title');
+                        modalTitle.textContent = 'Forward Topic ID: ' + topicId;
+                    });
+                });
+
+                sendTaskBtn.addEventListener('click', function() {
+                    console.log("Send button clicked");
+                    var taskId = forwardModal.getAttribute('data-task-id');
+                    var topicId = forwardModal.getAttribute('data-topic-id');
+                    var selectedAgendaId = document.getElementById('agendaSelectTask').value;
+                    console.log('Task ID:', taskId);
+                    console.log('Topic ID:', topicId);
+                    console.log('Selected Agenda ID:', selectedAgendaId);
+
+                    // Create an object with the data to be sent
+
+                    var data = {};
+                    if (taskId) {
+                        data = {
+                            task_id: taskId,
+                            agenda_id: selectedAgendaId
+                        };
+                    } else {
+                        data = {
+                            topic_id: topicId,
+                            agenda_id: selectedAgendaId
+                        };
+                    }
+
+                    console.log('Data to send:', data);
+
+                    // Perform the AJAX request
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'forwardtask.php', true); // Changed URL to forwardtask.php
+                    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                console.log('Task successfully copied to the agenda');
+                            } else {
+                                console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify(data));
+
+                });
+            });
+        </script>
+
+
         <table id="agendaTable" class="display">
             <thead>
                 <tr>
                     <th align="center">Type</th>
                     <th align="center"></th> <!--GFT/Change Request/Task description -->
                     <th align="center">Responsible</th>
-                    <th align="center" class="actions">Actions</th>
-                    <th align="center">M.R.</th>
+                    <th align="center" style="width: 225px;">Actions</th> <!-- Adjust the width as needed -->
                 </tr>
             </thead>
             <tbody>
-                <?php
-                if ($result_gfts->num_rows > 0) {
-                    while ($row_gft = $result_gfts->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td><strong>GFT "; // Type
-                        echo "<td><strong>GFT " . $row_gft["name"] . "</strong></td>"; // GFT
-                        echo "<td></td>"; // Responsible 
-                        echo "<td><button class='button-12 addRow' role='button'>+</button> </td>"; // Actions
-                        echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
-                        echo "</tr>";
-                        // Fetch change requests based on $selected_team and $row_gft["name"]
-                        $selected_team = $row_gft["moduleteam"];
-                        $selected_gft = $row_gft["name"];
-                        $sql_change_requests = "SELECT title FROM change_requests WHERE lead_module_team = '$selected_team' AND lead_gft = '$selected_gft' AND fasttrack = 'Yes'";
-                        $result_change_requests = $conn->query($sql_change_requests);
-
-                        if ($result_change_requests->num_rows > 0) {
+                <div id="tbodyDiv">
+                    <?php
+                    if ($result_gfts->num_rows > 0) {
+                        while ($row_gft = $result_gfts->fetch_assoc()) {
                             echo "<tr>";
-                            echo "<td></td>"; // Type
-                            echo "<td><strong>Change requests:</strong></td>"; // Change Request
-                            echo "<td></td>"; // Responsible
-                            echo "<td></td>"; // Actions
-                            echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
+                            echo "<td><strong>GFT "; // Type
+                            echo "<td><strong>GFT " . $row_gft["name"] . "</strong></td>"; // GFT
+                            echo "<td></td>"; // Responsible 
+
+                            echo "<td>
+                            <div class='button-container'>
+                            <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                            <div class='dropdown-menu'>
+                                <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                            </div>
+                        </div>
+                            </div>
+                          </td>"; // Actions
+
+
                             echo "</tr>";
-                            while ($row_change_request = $result_change_requests->fetch_assoc()) {
+                            // Fetch change requests based on $selected_team and $row_gft["name"]
+                            $selected_team = $row_gft["moduleteam"];
+                            $selected_gft = $row_gft["name"];
+                            $sql_change_requests = "SELECT title FROM change_requests WHERE lead_module_team = '$selected_team' AND lead_gft = '$selected_gft' AND fasttrack = 'Yes' AND filter_checkbox = '1'";
+                            $result_change_requests = $conn->query($sql_change_requests);
+
+                            if ($result_change_requests->num_rows > 0) {
                                 echo "<tr>";
                                 echo "<td></td>"; // Type
-                                echo "<td>" . $row_change_request["title"] . "</a></td>"; // Change Request
+                                echo "<td><strong>Change requests:</strong></td>"; // Change Request
                                 echo "<td></td>"; // Responsible
-                                echo "<td><button class='button-12 addRow' role='button'>+</button> </td>"; // Actions
-                                echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
+                                echo "<td></td>"; // Actions
+                                //echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
+                                echo "</tr>";
+                                while ($row_change_request = $result_change_requests->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td></td>"; // Type
+                                    echo "<td>" . $row_change_request["title"] . "</a></td>"; // Change Request
+                                    echo "<td></td>"; // Responsible
+
+                                    echo "<td>
+                                    <div class='button-container'>
+                                    <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                    <div class='dropdown-menu'>
+                                        <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                        <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    </div>
+                                </div>
+                                  </td>"; // Actions
+                                    echo "</tr>";
+
+                                    // Fetch topics and tasks for this change request
+                                    fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
+                                }
+                            } else {
+                                echo "<tr>";
+                                echo "<td></td>"; // Empty column for module team
+                                echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
+                                echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
+                                echo "<td></td>"; // Empty column
+                                //echo "<td></td>"; // Empty column
                                 echo "</tr>";
 
-                                // Fetch topics and tasks for this change request
-                                fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
+                                // Fetch topics and tasks for this GFT only
+                                fetchTasksAndTopics($conn, $row_gft["name"], null);
                             }
-                        } else {
-                            echo "<tr>";
-                            echo "<td></td>"; // Empty column for module team
-                            echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
-                            echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
-                            echo "<td></td>"; // Empty column
-                            echo "<td></td>"; // Empty column
-                            echo "</tr>";
-
-                            // Fetch topics and tasks for this GFT only
-                            fetchTasksAndTopics($conn, $row_gft["name"], null);
                         }
-                    }
-                } else {
-                    echo "<tr>";
-                    echo "<td></td>"; // Empty column for module team
-                    echo "<td colspan='5'>No change requests for this team</td>";
-                    echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
-                    echo "<td></td>"; // Empty column
-                    echo "<td></td>"; // Empty column
-                    echo "</tr>";
-                }
-
-                // Function to fetch tasks and topics
-                function fetchTasksAndTopics($conn, $gft, $cr)
-                {
-                    // Remove "title for " from the CR value if present
-                    $cr_stripped = $cr ? str_replace('title for ', '', $cr) : null;
-                    $selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
-
-                    // Debugging output
-                    //echo "<tr><td colspan='5'>Fetching Topics and Tasks for GFT: " . htmlspecialchars($gft) . " and CR: " . htmlspecialchars($cr_stripped) . "</td></tr>";
-
-                    $sql_topics = "SELECT * FROM topics WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL)";
-                    $stmt_topics = $conn->prepare($sql_topics);
-                    $stmt_topics->bind_param('isss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped);
-                    $stmt_topics->execute();
-                    $result_topics = $stmt_topics->get_result();
-
-                    if ($result_topics->num_rows > 0) {
-                        while ($row_topic = $result_topics->fetch_assoc()) {
-                            echo "<tr id='topic-{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
-                            echo "<td><strong>Topic</strong></td>"; // Empty column for module team
-                            echo "<td>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Type
-                            echo "<td>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
-                            echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button></td>"; // Actions
-                            echo "<td><button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→</button></td>"; // Actions
-                            echo "</tr>";
-                        }
+                    } else {
+                        echo "<tr>";
+                        echo "<td></td>"; // Empty column for module team
+                        echo "<td colspan='5'>No change requests for this team</td>";
+                        echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
+                        echo "<td></td>"; // Empty column
+                        //echo "<td></td>"; // Empty column
+                        echo "</tr>";
                     }
 
-                    $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL)";
-                    $stmt_tasks = $conn->prepare($sql_tasks);
-                    $stmt_tasks->bind_param('isss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped);
-                    $stmt_tasks->execute();
-                    $result_tasks = $stmt_tasks->get_result();
+                    // Function to fetch tasks and topics
+                    function fetchTasksAndTopics($conn, $gft, $cr)
+                    {
+                        // Remove "title for " from the CR value if present
+                        $cr_stripped = $cr ? str_replace('title for ', '', $cr) : null;
+                        $selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
 
-                    if ($result_tasks->num_rows > 0) {
-                        while ($row_task = $result_tasks->fetch_assoc()) {
-                            echo "<tr id='task-{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
-                            echo "<td><strong>Task</strong></td>"; // Empty column for module team
-                            echo "<td>" . htmlspecialchars($row_task["name"]) . "</td>"; // Type
-                            echo "<td>" . htmlspecialchars($row_task["responsible"]) . "</td>"; // Responsible
-                            echo "<td><button class='button-12 addRow' role='button'>+</button> <button class='button-12 deleteRow' role='button'>-</button></td>"; // Actions
-                            echo "<td><button data-bs-toggle='modal' data-bs-target='#forwardModal' id='modalBtn' class='button-12'  role='button'>→</button></td>"; // Actions
-                            echo "</tr>";
+                        // Debugging output
+                        //echo "<tr><td colspan='5'>Fetching Topics and Tasks for GFT: " . htmlspecialchars($gft) . " and CR: " . htmlspecialchars($cr_stripped) . "</td></tr>";
+
+                        $sql_topics = "SELECT * FROM topics WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL)";
+                        $stmt_topics = $conn->prepare($sql_topics);
+                        $stmt_topics->bind_param('isss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped);
+                        $stmt_topics->execute();
+                        $result_topics = $stmt_topics->get_result();
+
+                        if ($result_topics->num_rows > 0) {
+                            while ($row_topic = $result_topics->fetch_assoc()) {
+                                echo "<tr id='{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
+                                echo "<td><strong>Topic</strong></td>"; // Empty column for module team
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_topic["name"]) . "</td>";
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
+                                echo "<td>
+                                        <div class='button-container'>
+                                            <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                            <div class='dropdown-menu'>
+                                                <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                                <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                            </div>
+                                            <button class='button-12 deleteRow' role='button'>-</button>
+                                            <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' role='button'>→</button>  
+                                        </div>
+                                      </td>";
+                                echo "</tr>";
+                            }
+                        }
+
+                        $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND deleted = 0";
+                        $stmt_tasks = $conn->prepare($sql_tasks);
+                        $stmt_tasks->bind_param('isss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped);
+                        $stmt_tasks->execute();
+                        $result_tasks = $stmt_tasks->get_result();
+
+                        if ($result_tasks->num_rows > 0) {
+                            while ($row_task = $result_tasks->fetch_assoc()) {
+                                $asap = $row_task["asap"];
+                                $asapButtonStyle = $asap ? 'color: red;' : 'color: white;';
+                                echo "<tr id='{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                                echo "<td><strong>Task</strong></td>"; // Static task name or type
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>";
+                                echo "<td style='background-color: #212529 !important; width: 100px !important;'>"; // Apply background color and minimum width
+                                echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>"; // Adjust width to fill the container
+                                echo "<br>";
+                                echo "<br>";
+                                echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 70%;' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
+                                echo "<button class='asap-button' data-asap='{$asap}' style='width: 30%; {$asapButtonStyle}'>ASAP</button>"; // Add ASAP button with 30% width
+                                echo "</td>";
+                                echo "<td>
+                                        <div class='button-container'>
+                                            <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                            <div class='dropdown-menu'>
+                                                <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                                <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                            </div>
+                                            <button class='button-12 deleteRow' role='button'>-</button>
+                                            <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' role='button'>→</button>  
+                                        </div>
+                                      </td>"; // Actions
+                                echo "</tr>";
+                            }
                         }
                     }
-                }
-                ?>
+                    ?>
+                </div>
             </tbody>
 </body>
 
