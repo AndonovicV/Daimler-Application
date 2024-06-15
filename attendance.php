@@ -77,9 +77,15 @@ include 'conn.php';
                                     <tr>
                                         <th class="text-center bg-transparent text-light">Members</th>
                                         <th class="text-center bg-transparent text-light">Department</th>
-                                        <th class="text-center bg-transparent text-light">Present</th>
-                                        <th class="text-center bg-transparent text-light">Absent</th>
-                                        <th class="text-center bg-transparent text-light">Substituted</th>
+                                        <th class="text-center bg-transparent text-light">
+                                            Present <input type="checkbox" id="checkAllPresent">
+                                        </th>
+                                        <th class="text-center bg-transparent text-light">
+                                            Absent <input type="checkbox" id="checkAllAbsent">
+                                        </th>
+                                        <th class="text-center bg-transparent text-light">
+                                            Substituted <input type="checkbox" id="checkAllSubstituted">
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody id="attendance-tbl-body">
@@ -117,7 +123,9 @@ include 'conn.php';
                                                 <th class="text-center bg-transparent text-light">Guest Name</th>
                                                 <th class="text-center bg-transparent text-light">Department</th>
                                                 <th class="text-center bg-transparent text-light">Substitute</th>
-                                                <th class="text-center bg-transparent text-light">Present</th>
+                                                <th class="text-center bg-transparent text-light">
+                                                    Present <input type="checkbox" id="checkAllGuestPresent">
+                                                </th>
                                                 <th class="text-center bg-transparent text-light">Actions</th>
                                             </tr>
                                         </thead>

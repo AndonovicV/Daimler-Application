@@ -126,8 +126,8 @@ $(document).ready(function () {
         });
     });
 
-     // Delete guest event
-     $('#guest-list-tbl-body').on('click', '#deleteBtnGuest', function () {
+    // Delete guest event
+    $('#guest-list-tbl-body').on('click', '#deleteBtnGuest', function () {
         var $row = $(this).closest('tr');
         var guestId = $row.find('input[name="guest_id"]').val();
         var agendaId = $('input[name="agenda_id"]').val();
@@ -152,7 +152,7 @@ $(document).ready(function () {
         }
     });
 
-     // Open modal for adding new guest
+    // Open modal for adding new guest
     $('#add_guest').on('click', function () {
         $('#addGuestModal').modal('show');
     });
@@ -207,5 +207,55 @@ $(document).ready(function () {
         } else {
             alert('Please enter a guest name.');
         }
+    });
+
+    // Check all present checkboxes in attendance table
+    $('#checkAllPresent').on('change', function () {
+        var checked = $(this).is(':checked');
+        $('#attendance-tbl-body input[type="checkbox"][name*="status"]').each(function () {
+            if ($(this).val() == 1) {
+                $(this).prop('checked', checked);
+                var agendaId = $('input[name="agenda_id"]').val();
+                var memberId = $(this).closest('tr').find('input[name="member_id[]"]').val();
+                updateAttendance(agendaId, memberId, checked ? 1 : 0);
+            }
+        });
+    });
+
+    // Check all absent checkboxes in attendance table
+    $('#checkAllAbsent').on('change', function () {
+        var checked = $(this).is(':checked');
+        $('#attendance-tbl-body input[type="checkbox"][name*="status"]').each(function () {
+            if ($(this).val() == 2) {
+                $(this).prop('checked', checked);
+                var agendaId = $('input[name="agenda_id"]').val();
+                var memberId = $(this).closest('tr').find('input[name="member_id[]"]').val();
+                updateAttendance(agendaId, memberId, checked ? 2 : 0);
+            }
+        });
+    });
+
+    // Check all substituted checkboxes in attendance table
+    $('#checkAllSubstituted').on('change', function () {
+        var checked = $(this).is(':checked');
+        $('#attendance-tbl-body input[type="checkbox"][name*="status"]').each(function () {
+            if ($(this).val() == 3) {
+                $(this).prop('checked', checked);
+                var agendaId = $('input[name="agenda_id"]').val();
+                var memberId = $(this).closest('tr').find('input[name="member_id[]"]').val();
+                updateAttendance(agendaId, memberId, checked ? 3 : 0);
+            }
+        });
+    });
+
+    // Check all present checkboxes in guest list table
+    $('#checkAllGuestPresent').on('change', function () {
+        var checked = $(this).is(':checked');
+        $('#guest-list-tbl-body input[type="checkbox"][name*="present"]').each(function () {
+            $(this).prop('checked', checked);
+            var agendaId = $('input[name="agenda_id"]').val();
+            var guestId = $(this).closest('tr').find('input[name="guest_id"]').val();
+            updateGuestAttendance(agendaId, guestId, checked);
+        });
     });
 });

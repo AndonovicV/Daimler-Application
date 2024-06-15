@@ -65,11 +65,11 @@ if (isset($_GET['agenda_id'])) {
         $guestName = $row['guest_name'];
         $presentChecked = $row['present'] ? 'checked' : '';
         $guestRows .= "<tr>
-            <td class='guest_name editable' class='px-2 py-1 text-light-emphasis fw-bold'>
+            <td class='px-2 py-1 text-light-emphasis fw-bold'>
                 <input type='hidden' name='guest_id' value='{$guestId}'>
                 {$guestName}
             </td>
-            <td class='department editable' class='text-center px-2 py-1 text-light-emphasis'>{$row['guest_department']}</td>
+            <td class='text-center px-2 py-1 text-light-emphasis'>{$row['guest_department']}</td>
             <td class='substitute editable' class='px-2 py-1 text-light'>{$row['substitute']}</td>
             <td class='text-center px-2 py-1 text-light-emphasis'>
                 <input class='form-check-input' type='checkbox' name='present[{$guestId}]' id='present_{$guestId}' data-status='1' {$presentChecked}>
