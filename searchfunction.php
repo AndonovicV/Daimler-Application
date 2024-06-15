@@ -7,28 +7,35 @@ ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', 'error_log.txt'); // Make sure this path is writable
 
-// Get the search query
+// Get the search query and filter
 $query = isset($_GET['query']) ? $conn->real_escape_string($_GET['query']) : '';
+$filter = isset($_GET['filter']) ? $conn->real_escape_string($_GET['filter']) : '';
 
 $resultsHTML = '';
-$found = false; // Initialize found variable
+$found = false;
 
 // Define an array of tables and the columns to search
 $tables = [
-    'change_requests' => ['title', 'project', 'lead_gft', 'lead_module_team'],
     'dept_tbl' => ['name'],
     'guests_tbl' => ['name'],
-    'mt_agenda_list' => ['agenda_date', 'module_team', 'agenda_id'], // Include agenda_id here
+    'mt_agenda_list' => ['agenda_date', 'module_team', 'agenda_id'],
     'org_gfts' => ['name', 'moduleteam'],
     'tasks' => ['name', 'responsible', 'gft', 'cr'],
     'topics' => ['name', 'responsible', 'gft', 'cr'],
     'information' => ['agenda_id', 'content', 'gft', 'cr'],
     'assignment' => ['agenda_id', 'content', 'gft', 'cr'],
     'decision' => ['agenda_id', 'content', 'gft', 'cr'],
-
 ];
 
-// Iterate through each table and perform the search
+// Filter the tables based on the selected filter
+if ($filter) {
+    if (array_key_exists($filter, $tables)) {
+        $tables = [$filter => $tables[$filter]];
+    } else {
+        $tables = [];
+    }
+}
+
 foreach ($tables as $table => $columns) {
     $searchConditions = [];
     foreach ($columns as $column) {

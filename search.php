@@ -12,7 +12,6 @@ if (isset($_SESSION['selected_team'])) {
 $conn->close();
 ?>
 
-
 <!DOCTYPE html>
 <html data-bs-theme="dark" lang="en">
 
@@ -45,31 +44,44 @@ $conn->close();
             style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align: center!important;" 
             placeholder="Press Enter to search..." />
     </div>
+    
+    <div class="d-flex mb-3">
+        <select id="filterBox" class="w-100" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
+            <option value="">All</option>
+            <option value="topics">Topics</option>
+            <option value="tasks">Tasks</option>
+            <option value="information">Information</option>
+            <option value="assignment">Assignment</option>
+            <option value="decision">Decision</option>
+        </select>
+    </div>
         
     <div id="searchResults" class="mt-4" style="color: #777"></div>
 
     <script>
         $(document).ready(function() {
             $('#searchBox').keypress(function(event) {
-                // Check if the Enter key is pressed (key code 13)
                 if (event.keyCode === 13) {
-                    // Prevent the default action of the Enter key (form submission)
                     event.preventDefault();
-                    // Perform the search
                     performSearch();
                 }
             });
 
+            $('#filterBox').change(function() {
+                performSearch();
+            });
+
             function performSearch() {
                 var query = $('#searchBox').val();
+                var filter = $('#filterBox').val();
                 if (query) {
                     $.ajax({
                         url: 'searchfunction.php',
                         type: 'GET',
-                        data: { query: query },
+                        data: { query: query, filter: filter },
                         success: function(data) {
-                            console.log("Data received from PHP:", data);  // Log raw data
-                            $('#searchResults').html(data); // Display HTML response directly
+                            console.log("Data received from PHP:", data);
+                            $('#searchResults').html(data);
                         },
                         error: function() {
                             $('#searchResults').html('<p>An error occurred while searching.</p>');
