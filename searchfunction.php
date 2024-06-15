@@ -65,10 +65,17 @@ foreach ($tables as $table => $columns) {
             $resultsHTML .= "<div class='card'>";
             $resultsHTML .= "<div class='card-body'>";
             foreach ($row as $key => $value) {
+                if ($key === 'id' ||
+                    ($table === 'tasks' && in_array($key, ['details', 'deleted', 'asap'])) ||
+                    ($table === 'topics' && $key === 'details') ||
+                    (in_array($table, ['information', 'assignment', 'decision']) && in_array($key, ['cr', 'task_id']))
+                ) {
+                    continue; // Skip the specified keys
+                }
                 $found = true;
                 // Customize the formatting of each key-value pair
-                if ($key === 'cr' or $key === 'ID') {
-                    // Make agenda IDs clickable links
+                if ($key === 'cr') {
+                    // Make CR clickable links
                     $value = "<a href='cr.php?agenda_id=$value'>$value</a>";
                 }
                 if ($key === 'agenda_id') {
