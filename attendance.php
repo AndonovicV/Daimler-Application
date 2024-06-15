@@ -69,9 +69,9 @@ include 'conn.php';
                                 <colgroup>
                                     <col width="30%">
                                     <col width="30%">
-                                    <col width="15%">
-                                    <col width="15%">
-                                    <col width="15%">
+                                    <col width="13%">
+                                    <col width="13%">
+                                    <col width="19%">
                                 </colgroup>
                                 <thead>
                                     <tr>
