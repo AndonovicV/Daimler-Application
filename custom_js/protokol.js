@@ -287,36 +287,36 @@ $(document).ready(function () {
         }
     });
 });
+$(document).ready(function() {
+    // Load state from localStorage
+    $('.asap-button').each(function() {
+        var taskId = $(this).data('task-id');
+        var isASAP = localStorage.getItem('asap-' + taskId) === 'true';
 
-$(document).on('click', '.asap-button', function () {
-    var $button = $(this);
-    var rowId = $button.closest('tr').attr('id'); // Use .attr('id') to get the row's ID attribute
-    var type = $button.closest('tr').data('type');
-    var currentAsap = $button.data('asap');
-    var newAsap = currentAsap ? 0 : 1; // Toggle ASAP value
+        if (isASAP) {
+            $(this).css('color', 'red');
+            $('#datepicker-' + taskId).hide();
+        }
+    });
 
-    // Update button appearance
-    $button.data('asap', newAsap);
-    $button.css('color', newAsap ? 'red' : 'white');
+    // Toggle ASAP button
+    $('.asap-button').click(function() {
+        var taskId = $(this).data('task-id');
+        var datepicker = $('#datepicker-' + taskId);
+        var isASAP = datepicker.is(':visible');
 
-    // Send AJAX request to update ASAP value
-    $.ajax({
-        url: 'update_cell.php',
-        method: 'POST',
-        data: {
-            id: rowId,
-            value: newAsap,
-            column: 'asap',
-            type: type
-        },
-        success: function (response) {
-            console.log('ASAP update successful');
-        },
-        error: function () {
-            console.log('ASAP update failed');
+        if (isASAP) {
+            $(this).css('color', 'red');
+            datepicker.hide();
+            localStorage.setItem('asap-' + taskId, 'true');
+        } else {
+            $(this).css('color', 'white');
+            datepicker.show();
+            localStorage.setItem('asap-' + taskId, 'false');
         }
     });
 });
+
 
 function toggleDropdown(button) {
     const dropdown = button.nextElementSibling;
