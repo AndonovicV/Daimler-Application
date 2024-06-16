@@ -20,7 +20,7 @@ $tables = [
     'guests_tbl' => ['name'],
     'mt_agenda_list' => ['agenda_date', 'module_team', 'agenda_id'],
     'org_gfts' => ['name', 'moduleteam'],
-    'tasks' => ['name', 'responsible', 'gft', 'cr'],
+    'tasks' => ['name', 'responsible', 'gft', 'cr', 'asap', 'deadline'],
     'topics' => ['name', 'responsible', 'gft', 'cr'],
     'information' => ['agenda_id', 'content', 'gft', 'cr'],
     'assignment' => ['agenda_id', 'content', 'gft', 'cr'],
@@ -66,7 +66,7 @@ foreach ($tables as $table => $columns) {
             $resultsHTML .= "<div class='card-body'>";
             foreach ($row as $key => $value) {
                 if ($key === 'id' ||
-                    ($table === 'tasks' && in_array($key, ['details', 'deleted', 'asap'])) ||
+                    ($table === 'tasks' && in_array($key, ['details', 'deleted'])) ||
                     ($table === 'topics' && $key === 'details') ||
                     (in_array($table, ['information', 'assignment', 'decision']) && in_array($key, ['cr', 'task_id']))
                 ) {
@@ -81,6 +81,16 @@ foreach ($tables as $table => $columns) {
                 if ($key === 'agenda_id') {
                     // Make agenda IDs clickable links
                     $value = "<a href='mt_agenda.php?agenda_id=$value'>$value</a>";
+                }
+                if ($table === 'tasks') {
+                    if ($key === 'asap' && $value == 1) {
+                        $resultsHTML .= "<p style='color: red;'><strong>ASAP</strong></p>";
+                        continue;
+                    } elseif ($key === 'deadline' && $row['asap'] == 1) {
+                        continue;
+                    } elseif ($key === 'asap' && $value == 0) {
+                        continue;
+                    }
                 }
                 $resultsHTML .= "<p><strong>$key:</strong> $value</p>";
             }
