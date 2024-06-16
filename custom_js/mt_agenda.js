@@ -88,29 +88,27 @@ $(document).ready(function () {
     $('#createAgendaConfirmBtn').click(function () {
         var newAgendaName = $('#agendaName').val();
         var newAgendaDate = $('#agendaDate').val();
+        var agendaid
         if (newAgendaName.trim() === '' || newAgendaDate.trim() === '') {
             alert('Please provide both agenda name and date.');
             return;
         }
-    
+
         $.ajax({
             type: 'POST',
             url: 'createAgenda.php',
             data: { agenda_name: newAgendaName, agenda_date: newAgendaDate },
             success: function (response) {
-                var data = JSON.parse(response);
-                if (data.success) {
-                    var agendaid = data.agenda_id;
-                    window.location.href = 'mt_agenda.php?id=' + agendaid;
-                } else {
-                    alert('Error: ' + data.error);
-                }
+                //alert(response);
+                var agendaid = response; // Assuming 'response' is the agenda_id returned from PHP
+                // Use the agendaid as needed, for example, redirect to a page using it
+                window.location.href = 'mt_agenda.php?id=' + agendaid;
             },
             error: function (xhr, status, error) {
                 console.error(error);
-                alert('An error occurred: ' + xhr.responseText);
             }
         });
+        
     });
 
     // Initialize flatpickr for existing datepicker elements
@@ -254,43 +252,36 @@ $(document).ready(function() {
     });
 });
 
-// Event listener for the ASAP button
-$(document).on('click', '.asap-button', function() {
-    var $button = $(this);
-    var $datepickerInput = $button.siblings('input[data-column="deadline"]');
-    var newAsap = !$button.data('asap'); // Toggle ASAP value
+$(document).ready(function() {
+    // Load state from localStorage
+    $('.asap-button').each(function() {
+        var taskId = $(this).data('task-id');
+        var isASAP = localStorage.getItem('asap-' + taskId) === 'true';
 
-    // Update button appearance and datepicker visibility
-    $button.data('asap', newAsap);
-    $button.css('color', newAsap ? 'red' : 'white');
-    // fixing datepicker not initalizing immediately after task creation
-    if (newAsap) {
-        $datepickerInput.hide();
-    } else {
-        $datepickerInput.show();
-    }
+        if (isASAP) {
+            $(this).css('color', 'red');
+            $('#datepicker-' + taskId).hide();
+        }
+    });
 
-    var rowId = $button.closest('tr').attr('id');
-    var type = $button.closest('tr').data('type');
+    // Toggle ASAP button
+    $('.asap-button').click(function() {
+        var taskId = $(this).data('task-id');
+        var datepicker = $('#datepicker-' + taskId);
+        var isASAP = datepicker.is(':visible');
 
-    // Send AJAX request to update ASAP value
-    $.ajax({
-        url: 'update_cell.php',
-        method: 'POST',
-        data: {
-            id: rowId,
-            value: newAsap,
-            column: 'asap',
-            type: type
-        },
-        success: function(response) {
-            console.log('ASAP update successful');
-        },
-        error: function() {
-            console.log('ASAP update failed');
+        if (isASAP) {
+            $(this).css('color', 'red');
+            datepicker.hide();
+            localStorage.setItem('asap-' + taskId, 'true');
+        } else {
+            $(this).css('color', 'white');
+            datepicker.show();
+            localStorage.setItem('asap-' + taskId, 'false');
         }
     });
 });
+
 
 function toggleDropdown(button) {
     const dropdown = button.nextElementSibling;

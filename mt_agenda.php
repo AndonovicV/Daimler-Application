@@ -502,17 +502,16 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
 
                         if ($result_tasks->num_rows > 0) {
                             while ($row_task = $result_tasks->fetch_assoc()) {
-                                $asap = $row_task["asap"];
-                                $asapButtonStyle = $asap ? 'color: red;' : 'color: white;';
-                                echo "<tr id='{$row_task["id"]}' data-type='task' data-id='{$row_task["id"]}'>";
+                                $taskId = $row_task["id"];
+                                echo "<tr id='{$taskId}' data-type='task' data-id='{$taskId}'>";
                                 echo "<td><strong>Task</strong></td>"; // Static task name or type
                                 echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>";
                                 echo "<td style='background-color: #212529 !important; width: 100px !important;'>"; // Apply background color and minimum width
                                 echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>"; // Adjust width to fill the container
                                 echo "<br>";
                                 echo "<br>";
-                                echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 70%;' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
-                                echo "<button class='asap-button' data-asap='{$asap}' style='width: 30%; {$asapButtonStyle}'>ASAP</button>"; // Add ASAP button with 30% width
+                                echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' id='datepicker-{$taskId}' style='background-color: #212529 !important; border: 1px solid white; width: 70%;' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
+                                echo "<button class='asap-button' data-task-id='{$taskId}' style='color: white;'>ASAP</button>"; 
                                 echo "</td>";
                                 echo "<td>
                                         <div class='button-container'>
@@ -522,12 +521,12 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                                 <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
                                             </div>
                                             <button class='button-12 deleteRow' role='button'>-</button>
-                                            <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_task["id"]}' class='button-12 forwardTaskBtns' role='button'>→</button>  
+                                            <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$taskId}' class='button-12 forwardTaskBtns' role='button'>→</button>  
                                         </div>
                                       </td>"; // Actions
                                 echo "</tr>";
                             }
-                        }
+                        }                        
                     }
                     ?>
                 </div>
