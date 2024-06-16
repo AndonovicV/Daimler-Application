@@ -287,6 +287,7 @@ $(document).ready(function () {
         }
     });
 });
+
 $(document).ready(function() {
     // Load state from localStorage
     $('.asap-button').each(function() {
@@ -309,12 +310,28 @@ $(document).ready(function() {
             $(this).css('color', 'red');
             datepicker.hide();
             localStorage.setItem('asap-' + taskId, 'true');
+            updateASAPStatus(taskId, 1);
         } else {
             $(this).css('color', 'white');
             datepicker.show();
             localStorage.setItem('asap-' + taskId, 'false');
+            updateASAPStatus(taskId, 0);
         }
     });
+
+    function updateASAPStatus(taskId, status) {
+        $.ajax({
+            url: 'update_asap_status.php',
+            type: 'POST',
+            data: { task_id: taskId, asap: status },
+            success: function(response) {
+                console.log('ASAP status updated successfully');
+            },
+            error: function(xhr, status, error) {
+                console.error('Error updating ASAP status:', error);
+            }
+        });
+    }
 });
 
 

@@ -14,69 +14,53 @@ $sql_gfts = "SELECT DISTINCT GFT as name, Module_team as moduleteam FROM spec_bo
 $result_gfts = $conn->query($sql_gfts);
 $selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
 
-
-//PERSONAL TASK variables
+// PERSONAL TASK variables
 $user_id = 1; // Example user ID
 $sql_personal_tasks = "SELECT summary FROM personal_tasks WHERE user_id = $user_id ORDER BY id DESC LIMIT 1";
 $result_personal_tasks = $conn->query($sql_personal_tasks);
 
 if ($result_personal_tasks->num_rows > 0) {
-    // Output data of each row
     $row = $result_personal_tasks->fetch_assoc();
     $summary = $row['summary'];
 } else {
     $summary = "";
 }
-?>
-<?php
+
 function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
 {
     $output = '<select id="agendaSelect" data-search="true" class="form-select">';
     $output .= '<option value="">Select Agenda...</option>';
 
-    // Prepare the SQL query with a placeholder for the selected team
     $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
-
-    // Initialize the statement
     $stmt = $conn->prepare($sql);
 
-    // Check if the statement was prepared successfully
     if ($stmt) {
-        // Bind the parameter to the prepared statement
-        $stmt->bind_param('s', $selected_team); // Use 'i' if module_team is an integer
-        // Execute the statement
+        $stmt->bind_param('s', $selected_team);
         $stmt->execute();
-        // Get the result
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                // Check if the current option is the selected one
                 $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
                 $output .= "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
                     . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
                     . "</option>";
 
-                // Display the agenda_date if this option is the selected one
                 if ($selected) {
                     $agenda_date = htmlspecialchars($row["agenda_date"]);
                 }
             }
         }
 
-        // Close the statement
         $stmt->close();
     } else {
-        // Handle potential errors
         $output .= "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
     }
 
     $output .= '</select>';
     return $output;
 }
-
 ?>
-
 <!DOCTYPE html>
 <html data-bs-theme="dark" lang="en">
 
@@ -412,7 +396,6 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                 echo "<td><strong>Change requests:</strong></td>"; // Change Request
                                 echo "<td></td>"; // Responsible
                                 echo "<td></td>"; // Actions
-                                //echo "<td></td>"; // Meeting Resubmition Checkbox (needs to be saved to DB)
                                 echo "</tr>";
                                 while ($row_change_request = $result_change_requests->fetch_assoc()) {
                                     echo "<tr>";
@@ -440,7 +423,6 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                 echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
                                 echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
                                 echo "<td></td>"; // Empty column
-                                //echo "<td></td>"; // Empty column
                                 echo "</tr>";
 
                                 // Fetch topics and tasks for this GFT only
@@ -453,7 +435,6 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         echo "<td colspan='5'>No change requests for this team</td>";
                         echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
                         echo "<td></td>"; // Empty column
-                        //echo "<td></td>"; // Empty column
                         echo "</tr>";
                     }
 
@@ -463,9 +444,6 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         // Remove "title for " from the CR value if present
                         $cr_stripped = $cr ? str_replace('title for ', '', $cr) : null;
                         $selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
-
-                        // Debugging output
-                        //echo "<tr><td colspan='5'>Fetching Topics and Tasks for GFT: " . htmlspecialchars($gft) . " and CR: " . htmlspecialchars($cr_stripped) . "</td></tr>";
 
                         $sql_topics = "SELECT * FROM topics WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL)";
                         $stmt_topics = $conn->prepare($sql_topics);
@@ -503,6 +481,9 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         if ($result_tasks->num_rows > 0) {
                             while ($row_task = $result_tasks->fetch_assoc()) {
                                 $taskId = $row_task["id"];
+                                $isASAP = $row_task["asap"] == 1;
+                                $buttonColor = $isASAP ? 'red' : 'white';
+                                $datepickerVisibility = $isASAP ? 'display:none;' : 'display:block;';
                                 echo "<tr id='{$taskId}' data-type='task' data-id='{$taskId}'>";
                                 echo "<td><strong>Task</strong></td>"; // Static task name or type
                                 echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>";
@@ -510,8 +491,8 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                 echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>"; // Adjust width to fill the container
                                 echo "<br>";
                                 echo "<br>";
-                                echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' id='datepicker-{$taskId}' style='background-color: #212529 !important; border: 1px solid white; width: 70%;' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
-                                echo "<button class='asap-button' data-task-id='{$taskId}' style='color: white;'>ASAP</button>"; 
+                                echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' id='datepicker-{$taskId}' style='color: #212529 !important; border: 1px solid white; width: 70%; {$datepickerVisibility}' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
+                                echo "<button class='asap-button' data-task-id='{$taskId}' style='color: {$buttonColor};'>ASAP</button>"; 
                                 echo "</td>";
                                 echo "<td>
                                         <div class='button-container'>

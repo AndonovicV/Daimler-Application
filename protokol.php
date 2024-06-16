@@ -441,6 +441,9 @@ if ($result_personal_tasks->num_rows > 0) {
 
                             if ($row_task["deleted"] == "0") {
                                 $taskId = $row_task["id"];
+                                $isASAP = $row_task["asap"] == 1;
+                                $buttonColor = $isASAP ? 'red' : 'white';
+                                $datepickerVisibility = $isASAP ? 'display:none;' : 'display:block;';
                                 echo "<tr id='{$taskId}' data-type='task' data-id='{$taskId}'>";
                                 echo "<td><strong>Task</strong></td>"; // Static task name or type
                                 echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>";
@@ -448,8 +451,8 @@ if ($result_personal_tasks->num_rows > 0) {
                                 echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>"; // Adjust width to fill the container
                                 echo "<br>";
                                 echo "<br>";
-                                echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' id='datepicker-{$taskId}' style='background-color: #212529 !important; border: 1px solid white; width: 70%;' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
-                                echo "<button class='asap-button' data-task-id='{$taskId}' style='color: white;'>ASAP</button>"; 
+                                echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' id='datepicker-{$taskId}' style='background-color: #212529 !important; border: 1px solid white; width: 70%; {$datepickerVisibility}' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
+                                echo "<button class='asap-button' data-task-id='{$taskId}' style='color: {$buttonColor};'>ASAP</button>"; 
                                 echo "</td>";
                                 echo "<td>
                                         <div class='button-container'>
