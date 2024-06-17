@@ -13,56 +13,134 @@ include 'conn.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="custom_css/attendance.css">
     <link rel="stylesheet" href="plugins/virtual_select/virtual-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
     <script src="plugins/virtual_select/virtual-select.min.js"></script>
 </head>
 
 <body style="background-color: #222; color: #fff;">
 
     <div class="container mt-5">
-        <div class="page-title mb-3 text-light text-center">Manage Attendance</div>
         <hr>
+        <div class="page-title mb-3 text-light text-center" style="text-align: center; margin-top: 40px;">
+            <h1 style="color: #777; display: inline-block; margin-bottom: 20px;">Manage Attendance</h1>
+            <select id="protokolSelect" data-search="true" class="styled-select w-50 mb-3" style="background-color: #333; color: #fff; border: 1px solid #444; border-radius: 4px; height: 40px; display: inline-block; text-align-last: center;">
+                <option value="">Select protocol...</option>
+                <?php
+                    $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                    $stmt = $conn->prepare($sql);
 
-        <h1 style="color: #777" class='mt-4'>Meeting</h1>
-        <select id="protokolSelect" data-search="true" class="styled-select w-100 mb-3" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
-            <option value="">Select protocol...</option>
-            <?php
-            $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
-            $stmt = $conn->prepare($sql);
+                    if ($stmt) {
+                        $stmt->bind_param('s', $selected_team);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
 
-            if ($stmt) {
-                $stmt->bind_param('s', $selected_team);
-                $stmt->execute();
-                $result = $stmt->get_result();
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
+                                echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' data-name='" . htmlspecialchars($row["agenda_name"]) . "' data-date='" . htmlspecialchars($row["agenda_date"]) . "' $selected>"
+                                    . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
+                                    . "</option>";
+                            }
+                        }
 
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                        echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
-                            . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
-                            . "</option>";
+                        $stmt->close();
+                    } else {
+                        echo "Error: " . $conn->error;
                     }
-                }
+                ?>
+            </select>
+        </div>
 
-                $stmt->close();
-            } else {
-                echo "Error: " . $conn->error;
-            }
-            ?>
-        </select>
         <script>
             VirtualSelect.init({
                 ele: '#protokolSelect'
             });
+
+            document.getElementById('protokolSelect').addEventListener('change', function() {
+                if (this.value) {
+                    document.getElementById('tables-container').style.display = 'block';
+                } else {
+                    document.getElementById('tables-container').style.display = 'none';
+                }
+            });
+
+            function exportPDF() {
+                const selectedOption = document.querySelector('#protokolSelect');
+                if (!selectedOption || !selectedOption.value) {
+                    alert('Please select a protocol before exporting.');
+                    return;
+                }
+
+                
+                const agendaName = selectedOption.textContent.trim().split(' (')[0];
+                const agendaDate = selectedOption.textContent.trim().split(' (')[1];
+                const fileName = agendaName ? `${agendaName}.pdf` : 'attendance.pdf';
+
+                var docDefinition = {
+                    content: [
+                        { text: 'Attendance List', style: 'header' },
+                        { text: `Agenda: ${agendaName}`, style: 'subheader' },
+                        {
+                            table: {
+                                headerRows: 1,
+                                widths: [ '*', '*', '*', '*', '*' ],
+                                body: [
+                                    [ 'Members', 'Department', 'Present', 'Absent', 'Substituted' ],
+                                    ...Array.from(document.querySelectorAll('#attendance-tbl tbody tr')).map(row => [
+                                        row.cells[0].innerText,
+                                        row.cells[1].innerText,
+                                        row.cells[2].querySelector('input').checked ? 'Yes' : 'No',
+                                        row.cells[3].querySelector('input').checked ? 'Yes' : 'No',
+                                        row.cells[4].querySelector('input').checked ? 'Yes' : 'No'
+                                    ])
+                                ]
+                            }
+                        },
+                        { text: 'Guest List', style: 'header', margin: [0, 20, 0, 10] },
+                        {
+                            table: {
+                                headerRows: 1,
+                                widths: [ '*', '*', '*', '*' ],
+                                body: [
+                                    [ 'Guest Name', 'Department', 'Substitute', 'Present' ],
+                                    ...Array.from(document.querySelectorAll('#guest-list-tbl-body tr')).map(row => [
+                                        row.cells[0].innerText,
+                                        row.cells[1].innerText,
+                                        row.cells[2].innerText,
+                                        row.cells[3].querySelector('input').checked ? 'Yes' : 'No'
+                                    ])
+                                ]
+                            }
+                        }
+                    ],
+                    styles: {
+                        header: {
+                            fontSize: 22,
+                            bold: true
+                        },
+                        subheader: {
+                            fontSize: 18,
+                            bold: true,
+                            margin: [0, 10, 0, 5]
+                        }
+                    }
+                };
+
+                pdfMake.createPdf(docDefinition).download(fileName);
+            }
         </script>
 
         <!-- Placeholder for the tables -->
         <div id="tables-container" style="display: none;">
+            <hr>
+            <h1 class="text-light text-center">Attendance List</h1>
+            <button onclick="exportPDF()" class="btn btn-success">Export as PDF</button>
+            <hr>
             <form action="" id="manage-attendance">
                 <input type="hidden" name="agenda_id" value="">
                 <div class="card shadow mb-3 dark-card">
-                    <div class="card-header rounded-0">
-                        <div class="card-title text-light">Attendance Sheet</div>
-                    </div>
+                    <div class="card-header rounded-0"></div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="attendance-tbl" class="table table-bordered table-hover dark-table">
@@ -112,11 +190,10 @@ include 'conn.php';
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover table-striped dark-table">
                                         <colgroup>
-                                            <col width="20%">
-                                            <col width="20%">
-                                            <col width="15%">
-                                            <col width="8%">
-                                            <col width="5%">
+                                            <col width="25%">
+                                            <col width="25%">
+                                            <col width="25%">
+                                            <col width="25%">
                                         </colgroup>
                                         <thead>
                                             <tr>
@@ -126,42 +203,8 @@ include 'conn.php';
                                                 <th class="text-center bg-transparent text-light">
                                                     Present <input type="checkbox" id="checkAllGuestPresent">
                                                 </th>
-                                                <th class="text-center bg-transparent text-light">Actions</th>
                                             </tr>
                                         </thead>
-                                        <!-- Add Guest Modal -->
-                                        <div class="modal fade" id="addGuestModal" tabindex="-1" aria-labelledby="addGuestModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content dark-card">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title text-light" id="addGuestModalLabel">Add New Guest</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form id="addGuestForm">
-                                                            <div class="form-group">
-                                                                <label for="guestNameInput" class="text-light">Guest Name</label>
-                                                                <input type="text" class="form-control" id="guestNameInput" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="guestDepartmentInput" class="text-light">Department</label>
-                                                                <input type="text" class="form-control" id="guestDepartmentInput" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="guestSubstituteInput" class="text-light">Substitute</label>
-                                                                <input type="text" class="form-control" id="guestSubstituteInput">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary" id="saveGuestBtn">Save</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <tbody id="guest-list-tbl-body">
                                             <!-- Rows will be inserted here dynamically -->
                                         </tbody>

@@ -872,3 +872,6 @@
 [07-Jun-2024 14:15:42 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%test%' OR content LIKE '%test%' OR gft LIKE '%test%' OR cr LIKE '%test%'
 [07-Jun-2024 14:15:42 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%test%' OR content LIKE '%test%' OR gft LIKE '%test%' OR cr LIKE '%test%'
 [07-Jun-2024 14:15:42 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%test%' OR content LIKE '%test%' OR gft LIKE '%test%' OR cr LIKE '%test%'
+[16-Jun-2024 09:45:38 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%est%' OR responsible LIKE '%est%' OR gft LIKE '%est%' OR cr LIKE '%est%'
+[16-Jun-2024 09:45:44 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%test%' OR responsible LIKE '%test%' OR gft LIKE '%test%' OR cr LIKE '%test%'
+[16-Jun-2024 09:45:46 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%t%' OR responsible LIKE '%t%' OR gft LIKE '%t%' OR cr LIKE '%t%'
