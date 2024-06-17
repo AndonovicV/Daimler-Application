@@ -535,7 +535,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                             }
                         }
 
-                        $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND deleted = 0";
+                        $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND deleted = 0 AND sent = 0";
                         $stmt_tasks = $conn->prepare($sql_tasks);
                         $stmt_tasks->bind_param('isss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped);
                         $stmt_tasks->execute();
