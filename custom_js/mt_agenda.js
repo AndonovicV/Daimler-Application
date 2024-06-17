@@ -9,6 +9,7 @@ $(document).ready(function () {
         "order": [],
         "paging": false, // Disable pagination
         "searchable": true,
+        
         "bDestroy": true, // Ignores the error popup (cannot reinitialize), it works even with the error but purely for aesthetic purpose. Might delete later
         "layout": {
             "topStart": {
@@ -86,7 +87,7 @@ $(document).ready(function () {
     });
 
     $('#createAgendaConfirmBtn').click(function () {
-        var newAgendaName = $('#agendaName').val();
+        var newAgendaName = $('#agendaDate').val();
         var newAgendaDate = $('#agendaDate').val();
         var agendaid
         if (newAgendaName.trim() === '' || newAgendaDate.trim() === '') {
@@ -110,6 +111,8 @@ $(document).ready(function () {
         });
         
     });
+
+
 
     // Initialize flatpickr for existing datepicker elements
     flatpickr('.datepicker', {

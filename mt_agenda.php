@@ -155,28 +155,30 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                 <button type="button" class="btn btn-primary flex-fill mx-1" onclick="window.location.href = 'protokol.php?protokol_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
                     To Protokoll
                 </button>
-                <div id="filterDiv">
-                    <select id="changeRequestSelect" data-search="true" multiple class="styled-select w-10">
-                        <option value="">Filter Change Request</option>
-                        <?php
-                        // Modify the SQL query to select both filter_checkbox = 1 and filter_checkbox = 0
-                        $sql = "SELECT title, filter_checkbox FROM change_requests WHERE lead_module_team = ? AND fasttrack = 'Yes'";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param('s', $selected_team);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        while ($row = $result->fetch_assoc()) {
-                            // Check the value of filter_checkbox and set selected attribute if it's 1
-                            if ($row['filter_checkbox'] == '1') {
-                                echo '<option value="' . htmlspecialchars($row['title']) . '" selected>' . htmlspecialchars($row['title']) . '</option>';
-                            } else {
-                                echo '<option value="' . htmlspecialchars($row['title']) . '">' . htmlspecialchars($row['title']) . '</option>';
-                            }
-                        }
-                        ?>
-                    </select>
                 </div>
-            </div>
+                <div class="d-flex justify-content-between mb-3">
+    <div id="filterDiv" style="width: 100%;">
+        <select id="changeRequestSelect" data-search="true" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
+            <option value="">Filter Change Request</option>
+            <?php
+            // Modify the SQL query to select both filter_checkbox = 1 and filter_checkbox = 0
+            $sql = "SELECT title, filter_checkbox FROM change_requests WHERE lead_module_team = ? AND fasttrack = 'Yes'";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('s', $selected_team);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) {
+                // Check the value of filter_checkbox and set selected attribute if it's 1
+                if ($row['filter_checkbox'] == '1') {
+                    echo '<option value="' . htmlspecialchars($row['title']) . '" selected>' . htmlspecialchars($row['title']) . htmlspecialchars($row['id']) . '</option>';
+                } else {
+                    echo '<option value="' . htmlspecialchars($row['title']) . '">' . htmlspecialchars($row['title']) . htmlspecialchars($row['id']) . '</option>';
+                }
+            }
+            ?>
+        </select>
+    </div>
+</div>
 
             <?php
             if (isset($agenda_date)) {
@@ -194,10 +196,6 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="agendaName" class="form-label">Agenda Name:</label>
-                            <input type="text" class="form-control" id="agendaName">
-                        </div>
                         <div class="mb-3">
                             <label for="agendaDate" class="form-label">Agenda Date:</label>
                             <input class="form-control datepicker" id="agendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
@@ -241,7 +239,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                     </div>
                     <div class="modal-body">
                         <div class="field">
-                            <label for="agendaSelectTask">Select Agenda:</label>
+                            <label for="agendaSelectTask">Select existing Agenda:</label>
                             <select id="agendaSelectTask" data-search="true" class="form-select">
                                 <option value="">Select Agenda...</option>
                                 <?php
@@ -272,84 +270,148 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-light" id="sendTaskBtn" data-bs-dismiss="modal">Send</button>
                     </div>
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" >Send to a new agenda</h1>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="newagendaDate" class="form-label">New Agenda Date:</label>
+                            <input class="form-control datepicker" id="newagendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-light" id="createAgendaConfirmWithTaskBtn">Create agenda with selected task</button>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
-                var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
-                var forwardModal = document.getElementById('forwardModal');
-                var sendTaskBtn = document.getElementById('sendTaskBtn');
+    document.addEventListener('DOMContentLoaded', function() {
+        var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
+        var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
+        var forwardModal = document.getElementById('forwardModal');
+        var sendTaskBtn = document.getElementById('sendTaskBtn');
+        var createAgendaConfirmWithTaskBtn = document.getElementById('createAgendaConfirmWithTaskBtn');
 
-                forwardTaskBtns.forEach(function(btn) {
-                    btn.addEventListener('click', function() {
-                        var taskId = this.getAttribute('data-id');
-                        forwardModal.setAttribute('data-task-id', taskId);
+        forwardTaskBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var taskId = this.getAttribute('data-id');
+                forwardModal.setAttribute('data-task-id', taskId);
 
-                        var modalTitle = forwardModal.querySelector('.modal-title');
-                        modalTitle.textContent = 'Forward Task ID: ' + taskId;
-                    });
-                });
+                var modalTitle = forwardModal.querySelector('.modal-title');
+                modalTitle.textContent = 'Forward Task ID: ' + taskId;
+            });
+        });
 
-                forwardTopicBtns.forEach(function(btn) {
-                    btn.addEventListener('click', function() {
-                        var topicId = this.getAttribute('data-id');
-                        forwardModal.setAttribute('data-topic-id', topicId);
+        forwardTopicBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var topicId = this.getAttribute('data-id');
+                forwardModal.setAttribute('data-topic-id', topicId);
 
-                        var modalTitle = forwardModal.querySelector('.modal-title');
-                        modalTitle.textContent = 'Forward Topic ID: ' + topicId;
-                    });
-                });
+                var modalTitle = forwardModal.querySelector('.modal-title');
+                modalTitle.textContent = 'Forward Topic ID: ' + topicId;
+            });
+        });
 
-                sendTaskBtn.addEventListener('click', function() {
-                    console.log("Send button clicked");
+        sendTaskBtn.addEventListener('click', function() {
+            console.log("Send button clicked");
+            var taskId = forwardModal.getAttribute('data-task-id');
+            var topicId = forwardModal.getAttribute('data-topic-id');
+            var selectedAgendaId = document.getElementById('agendaSelectTask').value;
+            console.log('Task ID:', taskId);
+            console.log('Topic ID:', topicId);
+            console.log('Selected Agenda ID:', selectedAgendaId);
+
+            var data = {};
+            if (taskId) {
+                data = {
+                    task_id: taskId,
+                    agenda_id: selectedAgendaId
+                };
+            } else {
+                data = {
+                    topic_id: topicId,
+                    agenda_id: selectedAgendaId
+                };
+            }
+
+            console.log('Data to send:', data);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'forwardtask.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        console.log('Task successfully copied to the agenda');
+                        location.reload();
+                    } else {
+                        console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(data));
+        });
+
+        createAgendaConfirmWithTaskBtn.addEventListener('click', function() {
+            var newAgendaName = $('#newagendaDate').val();
+            var newAgendaDate = $('#newagendaDate').val();
+
+            $.ajax({
+                type: 'POST',
+                url: 'createAgenda.php',
+                data: { agenda_name: newAgendaName, agenda_date: newAgendaDate },
+                success: function(response) {
+                    var parsedResponse = JSON.parse(response);
+                    var newAgendaId = parsedResponse.agenda_id; // Extract the agenda_id from the JSON response
+                    console.log('New Agenda ID:', newAgendaId);
+
                     var taskId = forwardModal.getAttribute('data-task-id');
                     var topicId = forwardModal.getAttribute('data-topic-id');
-                    var selectedAgendaId = document.getElementById('agendaSelectTask').value;
-                    console.log('Task ID:', taskId);
-                    console.log('Topic ID:', topicId);
-                    console.log('Selected Agenda ID:', selectedAgendaId);
-
-                    // Create an object with the data to be sent
-
                     var data = {};
+
                     if (taskId) {
                         data = {
                             task_id: taskId,
-                            agenda_id: selectedAgendaId
+                            agenda_id: newAgendaId
                         };
                     } else {
                         data = {
                             topic_id: topicId,
-                            agenda_id: selectedAgendaId
+                            agenda_id: newAgendaId
                         };
                     }
 
                     console.log('Data to send:', data);
 
-                    // Perform the AJAX request
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'forwardtask.php', true); // Changed URL to forwardtask.php
-                    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            if (xhr.status === 200) {
-                                console.log('Task successfully copied to the agenda');
-                            } else {
-                                console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
-                            }
+                    $.ajax({
+                        type: 'POST',
+                        url: 'forwardtask.php',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function(response) {
+                            console.log('Task successfully copied to the new agenda');
+                            window.location.href = 'mt_agenda.php?id=' + newAgendaId;
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Failed to copy task to the new agenda', xhr.status, xhr.responseText);
                         }
-                    };
-                    xhr.send(JSON.stringify(data));
-
-                });
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
             });
+        });
+    });
         </script>
+
 
 
         <table id="agendaTable" class="display">
@@ -410,6 +472,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                         <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                                         <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
                                     </div>
+                                    <button class='button-12 unselect' role='button'>x</button>
                                 </div>
                                   </td>"; // Actions
                                     echo "</tr>";
