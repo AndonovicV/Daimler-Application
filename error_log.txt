@@ -875,3 +875,28 @@
 [16-Jun-2024 09:45:38 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%est%' OR responsible LIKE '%est%' OR gft LIKE '%est%' OR cr LIKE '%est%'
 [16-Jun-2024 09:45:44 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%test%' OR responsible LIKE '%test%' OR gft LIKE '%test%' OR cr LIKE '%test%'
 [16-Jun-2024 09:45:46 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%t%' OR responsible LIKE '%t%' OR gft LIKE '%t%' OR cr LIKE '%t%'
+[20-Jun-2024 18:14:17 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%sad%'
+[20-Jun-2024 18:14:17 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 18:14:19 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 18:14:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 18:14:37 Europe/Berlin] Executing query: SELECT * FROM guests_tbl WHERE name LIKE '%ad%'
+[20-Jun-2024 18:14:37 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.guests_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:48
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(48): mysqli->query('SELECT * FROM g...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 48
+[20-Jun-2024 18:14:47 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%adas%' OR module_team LIKE '%adas%' OR agenda_id LIKE '%adas%'
+[20-Jun-2024 18:14:47 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%adas%' OR moduleteam LIKE '%adas%'
+[20-Jun-2024 18:14:47 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%adas%' OR responsible LIKE '%adas%' OR gft LIKE '%adas%' OR cr LIKE '%adas%' OR asap LIKE '%adas%' OR deadline LIKE '%adas%'
+[20-Jun-2024 18:14:47 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%adas%' OR responsible LIKE '%adas%' OR gft LIKE '%adas%' OR cr LIKE '%adas%'
+[20-Jun-2024 18:14:47 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%adas%' OR content LIKE '%adas%' OR gft LIKE '%adas%' OR cr LIKE '%adas%'
+[20-Jun-2024 18:14:47 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%adas%' OR content LIKE '%adas%' OR gft LIKE '%adas%' OR cr LIKE '%adas%'
+[20-Jun-2024 18:14:47 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%adas%' OR content LIKE '%adas%' OR gft LIKE '%adas%' OR cr LIKE '%adas%'
