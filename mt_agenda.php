@@ -480,7 +480,10 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                     // Fetch topics and tasks for this change request
                                     fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
                                 }
-                            } else {
+                            }
+
+                            
+                            else {
                                 echo "<tr>";
                                 echo "<td></td>"; // Empty column for module team
                                 echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
@@ -517,9 +520,9 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         if ($result_topics->num_rows > 0) {
                             while ($row_topic = $result_topics->fetch_assoc()) {
                                 echo "<tr id='{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
-                                echo "<td><strong>Topic</strong></td>"; // Empty column for module team
-                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_topic["name"]) . "</td>";
-                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
+                                echo "<td class = 'topic-row'><strong>Topic</strong></td>"; // Empty column for module team
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff; max-width: 200px;'>" . htmlspecialchars($row_topic["name"]) . "</td>";
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
                                 echo "<td>
                                         <div class='button-container'>
                                             <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
@@ -548,8 +551,8 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                 $buttonColor = $isASAP ? 'red' : 'white';
                                 $datepickerVisibility = $isASAP ? 'display:none;' : 'display:block;';
                                 echo "<tr id='{$taskId}' data-type='task' data-id='{$taskId}'>";
-                                echo "<td><strong>Task</strong></td>"; // Static task name or type
-                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid white; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>";
+                                echo "<td class = 'task-row'><strong>Task</strong></td>"; // Static task name or type
+                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid orange; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>";
                                 echo "<td style='background-color: #212529 !important; width: 100px !important;'>"; // Apply background color and minimum width
                                 echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid white; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>"; // Adjust width to fill the container
                                 echo "<br>";

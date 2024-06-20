@@ -373,13 +373,13 @@ async function addTask(cell) {
 
     var newRow = $(`
     <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
-        <td><strong>Task</strong></td>
-        <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white; max-width: 200px;"></td>
+        <td class = "task-row"><strong>Task</strong></td>
+        <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid orange; max-width: 200px;"></td>
         <td style="background-color: #212529 !important; width: 100px !important;">
-            <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 100%; color: grey;" placeholder="Enter responsible person">
+            <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529 !important; border: 1px solid orange; width: 100%; color: grey;" placeholder="Enter responsible person">
             <br><br>
             <div class="flex-container">
-                <input class="editabletasktopic-cell new-datepicker-${lastTask}" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 70%;" value="" placeholder="Select date">
+                <input class="editabletasktopic-cell new-datepicker-${lastTask}" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid orange; width: 70%;" value="" placeholder="Select date">
                 <button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
             </div>
         </td>
@@ -426,9 +426,9 @@ async function addTopic(cell) {
     
         var newRow = $(`
             <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
-                <td><strong>Topic</strong></td>
-                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
-                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
+                <td class = "topic-row"><strong>Topic</strong></td>
+                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
+                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td>
                     <div class="button-container">
                         <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>

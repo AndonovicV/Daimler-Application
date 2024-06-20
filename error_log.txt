@@ -875,3 +875,250 @@
 [16-Jun-2024 09:45:38 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%est%' OR responsible LIKE '%est%' OR gft LIKE '%est%' OR cr LIKE '%est%'
 [16-Jun-2024 09:45:44 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%test%' OR responsible LIKE '%test%' OR gft LIKE '%test%' OR cr LIKE '%test%'
 [16-Jun-2024 09:45:46 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%t%' OR responsible LIKE '%t%' OR gft LIKE '%t%' OR cr LIKE '%t%'
+[20-Jun-2024 17:25:21 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 17:25:21 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 17:25:23 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 17:26:12 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 17:29:53 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 17:29:53 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 17:29:54 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 17:37:51 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 17:37:51 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 17:37:51 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 17:37:51 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 17:38:40 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 17:38:40 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 17:40:59 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 17:40:59 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 17:41:05 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 17:41:05 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 17:41:10 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 17:41:13 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 17:41:13 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 17:41:24 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 17:41:43 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 17:41:47 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 17:41:47 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 17:41:48 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 17:41:50 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 17:42:03 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 17:42:05 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 17:43:24 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 17:43:35 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 17:49:41 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 17:49:45 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:04:15 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:04:21 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:04:40 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:05:17 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:05:19 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:06:47 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:13:10 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:13:11 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:13:36 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:13:44 Europe/Berlin] Executing query: SELECT * FROM dept_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 18:13:44 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.dept_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 18:14:57 Europe/Berlin] Executing query: SELECT * FROM departements WHERE name LIKE '%a%'
+[20-Jun-2024 18:14:57 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.departements' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 18:15:11 Europe/Berlin] Executing query: SELECT * FROM departements WHERE name LIKE '%a%'
+[20-Jun-2024 18:15:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.departements' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 18:15:32 Europe/Berlin] Executing query: SELECT * FROM departments WHERE name LIKE '%a%'
+[20-Jun-2024 18:15:32 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'where clause' in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 18:15:36 Europe/Berlin] Executing query: SELECT * FROM departments WHERE name LIKE '%a%'
+[20-Jun-2024 18:15:36 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'name' in 'where clause' in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM d...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 18:15:53 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:15:53 Europe/Berlin] Executing query: SELECT * FROM guests_tbl WHERE name LIKE '%a%'
+[20-Jun-2024 18:15:53 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'vokidomm.guests_tbl' doesn't exist in C:\xampp\htdocs\Daimler\searchfunction.php:49
+Stack trace:
+#0 C:\xampp\htdocs\Daimler\searchfunction.php(49): mysqli->query('SELECT * FROM g...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Daimler\searchfunction.php on line 49
+[20-Jun-2024 18:16:40 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:16:40 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:16:40 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:16:40 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:16:40 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:16:40 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:16:40 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:16:40 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:16:40 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:16:59 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:16:59 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:16:59 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:16:59 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:16:59 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:16:59 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:16:59 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:16:59 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:16:59 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:18:59 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:19:37 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:19:40 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:20:54 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:22 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:24:22 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:24:22 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:24:22 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:24:22 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:24:22 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:22 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:22 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:22 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:24 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:24:31 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:24:31 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:24:31 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:24:31 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:24:31 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:24:31 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:31 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:31 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:31 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:33 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:24:41 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:24:41 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:24:41 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:24:41 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:24:41 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:24:41 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:41 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:41 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:41 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:24:43 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:21 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:27 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:25:27 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:25:27 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:25:27 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:25:27 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:25:27 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:27 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:27 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:27 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:29 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:37 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:25:37 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:25:37 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:25:37 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:25:37 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:25:37 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:37 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:37 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:37 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:39 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:44 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:50 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:25:50 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:25:50 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:25:50 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:25:50 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:25:50 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:50 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:50 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:50 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:25:51 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:26:35 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:26:35 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:26:35 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:26:35 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:26:35 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:26:35 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:26:35 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:26:35 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:26:35 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:26:39 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:26:39 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:26:39 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:26:39 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:26:39 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:26:39 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:26:39 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:26:39 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:26:39 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:26:41 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:27:57 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:27:57 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:27:57 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:27:57 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:27:57 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:27:57 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:27:57 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:27:57 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:27:57 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:27:59 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:28:12 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:28:49 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:28:49 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:28:49 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:28:49 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:28:49 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:28:49 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:28:49 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:28:49 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:28:49 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:28:51 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:44:05 Europe/Berlin] Executing query: SELECT * FROM departments WHERE department_name LIKE '%a%'
+[20-Jun-2024 18:44:05 Europe/Berlin] Executing query: SELECT * FROM guests WHERE guest_name LIKE '%a%'
+[20-Jun-2024 18:44:05 Europe/Berlin] Executing query: SELECT * FROM mt_agenda_list WHERE agenda_date LIKE '%a%' OR module_team LIKE '%a%' OR agenda_id LIKE '%a%'
+[20-Jun-2024 18:44:05 Europe/Berlin] Executing query: SELECT * FROM org_gfts WHERE name LIKE '%a%' OR moduleteam LIKE '%a%'
+[20-Jun-2024 18:44:05 Europe/Berlin] Executing query: SELECT * FROM tasks WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%' OR asap LIKE '%a%' OR deadline LIKE '%a%'
+[20-Jun-2024 18:44:05 Europe/Berlin] Executing query: SELECT * FROM topics WHERE name LIKE '%a%' OR responsible LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:44:05 Europe/Berlin] Executing query: SELECT * FROM information WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:44:05 Europe/Berlin] Executing query: SELECT * FROM assignment WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'
+[20-Jun-2024 18:44:05 Europe/Berlin] Executing query: SELECT * FROM decision WHERE agenda_id LIKE '%a%' OR content LIKE '%a%' OR gft LIKE '%a%' OR cr LIKE '%a%'

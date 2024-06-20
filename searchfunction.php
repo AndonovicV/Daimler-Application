@@ -16,8 +16,8 @@ $found = false;
 
 // Define an array of tables and the columns to search
 $tables = [
-    'dept_tbl' => ['name'],
-    'guests_tbl' => ['name'],
+    'departments' => ['department_name'],
+    'guests' => ['guest_name'],
     'mt_agenda_list' => ['agenda_date', 'module_team', 'agenda_id'],
     'org_gfts' => ['name', 'moduleteam'],
     'tasks' => ['name', 'responsible', 'gft', 'cr', 'asap', 'deadline'],
@@ -62,7 +62,15 @@ foreach ($tables as $table => $columns) {
         // Fetch and display results
         while ($row = $result->fetch_assoc()) {
             // Format each row of the result as a card
-            $resultsHTML .= "<div class='card'>";
+            if ($table === 'tasks') {
+                $resultsHTML .= "<div id = 'search-task' class='card'>";
+            }
+            elseif ($table === 'topics') {
+                    $resultsHTML .= "<div id = 'search-topic' class='card'>";
+                }
+            else {
+                $resultsHTML .= "<div class='card'>";
+            }
             $resultsHTML .= "<div class='card-body'>";
             foreach ($row as $key => $value) {
                 if ($key === 'id' ||

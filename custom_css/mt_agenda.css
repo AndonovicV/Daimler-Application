@@ -83,3 +83,30 @@ text-align: center;
   border-color: #444;
 }
 
+.task-row {
+  color: orange;
+}
+
+.topic-row {
+  color: #dfbaff;
+}
+
+#search-topic {
+  border-color: #dfbaff;
+}
+
+#search-task {
+  border-color: orange;
+}
+
+.editabletasktopic-cell {
+  border: 1px solid #ced4da; /* Default border color */
+}
+
+.editabletasktopic-cell.task {
+  border-color: red; /* Border color for Task */
+}
+
+.editabletasktopic-cell.topic {
+  border-color: blue; /* Border color for Topic */
+}

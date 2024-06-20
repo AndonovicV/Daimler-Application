@@ -48,8 +48,8 @@ $conn->close();
     <div class="d-flex mb-3">
         <select id="filterBox" class="w-100" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
             <option value="">All</option>
-            <option value="topics">Topics</option>
-            <option value="tasks">Tasks</option>
+            <option class = 'topic-row' value="topics">Topics</option>
+            <option class = 'task-row'value="tasks">Tasks</option>
             <option value="information">Information</option>
             <option value="assignment">Assignment</option>
             <option value="decision">Decision</option>
