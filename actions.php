@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include 'conn.php';  
 session_start(); // Start the session if not already started
 
@@ -297,33 +298,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {    // needs to be an if (isset($_POS
 
 if (isset($_POST['selected_titles'])) {
     $selected_titles = $_POST['selected_titles'];
+    $selectedAgendaId = isset($_SESSION['selected_agenda_id']) ? $_SESSION['selected_agenda_id'] : null;
 
-    // Sanitize and prepare the selected titles for use in SQL
-    $selected_titles_placeholder = implode(',', array_fill(0, count($selected_titles), '?'));
+    if ($selectedAgendaId !== null) {
+        // Clear existing filter selections for the current agenda
+        $clear_sql = "DELETE FROM agenda_change_request_filters WHERE agenda_id = ?";
+        $clear_stmt = $conn->prepare($clear_sql);
+        $clear_stmt->bind_param('i', $selectedAgendaId);
+        $clear_stmt->execute();
 
-    // Create the SQL query to update only the selected titles
-    $sql = "UPDATE change_requests SET filter_checkbox = CASE 
-            WHEN title IN ($selected_titles_placeholder) THEN 1 
-            ELSE 0 
-            END 
-            WHERE lead_module_team = ? AND fasttrack = 'Yes'";
-
-    $stmt = $conn->prepare($sql);
-
-    // Merge the selected titles with the team parameter
-    $params = array_merge($selected_titles, [$selected_team]);
-
-    // Dynamically bind the parameters
-    $types = str_repeat('s', count($selected_titles)) . 's'; // 's' for each title and one for $selected_team
-    $stmt->bind_param($types, ...$params);
-
-    if ($stmt->execute()) {
+        foreach ($selected_titles as $title) {
+            // Insert new filter selections
+            $insert_sql = "INSERT INTO agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, (SELECT ID FROM change_requests WHERE title = ?), 1)";
+            $insert_stmt = $conn->prepare($insert_sql);
+            $insert_stmt->bind_param('is', $selectedAgendaId, $title);
+            $insert_stmt->execute();
+            $insert_stmt->close();
+        }
         echo "Success";
     } else {
-        echo "Error: " . $conn->error;
+        echo "No agenda selected. Session value: " . print_r($_SESSION, true);
     }
 } else {
     echo "No data received";
 }
-
+$conn->close();
 ?>  

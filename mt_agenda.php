@@ -9,10 +9,14 @@ if (isset($_SESSION['selected_team'])) {
     $selected_team = ""; // Default value if not set
 }
 
+$selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
+if ($selectedAgendaId) {
+    $_SESSION['selected_agenda_id'] = $selectedAgendaId;
+}
+
 // Fetch GFTs connected to the selected team
 $sql_gfts = "SELECT DISTINCT GFT as name, Module_team as moduleteam FROM spec_book WHERE Module_team = '$selected_team'";
 $result_gfts = $conn->query($sql_gfts);
-$selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
 
 // PERSONAL TASK variables
 $user_id = 1; // Example user ID
@@ -155,30 +159,31 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                 <button type="button" class="btn btn-primary flex-fill mx-1" onclick="window.location.href = 'protokol.php?protokol_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
                     To Protokoll
                 </button>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <div id="filterDiv" style="width: 100%;">
+                    <select id="changeRequestSelect" data-search="true" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
+                        <option value="">Filter Change Request</option>
+                        <?php
+                        // Fetch change requests with the filter status for the selected agenda
+                        $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active
+                                FROM change_requests cr
+                                LEFT JOIN agenda_change_request_filters acrf ON cr.ID = acrf.change_request_id AND acrf.agenda_id = ?
+                                WHERE cr.lead_module_team = ? AND cr.fasttrack = 'Yes'";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param('is', $selectedAgendaId, $selected_team);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        while ($row = $result->fetch_assoc()) {
+                            // Check the filter status
+                            $selected = ($row['filter_active']) ? 'selected' : '';
+                            echo '<option value="' . htmlspecialchars($row['title']) . '" ' . $selected . '>' . htmlspecialchars($row['title']) . '</option>';
+                        }
+
+                        ?>
+                    </select>
                 </div>
-                <div class="d-flex justify-content-between mb-3">
-    <div id="filterDiv" style="width: 100%;">
-        <select id="changeRequestSelect" data-search="true" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
-            <option value="">Filter Change Request</option>
-            <?php
-            // Modify the SQL query to select both filter_checkbox = 1 and filter_checkbox = 0
-            $sql = "SELECT title, filter_checkbox FROM change_requests WHERE lead_module_team = ? AND fasttrack = 'Yes'";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('s', $selected_team);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            while ($row = $result->fetch_assoc()) {
-                // Check the value of filter_checkbox and set selected attribute if it's 1
-                if ($row['filter_checkbox'] == '1') {
-                    echo '<option value="' . htmlspecialchars($row['title']) . '" selected>' . htmlspecialchars($row['title']) . htmlspecialchars($row['id']) . '</option>';
-                } else {
-                    echo '<option value="' . htmlspecialchars($row['title']) . '">' . htmlspecialchars($row['title']) . htmlspecialchars($row['id']) . '</option>';
-                }
-            }
-            ?>
-        </select>
-    </div>
-</div>
+            </div>
 
             <?php
             if (isset($agenda_date)) {
@@ -273,143 +278,146 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                         <button type="button" class="btn btn-light" id="sendTaskBtn" data-bs-dismiss="modal">Send</button>
                     </div>
                     <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" >Send to a new agenda</h1>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="newagendaDate" class="form-label">New Agenda Date:</label>
-                            <input class="form-control datepicker" id="newagendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Send to a new agenda</h1>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="newagendaDate" class="form-label">New Agenda Date:</label>
+                                <input class="form-control datepicker" id="newagendaDate" data-date-format="yyyy/mm/dd" placeholder="yyyy/mm/dd">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-light" id="createAgendaConfirmWithTaskBtn">Create agenda with selected task</button>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-light" id="createAgendaConfirmWithTaskBtn">Create agenda with selected task</button>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
 
         <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
-        var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
-        var forwardModal = document.getElementById('forwardModal');
-        var sendTaskBtn = document.getElementById('sendTaskBtn');
-        var createAgendaConfirmWithTaskBtn = document.getElementById('createAgendaConfirmWithTaskBtn');
+            document.addEventListener('DOMContentLoaded', function() {
+                var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
+                var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
+                var forwardModal = document.getElementById('forwardModal');
+                var sendTaskBtn = document.getElementById('sendTaskBtn');
+                var createAgendaConfirmWithTaskBtn = document.getElementById('createAgendaConfirmWithTaskBtn');
 
-        forwardTaskBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var taskId = this.getAttribute('data-id');
-                forwardModal.setAttribute('data-task-id', taskId);
+                forwardTaskBtns.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var taskId = this.getAttribute('data-id');
+                        forwardModal.setAttribute('data-task-id', taskId);
 
-                var modalTitle = forwardModal.querySelector('.modal-title');
-                modalTitle.textContent = 'Forward Task ID: ' + taskId;
-            });
-        });
+                        var modalTitle = forwardModal.querySelector('.modal-title');
+                        modalTitle.textContent = 'Forward Task ID: ' + taskId;
+                    });
+                });
 
-        forwardTopicBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var topicId = this.getAttribute('data-id');
-                forwardModal.setAttribute('data-topic-id', topicId);
+                forwardTopicBtns.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var topicId = this.getAttribute('data-id');
+                        forwardModal.setAttribute('data-topic-id', topicId);
 
-                var modalTitle = forwardModal.querySelector('.modal-title');
-                modalTitle.textContent = 'Forward Topic ID: ' + topicId;
-            });
-        });
+                        var modalTitle = forwardModal.querySelector('.modal-title');
+                        modalTitle.textContent = 'Forward Topic ID: ' + topicId;
+                    });
+                });
 
-        sendTaskBtn.addEventListener('click', function() {
-            console.log("Send button clicked");
-            var taskId = forwardModal.getAttribute('data-task-id');
-            var topicId = forwardModal.getAttribute('data-topic-id');
-            var selectedAgendaId = document.getElementById('agendaSelectTask').value;
-            console.log('Task ID:', taskId);
-            console.log('Topic ID:', topicId);
-            console.log('Selected Agenda ID:', selectedAgendaId);
-
-            var data = {};
-            if (taskId) {
-                data = {
-                    task_id: taskId,
-                    agenda_id: selectedAgendaId
-                };
-            } else {
-                data = {
-                    topic_id: topicId,
-                    agenda_id: selectedAgendaId
-                };
-            }
-
-            console.log('Data to send:', data);
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'forwardtask.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        console.log('Task successfully copied to the agenda');
-                        location.reload();
-                    } else {
-                        console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
-                    }
-                }
-            };
-            xhr.send(JSON.stringify(data));
-        });
-
-        createAgendaConfirmWithTaskBtn.addEventListener('click', function() {
-            var newAgendaName = $('#newagendaDate').val();
-            var newAgendaDate = $('#newagendaDate').val();
-
-            $.ajax({
-                type: 'POST',
-                url: 'createAgenda.php',
-                data: { agenda_name: newAgendaName, agenda_date: newAgendaDate },
-                success: function(response) {
-                    var parsedResponse = JSON.parse(response);
-                    var newAgendaId = parsedResponse.agenda_id; // Extract the agenda_id from the JSON response
-                    console.log('New Agenda ID:', newAgendaId);
-
+                sendTaskBtn.addEventListener('click', function() {
+                    console.log("Send button clicked");
                     var taskId = forwardModal.getAttribute('data-task-id');
                     var topicId = forwardModal.getAttribute('data-topic-id');
-                    var data = {};
+                    var selectedAgendaId = document.getElementById('agendaSelectTask').value;
+                    console.log('Task ID:', taskId);
+                    console.log('Topic ID:', topicId);
+                    console.log('Selected Agenda ID:', selectedAgendaId);
 
+                    var data = {};
                     if (taskId) {
                         data = {
                             task_id: taskId,
-                            agenda_id: newAgendaId
+                            agenda_id: selectedAgendaId
                         };
                     } else {
                         data = {
                             topic_id: topicId,
-                            agenda_id: newAgendaId
+                            agenda_id: selectedAgendaId
                         };
                     }
 
                     console.log('Data to send:', data);
 
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'forwardtask.php', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                console.log('Task successfully copied to the agenda');
+                                location.reload();
+                            } else {
+                                console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
+                            }
+                        }
+                    };
+                    xhr.send(JSON.stringify(data));
+                });
+
+                createAgendaConfirmWithTaskBtn.addEventListener('click', function() {
+                    var newAgendaName = $('#newagendaDate').val();
+                    var newAgendaDate = $('#newagendaDate').val();
+
                     $.ajax({
                         type: 'POST',
-                        url: 'forwardtask.php',
-                        contentType: 'application/json',
-                        data: JSON.stringify(data),
+                        url: 'createAgenda.php',
+                        data: {
+                            agenda_name: newAgendaName,
+                            agenda_date: newAgendaDate
+                        },
                         success: function(response) {
-                            console.log('Task successfully copied to the new agenda');
-                            window.location.href = 'mt_agenda.php?id=' + newAgendaId;
+                            var parsedResponse = JSON.parse(response);
+                            var newAgendaId = parsedResponse.agenda_id; // Extract the agenda_id from the JSON response
+                            console.log('New Agenda ID:', newAgendaId);
+
+                            var taskId = forwardModal.getAttribute('data-task-id');
+                            var topicId = forwardModal.getAttribute('data-topic-id');
+                            var data = {};
+
+                            if (taskId) {
+                                data = {
+                                    task_id: taskId,
+                                    agenda_id: newAgendaId
+                                };
+                            } else {
+                                data = {
+                                    topic_id: topicId,
+                                    agenda_id: newAgendaId
+                                };
+                            }
+
+                            console.log('Data to send:', data);
+
+                            $.ajax({
+                                type: 'POST',
+                                url: 'forwardtask.php',
+                                contentType: 'application/json',
+                                data: JSON.stringify(data),
+                                success: function(response) {
+                                    console.log('Task successfully copied to the new agenda');
+                                    window.location.href = 'mt_agenda.php?id=' + newAgendaId;
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Failed to copy task to the new agenda', xhr.status, xhr.responseText);
+                                }
+                            });
                         },
                         error: function(xhr, status, error) {
-                            console.error('Failed to copy task to the new agenda', xhr.status, xhr.responseText);
+                            console.error(error);
                         }
                     });
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
+                });
             });
-        });
-    });
         </script>
 
 
@@ -446,54 +454,59 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
 
 
                             echo "</tr>";
-                            // Fetch change requests based on $selected_team and $row_gft["name"]
-                            $selected_team = $row_gft["moduleteam"];
-                            $selected_gft = $row_gft["name"];
-                            $sql_change_requests = "SELECT title FROM change_requests WHERE lead_module_team = '$selected_team' AND lead_gft = '$selected_gft' AND fasttrack = 'Yes' AND filter_checkbox = '1'";
-                            $result_change_requests = $conn->query($sql_change_requests);
+// Fetch change requests based on $selected_team and $row_gft["name"]
+$selected_team = $row_gft["moduleteam"];
+$selected_gft = $row_gft["name"];
+$sql_change_requests = "SELECT cr.title 
+                        FROM change_requests cr 
+                        JOIN agenda_change_request_filters acrf 
+                        ON cr.ID = acrf.change_request_id 
+                        WHERE acrf.agenda_id = ? AND acrf.filter_active = 1 AND cr.lead_module_team = ? AND cr.lead_gft = ? AND cr.fasttrack = 'Yes'";
+$stmt = $conn->prepare($sql_change_requests);
+$stmt->bind_param('iss', $selectedAgendaId, $selected_team, $selected_gft);
+$stmt->execute();
+$result_change_requests = $stmt->get_result();
 
-                            if ($result_change_requests->num_rows > 0) {
-                                echo "<tr>";
-                                echo "<td></td>"; // Type
-                                echo "<td><strong>Change requests:</strong></td>"; // Change Request
-                                echo "<td></td>"; // Responsible
-                                echo "<td></td>"; // Actions
-                                echo "</tr>";
-                                while ($row_change_request = $result_change_requests->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td></td>"; // Type
-                                    echo "<td>" . $row_change_request["title"] . "</a></td>"; // Change Request
-                                    echo "<td></td>"; // Responsible
+if ($result_change_requests->num_rows > 0) {
+    echo "<tr>";
+    echo "<td></td>"; // Type
+    echo "<td><strong>Change requests:</strong></td>"; // Change Request
+    echo "<td></td>"; // Responsible
+    echo "<td></td>"; // Actions
+    echo "</tr>";
+    while ($row_change_request = $result_change_requests->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td></td>"; // Type
+        echo "<td>" . $row_change_request["title"] . "</a></td>"; // Change Request
+        echo "<td></td>"; // Responsible
 
-                                    echo "<td>
-                                    <div class='button-container'>
-                                    <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
-                                    <div class='dropdown-menu'>
-                                        <button class='dropdown-item' onclick='addTask(this)'>Task</button>
-                                        <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
-                                    </div>
-                                    <button class='button-12 unselect' role='button'>x</button>
-                                </div>
-                                  </td>"; // Actions
-                                    echo "</tr>";
+        echo "<td>
+        <div class='button-container'>
+        <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+        <div class='dropdown-menu'>
+            <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+            <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+        </div>
+        <button class='button-12 unselect' role='button'>x</button>
+    </div>
+      </td>"; // Actions
+        echo "</tr>";
 
-                                    // Fetch topics and tasks for this change request
-                                    fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
-                                }
-                            }
+        // Fetch topics and tasks for this change request
+        fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
+    }
+} else {
+    echo "<tr>";
+    echo "<td></td>"; // Empty column for module team
+    echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
+    echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
+    echo "<td></td>"; // Empty column
+    echo "</tr>";
 
-                            
-                            else {
-                                echo "<tr>";
-                                echo "<td></td>"; // Empty column for module team
-                                echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
-                                echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
-                                echo "<td></td>"; // Empty column
-                                echo "</tr>";
+    // Fetch topics and tasks for this GFT only
+    fetchTasksAndTopics($conn, $row_gft["name"], null);
+}
 
-                                // Fetch topics and tasks for this GFT only
-                                fetchTasksAndTopics($conn, $row_gft["name"], null);
-                            }
                         }
                     } else {
                         echo "<tr>";
@@ -538,7 +551,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                             }
                         }
 
-                        $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND deleted = 0 AND sent = 0";
+                        $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND deleted = 0";
                         $stmt_tasks = $conn->prepare($sql_tasks);
                         $stmt_tasks->bind_param('isss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped);
                         $stmt_tasks->execute();
@@ -558,7 +571,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                 echo "<br>";
                                 echo "<br>";
                                 echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' id='datepicker-{$taskId}' style='color: white !important; border: 1px solid white; width: 70%; {$datepickerVisibility}' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
-                                echo "<button class='asap-button' data-task-id='{$taskId}' style='color: {$buttonColor};'>ASAP</button>"; 
+                                echo "<button class='asap-button' data-task-id='{$taskId}' style='color: {$buttonColor};'>ASAP</button>";
                                 echo "</td>";
                                 echo "<td>
                                         <div class='button-container'>
@@ -573,7 +586,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                       </td>"; // Actions
                                 echo "</tr>";
                             }
-                        }                        
+                        }
                     }
                     ?>
                 </div>

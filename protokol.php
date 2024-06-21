@@ -213,20 +213,21 @@ if ($result_personal_tasks->num_rows > 0) {
                     <select id="changeRequestSelect" data-search="true" multiple class="styled-select w-10">
                         <option value="">Filter Change Request</option>
                         <?php
-                        // Modify the SQL query to select both filter_checkbox = 1 and filter_checkbox = 0
-                        $sql = "SELECT title, filter_checkbox FROM change_requests WHERE lead_module_team = ? AND fasttrack = 'Yes'";
+                        // Fetch change requests with the filter status for the selected protokol
+                        $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active
+                                FROM change_requests cr
+                                LEFT JOIN agenda_change_request_filters acrf ON cr.ID = acrf.change_request_id AND acrf.agenda_id = ?
+                                WHERE cr.lead_module_team = ? AND cr.fasttrack = 'Yes'";
                         $stmt = $conn->prepare($sql);
-                        $stmt->bind_param('s', $selected_team);
+                        $stmt->bind_param('is', $selectedAgendaId, $selected_team);
                         $stmt->execute();
                         $result = $stmt->get_result();
                         while ($row = $result->fetch_assoc()) {
-                            // Check the value of filter_checkbox and set selected attribute if it's 1
-                            if ($row['filter_checkbox'] == '1') {
-                                echo '<option value="' . htmlspecialchars($row['title']) . '" selected>' . htmlspecialchars($row['title']) . '</option>';
-                            } else {
-                                echo '<option value="' . htmlspecialchars($row['title']) . '">' . htmlspecialchars($row['title']) . '</option>';
-                            }
+                            // Check the filter status
+                            $selected = ($row['filter_active']) ? 'selected' : '';
+                            echo '<option value="' . htmlspecialchars($row['title']) . '" ' . $selected . '>' . htmlspecialchars($row['title']) . '</option>';
                         }
+
                         ?>
                     </select>
                 </div>
@@ -349,10 +350,23 @@ if ($result_personal_tasks->num_rows > 0) {
                         // Fetch change requests based on $selected_team and $row_gft["name"]
                         $selected_team = $row_gft["moduleteam"];
                         $selected_gft = $row_gft["name"];
-                        $sql_change_requests = "SELECT title FROM change_requests WHERE lead_module_team = '$selected_team' AND lead_gft = '$selected_gft' AND fasttrack = 'Yes' AND filter_checkbox = '1'";
-                        $result_change_requests = $conn->query($sql_change_requests);
+                        $sql_change_requests = "SELECT cr.title 
+                        FROM change_requests cr 
+                        JOIN agenda_change_request_filters acrf 
+                        ON cr.ID = acrf.change_request_id 
+                        WHERE acrf.agenda_id = ? AND acrf.filter_active = 1 AND cr.lead_module_team = ? AND cr.lead_gft = ? AND cr.fasttrack = 'Yes'";
+                        $stmt = $conn->prepare($sql_change_requests);
+                        $stmt->bind_param('iss', $selectedAgendaId, $selected_team, $selected_gft);
+                        $stmt->execute();
+                        $result_change_requests = $stmt->get_result();
 
                         if ($result_change_requests->num_rows > 0) {
+                            echo "<tr>";
+                            echo "<td></td>"; // Type
+                            echo "<td><strong>Change requests:</strong></td>"; // Change Request
+                            echo "<td></td>"; // Responsible
+                            echo "<td></td>"; // Actions
+                            echo "</tr>";
                             while ($row_change_request = $result_change_requests->fetch_assoc()) {
                                 echo "<tr>";
                                 echo "<td></td>"; // Type
@@ -360,14 +374,15 @@ if ($result_personal_tasks->num_rows > 0) {
                                 echo "<td></td>"; // Responsible
 
                                 echo "<td>
-                        <div class='button-container'>
-                        <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
-                        <div class='dropdown-menu'>
-                            <button class='dropdown-item' onclick='addTask(this)'>Task</button>
-                            <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
-                        </div>
-                    </div>
-                      </td>"; // Actions
+                                    <div class='button-container'>
+                                    <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                    <div class='dropdown-menu'>
+                                        <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                        <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    </div>
+                                    <button class='button-12 unselect' role='button'>x</button>
+                                </div>
+                                </td>"; // Actions
                                 echo "</tr>";
 
                                 // Fetch topics and tasks for this change request
@@ -452,7 +467,7 @@ if ($result_personal_tasks->num_rows > 0) {
                                 echo "<br>";
                                 echo "<br>";
                                 echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' id='datepicker-{$taskId}' style='color: white !important; border: 1px solid white; width: 70%; {$datepickerVisibility}' value='" . htmlspecialchars($row_task["deadline"]) . "'>"; // Use an ID for the input field
-                                echo "<button class='asap-button' data-task-id='{$taskId}' style='color: {$buttonColor};'>ASAP</button>"; 
+                                echo "<button class='asap-button' data-task-id='{$taskId}' style='color: {$buttonColor};'>ASAP</button>";
                                 echo "</td>";
                                 echo "<td>
                                         <div class='button-container'>
@@ -466,7 +481,7 @@ if ($result_personal_tasks->num_rows > 0) {
                                         </div>
                                       </td>"; // Actions
                                 echo "</tr>";
-                            }                            
+                            }
                             // Load rows from information table
                             $sql_information = "SELECT * FROM information WHERE task_id = ?";
                             $stmt_information = $conn->prepare($sql_information);

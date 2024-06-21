@@ -145,53 +145,53 @@ $(document).ready(function () {
 
 
 
-    //Triggers the virtual select
-    VirtualSelect.init({
-        multiple: true,
-        search: true,
-        ele: '#changeRequestSelect'
-    });
+//Triggers the virtual select
+VirtualSelect.init({
+    multiple: true,
+    search: true,
+    ele: '#changeRequestSelect'
+});
 
-    // Track when the filter is focused
-    let filterDivFocused = false;
-    $('#changeRequestSelect').on('click', function () {
-        filterDivFocused = true;
-    });
+// Track when the filter is focused
+let filterDivFocused = false;
+$('#changeRequestSelect').on('click', function () {
+    filterDivFocused = true;
+});
 
-    // Warn if user selects filter before choosing agenda
-    $(document).on('click', '#changeRequestSelect', function () {
-        var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
-        if (agendaId) {
-           // Do stuff
-        } else {
-            alert("Please select or create an agenda to continue.");
-            $('#changeRequestSelect').hide();
-        }
-    });
-
-    // Add event listener to handle clicks outside the filterDiv
-    $(document).on('click', function (event) {
-        if (filterDivFocused && !$(event.target).closest('#filterDiv').length) {
-            filterDivFocused = false;
-            var selectedValues = $('#changeRequestSelect').val();
-            sendFilterData(selectedValues);
-        }
-    });
-
-    function sendFilterData(selectedValues) {
-        $.ajax({
-            type: "POST",
-            url: "actions.php", // Your PHP script to handle the data
-            data: { selected_titles: selectedValues },
-            success: function (response) {
-                console.log(response); // Handle success response
-                location.reload();
-            },
-            error: function (xhr, status, error) {
-                console.error("An error occurred: " + status + " " + error);
-            }
-        });
+// Warn if user selects filter before choosing agenda
+$(document).on('click', '#changeRequestSelect', function () {
+    var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
+    if (agendaId) {
+        // Do stuff
+    } else {
+        alert("Please select or create an agenda to continue.");
+        $('#changeRequestSelect').hide();
     }
+});
+
+// Add event listener to handle clicks outside the filterDiv
+$(document).on('click', function (event) {
+    if (filterDivFocused && !$(event.target).closest('#filterDiv').length) {
+        filterDivFocused = false;
+        var selectedValues = $('#changeRequestSelect').val();
+        sendFilterData(selectedValues);
+    }
+});
+
+function sendFilterData(selectedValues) {
+    $.ajax({
+        type: "POST",
+        url: "actions.php", // Your PHP script to handle the data
+        data: { selected_titles: selectedValues },
+        success: function (response) {
+            console.log(response); // Handle success response
+            location.reload();
+        },
+        error: function (xhr, status, error) {
+            console.error("An error occurred: " + status + " " + error);
+        }
+    });
+}
 });
 
 

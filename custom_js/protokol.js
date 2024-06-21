@@ -42,53 +42,54 @@ $(document).ready(function () {
         }
     });
 
-        //Triggers the virtual select
-        VirtualSelect.init({
-            multiple: true,
-            search: true,
-            ele: '#changeRequestSelect'
-        });
-    
-        // Track when the filter is focused
-        let filterDivFocused = false;
-        $('#changeRequestSelect').on('click', function () {
-            filterDivFocused = true;
-        });
-    
-        // Warn if user selects filter before choosing agenda
-        $(document).on('click', '#changeRequestSelect', function () {
-            var agendaId = $('#protokolSelect').val(); // Get the selected protokol_id
-            if (agendaId) {
-               // Do stuff
-            } else {
-                alert("Please select protokol to continue.");
-                $('#changeRequestSelect').hide();
-            }
-        });
-    
-        // Add event listener to handle clicks outside the filterDiv
-        $(document).on('click', function (event) {
-            if (filterDivFocused && !$(event.target).closest('#filterDiv').length) {
-                filterDivFocused = false;
-                var selectedValues = $('#changeRequestSelect').val();
-                sendFilterData(selectedValues);
-            }
-        });
-    
-        function sendFilterData(selectedValues) {
-            $.ajax({
-                type: "POST",
-                url: "actions.php", // Your PHP script to handle the data
-                data: { selected_titles: selectedValues },
-                success: function (response) {
-                    console.log(response); // Handle success response
-                    location.reload();
-                },
-                error: function (xhr, status, error) {
-                    console.error("An error occurred: " + status + " " + error);
-                }
-            });
+    // Triggers the virtual select
+    VirtualSelect.init({
+        multiple: true,
+        search: true,
+        ele: '#changeRequestSelect'
+    });
+
+    // Track when the filter is focused
+    let filterDivFocused = false;
+    $('#changeRequestSelect').on('click', function () {
+        filterDivFocused = true;
+    });
+
+    // Warn if user selects filter before choosing protokol
+    $(document).on('click', '#changeRequestSelect', function () {
+        var agendaId = $('#protokolSelect').val(); // Get the selected protokol_id
+        if (agendaId) {
+            // Do stuff
+        } else {
+            alert("Please select protokol to continue.");
+            $('#changeRequestSelect').hide();
         }
+    });
+
+    // Add event listener to handle clicks outside the filterDiv
+    $(document).on('click', function (event) {
+        if (filterDivFocused && !$(event.target).closest('#filterDiv').length) {
+            filterDivFocused = false;
+            var selectedValues = $('#changeRequestSelect').val();
+            sendFilterData(selectedValues);
+        }
+    });
+
+    function sendFilterData(selectedValues) {
+        $.ajax({
+            type: "POST",
+            url: "actions.php", // Your PHP script to handle the data
+            data: { selected_titles: selectedValues },
+            success: function (response) {
+                console.log(response); // Handle success response
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("An error occurred: " + status + " " + error);
+            }
+        });
+    }
+
     // Creating New Row
     var counter = 1;
 
@@ -288,9 +289,9 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Load state from localStorage
-    $('.asap-button').each(function() {
+    $('.asap-button').each(function () {
         var taskId = $(this).data('task-id');
         var isASAP = localStorage.getItem('asap-' + taskId) === 'true';
 
@@ -301,7 +302,7 @@ $(document).ready(function() {
     });
 
     // Toggle ASAP button
-    $('.asap-button').click(function() {
+    $('.asap-button').click(function () {
         var taskId = $(this).data('task-id');
         var datepicker = $('#datepicker-' + taskId);
         var isASAP = datepicker.is(':visible');
@@ -324,10 +325,10 @@ $(document).ready(function() {
             url: 'update_asap_status.php',
             type: 'POST',
             data: { task_id: taskId, asap: status },
-            success: function(response) {
+            success: function (response) {
                 console.log('ASAP status updated successfully');
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error updating ASAP status:', error);
             }
         });
