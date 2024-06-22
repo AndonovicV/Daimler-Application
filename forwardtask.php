@@ -17,10 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("i", $old_task_id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $update_stmt = $conn->prepare("UPDATE tasks SET sent = 1 WHERE id = ?");
-        $update_stmt->bind_param("i", $old_task_id);
-        $update_stmt->execute();
-        $update_stmt->close();
     } elseif ($old_topic_id !== null) {
         // Prepare and execute the query to fetch the old topic data
         $stmt = $conn->prepare("SELECT id, agenda_id, name, responsible, gft, cr, details FROM topics WHERE id = ?");
@@ -31,14 +27,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo 'Task or Topic ID not provided';
         exit(); // Exit script if neither task_id nor topic_id is provided
     }
-    
-    
 
     if ($result->num_rows > 0) {
         // Fetch the data and store in variables
         $row = $result->fetch_assoc();
         $id = $row['id'];
-        $deadline = $row['deadline'];
+        $deadline = isset($row['deadline']) ? $row['deadline'] : null;
         $name = $row['name'];
         $responsible = $row['responsible'];
         $gft = $row['gft'];
@@ -56,6 +50,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         if ($insert_stmt->execute()) {
             echo 'Task or Topic successfully copied to the new agenda';
+            // Set the old task/topic as deleted
+            if ($old_task_id !== null) {
+                $update_stmt = $conn->prepare("UPDATE tasks SET deleted = 1 WHERE id = ?");
+                $update_stmt->bind_param("i", $old_task_id);
+            } elseif ($old_topic_id !== null) {
+                $update_stmt = $conn->prepare("DELETE FROM topics WHERE id = ?");
+                $update_stmt->bind_param("i", $old_topic_id);
+            }
+            $update_stmt->execute();
+            $update_stmt->close();
         } else {
             echo 'Failed to copy task or topic to the new agenda';
         }
@@ -64,8 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo 'Task or Topic not found';
     }
-    
-    
+
     $stmt->close();
 }
 

@@ -292,132 +292,6 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
             </div>
         </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
-                var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
-                var forwardModal = document.getElementById('forwardModal');
-                var sendTaskBtn = document.getElementById('sendTaskBtn');
-                var createAgendaConfirmWithTaskBtn = document.getElementById('createAgendaConfirmWithTaskBtn');
-
-                forwardTaskBtns.forEach(function(btn) {
-                    btn.addEventListener('click', function() {
-                        var taskId = this.getAttribute('data-id');
-                        forwardModal.setAttribute('data-task-id', taskId);
-
-                        var modalTitle = forwardModal.querySelector('.modal-title');
-                        modalTitle.textContent = 'Forward Task ID: ' + taskId;
-                    });
-                });
-
-                forwardTopicBtns.forEach(function(btn) {
-                    btn.addEventListener('click', function() {
-                        var topicId = this.getAttribute('data-id');
-                        forwardModal.setAttribute('data-topic-id', topicId);
-
-                        var modalTitle = forwardModal.querySelector('.modal-title');
-                        modalTitle.textContent = 'Forward Topic ID: ' + topicId;
-                    });
-                });
-
-                sendTaskBtn.addEventListener('click', function() {
-                    console.log("Send button clicked");
-                    var taskId = forwardModal.getAttribute('data-task-id');
-                    var topicId = forwardModal.getAttribute('data-topic-id');
-                    var selectedAgendaId = document.getElementById('agendaSelectTask').value;
-                    console.log('Task ID:', taskId);
-                    console.log('Topic ID:', topicId);
-                    console.log('Selected Agenda ID:', selectedAgendaId);
-
-                    var data = {};
-                    if (taskId) {
-                        data = {
-                            task_id: taskId,
-                            agenda_id: selectedAgendaId
-                        };
-                    } else {
-                        data = {
-                            topic_id: topicId,
-                            agenda_id: selectedAgendaId
-                        };
-                    }
-
-                    console.log('Data to send:', data);
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'forwardtask.php', true);
-                    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            if (xhr.status === 200) {
-                                console.log('Task successfully copied to the agenda');
-                                location.reload();
-                            } else {
-                                console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
-                            }
-                        }
-                    };
-                    xhr.send(JSON.stringify(data));
-                });
-
-                createAgendaConfirmWithTaskBtn.addEventListener('click', function() {
-                    var newAgendaName = $('#newagendaDate').val();
-                    var newAgendaDate = $('#newagendaDate').val();
-
-                    $.ajax({
-                        type: 'POST',
-                        url: 'createAgenda.php',
-                        data: {
-                            agenda_name: newAgendaName,
-                            agenda_date: newAgendaDate
-                        },
-                        success: function(response) {
-                            var parsedResponse = JSON.parse(response);
-                            var newAgendaId = parsedResponse.agenda_id; // Extract the agenda_id from the JSON response
-                            console.log('New Agenda ID:', newAgendaId);
-
-                            var taskId = forwardModal.getAttribute('data-task-id');
-                            var topicId = forwardModal.getAttribute('data-topic-id');
-                            var data = {};
-
-                            if (taskId) {
-                                data = {
-                                    task_id: taskId,
-                                    agenda_id: newAgendaId
-                                };
-                            } else {
-                                data = {
-                                    topic_id: topicId,
-                                    agenda_id: newAgendaId
-                                };
-                            }
-
-                            console.log('Data to send:', data);
-
-                            $.ajax({
-                                type: 'POST',
-                                url: 'forwardtask.php',
-                                contentType: 'application/json',
-                                data: JSON.stringify(data),
-                                success: function(response) {
-                                    console.log('Task successfully copied to the new agenda');
-                                    window.location.href = 'mt_agenda.php?id=' + newAgendaId;
-                                },
-                                error: function(xhr, status, error) {
-                                    console.error('Failed to copy task to the new agenda', xhr.status, xhr.responseText);
-                                }
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(error);
-                        }
-                    });
-                });
-            });
-        </script>
-
-
-
         <table id="agendaTable" class="display">
             <thead>
                 <tr>
@@ -450,33 +324,33 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
 
 
                             echo "</tr>";
-// Fetch change requests based on $selected_team and $row_gft["name"]
-$selected_team = $row_gft["moduleteam"];
-$selected_gft = $row_gft["name"];
-$sql_change_requests = "SELECT cr.title 
+                            // Fetch change requests based on $selected_team and $row_gft["name"]
+                            $selected_team = $row_gft["moduleteam"];
+                            $selected_gft = $row_gft["name"];
+                            $sql_change_requests = "SELECT cr.title 
                         FROM change_requests cr 
                         JOIN agenda_change_request_filters acrf 
                         ON cr.ID = acrf.change_request_id 
                         WHERE acrf.agenda_id = ? AND acrf.filter_active = 1 AND cr.lead_module_team = ? AND cr.lead_gft = ? AND cr.fasttrack = 'Yes'";
-$stmt = $conn->prepare($sql_change_requests);
-$stmt->bind_param('iss', $selectedAgendaId, $selected_team, $selected_gft);
-$stmt->execute();
-$result_change_requests = $stmt->get_result();
+                            $stmt = $conn->prepare($sql_change_requests);
+                            $stmt->bind_param('iss', $selectedAgendaId, $selected_team, $selected_gft);
+                            $stmt->execute();
+                            $result_change_requests = $stmt->get_result();
 
-if ($result_change_requests->num_rows > 0) {
-    echo "<tr>";
-    echo "<td></td>"; // Type
-    echo "<td><strong>Change requests:</strong></td>"; // Change Request
-    echo "<td></td>"; // Responsible
-    echo "<td></td>"; // Actions
-    echo "</tr>";
-    while ($row_change_request = $result_change_requests->fetch_assoc()) {
-        echo "<tr data-title='" . htmlspecialchars($row_change_request["title"]) . "'>";
-        echo "<td></td>"; // Type
-        echo "<td>" . htmlspecialchars($row_change_request["title"]) . "</td>"; // Change Request
-        echo "<td></td>"; // Responsible
-    
-        echo "<td>
+                            if ($result_change_requests->num_rows > 0) {
+                                echo "<tr>";
+                                echo "<td></td>"; // Type
+                                echo "<td><strong>Change requests:</strong></td>"; // Change Request
+                                echo "<td></td>"; // Responsible
+                                echo "<td></td>"; // Actions
+                                echo "</tr>";
+                                while ($row_change_request = $result_change_requests->fetch_assoc()) {
+                                    echo "<tr data-title='" . htmlspecialchars($row_change_request["title"]) . "'>";
+                                    echo "<td></td>"; // Type
+                                    echo "<td>" . htmlspecialchars($row_change_request["title"]) . "</td>"; // Change Request
+                                    echo "<td></td>"; // Responsible
+
+                                    echo "<td>
         <div class='button-container'>
         <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
         <div class='dropdown-menu'>
@@ -486,23 +360,22 @@ if ($result_change_requests->num_rows > 0) {
         <button id='unselectFilterBtn' class='button-12 unselect' role='button'>x</button>
     </div>
       </td>"; // Actions
-        echo "</tr>";
-    
-        // Fetch topics and tasks for this change request
-        fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
-    }    
-} else {
-    echo "<tr>";
-    echo "<td></td>"; // Empty column for module team
-    echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
-    echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
-    echo "<td></td>"; // Empty column
-    echo "</tr>";
+                                    echo "</tr>";
 
-    // Fetch topics and tasks for this GFT only
-    fetchTasksAndTopics($conn, $row_gft["name"], null);
-}
+                                    // Fetch topics and tasks for this change request
+                                    fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
+                                }
+                            } else {
+                                echo "<tr>";
+                                echo "<td></td>"; // Empty column for module team
+                                echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
+                                echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
+                                echo "<td></td>"; // Empty column
+                                echo "</tr>";
 
+                                // Fetch topics and tasks for this GFT only
+                                fetchTasksAndTopics($conn, $row_gft["name"], null);
+                            }
                         }
                     } else {
                         echo "<tr>";
