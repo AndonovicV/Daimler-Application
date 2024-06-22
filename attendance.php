@@ -27,27 +27,27 @@ include 'conn.php';
             <select id="protokolSelect" data-search="true" class="styled-select w-50 mb-3" style="background-color: #333; color: #fff; border: 1px solid #444; border-radius: 4px; height: 40px; display: inline-block; text-align-last: center;">
                 <option value="">Select protocol...</option>
                 <?php
-                    $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
-                    $stmt = $conn->prepare($sql);
+                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                $stmt = $conn->prepare($sql);
 
-                    if ($stmt) {
-                        $stmt->bind_param('s', $selected_team);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
+                if ($stmt) {
+                    $stmt->bind_param('s', $selected_team);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
 
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                                echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' data-name='" . htmlspecialchars($row["agenda_name"]) . "' data-date='" . htmlspecialchars($row["agenda_date"]) . "' $selected>"
-                                    . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
-                                    . "</option>";
-                            }
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
+                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' data-name='" . htmlspecialchars($row["agenda_name"]) . "' data-date='" . htmlspecialchars($row["agenda_date"]) . "' $selected>"
+                                . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
+                                . "</option>";
                         }
-
-                        $stmt->close();
-                    } else {
-                        echo "Error: " . $conn->error;
                     }
+
+                    $stmt->close();
+                } else {
+                    echo "Error: " . $conn->error;
+                }
                 ?>
             </select>
         </div>
@@ -72,21 +72,26 @@ include 'conn.php';
                     return;
                 }
 
-                
+
                 const agendaName = selectedOption.textContent.trim().split(' (')[0];
                 const agendaDate = selectedOption.textContent.trim().split(' (')[1];
                 const fileName = agendaName ? `${agendaName}.pdf` : 'attendance.pdf';
 
                 var docDefinition = {
-                    content: [
-                        { text: 'Attendance List', style: 'header' },
-                        { text: `Agenda: ${agendaName}`, style: 'subheader' },
+                    content: [{
+                            text: 'Attendance List',
+                            style: 'header'
+                        },
+                        {
+                            text: `Agenda: ${agendaName}`,
+                            style: 'subheader'
+                        },
                         {
                             table: {
                                 headerRows: 1,
-                                widths: [ '*', '*', '*', '*', '*' ],
+                                widths: ['*', '*', '*', '*', '*'],
                                 body: [
-                                    [ 'Members', 'Department', 'Present', 'Absent', 'Substituted' ],
+                                    ['Members', 'Department', 'Present', 'Absent', 'Substituted'],
                                     ...Array.from(document.querySelectorAll('#attendance-tbl tbody tr')).map(row => [
                                         row.cells[0].innerText,
                                         row.cells[1].innerText,
@@ -97,13 +102,17 @@ include 'conn.php';
                                 ]
                             }
                         },
-                        { text: 'Guest List', style: 'header', margin: [0, 20, 0, 10] },
+                        {
+                            text: 'Guest List',
+                            style: 'header',
+                            margin: [0, 20, 0, 10]
+                        },
                         {
                             table: {
                                 headerRows: 1,
-                                widths: [ '*', '*', '*', '*' ],
+                                widths: ['*', '*', '*', '*'],
                                 body: [
-                                    [ 'Guest Name', 'Department', 'Substitute', 'Present' ],
+                                    ['Guest Name', 'Department', 'Substitute', 'Present'],
                                     ...Array.from(document.querySelectorAll('#guest-list-tbl-body tr')).map(row => [
                                         row.cells[0].innerText,
                                         row.cells[1].innerText,
@@ -205,6 +214,39 @@ include 'conn.php';
                                                 </th>
                                             </tr>
                                         </thead>
+                                        <!-- Add Guest Modal -->
+                                        <div class="modal fade" id="addGuestModal" tabindex="-1" aria-labelledby="addGuestModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content dark-card">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title text-light" id="addGuestModalLabel">Add New Guest</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="addGuestForm">
+                                                            <div class="form-group">
+                                                                <label for="guestNameInput" class="text-light">Guest Name</label>
+                                                                <input type="text" class="form-control" id="guestNameInput" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="guestDepartmentInput" class="text-light">Department</label>
+                                                                <input type="text" class="form-control" id="guestDepartmentInput" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="guestSubstituteInput" class="text-light">Substitute</label>
+                                                                <input type="text" class="form-control" id="guestSubstituteInput">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary" id="saveGuestBtn">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <tbody id="guest-list-tbl-body">
                                             <!-- Rows will be inserted here dynamically -->
                                         </tbody>
