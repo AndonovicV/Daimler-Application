@@ -475,11 +475,11 @@ if ($result_change_requests->num_rows > 0) {
     echo "<td></td>"; // Actions
     echo "</tr>";
     while ($row_change_request = $result_change_requests->fetch_assoc()) {
-        echo "<tr>";
+        echo "<tr data-title='" . htmlspecialchars($row_change_request["title"]) . "'>";
         echo "<td></td>"; // Type
-        echo "<td>" . $row_change_request["title"] . "</a></td>"; // Change Request
+        echo "<td>" . htmlspecialchars($row_change_request["title"]) . "</td>"; // Change Request
         echo "<td></td>"; // Responsible
-
+    
         echo "<td>
         <div class='button-container'>
         <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
@@ -487,14 +487,14 @@ if ($result_change_requests->num_rows > 0) {
             <button class='dropdown-item' onclick='addTask(this)'>Task</button>
             <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
         </div>
-        <button class='button-12 unselect' role='button'>x</button>
+        <button id='unselectFilterBtn' class='button-12 unselect' role='button'>x</button>
     </div>
       </td>"; // Actions
         echo "</tr>";
-
+    
         // Fetch topics and tasks for this change request
         fetchTasksAndTopics($conn, $row_gft["name"], $row_change_request["title"]);
-    }
+    }    
 } else {
     echo "<tr>";
     echo "<td></td>"; // Empty column for module team

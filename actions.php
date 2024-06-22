@@ -319,6 +319,23 @@ if (isset($_POST['selected_titles'])) {
     } else {
         echo "No agenda selected. Session value: " . print_r($_SESSION, true);
     }
+} elseif (isset($_POST['title']) && isset($_POST['agenda_id']) && isset($_POST['action']) && $_POST['action'] === 'unselect') {
+    // Handle unselect action
+    $title = $_POST['title'];
+    $agendaId = $_POST['agenda_id'];
+
+    $delete_sql = "DELETE FROM agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = (SELECT ID FROM change_requests WHERE title = ?)";
+    $delete_stmt = $conn->prepare($delete_sql);
+    $delete_stmt->bind_param('is', $agendaId, $title);
+    $delete_stmt->execute();
+
+    if ($delete_stmt->affected_rows > 0) {
+        echo "Success";
+    } else {
+        echo "Failed to unselect filter";
+    }
+
+    $delete_stmt->close();
 } else {
     echo "No data received";
 }

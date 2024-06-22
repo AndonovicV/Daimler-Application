@@ -192,6 +192,32 @@ function sendFilterData(selectedValues) {
         }
     });
 }
+
+// Filter out the change request on the X button
+$(document).on('click', '#unselectFilterBtn', function() {
+    var title = $(this).closest('tr').data('title'); // Assuming the title is in the data-title attribute
+    var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
+    if (agendaId) {
+        unselectFilter(title, agendaId);
+    } else {
+        alert("Please select or create an agenda to continue.");
+    }
+});
+
+function unselectFilter(title, agendaId) {
+    $.ajax({
+        type: "POST",
+        url: "actions.php", // Your PHP script to handle the data
+        data: { title: title, agenda_id: agendaId, action: 'unselect' },
+        success: function(response) {
+            console.log(response); // Handle success response
+            location.reload();
+        },
+        error: function(xhr, status, error) {
+            console.error("An error occurred: " + status + " " + error);
+        }
+    });
+}
 });
 
 
