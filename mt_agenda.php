@@ -49,10 +49,6 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                 $output .= "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
                     . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
                     . "</option>";
-
-                if ($selected) {
-                    $agenda_date = htmlspecialchars($row["agenda_date"]);
-                }
             }
         }
 

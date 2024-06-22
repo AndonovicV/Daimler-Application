@@ -89,28 +89,28 @@ $(document).ready(function () {
     $('#createAgendaConfirmBtn').click(function () {
         var newAgendaName = $('#agendaDate').val();
         var newAgendaDate = $('#agendaDate').val();
-        var agendaid
+    
         if (newAgendaName.trim() === '' || newAgendaDate.trim() === '') {
             alert('Please provide both agenda name and date.');
             return;
         }
-
+    
         $.ajax({
             type: 'POST',
             url: 'createAgenda.php',
             data: { agenda_name: newAgendaName, agenda_date: newAgendaDate },
             success: function (response) {
-                //alert(response);
-                var agendaid = response; // Assuming 'response' is the agenda_id returned from PHP
-                // Use the agendaid as needed, for example, redirect to a page using it
-                window.location.href = 'mt_agenda.php?id=' + agendaid;
+                var parsedResponse = JSON.parse(response);
+                var newAgendaId = parsedResponse.agenda_id; // Assuming 'response' is the agenda_id returned from PHP
+                // Redirect to the new agenda page
+                window.location.href = 'mt_agenda.php?agenda_id=' + newAgendaId;
             },
             error: function (xhr, status, error) {
                 console.error(error);
             }
         });
-        
     });
+    
 
 
 
