@@ -475,6 +475,9 @@ if ($result_personal_tasks->num_rows > 0) {
                                             <div class='dropdown-menu'>
                                                 <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                                                 <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                                <button class='dropdown-item' onclick=\"addnew('I', this)\">Information</button>
+                                                <button class='dropdown-item' onclick=\"addnew('A', this)\">Assignment</button>
+                                                <button class='dropdown-item' onclick=\"addnew('D', this)\">Decision</button>
                                             </div>
                                             <button class='button-12 deleteRow' role='button'>-</button>
                                             <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$taskId}' class='button-12 forwardTaskBtns' role='button'>→</button>  

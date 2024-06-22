@@ -628,7 +628,7 @@ function saveToDatabase(newRow, gft, project) {
                         data: JSON.stringify(data),
                         success: function(response) {
                             console.log('Task successfully copied to the new agenda');
-                            window.location.href = 'mt_agenda.php?id=' + newAgendaId;
+                            window.location.href = 'mt_agenda.php?agenda_id=' + newAgendaId;
                         },
                         error: function(xhr, status, error) {
                             console.error('Failed to copy task to the new agenda', xhr.status, xhr.responseText);

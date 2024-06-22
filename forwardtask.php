@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo 'Task or Topic successfully copied to the new agenda';
             // Set the old task/topic as deleted
             if ($old_task_id !== null) {
-                $update_stmt = $conn->prepare("UPDATE tasks SET deleted = 1 WHERE id = ?");
+                $update_stmt = $conn->prepare("UPDATE tasks SET sent = 1 WHERE id = ?");
                 $update_stmt->bind_param("i", $old_task_id);
             } elseif ($old_topic_id !== null) {
                 $update_stmt = $conn->prepare("DELETE FROM topics WHERE id = ?");

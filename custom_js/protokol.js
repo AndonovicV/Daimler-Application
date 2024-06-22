@@ -425,6 +425,7 @@ async function addTask(cell) {
     var lastInformationId = data.last_information_id;
     var lastAssignmentId = data.last_assignment_id;
     var lastDecisionId = data.last_decision_id;
+    var lastTask = data.last_task_id;
 
     console.log('Last Task ID:', lastTaskId);
     console.log('Last Information ID:', lastInformationId);
@@ -432,14 +433,16 @@ async function addTask(cell) {
     console.log('Last Decision ID:', lastDecisionId);
 
     var newRow = $(`
-        <tr id="${lastTaskId}" data-type="task" data-id="${lastTaskId}">
-            <td><strong>Task</strong></td>
-            <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white; max-width: 200px;"></td>
+        <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
+            <td class = "task-row"><strong>Task</strong></td>
+            <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid orange; max-width: 200px;"></td>
             <td style="background-color: #212529 !important; width: 100px !important;">
-                <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 100%;" value="">
-                <br>
-                <br>
-                <input class="editabletasktopic-cell datepicker" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid white; width: 70%;" value=""><button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
+                <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529 !important; border: 1px solid orange; width: 100%; color: grey;" placeholder="Enter responsible person">
+                <br><br>
+                <div class="flex-container">
+                    <input class="editabletasktopic-cell new-datepicker-${lastTask}" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid orange; width: 70%;" value="" placeholder="Select date">
+                    <button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
+                </div>
             </td>
             <td>
                 <div class="button-container">
@@ -449,7 +452,7 @@ async function addTask(cell) {
                         <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
                     </div>
                     <button class="button-12 deleteRow" role="button">-</button>
-                    <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTaskId}" class="button-12 forwardTaskBtns" role="button">→</button>
+                    <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTask}" class="button-12 forwardTaskBtns" role="button">→</button>
                 </div>
             </td>
         </tr>
@@ -508,12 +511,13 @@ async function addTask(cell) {
             </td>
         </tr>
     `);
-    // Re-initialize flatpickr on the newly added input elements
-    flatpickr('.datepicker', {
-        dateFormat: 'Y-m-d',
-        // Add any additional options here
-    });
+    // Insert the new row into the table
     newRow.insertAfter($(cell).closest('tr'));
+
+    // Initialize flatpickr for the new datepicker input
+    flatpickr('.new-datepicker-' + lastTask, {
+        dateFormat: 'Y-m-d',
+    });
 }
 
 async function addTopic(cell) {
