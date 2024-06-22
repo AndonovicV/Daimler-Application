@@ -10,7 +10,7 @@ if (isset($_SESSION['selected_team'])) {
 }
 
 // Fetch GFTs connected to the selected team
-$sql_gfts = "SELECT DISTINCT GFT as name, Module_team as moduleteam FROM spec_book WHERE Module_team = '$selected_team'";
+$sql_gfts = "SELECT DISTINCT name as name, moduleteam as moduleteam FROM org_gfts WHERE moduleteam = '$selected_team'";
 $result_gfts = $conn->query($sql_gfts);
 $selectedAgendaId = isset($_GET['protokol_id']) ? $_GET['protokol_id'] : null;
 
