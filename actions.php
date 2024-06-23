@@ -299,22 +299,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "No agenda selected. Session value: " . print_r($_SESSION, true);
         }
-    } elseif (isset($_POST['title']) && isset($_POST['agenda_id']) && isset($_POST['action']) && $_POST['action'] === 'unselect') {
-        // Handle unselect action
+    } elseif (isset($_POST['title'], $_POST['agenda_id'], $_POST['action']) && $_POST['action'] === 'unselect') {
         $title = $_POST['title'];
         $agendaId = $_POST['agenda_id'];
-
-        $delete_sql = "DELETE FROM agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = (SELECT ID FROM change_requests WHERE title = ?)";
+    
+        $delete_sql = "DELETE FROM agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = (SELECT ID FROM change_requests WHERE title = ? LIMIT 1)";
         $delete_stmt = $conn->prepare($delete_sql);
         $delete_stmt->bind_param('is', $agendaId, $title);
         $delete_stmt->execute();
-
+    
         if ($delete_stmt->affected_rows > 0) {
             echo "Success";
         } else {
-            echo "Failed to unselect filter";
+            echo "Failed to unselect filter: No such filter found or other error.";
         }
-
+    
         $delete_stmt->close();
     } else {
         echo "No data received";

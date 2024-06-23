@@ -387,7 +387,7 @@ if ($result_personal_tasks->num_rows > 0) {
                                         <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                                         <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
                                     </div>
-                                    <button class='button-12 unselect' role='button'>x</button>
+                                        <button id='unselectFilterBtn' class='button-12 unselect' role='button'>x</button>
                                 </div>
                                 </td>"; // Actions
                                 echo "</tr>";

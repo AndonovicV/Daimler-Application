@@ -1,5 +1,5 @@
-src="https://cdn.jsdelivr.net/npm/flatpickr"
-src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"
+src = "https://cdn.jsdelivr.net/npm/flatpickr"
+src = "https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"
 $(document).ready(function () {
     //$('#agendaTable').hide();
     showTable();
@@ -9,11 +9,11 @@ $(document).ready(function () {
         "order": [],
         "paging": false, // Disable pagination
         "searchable": true,
-        
+
         "bDestroy": true, // Ignores the error popup (cannot reinitialize), it works even with the error but purely for aesthetic purpose. Might delete later
         "layout": {
             "topStart": {
-                "buttons":[
+                "buttons": [
                     {
                         extend: 'csvHtml5',
                         exportOptions: {
@@ -57,7 +57,7 @@ $(document).ready(function () {
         var row = $(clickedCell).closest('tr');
         var rowId = row.data('id');
         var rowType = row.data('type');
-    
+
         row.remove();
         $.ajax({
             type: 'POST',
@@ -89,12 +89,12 @@ $(document).ready(function () {
     $('#createAgendaConfirmBtn').click(function () {
         var newAgendaName = $('#agendaDate').val();
         var newAgendaDate = $('#agendaDate').val();
-    
+
         if (newAgendaName.trim() === '' || newAgendaDate.trim() === '') {
             alert('Please provide both agenda name and date.');
             return;
         }
-    
+
         $.ajax({
             type: 'POST',
             url: 'createAgenda.php',
@@ -110,7 +110,7 @@ $(document).ready(function () {
             }
         });
     });
-    
+
 
 
 
@@ -145,84 +145,87 @@ $(document).ready(function () {
 
 
 
-//Triggers the virtual select
-VirtualSelect.init({
-    multiple: true,
-    search: true,
-    ele: '#changeRequestSelect'
-});
+    //Triggers the virtual select
+    VirtualSelect.init({
+        multiple: true,
+        search: true,
+        ele: '#changeRequestSelect'
+    });
 
-// Track when the filter is focused
-let filterDivFocused = false;
-$('#changeRequestSelect').on('click', function () {
-    filterDivFocused = true;
-});
+    // Track when the filter is focused
+    let filterDivFocused = false;
+    $('#changeRequestSelect').on('click', function () {
+        filterDivFocused = true;
+    });
 
-// Warn if user selects filter before choosing agenda
-$(document).on('click', '#changeRequestSelect', function () {
-    var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
-    if (agendaId) {
-        // Do stuff
-    } else {
-        alert("Please select or create an agenda to continue.");
-        $('#changeRequestSelect').hide();
-    }
-});
-
-// Add event listener to handle clicks outside the filterDiv
-$(document).on('click', function (event) {
-    if (filterDivFocused && !$(event.target).closest('#filterDiv').length) {
-        filterDivFocused = false;
-        var selectedValues = $('#changeRequestSelect').val();
-        sendFilterData(selectedValues);
-    }
-});
-
-function sendFilterData(selectedValues) {
-    $.ajax({
-        type: "POST",
-        url: "actions.php", // Your PHP script to handle the data
-        data: { selected_titles: selectedValues },
-        success: function (response) {
-            console.log(response); // Handle success response
-            location.reload();
-        },
-        error: function (xhr, status, error) {
-            console.error("An error occurred: " + status + " " + error);
+    // Warn if user selects filter before choosing agenda
+    $(document).on('click', '#changeRequestSelect', function () {
+        var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
+        if (agendaId) {
+            // Do stuff
+        } else {
+            alert("Please select or create an agenda to continue.");
+            $('#changeRequestSelect').hide();
         }
     });
-}
 
-// Filter out the change request on the X button
-$(document).on('click', '#unselectFilterBtn', function() {
-    var title = $(this).closest('tr').data('title'); // Assuming the title is in the data-title attribute
-    var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
-    if (agendaId) {
-        unselectFilter(title, agendaId);
-    } else {
-        alert("Please select or create an agenda to continue.");
-    }
-});
-
-function unselectFilter(title, agendaId) {
-    $.ajax({
-        type: "POST",
-        url: "actions.php", // Your PHP script to handle the data
-        data: { title: title, agenda_id: agendaId, action: 'unselect' },
-        success: function(response) {
-            console.log(response); // Handle success response
-            location.reload();
-        },
-        error: function(xhr, status, error) {
-            console.error("An error occurred: " + status + " " + error);
+    // Add event listener to handle clicks outside the filterDiv
+    $(document).on('click', function (event) {
+        if (filterDivFocused && !$(event.target).closest('#filterDiv').length) {
+            filterDivFocused = false;
+            var selectedValues = $('#changeRequestSelect').val();
+            sendFilterData(selectedValues);
         }
     });
-}
+
+    function sendFilterData(selectedValues) {
+        $.ajax({
+            type: "POST",
+            url: "actions.php", // Your PHP script to handle the data
+            data: { selected_titles: selectedValues },
+            success: function (response) {
+                console.log(response); // Handle success response
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("An error occurred: " + status + " " + error);
+            }
+        });
+    }
+
+    // Filter out the change request on the X button
+    $(document).on('click', '#unselectFilterBtn', function () {
+        var $row = $(this).closest('tr');
+        var title = $(this).closest('tr').data('title'); // Assuming the title is in the data-title attribute
+        var agendaId = $('#agendaSelect').val(); // Get the selected agenda_id
+        if (agendaId) {
+            unselectFilter(title, agendaId);
+        } else {
+            alert("Please select or create an agenda to continue.");
+        }
+
+
+    function unselectFilter(title, agendaId) {
+        $.ajax({
+            type: "POST",
+            url: "actions.php", // Your PHP script to handle the data
+            data: { title: title, agenda_id: agendaId, action: 'unselect' },
+            success: function (response) {
+                console.log(response); // Handle success response
+                $row.remove();
+                //location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("An error occurred: " + status + " " + error);
+            }
+        });
+    }
+});
 });
 
 
-$(document).ready(function() {
-    $(document).on('blur', 'td[contenteditable=true]', function() {
+$(document).ready(function () {
+    $(document).on('blur', 'td[contenteditable=true]', function () {
         var $cell = $(this);
         var newValue = $cell.text();
         var rowId = $cell.closest('tr').attr('id');  // Use .attr('id') to get the row's ID attribute
@@ -239,10 +242,10 @@ $(document).ready(function() {
                 column: columnName,
                 type: type
             },
-            success: function(response) {
+            success: function (response) {
                 console.log('Update successful');
             },
-            error: function() {
+            error: function () {
                 console.log('Update failed');
             }
         });
@@ -251,8 +254,8 @@ $(document).ready(function() {
 
 
 
-$(document).ready(function() {
-    $(document).on('blur', 'input.editabletasktopic-cell', function() {
+$(document).ready(function () {
+    $(document).on('blur', 'input.editabletasktopic-cell', function () {
         var $cell = $(this);
         var newValue = $cell.val(); // Use .val() to get the value of the input
         var rowId = $cell.closest('tr').attr('id'); // Use .attr('id') to get the row's ID attribute
@@ -270,10 +273,10 @@ $(document).ready(function() {
                     column: columnName,
                     type: type
                 },
-                success: function(response) {
+                success: function (response) {
                     console.log('Update successful');
                 },
-                error: function() {
+                error: function () {
                     console.log('Update failed');
                 }
             });
@@ -281,9 +284,9 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Load state from localStorage
-    $('.asap-button').each(function() {
+    $('.asap-button').each(function () {
         var taskId = $(this).data('task-id');
         var isASAP = localStorage.getItem('asap-' + taskId) === 'true';
 
@@ -294,7 +297,7 @@ $(document).ready(function() {
     });
 
     // Toggle ASAP button
-    $('.asap-button').click(function() {
+    $('.asap-button').click(function () {
         var taskId = $(this).data('task-id');
         var datepicker = $('#datepicker-' + taskId);
         var isASAP = datepicker.is(':visible');
@@ -317,10 +320,10 @@ $(document).ready(function() {
             url: 'update_asap_status.php',
             type: 'POST',
             data: { task_id: taskId, asap: status },
-            success: function(response) {
+            success: function (response) {
                 console.log('ASAP status updated successfully');
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error updating ASAP status:', error);
             }
         });
@@ -335,7 +338,7 @@ function toggleDropdown(button) {
 }
 
 // Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (!event.target.matches('.dropdown-toggle')) {
         const dropdowns = document.getElementsByClassName('dropdown-menu');
         for (let i = 0; i < dropdowns.length; i++) {
@@ -348,7 +351,7 @@ window.onclick = function(event) {
 }
 
 // Initialize flatpickr on document ready
-$(document).ready(function() {
+$(document).ready(function () {
     flatpickr('.datepicker', {
         dateFormat: 'Y-m-d',
     });
@@ -387,7 +390,7 @@ async function addTask(cell) {
 
     const response = await fetch('getlast.php?type=task');
     const text = await response.text();
-    
+
     let data;
     try {
         data = JSON.parse(text);
@@ -440,16 +443,16 @@ async function addTopic(cell) {
     await addNewRow("Topic", cell, protokolId);
 
     const response = await fetch('getlast.php?type=topic');
-    const text = await response.text();    
+    const text = await response.text();
     console.log('Response Text:', text);  // Log the response text
-        
+
     // Try parsing the response as JSON
     let data;
     try {
         data = JSON.parse(text);
-        var lastTopic = data.last_id; 
+        var lastTopic = data.last_id;
         console.log('Last Topic ID:', lastTopic);
-    
+
         var newRow = $(`
             <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
                 <td class = "topic-row"><strong>Topic</strong></td>
@@ -519,126 +522,126 @@ function saveToDatabase(newRow, gft, project) {
     });
 }
 
-    // FORWARD TASK/TOPIC
-    document.addEventListener('DOMContentLoaded', function() {
-        var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
-        var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
-        var forwardModal = document.getElementById('forwardModal');
-        var sendTaskBtn = document.getElementById('sendTaskBtn');
-        var createAgendaConfirmWithTaskBtn = document.getElementById('createAgendaConfirmWithTaskBtn');
+// FORWARD TASK/TOPIC
+document.addEventListener('DOMContentLoaded', function () {
+    var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
+    var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
+    var forwardModal = document.getElementById('forwardModal');
+    var sendTaskBtn = document.getElementById('sendTaskBtn');
+    var createAgendaConfirmWithTaskBtn = document.getElementById('createAgendaConfirmWithTaskBtn');
 
-        forwardTaskBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var taskId = this.getAttribute('data-id');
-                forwardModal.setAttribute('data-task-id', taskId);
+    forwardTaskBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var taskId = this.getAttribute('data-id');
+            forwardModal.setAttribute('data-task-id', taskId);
 
-                var modalTitle = forwardModal.querySelector('.modal-title');
-                modalTitle.textContent = 'Forward Task ID: ' + taskId;
-            });
+            var modalTitle = forwardModal.querySelector('.modal-title');
+            modalTitle.textContent = 'Forward Task ID: ' + taskId;
         });
-
-        forwardTopicBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var topicId = this.getAttribute('data-id');
-                forwardModal.setAttribute('data-topic-id', topicId);
-
-                var modalTitle = forwardModal.querySelector('.modal-title');
-                modalTitle.textContent = 'Forward Topic ID: ' + topicId;
-            });
-        });
-
-        sendTaskBtn.addEventListener('click', function() {
-            console.log("Send button clicked");
-            var taskId = forwardModal.getAttribute('data-task-id');
-            var topicId = forwardModal.getAttribute('data-topic-id');
-            var selectedAgendaId = document.getElementById('agendaSelectTask').value;
-            console.log('Task ID:', taskId);
-            console.log('Topic ID:', topicId);
-            console.log('Selected Agenda ID:', selectedAgendaId);
-
-            var data = {};
-            if (taskId) {
-                data = {
-                    task_id: taskId,
-                    agenda_id: selectedAgendaId
-                };
-            } else {
-                data = {
-                    topic_id: topicId,
-                    agenda_id: selectedAgendaId
-                };
-            }
-
-            console.log('Data to send:', data);
-
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'forwardtask.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        console.log('Task successfully copied to the agenda');
-                        location.reload();
-                    } else {
-                        console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
-                    }
-                }
-            };
-            xhr.send(JSON.stringify(data));
-        });
-
-        createAgendaConfirmWithTaskBtn.addEventListener('click', function() {
-            var newAgendaName = $('#newagendaDate').val();
-            var newAgendaDate = $('#newagendaDate').val();
-
-            $.ajax({
-                type: 'POST',
-                url: 'createAgenda.php',
-                data: {
-                    agenda_name: newAgendaName,
-                    agenda_date: newAgendaDate
-                },
-                success: function(response) {
-                    var parsedResponse = JSON.parse(response);
-                    var newAgendaId = parsedResponse.agenda_id; // Extract the agenda_id from the JSON response
-                    console.log('New Agenda ID:', newAgendaId);
-
-                    var taskId = forwardModal.getAttribute('data-task-id');
-                    var topicId = forwardModal.getAttribute('data-topic-id');
-                    var data = {};
-
-                    if (taskId) {
-                        data = {
-                            task_id: taskId,
-                            agenda_id: newAgendaId
-                        };
-                    } else {
-                        data = {
-                            topic_id: topicId,
-                            agenda_id: newAgendaId
-                        };
-                    }
-
-                    console.log('Data to send:', data);
-
-                    $.ajax({
-                        type: 'POST',
-                        url: 'forwardtask.php',
-                        contentType: 'application/json',
-                        data: JSON.stringify(data),
-                        success: function(response) {
-                            console.log('Task successfully copied to the new agenda');
-                            window.location.href = 'mt_agenda.php?agenda_id=' + newAgendaId;
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Failed to copy task to the new agenda', xhr.status, xhr.responseText);
-                        }
-                    });
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
-
     });
+
+    forwardTopicBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var topicId = this.getAttribute('data-id');
+            forwardModal.setAttribute('data-topic-id', topicId);
+
+            var modalTitle = forwardModal.querySelector('.modal-title');
+            modalTitle.textContent = 'Forward Topic ID: ' + topicId;
+        });
+    });
+
+    sendTaskBtn.addEventListener('click', function () {
+        console.log("Send button clicked");
+        var taskId = forwardModal.getAttribute('data-task-id');
+        var topicId = forwardModal.getAttribute('data-topic-id');
+        var selectedAgendaId = document.getElementById('agendaSelectTask').value;
+        console.log('Task ID:', taskId);
+        console.log('Topic ID:', topicId);
+        console.log('Selected Agenda ID:', selectedAgendaId);
+
+        var data = {};
+        if (taskId) {
+            data = {
+                task_id: taskId,
+                agenda_id: selectedAgendaId
+            };
+        } else {
+            data = {
+                topic_id: topicId,
+                agenda_id: selectedAgendaId
+            };
+        }
+
+        console.log('Data to send:', data);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'forwardtask.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log('Task successfully copied to the agenda');
+                    location.reload();
+                } else {
+                    console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(data));
+    });
+
+    createAgendaConfirmWithTaskBtn.addEventListener('click', function () {
+        var newAgendaName = $('#newagendaDate').val();
+        var newAgendaDate = $('#newagendaDate').val();
+
+        $.ajax({
+            type: 'POST',
+            url: 'createAgenda.php',
+            data: {
+                agenda_name: newAgendaName,
+                agenda_date: newAgendaDate
+            },
+            success: function (response) {
+                var parsedResponse = JSON.parse(response);
+                var newAgendaId = parsedResponse.agenda_id; // Extract the agenda_id from the JSON response
+                console.log('New Agenda ID:', newAgendaId);
+
+                var taskId = forwardModal.getAttribute('data-task-id');
+                var topicId = forwardModal.getAttribute('data-topic-id');
+                var data = {};
+
+                if (taskId) {
+                    data = {
+                        task_id: taskId,
+                        agenda_id: newAgendaId
+                    };
+                } else {
+                    data = {
+                        topic_id: topicId,
+                        agenda_id: newAgendaId
+                    };
+                }
+
+                console.log('Data to send:', data);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'forwardtask.php',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                        console.log('Task successfully copied to the new agenda');
+                        window.location.href = 'mt_agenda.php?agenda_id=' + newAgendaId;
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Failed to copy task to the new agenda', xhr.status, xhr.responseText);
+                    }
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+});
