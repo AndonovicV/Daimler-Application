@@ -180,11 +180,6 @@ if ($result_personal_tasks->num_rows > 0) {
 			<!-- MT Agenda -->
 			<article id="mt_agenda">
 				<h3 class="major">MT Agenda</h3>
-				<script>
-					$(document).ready(function() {
-						$('#mt_agenda').load("mt_agenda.php");
-					});
-				</script>
 			</article>
 			<!-- I changed the headers but ID's left the same for the sake of the function. Can change later. Voja -->
 
