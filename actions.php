@@ -269,48 +269,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {    // needs to be an if (isset($_POS
     }
 }
 
-if (isset($_POST['selected_titles'])) {
-    $selected_titles = $_POST['selected_titles'];
-    $selectedAgendaId = isset($_SESSION['selected_agenda_id']) ? $_SESSION['selected_agenda_id'] : null;
-
-    if ($selectedAgendaId !== null) {
-        // Clear existing filter selections for the current agenda
-        $clear_sql = "DELETE FROM agenda_change_request_filters WHERE agenda_id = ?";
-        $clear_stmt = $conn->prepare($clear_sql);
-        $clear_stmt->bind_param('i', $selectedAgendaId);
-        $clear_stmt->execute();
-
-        foreach ($selected_titles as $title) {
-            // Insert new filter selections
-            $insert_sql = "INSERT INTO agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, (SELECT ID FROM change_requests WHERE title = ?), 1)";
-            $insert_stmt = $conn->prepare($insert_sql);
-            $insert_stmt->bind_param('is', $selectedAgendaId, $title);
-            $insert_stmt->execute();
-            $insert_stmt->close();
-        }
-        echo "Success";
-    } else {
-        echo "No agenda selected. Session value: " . print_r($_SESSION, true);
-    }
-} elseif (isset($_POST['title']) && isset($_POST['agenda_id']) && isset($_POST['action']) && $_POST['action'] === 'unselect') {
-    // Handle unselect action
-    $title = $_POST['title'];
-    $agendaId = $_POST['agenda_id'];
-
-    $delete_sql = "DELETE FROM agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = (SELECT ID FROM change_requests WHERE title = ?)";
-    $delete_stmt = $conn->prepare($delete_sql);
-    $delete_stmt->bind_param('is', $agendaId, $title);
-    $delete_stmt->execute();
-
-    if ($delete_stmt->affected_rows > 0) {
-        echo "Success";
-    } else {
-        echo "Failed to unselect filter";
-    }
-
-    $delete_stmt->close();
+if (isset($_SESSION['selected_team'])) {
+    $selected_team = $_SESSION['selected_team'];
 } else {
-    echo "No data received";
+    $selected_team = "";
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['selected_titles'])) {
+        $selected_titles = $_POST['selected_titles'];
+        $selectedAgendaId = isset($_SESSION['selected_agenda_id']) ? $_SESSION['selected_agenda_id'] : null;
+
+        if ($selectedAgendaId !== null) {
+            // Clear existing filter selections for the current agenda
+            $clear_sql = "DELETE FROM agenda_change_request_filters WHERE agenda_id = ?";
+            $clear_stmt = $conn->prepare($clear_sql);
+            $clear_stmt->bind_param('i', $selectedAgendaId);
+            $clear_stmt->execute();
+
+            foreach ($selected_titles as $title) {
+                // Insert new filter selections
+                $insert_sql = "INSERT INTO agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, (SELECT ID FROM change_requests WHERE title = ?), 1)";
+                $insert_stmt = $conn->prepare($insert_sql);
+                $insert_stmt->bind_param('is', $selectedAgendaId, $title);
+                $insert_stmt->execute();
+                $insert_stmt->close();
+            }
+            echo "Success";
+        } else {
+            echo "No agenda selected. Session value: " . print_r($_SESSION, true);
+        }
+    } elseif (isset($_POST['title']) && isset($_POST['agenda_id']) && isset($_POST['action']) && $_POST['action'] === 'unselect') {
+        // Handle unselect action
+        $title = $_POST['title'];
+        $agendaId = $_POST['agenda_id'];
+
+        $delete_sql = "DELETE FROM agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = (SELECT ID FROM change_requests WHERE title = ?)";
+        $delete_stmt = $conn->prepare($delete_sql);
+        $delete_stmt->bind_param('is', $agendaId, $title);
+        $delete_stmt->execute();
+
+        if ($delete_stmt->affected_rows > 0) {
+            echo "Success";
+        } else {
+            echo "Failed to unselect filter";
+        }
+
+        $delete_stmt->close();
+    } else {
+        echo "No data received";
+    }
+}
+
 $conn->close();
 ?>  

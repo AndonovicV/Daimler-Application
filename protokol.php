@@ -9,6 +9,13 @@ if (isset($_SESSION['selected_team'])) {
     $selected_team = ""; // Default value if not set
 }
 
+$selectedAgendaId = isset($_GET['protokol_id']) ? $_GET['protokol_id'] : null;
+if ($selectedAgendaId) {
+    $_SESSION['selected_agenda_id'] = $selectedAgendaId;
+} else {
+    $selectedAgendaId = isset($_SESSION['selected_agenda_id']) ? $_SESSION['selected_agenda_id'] : null;
+}
+
 // Fetch GFTs connected to the selected team
 $sql_gfts = "SELECT DISTINCT name as name, moduleteam as moduleteam FROM org_gfts WHERE moduleteam = '$selected_team'";
 $result_gfts = $conn->query($sql_gfts);
