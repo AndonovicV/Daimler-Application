@@ -467,14 +467,14 @@ async function addTask(cell) {
 
     var newRow = $(`
         <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
-            <td class = "task-row"><strong>Task</strong></td>
+            <td class="task-row"><strong>Task</strong></td>
             <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid orange; max-width: 200px;"></td>
-            <td style="background-color: #212529 !important; width: 100px !important;">
-                <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529 !important; border: 1px solid orange; width: 100%; color: grey;" placeholder="Enter responsible person">
+            <td style="background-color: #212529; width: 100px;">
+                <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529; border: 1px solid orange; width: 100%; color: grey;" placeholder="Enter responsible person">
                 <br><br>
                 <div class="flex-container">
-                    <input class="editabletasktopic-cell new-datepicker-${lastTask}" data-column="deadline" type="text" style="background-color: #212529 !important; border: 1px solid orange; width: 70%;" value="" placeholder="Select date">
-                    <button class="asap-button" data-asap="0" style="width: 30%; color: white;">ASAP</button>
+                    <input class="editabletasktopic-cell new-datepicker-${lastTask}" data-column="deadline" type="text" style="background-color: #212529; border: 1px solid orange; width: 70%;" value="" placeholder="Select date">
+                    <button class="asap-button" data-task-id="${lastTask}" style="width: 30%; color: white;">ASAP</button>
                 </div>
             </td>
             <td>
@@ -550,6 +550,30 @@ async function addTask(cell) {
     // Initialize flatpickr for the new datepicker input
     flatpickr('.new-datepicker-' + lastTask, {
         dateFormat: 'Y-m-d',
+    });
+        // Initialize the ASAP button functionality for the newly added row
+        initializeASAPButton(lastTask);
+}
+function initializeASAPButton(taskId) {
+    var button = $(`.asap-button[data-task-id="${taskId}"]`);
+    button.click(function() {
+        var $this = $(this);
+        var datepicker = $this.closest('.flex-container').find('input[type="text"]');
+        var isASAP = $this.text() === 'ASAP';
+
+        if (isASAP) {
+            $this.css('color', 'red');
+            $this.text('ASAP');
+            datepicker.hide();
+            localStorage.setItem('asap-' + taskId, 'true');
+            updateASAPStatus(taskId, 1);
+        } else {
+            $this.css('color', 'white');
+            $this.text('ASAP');
+            datepicker.show();
+            localStorage.setItem('asap-' + taskId, 'false');
+            updateASAPStatus(taskId, 0);
+        }
     });
 }
 
