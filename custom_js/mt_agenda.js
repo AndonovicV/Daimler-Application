@@ -438,6 +438,19 @@ async function addTask(cell) {
     initializeASAPButton(lastTask);
 }
 
+function updateASAPStatus(taskId, status) {
+    $.ajax({
+        url: 'update_asap_status.php',
+        type: 'POST',
+        data: { task_id: taskId, asap: status },
+        success: function (response) {
+            console.log('ASAP status updated successfully');
+        },
+        error: function (xhr, status, error) {
+            console.error('Error updating ASAP status:', error);
+        }
+    });
+}
 function initializeASAPButton(taskId) {
     var button = $(`.asap-button[data-task-id="${taskId}"]`);
     button.click(function() {

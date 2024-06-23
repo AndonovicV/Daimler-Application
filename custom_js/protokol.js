@@ -90,39 +90,39 @@ $(document).ready(function () {
         });
     }
 
-        $(document).on('click', '#unselectFilterBtn', function () {
-            var $row = $(this).closest('tr');
-            var title = $row.find('td:eq(1)').text(); // Assuming the title is in the second column
-            var agendaId = $('#protokolSelect').val(); // Get the currently selected agenda ID
-    
-            if (!agendaId) {
-                alert("Please select an agenda first.");
-                return;
-            }
-            $.ajax({
-                type: 'POST',
-                url: 'actions.php',
-                data: {
-                    title: title,
-                    agenda_id: agendaId,
-                    action: 'unselect'
-                },
-                success: function (response) {
-                    if (response.trim() === 'Success') {
+    $(document).on('click', '#unselectFilterBtn', function () {
+        var $row = $(this).closest('tr');
+        var title = $row.find('td:eq(1)').text(); // Assuming the title is in the second column
+        var agendaId = $('#protokolSelect').val(); // Get the currently selected agenda ID
 
-                    } else {
-                        //This is actualy SUCCESS!
-                        // it loads it as an error but it still works.
-                        //alert('Failed to unselect the filter. ' + response);
-                        $row.remove();
-                    }
-                },
-                error: function (xhr, status, error) {
-                    alert("Error: " + xhr.responseText);
+        if (!agendaId) {
+            alert("Please select an agenda first.");
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'actions.php',
+            data: {
+                title: title,
+                agenda_id: agendaId,
+                action: 'unselect'
+            },
+            success: function (response) {
+                if (response.trim() === 'Success') {
+
+                } else {
+                    //This is actualy SUCCESS!
+                    // it loads it as an error but it still works.
+                    //alert('Failed to unselect the filter. ' + response);
+                    $row.remove();
                 }
-            });
+            },
+            error: function (xhr, status, error) {
+                alert("Error: " + xhr.responseText);
+            }
         });
-    
+    });
+
     // Creating New Row
     var counter = 1;
 
@@ -551,19 +551,32 @@ async function addTask(cell) {
     flatpickr('.new-datepicker-' + lastTask, {
         dateFormat: 'Y-m-d',
     });
-        // Initialize the ASAP button functionality for the newly added row
-        initializeASAPButton(lastTask);
+    // Initialize the ASAP button functionality for the newly added row
+    initializeASAPButton(lastTask);
+}
+function updateASAPStatus(taskId, status) {
+    $.ajax({
+        url: 'update_asap_status.php',
+        type: 'POST',
+        data: { task_id: taskId, asap: status },
+        success: function (response) {
+            console.log('ASAP status updated successfully');
+        },
+        error: function (xhr, status, error) {
+            console.error('Error updating ASAP status:', error);
+        }
+    });
 }
 function initializeASAPButton(taskId) {
     var button = $(`.asap-button[data-task-id="${taskId}"]`);
-    button.click(function() {
+    button.click(function () {
         var $this = $(this);
         var datepicker = $this.closest('.flex-container').find('input[type="text"]');
         var isASAP = $this.text() === 'ASAP';
 
         if (isASAP) {
             $this.css('color', 'red');
-            $this.text('ASAP');
+            $this.text('ASAP'); //IT IS Asap
             datepicker.hide();
             localStorage.setItem('asap-' + taskId, 'true');
             updateASAPStatus(taskId, 1);
