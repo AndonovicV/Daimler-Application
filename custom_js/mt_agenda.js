@@ -1,8 +1,27 @@
 src = "https://cdn.jsdelivr.net/npm/flatpickr"
 src = "https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"
 $(document).ready(function () {
-    //$('#agendaTable').hide();
-    showTable();
+    $('#agendaTable').hide();
+    //showTable();
+    
+    // Check if an agenda is selected and show the table if true
+    var selectedAgendaId = $('#agendaSelect').val();
+    if (selectedAgendaId) {
+        $('#agendaTable').show();
+    }
+
+    // When the user selects an agenda from the dropdown
+    $('#agendaSelect').change(function () {
+        var selectedAgendaId = $(this).val();
+        if (selectedAgendaId) {
+            // Show the table and reload the page with the selected agenda_id
+            $('#agendaTable').show();
+            window.location.href = 'mt_agenda.php?agenda_id=' + selectedAgendaId;
+        } else {
+            // Hide the table if no agenda is selected
+            $('#agendaTable').hide();
+        }
+    });
 
     // Initial DataTable initialization
     $('#agendaTable').dataTable({

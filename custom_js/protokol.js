@@ -1,7 +1,25 @@
 $(document).ready(function () {
-    //$('#protokolTable').hide();
-    showTable();
+    $('#protokolTable').hide();
+    //showTable();
 
+    // Check if an agenda is selected and show the table if true
+    var selectedAgendaId = $('#protokolSelect').val();
+    if (selectedAgendaId) {
+        $('#protokolTable').show();
+    }
+
+    // When the user selects an agenda from the dropdown
+    $('#agendaSelect').change(function () {
+        var selectedAgendaId = $(this).val();
+        if (selectedAgendaId) {
+            // Show the table and reload the page with the selected agenda_id
+            $('#protokolTable').show();
+            window.location.href = 'mt_agenda.php?agenda_id=' + selectedAgendaId;
+        } else {
+            // Hide the table if no agenda is selected
+            $('#protokolTable').hide();
+        }
+    });
     // Initial DataTable initialization
     $('#protokolTable').dataTable({
 
