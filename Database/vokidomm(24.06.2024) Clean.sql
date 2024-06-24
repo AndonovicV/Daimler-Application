@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8888
--- Generation Time: Jun 09, 2024 at 10:31 PM
+-- Generation Time: Jun 24, 2024 at 09:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `vokidomm`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agenda_change_request_filters`
+--
+
+CREATE TABLE `agenda_change_request_filters` (
+  `agenda_id` int(11) NOT NULL,
+  `change_request_id` varchar(20) NOT NULL,
+  `filter_active` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `agenda_change_request_filters`
+--
+
+INSERT INTO `agenda_change_request_filters` (`agenda_id`, `change_request_id`, `filter_active`) VALUES
+(113, 'I160063701', 1),
+(113, 'I160100901', 1),
+(113, 'I160128601', 1),
+(113, 'I170114801', 1),
+(113, 'I170128301', 1),
+(113, 'I170129001', 1);
 
 -- --------------------------------------------------------
 
@@ -41,60 +65,8 @@ CREATE TABLE `assignment` (
 --
 
 INSERT INTO `assignment` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`) VALUES
-(1, 61, 'EX50 - Subwoofer', '0', NULL, 'sa'),
-(2, 61, 'EX50 - Subwoofer', '0', '30', 'tringjo grudo bitchface'),
-(3, 61, 'EX50 - Subwoofer', '0', '31', 'trial'),
-(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr'),
-(5, 61, 'EX50 - Subwoofer', '0', '33', 'test'),
-(6, 61, 'EX52 - Crankshaft position sensor', '0', '37', 'pr'),
-(7, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
-(8, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
-(9, 60, 'EX50 - Subwoofer', '0', '40', 'MIAUsda'),
-(10, 60, 'EX50 - Subwoofer', '0', '41', 'Slay'),
-(11, 60, 'EX53 - Clinometer', '0', '42', 'dfsfs'),
-(12, 60, 'EX50 - Subwoofer', '0', '43', 'content'),
-(13, 60, 'EX50 - Subwoofer', '0', '44', 'content'),
-(14, 60, 'EX53 - Clinometer', '0', '44', 'content'),
-(15, 60, 'EX53 - Clinometer', '0', '44', 'content'),
-(16, 60, 'EX53 - Clinometer', '0', '47', 'content'),
-(17, 60, 'EX53 - Clinometer', '0', '47', 'content'),
-(18, 60, 'EX53 - Clinometer', '0', '58', 'content'),
-(19, 60, 'EX52 - Crankshaft position sensor', '0', '59', 'content'),
-(20, 60, 'EX52 - Crankshaft position sensor', '0', '60', 'content'),
-(21, 60, 'EX51 - Automatic transmission speed sensor', '0', '61', 'content'),
-(22, 60, 'EX51 - Automatic transmission speed sensor', '0', '62', 'content'),
-(23, 60, 'EX52 - Crankshaft position sensor', '0', '63', 'content'),
-(24, 60, 'EX52 - Crankshaft position sensor', '0', '64', 'content'),
-(25, 60, 'EX51 - Automatic transmission speed sensor', '0', '65', 'sads'),
-(26, 60, 'EX52 - Crankshaft position sensor', '0', '66', 'content'),
-(27, 60, 'EX51 - Automatic transmission speed sensor', '0', '67', 'content'),
-(28, 60, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content'),
-(29, 61, 'EX52 - Crankshaft position sensor', '0', '69', 'content'),
-(30, 60, 'EX52 - Crankshaft position sensor', '0', '70', 'content'),
-(31, 60, 'EX51 - Automatic transmission speed sensor', '0', '71', 'content'),
-(32, 60, 'EX50 - Subwoofer', '0', '72', 'content'),
-(33, 60, 'EX50 - Subwoofer', '0', '73', 'content'),
-(34, 60, 'EX51 - Automatic transmission speed sensor', '0', '74', 'content'),
-(35, 60, 'EX51 - Automatic transmission speed sensor', '0', '75', 'it works'),
-(36, 60, 'EX50 - Subwoofer', '0', '76', 'content'),
-(37, 60, 'EX50 - Subwoofer', '0', '77', 'content'),
-(38, 60, 'EX51 - Automatic transmission speed sensor', '0', '78', 'content'),
-(39, 60, 'EX50 - Subwoofer', '0', '79', 'content'),
-(40, 60, 'EX53 - Clinometer', '0', '80', 'sdsaasdas'),
-(41, 59, 'EX51 - Automatic transmission speed sensor', '0', '81', 'content'),
-(42, 59, 'EX51 - Automatic transmission speed sensor', '0', '82', 'content'),
-(44, 59, 'EX50 - Subwoofer', '0', '84', 'content'),
-(45, 59, 'EX51 - Automatic transmission speed sensor', '0', '85', 'content'),
-(46, 61, 'EX52 - Crankshaft position sensor', '0', '86', 'content'),
-(47, 61, 'EX52 - Crankshaft position sensor', '0', '87', 'content'),
-(48, 61, 'EX53 - Clinometer', '0', '88', 'content'),
-(49, 61, 'EX50 - Subwoofer', '0', '89', 'content'),
-(50, 61, 'EX51 - Automatic transmission speed sensor', '0', '90', 'content'),
-(51, 61, 'EX51 - Automatic transmission speed sensor', '0', '91', 'content'),
-(52, 61, 'EX51 - Automatic transmission speed sensor', '0', '92', 'content'),
-(53, 58, 'EX51 - Automatic transmission speed sensor', '0', '95', 'content'),
-(54, 0, 'EX50 - Subwoofer', '0', NULL, 'content'),
-(55, 76, 'EX50 - Subwoofer', '0', '1', 'content');
+(1, 113, 'EX50 - Subwoofer', '0', '1', 'content'),
+(2, 113, 'EX50 - Subwoofer', '0', '2', 'content');
 
 -- --------------------------------------------------------
 
@@ -103,12 +75,12 @@ INSERT INTO `assignment` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`) 
 --
 
 CREATE TABLE `change_requests` (
-  `ID` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `project` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `lead_gft` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `lead_module_team` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'Bitte eintragen',
-  `fasttrack` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `ID` varchar(20) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `project` mediumtext DEFAULT NULL,
+  `lead_gft` varchar(255) DEFAULT NULL,
+  `lead_module_team` varchar(255) DEFAULT 'Bitte eintragen',
+  `fasttrack` varchar(15) DEFAULT NULL,
   `filter_checkbox` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -428,7 +400,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I160063401', 'title for I160063401', 'Powertrain A', 'AR30 - Oil pressure sensor', 'MT Architecture', 'No', 1),
 ('I160063501', 'title for I160063501', '01-Series', 'TT01 - something', 'MT Axle B', 'No', 1),
 ('I160063601', 'title for I160063601', '01-Series', 'CO43 - Odometer', 'MT Components', 'Yes', 1),
-('I160063701', 'title for I160063701', 'eActros 1', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 1),
+('I160063701', 'title for I160063701', 'eActros 1', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 0),
 ('I160063801', 'title for I160063801', '01-Series', 'TT90 - Dashcam', 'MT Test & Te/st', 'No', 0),
 ('I160064001', 'title for I160064001', 'Axle 2', 'CS11 - Ignition Coil Connector', 'MT Cab Structure', 'No', 1),
 ('I160064101', 'title for I160064101', 'eAtego 3', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1),
@@ -451,7 +423,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I160067001', 'title for I160067001', 'Axle 1', 'CS11 - Ignition Coil Connector', 'MT Cab Structure', 'No', 1),
 ('I160067501', 'title for I160067501', 'Powertrain A', 'IN62 - Battery Box', 'MT Interior', 'No', 1),
 ('I160067601', 'title for I160067601', 'Axle 2', 'TT04 - something', 'MT Axle H', 'Yes', 1),
-('I160067701', 'title for I160067701', 'eAtego 3', 'CH20 - Battery', 'MT Chassis', 'Yes', 0),
+('I160067701', 'title for I160067701', 'eAtego 3', 'CH20 - Battery', 'MT Chassis', 'Yes', 1),
 ('I160067801', 'title for I160067801', '01-Series', 'TT04 - something', 'MT Transmission J', 'Yes', 1),
 ('I160068001', 'title for I160068001', 'Powertrain B', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
 ('I160068101', 'title for I160068101', 'eActros 3', 'TT02 - something', 'MT Axle I', 'No', 1),
@@ -1097,7 +1069,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I160197301', 'title for I160197301', 'Powertrain C', 'CS12 - Tachometer', 'MT Cab Structure', 'No', 1),
 ('I160197501', 'title for I160197501', 'Powertrain A', 'CH20 - Battery', 'MT Chassis', 'No', 1),
 ('I160197601', 'title for I160197601', '02-Project', 'ME72 - Knock sensor', 'MT Mechatronics', 'No', 1),
-('I160197701', 'title for I160197701', 'Powertrain A', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 1),
+('I160197701', 'title for I160197701', 'Powertrain A', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'Yes', 0),
 ('I160197801', 'title for I160197801', 'Powertrain B', 'CH20 - Battery', 'MT Chassis', 'No', 1),
 ('I160198001', 'title for I160198001', 'Powertrain C', 'TT02 - something', 'MT Axle I', 'Yes', 1),
 ('I160198301', 'title for I160198301', 'Bus B', 'IN60 - Camshaft position sensor', 'MT Interior', 'No', 0),
@@ -2369,7 +2341,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I170182801', 'title for I170182801', 'eActros 3', 'TT02 - something', 'MT Axle B', 'No', 1),
 ('I170183001', 'title for I170183001', 'Bus A', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
 ('I170183101', 'title for I170183101', '02-Project', 'TT91 - Rocker', 'MT Test & Te/st', 'No', 1),
-('I170183301', 'title for I170183301', 'eActros 2', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I170183301', 'title for I170183301', 'eActros 2', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I170183401', 'title for I170183401', 'eAtego 3', 'TT05 - something', 'MT Axle C', 'Yes', 0),
 ('I170183501', 'title for I170183501', 'eAtego 1', 'CO41 - Battery Cable', 'MT Components', 'No', 1),
 ('I170183601', 'title for I170183601', 'Powertrain B', 'CH22 - Distributor', 'MT Chassis', 'No', 1),
@@ -2634,7 +2606,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I180048201', 'title for I180048201', '02-Project', 'TT04 - something', 'MT Transmission I', 'No', 1),
 ('I180048401', 'title for I180048401', 'Axle 2', 'TT05 - something', 'MT Transmission A', 'No', 1);
 INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
-('I180048701', 'title for I180048701', 'Bus C', 'CH22 - Distributor', 'MT Chassis', 'Yes', 1),
+('I180048701', 'title for I180048701', 'Bus C', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I180048901', 'title for I180048901', 'Axle 2', 'TT03 - something', 'MT Axle H', 'No', 1),
 ('I180049101', 'title for I180049101', 'Bus A', 'IN62 - Battery Box', 'MT Interior', 'No', 1),
 ('I180049301', 'title for I180049301', 'eAtego 3', 'TT05 - something', 'MT Transmission B', 'No', 1),
@@ -2797,7 +2769,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I180084101', 'title for I180084101', 'Axle 3', 'IN63 - Sulphuric Acid', 'MT Interior', 'Yes', 1),
 ('I180084801', 'title for I180084801', 'eActros 1', 'TT02 - something', 'MT Transmission I', 'No', 1),
 ('I180085201', 'title for I180085201', 'Powertrain C', 'TT03 - something', 'MT Transmission D', 'No', 1),
-('I180085301', 'title for I180085301', '01-Series', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I180085301', 'title for I180085301', '01-Series', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I180085401', 'title for I180085401', 'eActros 1', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
 ('I180085601', 'title for I180085601', 'Axle 2', 'TT05 - something', 'MT Axle B', 'No', 0),
 ('I180086001', 'title for I180086001', 'eActros 3', 'CH22 - Distributor', 'MT Chassis', 'No', 1),
@@ -3061,7 +3033,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I180138301', 'title for I180138301', 'eActros 2', 'TT93 - Fascia', 'MT Test & Te/st', 'No', 0),
 ('I180138401', 'title for I180138401', 'Powertrain A', 'TT02 - something', 'MT Transmission B', 'No', 1),
 ('I180138701', 'title for I180138701', 'eActros 2', 'TM83 - Mass airflow sensor', 'MT Thermomanagement', 'Yes', 1),
-('I180138801', 'title for I180138801', '02-Project', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I180138801', 'title for I180138801', '02-Project', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I180138901', 'title for I180138901', 'Axle 2', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
 ('I180139301', 'title for I180139301', '03-Mixed', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 0),
 ('I180139401', 'title for I180139401', '03-Mixed', 'TT01 - something', 'MT Axle H', 'No', 1),
@@ -3088,7 +3060,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I190003001', 'title for I190003001', 'Bus B', 'TT04 - something', 'MT Axle D', 'No', 1),
 ('I190003101', 'title for I190003101', 'eAtego 1', 'TM83 - Mass airflow sensor', 'MT Thermomanagement', 'No', 0),
 ('I190003501', 'title for I190003501', 'eActros 2', 'TT03 - something', 'MT Axle I', 'No', 1),
-('I190004001', 'title for I190004001', 'Powertrain B', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I190004001', 'title for I190004001', 'Powertrain B', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I190004201', 'title for I190004201', 'eActros 3', 'TT01 - something', 'MT Transmission G', 'No', 1),
 ('I190004301', 'title for I190004301', 'Axle 3', 'TT01 - something', 'MT Transmission E', 'Yes', 1),
 ('I190004501', 'title for I190004501', 'Axle 2', 'TT04 - something', 'MT Axle I', 'No', 1),
@@ -3110,7 +3082,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I190008201', 'title for I190008201', 'eActros 3', 'TT05 - something', 'MT Transmission E', 'Yes', 1),
 ('I190008301', 'title for I190008301', 'eAtego 2', 'IN61 - Quarter panel', 'MT Interior', 'No', 1),
 ('I190008401', 'title for I190008401', 'eActros 2', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 1),
-('I190008601', 'title for I190008601', '01-Series', 'CH22 - Distributor', 'MT Chassis', 'Yes', 1),
+('I190008601', 'title for I190008601', '01-Series', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I190008701', 'title for I190008701', 'Powertrain B', 'TT03 - something', 'MT Transmission B', 'No', 1),
 ('I190009201', 'title for I190009201', 'Powertrain B', 'TT03 - something', 'MT Transmission F', 'No', 1),
 ('I190009501', 'title for I190009501', 'eAtego 3', 'TT02 - something', 'MT Transmission E', 'No', 1),
@@ -3199,7 +3171,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I190026301', 'title for I190026301', 'Powertrain C', 'TT05 - something', 'MT Transmission D', 'No', 1),
 ('I190026601', 'title for I190026601', '02-Project', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'No', 1),
 ('I190026801', 'title for I190026801', '02-Project', 'EV02 - Rims', 'Entire Vehicle', 'No', 1),
-('I190027101', 'title for I190027101', 'eActros 3', 'CH22 - Distributor', 'MT Chassis', 'Yes', 1),
+('I190027101', 'title for I190027101', 'eActros 3', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I190027201', 'title for I190027201', '02-Project', 'TT03 - something', 'MT Axle E', 'Yes', 1),
 ('I190027301', 'title for I190027301', 'Axle 2', 'TT02 - something', 'MT Transmission B', 'No', 1),
 ('I190027601', 'title for I190027601', 'eAtego 1', 'TT05 - something', 'MT Axle I', 'Yes', 1),
@@ -3279,7 +3251,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I190043501', 'title for I190043501', 'eActros 2', 'IN60 - Camshaft position sensor', 'MT Interior', 'No', 0),
 ('I190043701', 'title for I190043701', 'eActros 3', 'TT03 - something', 'MT Transmission F', 'No', 1),
 ('I190043901', 'title for I190043901', '02-Project', 'ME71 - Alternator', 'MT Mechatronics', 'No', 1),
-('I190044001', 'title for I190044001', '03-Mixed', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I190044001', 'title for I190044001', '03-Mixed', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I190044101', 'title for I190044101', 'eAtego 1', 'CS14 - Ignition magneto', 'MT Cab Structure', 'No', 1),
 ('I190044301', 'title for I190044301', 'eAtego 3', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'No', 1),
 ('I190044701', 'title for I190044701', '01-Series', 'TT02 - something', 'MT Transmission B', 'No', 1),
@@ -3857,7 +3829,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I200016801', 'title for I200016801', 'eAtego 1', 'TT94 - Distilled Water', 'MT Test & Te/st', 'No', 1),
 ('I200017301', 'title for I200017301', 'Bus A', 'TT03 - something', 'MT Axle I', 'No', 1),
 ('I200017501', 'title for I200017501', 'Bus A', 'TT05 - something', 'MT Axle G', 'No', 0),
-('I200017601', 'title for I200017601', 'Bus B', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I200017601', 'title for I200017601', 'Bus B', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I200017701', 'title for I200017701', '02-Project', 'TT03 - something', 'MT Axle G', 'No', 1),
 ('I200017801', 'title for I200017801', 'Axle 1', 'CO42 - Performance Battery', 'MT Components', 'No', 1),
 ('I200018001', 'title for I200018001', '02-Project', 'TT01 - something', 'MT Transmission D', 'No', 1),
@@ -3974,7 +3946,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I200038601', 'title for I200038601', 'eActros 3', 'TT93 - Fascia', 'MT Test & Te/st', 'No', 1),
 ('I200038801', 'title for I200038801', 'Bus A', 'TT04 - something', 'MT Transmission B', 'No', 1),
 ('I200038901', 'title for I200038901', 'Axle 3', 'TT93 - Fascia', 'MT Test & Te/st', 'No', 1),
-('I200039101', 'title for I200039101', 'eAtego 2', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I200039101', 'title for I200039101', 'eAtego 2', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I200039201', 'title for I200039201', 'Powertrain A', 'TT01 - something', 'MT Transmission F', 'No', 1),
 ('I200039401', 'title for I200039401', 'eActros 3', 'TT02 - something', 'MT Transmission B', 'No', 0),
 ('I200039801', 'title for I200039801', 'Axle 2', 'CO43 - Odometer', 'MT Components', 'No', 1),
@@ -4354,7 +4326,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I200108601', 'title for I200108601', 'Axle 3', 'TT03 - something', 'MT Axle D', 'No', 1),
 ('I200108701', 'title for I200108701', 'Axle 2', 'EV02 - Rims', 'Entire Vehicle', 'No', 1),
 ('I200108801', 'title for I200108801', 'Axle 2', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1),
-('I200109201', 'title for I200109201', '03-Mixed', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I200109201', 'title for I200109201', '03-Mixed', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I200109301', 'title for I200109301', 'eActros 1', 'ME71 - Alternator', 'MT Mechatronics', 'No', 1),
 ('I200110001', 'title for I200110001', 'Bus B', 'TT02 - something', 'MT Transmission E', 'No', 1),
 ('I200110101', 'title for I200110101', '01-Series', 'TT02 - something', 'MT Transmission A', 'No', 1),
@@ -4581,7 +4553,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I210018801', 'title for I210018801', 'Axle 3', 'CS11 - Ignition Coil Connector', 'MT Cab Structure', 'No', 1),
 ('I210018901', 'title for I210018901', 'Bus A', 'AR30 - Oil pressure sensor', 'MT Architecture', 'No', 1),
 ('I210019001', 'title for I210019001', 'Powertrain B', 'TT04 - something', 'MT Transmission D', 'No', 1),
-('I210019201', 'title for I210019201', 'eActros 1', 'CH20 - Battery', 'MT Chassis', 'Yes', 1),
+('I210019201', 'title for I210019201', 'eActros 1', 'CH20 - Battery', 'MT Chassis', 'Yes', 0),
 ('I210019401', 'title for I210019401', 'Bus A', 'TT01 - something', 'MT Axle A', 'No', 1),
 ('I210019501', 'title for I210019501', 'Axle 3', 'TT02 - something', 'MT Axle A', 'Yes', 1),
 ('I210019701', 'title for I210019701', 'Axle 3', 'CO41 - Battery Cable', 'MT Components', 'No', 1),
@@ -4681,7 +4653,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I210040801', 'title for I210040801', 'Axle 2', 'AR30 - Oil pressure sensor', 'MT Architecture', 'No', 1),
 ('I210041401', 'title for I210041401', 'Bus A', 'TT02 - something', 'MT Axle G', 'No', 1),
 ('I210041501', 'title for I210041501', 'eAtego 3', 'TT93 - Fascia', 'MT Test & Te/st', 'No', 1),
-('I210041601', 'title for I210041601', 'Powertrain A', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I210041601', 'title for I210041601', 'Powertrain A', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I210041801', 'title for I210041801', 'Powertrain A', 'TT90 - Dashcam', 'MT Test & Te/st', 'No', 1),
 ('I210042001', 'title for I210042001', 'eAtego 1', 'CH21 - Oil pressure gauge', 'MT Chassis', 'No', 1),
 ('I210042101', 'title for I210042101', 'Powertrain A', 'IN63 - Sulphuric Acid', 'MT Interior', 'Yes', 1),
@@ -4752,7 +4724,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I210056401', 'title for I210056401', 'Axle 3', 'TT02 - something', 'MT Axle A', 'No', 0),
 ('I210056601', 'title for I210056601', 'eAtego 1', 'TT05 - something', 'MT Transmission B', 'No', 1),
 ('I210057601', 'title for I210057601', 'Powertrain A', 'TT04 - something', 'MT Axle I', 'No', 1),
-('I210057701', 'title for I210057701', 'Axle 2', 'CH22 - Distributor', 'MT Chassis', 'Yes', 1),
+('I210057701', 'title for I210057701', 'Axle 2', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I210057901', 'title for I210057901', 'Bus B', 'TT05 - something', 'MT Axle B', 'Yes', 1),
 ('I210058001', 'title for I210058001', 'Axle 1', 'TT02 - something', 'MT Transmission E', 'No', 1),
 ('I210058101', 'title for I210058101', 'Axle 1', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 0),
@@ -5065,7 +5037,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I210119301', 'title for I210119301', 'Axle 1', 'EX50 - Subwoofer', 'MT Exterior', 'No', 1),
 ('I210120101', 'title for I210120101', 'Powertrain B', 'TM80 - Speaker', 'MT Thermomanagement', 'No', 1),
 ('I210120301', 'title for I210120301', 'Bus C', 'CH21 - Oil pressure gauge', 'MT Chassis', 'No', 1),
-('I210120501', 'title for I210120501', 'Axle 2', 'CH22 - Distributor', 'MT Chassis', 'Yes', 1),
+('I210120501', 'title for I210120501', 'Axle 2', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I210120601', 'title for I210120601', 'Bus A', 'TT02 - something', 'MT Transmission I', 'No', 1),
 ('I210120801', 'title for I210120801', 'Bus A', 'TT05 - something', 'MT Axle G', 'No', 1),
 ('I210120901', 'title for I210120901', 'eAtego 3', 'EX50 - Subwoofer', 'MT Exterior', 'No', 1),
@@ -5260,7 +5232,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I210157601', 'title for I210157601', 'Bus A', 'TT04 - something', 'MT Transmission B', 'Yes', 1),
 ('I210157901', 'title for I210157901', 'Bus C', 'TM80 - Speaker', 'MT Thermomanagement', 'No', 1),
 ('I210158001', 'title for I210158001', 'Axle 3', 'CO44 - Hinges and springs', 'MT Components', 'No', 1),
-('I210158101', 'title for I210158101', 'Powertrain B', 'CH22 - Distributor', 'MT Chassis', 'Yes', 1),
+('I210158101', 'title for I210158101', 'Powertrain B', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I210158401', 'title for I210158401', '01-Series', 'TT01 - something', 'MT Axle B', 'No', 1),
 ('I210158501', 'title for I210158501', 'Powertrain A', 'TT04 - something', 'MT Axle J', 'No', 0),
 ('I210158601', 'title for I210158601', 'Powertrain B', 'TT01 - something', 'MT Axle B', 'No', 1),
@@ -5466,7 +5438,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220041901', 'title for I220041901', 'Bus A', 'CS15 - Brake sensor', 'MT Cab Structure', 'No', 1),
 ('I220042001', 'title for I220042001', 'Bus A', 'TT94 - Distilled Water', 'MT Test & Te/st', 'No', 1),
 ('I220042101', 'title for I220042101', 'Powertrain B', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'No', 1),
-('I220042301', 'title for I220042301', 'eAtego 1', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I220042301', 'title for I220042301', 'eAtego 1', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I220042401', 'title for I220042401', 'eActros 2', 'TT05 - something', 'MT Axle J', 'No', 1),
 ('I220042501', 'title for I220042501', 'Axle 1', 'AR30 - Oil pressure sensor', 'MT Architecture', 'No', 1),
 ('I220042701', 'title for I220042701', '03-Mixed', 'IN60 - Camshaft position sensor', 'MT Interior', 'No', 1),
@@ -5477,7 +5449,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220043601', 'title for I220043601', 'eAtego 3', 'TT02 - something', 'MT Transmission C', 'No', 1),
 ('I220043701', 'title for I220043701', 'Axle 2', 'TM82 - Ignition box', 'MT Thermomanagement', 'No', 1),
 ('I220043801', 'title for I220043801', 'eActros 2', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
-('I220043901', 'title for I220043901', 'eAtego 1', 'CH20 - Battery', 'MT Chassis', 'Yes', 1),
+('I220043901', 'title for I220043901', 'eAtego 1', 'CH20 - Battery', 'MT Chassis', 'Yes', 0),
 ('I220044001', 'title for I220044001', 'eActros 2', 'TT94 - Distilled Water', 'MT Test & Te/st', 'No', 1),
 ('I220044101', 'title for I220044101', 'Axle 2', 'TT01 - something', 'MT Axle A', 'No', 1),
 ('I220044201', 'title for I220044201', 'Powertrain B', 'CS12 - Tachometer', 'MT Cab Structure', 'No', 1),
@@ -5510,7 +5482,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220049401', 'title for I220049401', 'eActros 1', 'TM80 - Speaker', 'MT Thermomanagement', 'No', 1),
 ('I220049501', 'title for I220049501', 'Axle 3', 'TT01 - something', 'MT Transmission F', 'No', 1),
 ('I220049601', 'title for I220049601', 'Axle 3', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'No', 1),
-('I220049701', 'title for I220049701', 'eAtego 2', 'CH22 - Distributor', 'MT Chassis', 'Yes', 1),
+('I220049701', 'title for I220049701', 'eAtego 2', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I220049801', 'title for I220049801', 'Axle 2', 'TT05 - something', 'MT Axle C', 'No', 1),
 ('I220049901', 'title for I220049901', 'eAtego 3', 'TT01 - something', 'MT Transmission G', 'No', 1),
 ('I220050101', 'title for I220050101', 'eActros 2', 'TT05 - something', 'MT Transmission B', 'No', 1),
@@ -5805,7 +5777,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220108901', 'title for I220108901', 'Axle 2', 'CO40 - Ammeter', 'MT Components', 'No', 1),
 ('I220109001', 'title for I220109001', 'eAtego 1', 'CH21 - Oil pressure gauge', 'MT Chassis', 'No', 1),
 ('I220109201', 'title for I220109201', 'eAtego 2', 'TT04 - something', 'MT Axle F', 'No', 1),
-('I220109301', 'title for I220109301', 'eActros 3', 'CH22 - Distributor', 'MT Chassis', 'Yes', 1),
+('I220109301', 'title for I220109301', 'eActros 3', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I220109801', 'title for I220109801', 'Bus A', 'TT05 - something', 'MT Axle J', 'No', 1),
 ('I220109901', 'title for I220109901', '01-Series', 'IN63 - Sulphuric Acid', 'MT Interior', 'No', 1),
 ('I220110001', 'title for I220110001', 'Powertrain B', 'TT04 - something', 'MT Transmission E', 'No', 1),
@@ -6027,7 +5999,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220155101', 'title for I220155101', 'Powertrain B', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1),
 ('I220155201', 'title for I220155201', '02-Project', 'TT05 - something', 'MT Transmission F', 'No', 1),
 ('I220155501', 'title for I220155501', 'Bus A', 'TT05 - something', 'MT Axle B', 'No', 1),
-('I220155701', 'title for I220155701', 'Axle 1', 'CH20 - Battery', 'MT Chassis', 'Yes', 1),
+('I220155701', 'title for I220155701', 'Axle 1', 'CH20 - Battery', 'MT Chassis', 'Yes', 0),
 ('I220155901', 'title for I220155901', 'Powertrain A', 'ME70 - Battery tray', 'MT Mechatronics', 'Yes', 1),
 ('I220156301', 'title for I220156301', 'Powertrain B', 'TT94 - Distilled Water', 'MT Test & Te/st', 'No', 1),
 ('I220156501', 'title for I220156501', 'Bus A', 'TM82 - Ignition box', 'MT Thermomanagement', 'No', 0),
@@ -6049,7 +6021,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220159801', 'title for I220159801', '01-Series', 'TM82 - Ignition box', 'MT Thermomanagement', 'No', 0),
 ('I220160001', 'title for I220160001', 'eActros 3', 'EX53 - Clinometer', 'MT Exterior', 'No', 1),
 ('I220160401', 'title for I220160401', '02-Project', 'TT05 - something', 'MT Axle F', 'No', 1),
-('I220160701', 'title for I220160701', 'Powertrain A', 'CH20 - Battery', 'MT Chassis', 'Yes', 1),
+('I220160701', 'title for I220160701', 'Powertrain A', 'CH20 - Battery', 'MT Chassis', 'Yes', 0),
 ('I220160801', 'title for I220160801', 'Bus C', 'TM80 - Speaker', 'MT Thermomanagement', 'No', 1),
 ('I220161001', 'title for I220161001', 'Axle 2', 'TT03 - something', 'MT Transmission G', 'No', 1),
 ('I220161301', 'title for I220161301', 'Axle 2', 'TT02 - something', 'MT Transmission G', 'No', 1),
@@ -6305,7 +6277,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220211401', 'title for I220211401', 'eAtego 3', 'TM83 - Mass airflow sensor', 'MT Thermomanagement', 'No', 0),
 ('I220211501', 'title for I220211501', '01-Series', 'TT02 - something', 'MT Transmission G', 'Yes', 1),
 ('I220211701', 'title for I220211701', '01-Series', 'TT90 - Dashcam', 'MT Test & Te/st', 'No', 0),
-('I220212101', 'title for I220212101', '02-Project', 'CH20 - Battery', 'MT Chassis', 'Yes', 1),
+('I220212101', 'title for I220212101', '02-Project', 'CH20 - Battery', 'MT Chassis', 'Yes', 0),
 ('I220212201', 'title for I220212201', '03-Mixed', 'TT05 - something', 'MT Axle D', 'No', 1),
 ('I220212301', 'title for I220212301', 'eAtego 3', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
 ('I220212401', 'title for I220212401', 'eActros 3', 'TT03 - something', 'MT Transmission G', 'Yes', 1),
@@ -6612,7 +6584,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230019001', 'title for I230019001', 'Bus C', 'TT02 - something', 'MT Axle A', 'No', 1),
 ('I230019301', 'title for I230019301', 'eActros 2', 'TT03 - something', 'MT Axle B', 'No', 1),
 ('I230019401', 'title for I230019401', 'eActros 1', 'TT02 - something', 'MT Transmission G', 'Yes', 1),
-('I230020001', 'title for I230020001', 'Powertrain A', 'CH22 - Distributor', 'MT Chassis', 'Yes', 1),
+('I230020001', 'title for I230020001', 'Powertrain A', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I230020301', 'title for I230020301', 'Bus A', 'TT05 - something', 'MT Axle I', 'No', 1),
 ('I230020501', 'title for I230020501', 'eAtego 3', 'TT05 - something', 'MT Transmission E', 'No', 1),
 ('I230020601', 'title for I230020601', '01-Series', 'ME72 - Knock sensor', 'MT Mechatronics', 'No', 0),
@@ -6931,7 +6903,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230084301', 'title for I230084301', '01-Series', 'CS10 - Oil level sensor', 'MT Cab Structure', 'No', 1),
 ('I230084501', 'title for I230084501', '02-Project', 'CH20 - Battery', 'MT Chassis', 'No', 1),
 ('I230084601', 'title for I230084601', 'eActros 3', 'EV00 - Hubcap', 'Entire Vehicle', 'Yes', 1),
-('I230084701', 'title for I230084701', 'Axle 2', 'CH20 - Battery', 'MT Chassis', 'Yes', 1),
+('I230084701', 'title for I230084701', 'Axle 2', 'CH20 - Battery', 'MT Chassis', 'Yes', 0),
 ('I230084801', 'title for I230084801', 'Axle 2', 'CH21 - Oil pressure gauge', 'MT Chassis', 'No', 1),
 ('I230084901', 'title for I230084901', '01-Series', 'TM82 - Ignition box', 'MT Thermomanagement', 'No', 1),
 ('I230085001', 'title for I230085001', 'eAtego 3', 'IN62 - Battery Box', 'MT Interior', 'No', 1),
@@ -7202,7 +7174,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230131201', 'title for I230131201', 'Axle 3', 'TT01 - something', 'MT Transmission H', 'No', 1),
 ('I230131301', 'title for I230131301', 'eAtego 3', 'EX53 - Clinometer', 'MT Exterior', 'No', 1),
 ('I230131501', 'title for I230131501', 'Bus B', 'CH20 - Battery', 'MT Chassis', 'No', 1),
-('I230131801', 'title for I230131801', 'eActros 1', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I230131801', 'title for I230131801', 'eActros 1', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I230132101', 'title for I230132101', 'eActros 2', 'ME71 - Alternator', 'MT Mechatronics', 'No', 1),
 ('I230132201', 'title for I230132201', 'Bus C', 'TT05 - something', 'MT Transmission F', 'No', 1),
 ('I230132401', 'title for I230132401', 'Bus A', 'TT04 - something', 'MT Transmission J', 'No', 1),
@@ -7375,7 +7347,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230168501', 'title for I230168501', 'eAtego 3', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 1),
 ('I230168601', 'title for I230168601', 'eAtego 2', 'CO40 - Ammeter', 'MT Components', 'Yes', 1),
 ('I230168801', 'title for I230168801', 'eActros 3', 'TT01 - something', 'MT Axle I', 'No', 1),
-('I230169001', 'title for I230169001', '01-Series', 'CH20 - Battery', 'MT Chassis', 'Yes', 1),
+('I230169001', 'title for I230169001', '01-Series', 'CH20 - Battery', 'MT Chassis', 'Yes', 0),
 ('I230169101', 'title for I230169101', 'Powertrain B', 'AR30 - Oil pressure sensor', 'MT Architecture', 'No', 1),
 ('I230169201', 'title for I230169201', 'eAtego 1', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
 ('I230169301', 'title for I230169301', '01-Series', 'TT05 - something', 'MT Axle H', 'No', 0),
@@ -7484,7 +7456,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230188201', 'title for I230188201', 'Axle 2', 'CH22 - Distributor', 'MT Chassis', 'No', 1),
 ('I230188401', 'title for I230188401', 'Bus A', 'EV02 - Rims', 'Entire Vehicle', 'No', 1),
 ('I230188701', 'title for I230188701', '02-Project', 'TT90 - Dashcam', 'MT Test & Te/st', 'No', 1),
-('I230189301', 'title for I230189301', 'eActros 2', 'CH20 - Battery', 'MT Chassis', 'Yes', 1),
+('I230189301', 'title for I230189301', 'eActros 2', 'CH20 - Battery', 'MT Chassis', 'Yes', 0),
 ('I230189401', 'title for I230189401', '01-Series', 'TT05 - something', 'MT Transmission I', 'No', 1),
 ('I230189501', 'title for I230189501', 'Powertrain A', 'CO41 - Battery Cable', 'MT Components', 'No', 1),
 ('I230189601', 'title for I230189601', 'Axle 3', 'TT02 - something', 'MT Axle G', 'No', 1),
@@ -7682,7 +7654,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I240018701', 'title for I240018701', '01-Series', 'ME71 - Alternator', 'MT Mechatronics', 'No', 1),
 ('I240018901', 'title for I240018901', '03-Mixed', 'EX52 - Crankshaft position sensor', 'MT Exterior', 'No', 0),
 ('I240019001', 'title for I240019001', 'eAtego 3', 'TT05 - something', 'MT Axle E', 'No', 1),
-('I240019301', 'title for I240019301', 'eAtego 3', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I240019301', 'title for I240019301', 'eAtego 3', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I240019701', 'title for I240019701', 'Powertrain A', 'TT03 - something', 'MT Transmission E', 'No', 0),
 ('I240019901', 'title for I240019901', 'eActros 3', 'ME71 - Alternator', 'MT Mechatronics', 'No', 1),
 ('I240020001', 'title for I240020001', 'eAtego 2', 'TT03 - something', 'MT Transmission D', 'No', 1),
@@ -7910,7 +7882,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I240061701', 'title for I240061701', 'Axle 2', 'TT02 - something', 'MT Transmission G', 'No', 0),
 ('I240061801', 'title for I240061801', 'eActros 3', 'EV01 - Exposed bumper', 'Entire Vehicle', 'No', 1),
 ('I240062001', 'title for I240062001', 'Bus A', 'TT04 - something', 'MT Axle H', 'No', 1),
-('I240062101', 'title for I240062101', '01-Series', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I240062101', 'title for I240062101', '01-Series', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I240062301', 'title for I240062301', 'Axle 3', 'CH22 - Distributor', 'MT Chassis', 'No', 1),
 ('I240062401', 'title for I240062401', 'eAtego 1', 'TT02 - something', 'MT Axle E', 'No', 1),
 ('I240062501', 'title for I240062501', 'Powertrain B', 'TT05 - something', 'MT Transmission E', 'No', 1),
@@ -7936,7 +7908,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I240066001', 'title for I240066001', 'Axle 1', 'AR30 - Oil pressure sensor', 'MT Architecture', 'No', 1),
 ('I240066101', 'title for I240066101', 'eActros 2', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 1),
 ('I240066601', 'title for I240066601', 'eActros 3', 'AR30 - Oil pressure sensor', 'MT Architecture', 'No', 1),
-('I240066801', 'title for I240066801', 'Axle 3', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I240066801', 'title for I240066801', 'Axle 3', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I240066901', 'title for I240066901', '01-Series', 'TT01 - something', 'MT Transmission B', 'No', 1),
 ('I240067201', 'title for I240067201', 'Powertrain C', 'CH22 - Distributor', 'MT Chassis', 'No', 0),
 ('I240067301', 'title for I240067301', '01-Series', 'CO40 - Ammeter', 'MT Components', 'No', 1),
@@ -8082,7 +8054,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I240098701', 'title for I240098701', '02-Project', 'EV02 - Rims', 'Entire Vehicle', 'No', 1),
 ('I240099001', 'title for I240099001', 'Powertrain B', 'CS14 - Ignition magneto', 'MT Cab Structure', 'No', 1),
 ('I240099301', 'title for I240099301', 'eAtego 2', 'TT90 - Dashcam', 'MT Test & Te/st', 'No', 0),
-('I240099501', 'title for I240099501', 'Powertrain B', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 1),
+('I240099501', 'title for I240099501', 'Powertrain B', 'CH21 - Oil pressure gauge', 'MT Chassis', 'Yes', 0),
 ('I240099701', 'title for I240099701', '02-Project', 'CS10 - Oil level sensor', 'MT Cab Structure', 'No', 1),
 ('I240099801', 'title for I240099801', 'eActros 1', 'CH22 - Distributor', 'MT Chassis', 'No', 1),
 ('I240099901', 'title for I240099901', 'Powertrain A', 'AR31 - Battery Cable terminal', 'MT Architecture', 'Yes', 1),
@@ -8103,7 +8075,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I240102701', 'title for I240102701', 'eAtego 1', 'TT03 - something', 'MT Axle F', 'No', 1),
 ('I240102801', 'title for I240102801', 'eAtego 1', 'TT01 - something', 'MT Transmission F', 'Yes', 1),
 ('I240102901', 'title for I240102901', 'eAtego 3', 'TT02 - something', 'MT Axle B', 'No', 1),
-('I240103001', 'title for I240103001', 'Bus C', 'CH22 - Distributor', 'MT Chassis', 'Yes', 1),
+('I240103001', 'title for I240103001', 'Bus C', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I240103101', 'title for I240103101', 'Powertrain C', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1),
 ('I240103301', 'title for I240103301', 'Axle 2', 'TT04 - something', 'MT Axle B', 'No', 1),
 ('I240103501', 'title for I240103501', 'eActros 1', 'CO43 - Odometer', 'MT Components', 'No', 1),
@@ -8231,9 +8203,8 @@ CREATE TABLE `decision` (
 --
 
 INSERT INTO `decision` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`) VALUES
-(1, 76, 'EX50 - Subwoofer', '0', '1', 'content'),
-(2, 76, 'EX50 - Subwoofer', '0', '2', 'Here you can add your decisions'),
-(3, 76, 'EX51 - Automatic transmission speed sensor', '0', '3', 'If you remove the task above, the decision will still remain');
+(1, 113, 'EX50 - Subwoofer', '0', '1', 'Something Decided'),
+(2, 113, 'EX50 - Subwoofer', '0', '2', 'content');
 
 -- --------------------------------------------------------
 
@@ -8274,12 +8245,9 @@ CREATE TABLE `guests` (
 --
 
 INSERT INTO `guests` (`guest_id`, `guest_name`, `department`) VALUES
-(3, 'Eric Clapton', 'Finance'),
-(4, 'B.B. King', 'HR'),
-(5, 'Robert Plant', 'Marketing'),
-(6, 'Jimmy Page', 'Finance'),
-(8, 'Keith Richards', 'HR'),
-(9, 'Stevie Ray Vaughan', 'Finance');
+(1, 'Eric Clapton', 'Engineering'),
+(2, 'Stevie Ray Vaughan', 'HR'),
+(3, 'Bonnie Raitt', 'Finance');
 
 -- --------------------------------------------------------
 
@@ -8301,100 +8269,15 @@ CREATE TABLE `information` (
 --
 
 INSERT INTO `information` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`) VALUES
-(1, 61, 'EX50 - Subwoofer', '0', NULL, 'sa'),
-(2, 61, 'EX50 - Subwoofer', '0', '30', 'testrun on the testrun'),
-(3, 61, 'EX50 - Subwoofer', '0', '31', 'trial'),
-(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr'),
-(6, 61, 'EX50 - Subwoofer', '0', '33', 'test'),
-(7, 61, 'EX52 - Crankshaft position sensor', '0', '37', 'Test'),
-(8, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
-(9, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
-(10, 60, 'EX50 - Subwoofer', '0', '40', 'asdadasddd'),
-(11, 60, 'EX50 - Subwoofer', '0', '41', 'Slay'),
-(12, 60, 'EX53 - Clinometer', '0', '42', 'dfsfs'),
-(13, 60, 'EX50 - Subwoofer', '0', '43', 'content'),
-(14, 60, 'EX50 - Subwoofer', '0', '44', 'content'),
-(15, 60, 'EX53 - Clinometer', '0', '44', 'content'),
-(16, 60, 'EX53 - Clinometer', '0', '44', 'content'),
-(17, 60, 'EX53 - Clinometer', '0', '47', 'content'),
-(18, 60, 'EX53 - Clinometer', '0', '47', 'content'),
-(19, 60, 'EX53 - Clinometer', '0', '58', 'content'),
-(20, 60, 'EX52 - Crankshaft position sensor', '0', '59', 'content'),
-(21, 60, 'EX52 - Crankshaft position sensor', '0', '60', 'content'),
-(22, 60, 'EX51 - Automatic transmission speed sensor', '0', '61', 'content'),
-(23, 60, 'EX51 - Automatic transmission speed sensor', '0', '62', 'content'),
-(24, 60, 'EX52 - Crankshaft position sensor', '0', '63', 'content'),
-(25, 60, 'EX52 - Crankshaft position sensor', '0', '64', 'content'),
-(26, 60, 'EX51 - Automatic transmission speed sensor', '0', '65', 'savaadsasd'),
-(27, 60, 'EX52 - Crankshaft position sensor', '0', '66', 'content'),
-(28, 60, 'EX51 - Automatic transmission speed sensor', '0', '67', 'content'),
-(29, 60, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content'),
-(30, 61, 'EX52 - Crankshaft position sensor', '0', '69', 'content'),
-(31, 60, 'EX52 - Crankshaft position sensor', '0', '70', 'content'),
-(32, 60, 'EX51 - Automatic transmission speed sensor', '0', '71', 'content'),
-(33, 60, 'EX50 - Subwoofer', '0', '72', 'content'),
-(34, 60, 'EX50 - Subwoofer', '0', '73', 'content'),
-(35, 60, 'EX51 - Automatic transmission speed sensor', '0', '74', 'content'),
-(36, 60, 'EX51 - Automatic transmission speed sensor', '0', '75', 'but here'),
-(37, 60, 'EX50 - Subwoofer', '0', '76', 'content'),
-(38, 60, 'EX50 - Subwoofer', '0', '77', 'content'),
-(39, 60, 'EX51 - Automatic transmission speed sensor', '0', '78', 'content'),
-(40, 60, 'EX50 - Subwoofer', '0', '79', 'content'),
-(41, 60, 'EX53 - Clinometer', '0', '80', 'sdsasdasdasdasd'),
-(42, NULL, NULL, NULL, '40', 'asdadasddd'),
-(43, NULL, NULL, NULL, '40', 'asdadasddd'),
-(44, 59, 'EX51 - Automatic transmission speed sensor', '0', '81', 'content'),
-(45, 59, 'EX51 - Automatic transmission speed sensor', '0', '82', 'content'),
-(46, 59, 'EX53 - Clinometer', '0', '83', 'Your arsons match'),
-(47, 59, 'EX50 - Subwoofer', '0', '84', 'content'),
-(48, NULL, NULL, NULL, '82', ''),
-(49, NULL, NULL, NULL, '83', 'your dynamite'),
-(50, NULL, NULL, NULL, '83', 'and I still see it'),
-(51, 59, 'EX51 - Automatic transmission speed sensor', '0', '85', 'hjkhjk'),
-(52, NULL, NULL, NULL, '83', 'until I die'),
-(53, NULL, NULL, NULL, '83', 'you\'re the loss of my life'),
-(55, NULL, NULL, NULL, '82', 'MIAUZS'),
-(56, 61, 'EX52 - Crankshaft position sensor', '0', '86', 'content'),
-(57, 61, 'EX52 - Crankshaft position sensor', '0', '87', 'content'),
-(58, 61, 'EX53 - Clinometer', '0', '88', 'content'),
-(59, 61, 'EX50 - Subwoofer', '0', '89', 'content'),
-(60, 61, 'EX51 - Automatic transmission speed sensor', '0', '90', 'content'),
-(61, 61, 'EX51 - Automatic transmission speed sensor', '0', '91', 'content'),
-(62, 61, 'EX51 - Automatic transmission speed sensor', '0', '92', 'content'),
-(63, 58, 'EX51 - Automatic transmission speed sensor', '0', '95', 'content'),
-(64, 0, 'EX50 - Subwoofer', '0', NULL, 'content'),
-(65, 76, 'EX50 - Subwoofer', '0', '1', 'Any of these columns can be independently removed '),
-(66, 76, 'EX50 - Subwoofer', '0', '2', 'These fields are automatically generated underneath each task');
+(2, 113, 'EX50 - Subwoofer', '0', '2', 'Some Information');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mdt_tbl`
+-- Table structure for table `module_team_guest_attendance`
 --
 
-CREATE TABLE `mdt_tbl` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `mdt_tbl`
---
-
-INSERT INTO `mdt_tbl` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Tractor', '2023-11-16 11:37:26', '2023-11-16 11:52:34'),
-(2, 'Truck', '2023-11-16 11:52:46', NULL),
-(5, 'Mechatronics TE Application ', '2024-04-25 17:53:03', '2024-04-29 13:06:14');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `module_team_guest_guest_attendance`
---
-
-CREATE TABLE `module_team_guest_guest_attendance` (
+CREATE TABLE `module_team_guest_attendance` (
   `id` int(11) NOT NULL,
   `agenda_id` int(11) NOT NULL,
   `guest_id` int(11) NOT NULL,
@@ -8404,16 +8287,13 @@ CREATE TABLE `module_team_guest_guest_attendance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `module_team_guest_guest_attendance`
+-- Dumping data for table `module_team_guest_attendance`
 --
 
-INSERT INTO `module_team_guest_guest_attendance` (`id`, `agenda_id`, `guest_id`, `department`, `substitute`, `present`) VALUES
-(1, 76, 3, 'Finance', NULL, 0),
-(2, 76, 4, 'HR', NULL, 0),
-(3, 76, 5, 'Marketing', NULL, 0),
-(4, 76, 6, 'Finance', NULL, 0),
-(5, 76, 8, 'HR', NULL, 0),
-(6, 76, 9, 'Finance', NULL, 0);
+INSERT INTO `module_team_guest_attendance` (`id`, `agenda_id`, `guest_id`, `department`, `substitute`, `present`) VALUES
+(1, 113, 1, NULL, 'Emily Davis', 1),
+(2, 113, 2, NULL, '', 1),
+(3, 113, 3, 'Finance', 'Jane Smith ', 1);
 
 -- --------------------------------------------------------
 
@@ -8459,93 +8339,11 @@ CREATE TABLE `module_team_member_attendance` (
 --
 
 INSERT INTO `module_team_member_attendance` (`id`, `agenda_id`, `member_id`, `department`, `present`, `absent`, `substituted`) VALUES
-(1, 76, 1, 'Engineering', 0, 0, 0),
-(2, 76, 2, 'Marketing', 0, 0, 0),
-(3, 76, 3, 'Finance', 0, 0, 0),
-(4, 76, 4, 'HR', 0, 0, 0),
-(5, 76, 5, 'IT', 0, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mt_agenda`
---
-
-CREATE TABLE `mt_agenda` (
-  `item_id` float NOT NULL,
-  `GFT` varchar(255) DEFAULT NULL,
-  `Topic` varchar(255) DEFAULT NULL,
-  `Status` varchar(255) DEFAULT NULL,
-  `Change_Request` varchar(255) DEFAULT NULL,
-  `Task` varchar(255) DEFAULT NULL,
-  `Comment` varchar(255) DEFAULT NULL,
-  `Milestone` varchar(255) DEFAULT NULL,
-  `Responsible` varchar(255) DEFAULT NULL,
-  `Start` varchar(255) DEFAULT NULL,
-  `New_Row` enum('Yes','No') DEFAULT NULL,
-  `Delete_Row` enum('Yes','No') DEFAULT NULL,
-  `agenda_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `mt_agenda`
---
-
-INSERT INTO `mt_agenda` (`item_id`, `GFT`, `Topic`, `Status`, `Change_Request`, `Task`, `Comment`, `Milestone`, `Responsible`, `Start`, `New_Row`, `Delete_Row`, `agenda_id`) VALUES
-(0, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 0),
-(1.25, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
-(1.4375, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
-(1.5, 'GFT2', 'Topic2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(1.75, '3', '3', '3', '3', '3', '3', '3', '3', '3', 'Yes', 'No', 1),
-(2.5, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
-(3, 'GFT 1', 'Top 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4, 'Change Request 1', 'Top 2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4.125, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 2),
-(4.25, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 2),
-(4.5, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 2),
-(5, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 23),
-(5.5, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 23),
-(6, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 23),
-(7, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 24),
-(7.5, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 24),
-(7.625, '4', '4', '4', '4', '4', '4', '4', '4', '4', 'Yes', 'No', 24),
-(7.75, '3', '3', '3', '3', '3', '3', '3', '3', '3', 'Yes', 'No', 24),
-(8, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 24),
-(9, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 25),
-(10, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 26),
-(11, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 27),
-(12, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 28),
-(13, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 29),
-(14, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 30),
-(15, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 31),
-(16, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 32),
-(17, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 33),
-(18, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 34),
-(19, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 35),
-(20, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 36),
-(21, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 37),
-(22, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 38),
-(23, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 39),
-(24, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 40),
-(25, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 41),
-(26, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 42),
-(27, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 43),
-(28, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 44),
-(29, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 45),
-(30, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 46),
-(31, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 49),
-(32, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 50),
-(33, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 51),
-(34, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 52),
-(35, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 53),
-(36, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 54),
-(37, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 55),
-(38, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 56),
-(39, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 57),
-(40, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 58),
-(41, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 59),
-(42, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 60),
-(43, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 61);
+(1, 113, 1, 'Engineering', 1, 0, 0),
+(2, 113, 2, 'Marketing', 0, 0, 1),
+(3, 113, 3, 'Finance', 0, 1, 0),
+(4, 113, 4, 'HR', 0, 0, 1),
+(5, 113, 5, 'IT', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -8568,431 +8366,7 @@ CREATE TABLE `mt_agenda_list` (
 --
 
 INSERT INTO `mt_agenda_list` (`agenda_id`, `agenda_name`, `created_by`, `created_date`, `last_modified`, `agenda_date`, `module_team`) VALUES
-(76, 'Agenda Test 1', '', '0000-00-00', '0000-00-00', '2024-06-09', 'MT Exterior');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mt_agenda_test`
---
-
-CREATE TABLE `mt_agenda_test` (
-  `item_id` float NOT NULL,
-  `agenda_id` int(11) DEFAULT NULL,
-  `md_team` varchar(255) DEFAULT NULL,
-  `gft` varchar(255) DEFAULT NULL,
-  `Change_Request` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `mt_agenda_test`
---
-
-INSERT INTO `mt_agenda_test` (`item_id`, `agenda_id`, `md_team`, `gft`, `Change_Request`) VALUES
-(0, NULL, 'Entire Vehicle', 'EV02 - Rims', 'I160000101'),
-(0, NULL, 'MT Transmission A', 'TT01 - something', 'I160000201'),
-(0, NULL, 'MT Transmission C', 'TT02 - something', 'I160000301'),
-(0, NULL, 'MT Transmission B', 'TT02 - something', 'I160000401'),
-(0, NULL, 'MT Transmission J', 'TT03 - something', 'I160000501'),
-(0, NULL, 'MT Transmission B', 'TT02 - something', 'I160000601'),
-(0, NULL, 'MT Interior', 'IN62 - Battery Box', 'I160000701'),
-(0, NULL, 'MT Transmission J', 'TT03 - something', 'I160000801'),
-(0, NULL, 'MT Chassis', 'CH20 - Battery', 'I160000901'),
-(0, NULL, 'MT Exterior', 'EX51 - Automatic transmission speed sensor', 'I160001001'),
-(0, NULL, 'MT Transmission I', 'TT05 - something', 'I160001101'),
-(0, NULL, 'MT Axle E', 'TT03 - something', 'I160001201'),
-(0, NULL, 'MT Transmission A', 'TT04 - something', 'I160001301'),
-(0, NULL, 'MT Cab Structure', 'CS11 - Ignition Coil Connector', 'I160001401'),
-(0, NULL, 'MT Axle A', 'TT05 - something', 'I160001501'),
-(0, NULL, 'MT Components', 'CO44 - Hinges and springs', 'I160001601'),
-(0, NULL, 'MT Transmission C', 'TT04 - something', 'I160001701'),
-(0, NULL, 'MT Chassis', 'CH20 - Battery', 'I160001801'),
-(0, NULL, 'MT Transmission C', 'TT04 - something', 'I160001901'),
-(0, NULL, 'MT Transmission H', 'TT03 - something', 'I160002001'),
-(0, NULL, 'MT Axle A', 'TT01 - something', 'I160002101'),
-(0, NULL, 'MT Transmission B', 'TT05 - something', 'I160002201'),
-(0, NULL, 'MT Axle B', 'TT04 - something', 'I160002301'),
-(0, NULL, 'MT Axle G', 'TT05 - something', 'I160002401'),
-(0, NULL, 'MT Architecture', 'AR30 - Oil pressure sensor', 'I160002501'),
-(0, NULL, 'MT Cab Structure', 'CS11 - Ignition Coil Connector', 'I160002601'),
-(0, NULL, 'MT Components', 'CO41 - Battery Cable', 'I160002701'),
-(0, NULL, 'MT Cab Structure', 'CS10 - Oil level sensor', 'I160002801'),
-(0, NULL, 'MT Axle A', 'TT01 - something', 'I160002901'),
-(0, NULL, 'MT Axle B', 'TT03 - something', 'I160003001'),
-(0, NULL, 'MT Axle E', 'TT05 - something', 'I160003101'),
-(0, NULL, 'MT Exterior', 'EX50 - Subwoofer', 'I160003201'),
-(0, NULL, 'Entire Vehicle', 'EV00 - Hubcap', 'I160003301'),
-(0, NULL, 'MT Interior', 'IN62 - Battery Box', 'I160003401'),
-(0, NULL, 'MT Thermomanagement', 'TM80 - Speaker', 'I160003501'),
-(0, NULL, 'MT Axle J', 'TT01 - something', 'I160003601'),
-(0, NULL, 'MT Axle A', 'TT02 - something', 'I160003701'),
-(0, NULL, 'MT Chassis', 'CH21 - Oil pressure gauge', 'I160003801'),
-(0, NULL, 'MT Transmission D', 'TT01 - something', 'I160003901'),
-(0, NULL, 'Entire Vehicle', 'EV00 - Hubcap', 'I160004001'),
-(0, NULL, 'MT Axle J', 'TT02 - something', 'I160004101'),
-(0, NULL, 'MT Transmission H', 'TT04 - something', 'I160004201'),
-(0, NULL, 'MT Thermomanagement', 'TM82 - Ignition box', 'I160004301'),
-(0, NULL, 'MT Axle H', 'TT04 - something', 'I160004401'),
-(0, NULL, 'MT Architecture', 'AR30 - Oil pressure sensor', 'I160004501'),
-(0, NULL, 'MT Test & Te/st', 'TT90 - Dashcam', 'I160004601'),
-(0, NULL, 'MT Thermomanagement', 'TM80 - Speaker', 'I160004701'),
-(0, NULL, 'MT Chassis', 'CH20 - Battery', 'I160004801'),
-(0, NULL, 'MT Mechatronics', 'ME72 - Knock sensor', 'I160004901'),
-(0, NULL, 'MT Axle E', 'TT03 - something', 'I160005001'),
-(0, NULL, 'MT Chassis', 'CH21 - Oil pressure gauge', 'I160005101'),
-(0, NULL, 'MT Transmission G', 'TT05 - something', 'I160005201'),
-(0, NULL, 'MT Axle J', 'TT05 - something', 'I160005301'),
-(0, NULL, 'MT Cab Structure', 'CS13 - Ignition coil parts', 'I160005401'),
-(0, NULL, 'MT Test & Te/st', 'TT93 - Fascia', 'I160005501'),
-(0, NULL, 'MT Test & Te/st', 'TT93 - Fascia', 'I160005601'),
-(0, NULL, 'MT Transmission E', 'TT03 - something', 'I160005701'),
-(0, NULL, 'Entire Vehicle', 'EV00 - Hubcap', 'I160005801'),
-(0, NULL, 'MT Exterior', 'EX50 - Subwoofer', 'I160005901'),
-(0, NULL, 'MT Axle A', 'TT05 - something', 'I160006001'),
-(0, NULL, 'MT Transmission J', 'TT05 - something', 'I160006101'),
-(0, NULL, 'MT Transmission A', 'TT01 - something', 'I160006201'),
-(0, NULL, 'MT Axle J', 'TT04 - something', 'I160006301'),
-(0, NULL, 'Entire Vehicle', 'EV02 - Rims', 'I160006401'),
-(0, NULL, 'MT Transmission F', 'TT02 - something', 'I160006501'),
-(0, NULL, 'MT Transmission G', 'TT03 - something', 'I160006601'),
-(0, NULL, 'MT Transmission B', 'TT03 - something', 'I160006701'),
-(0, NULL, 'MT Axle H', 'TT05 - something', 'I160006801'),
-(0, NULL, 'MT Thermomanagement', 'TM80 - Speaker', 'I160006901'),
-(0, NULL, 'Entire Vehicle', 'EV02 - Rims', 'I160007001'),
-(0, NULL, 'MT Chassis', 'CH20 - Battery', 'I160007101'),
-(0, NULL, 'MT Axle E', 'TT02 - something', 'I160007201'),
-(0, NULL, 'MT Mechatronics', 'ME70 - Battery tray', 'I160007301'),
-(0, NULL, 'MT Transmission B', 'TT04 - something', 'I160007401'),
-(0, NULL, 'MT Axle G', 'TT02 - something', 'I160007501'),
-(0, NULL, 'MT Test & Te/st', 'TT94 - Distilled Water', 'I160007601'),
-(0, NULL, 'MT Transmission B', 'TT04 - something', 'I160007701'),
-(0, NULL, 'MT Axle B', 'TT01 - something', 'I160007801'),
-(0, NULL, 'MT Transmission E', 'TT02 - something', 'I160007901'),
-(0, NULL, 'MT Interior', 'IN61 - Quarter panel', 'I160008001'),
-(0, NULL, 'MT Exterior', 'EX53 - Clinometer', 'I160008101'),
-(0, NULL, 'MT Transmission F', 'TT04 - something', 'I160008201'),
-(0, NULL, 'MT Test & Te/st', 'TT90 - Dashcam', 'I160008301'),
-(0, NULL, 'MT Transmission G', 'TT03 - something', 'I160008401'),
-(0, NULL, 'MT Thermomanagement', 'TM81 - Welded assembly', 'I160008501'),
-(0, NULL, 'MT Cab Structure', 'CS14 - Ignition magneto', 'I160008601'),
-(0, NULL, 'Entire Vehicle', 'EV02 - Rims', 'I160008701'),
-(0, NULL, 'MT Thermomanagement', 'TM82 - Ignition box', 'I160008801'),
-(0, NULL, 'MT Chassis', 'CH21 - Oil pressure gauge', 'I160008901'),
-(0, NULL, 'MT Transmission F', 'TT01 - something', 'I160009001'),
-(0, NULL, 'MT Axle C', 'TT01 - something', 'I160009101'),
-(0, NULL, 'MT Axle E', 'TT03 - something', 'I160009201'),
-(0, NULL, 'MT Axle H', 'TT02 - something', 'I160009301'),
-(0, NULL, 'MT Transmission D', 'TT04 - something', 'I160009401'),
-(0, NULL, 'MT Axle C', 'TT01 - something', 'I160009501'),
-(0, NULL, 'Entire Vehicle', 'EV01 - Exposed bumper', 'I160009601'),
-(0, NULL, 'MT Transmission D', 'TT01 - something', 'I160009701'),
-(0, NULL, 'MT Thermomanagement', 'TM82 - Ignition box', 'I160009801'),
-(0, NULL, 'MT Axle G', 'TT03 - something', 'I160009901'),
-(0, NULL, 'MT Components', 'CO41 - Battery Cable', 'I160010001'),
-(0, NULL, 'MT Axle B', 'TT02 - something', 'I160010101'),
-(0, NULL, 'MT Axle F', 'TT05 - something', 'I160010201'),
-(0, NULL, 'MT Exterior', 'EX52 - Crankshaft position sensor', 'I160010301'),
-(0, NULL, 'MT Cab Structure', 'CS14 - Ignition magneto', 'I160010401'),
-(0, NULL, 'MT Axle E', 'TT04 - something', 'I160010501'),
-(0, NULL, 'MT Transmission F', 'TT02 - something', 'I160010601'),
-(0, NULL, 'MT Architecture', 'AR30 - Oil pressure sensor', 'I160010701'),
-(0, NULL, 'MT Axle C', 'TT03 - something', 'I160010801'),
-(0, NULL, 'MT Architecture', 'AR31 - Battery Cable terminal', 'I160010901'),
-(0, NULL, 'MT Transmission D', 'TT05 - something', 'I160011001'),
-(0, NULL, 'MT Transmission H', 'TT03 - something', 'I160011101'),
-(0, NULL, 'MT Thermomanagement', 'TM82 - Ignition box', 'I160011201'),
-(0, NULL, 'MT Transmission C', 'TT05 - something', 'I160011301'),
-(0, NULL, 'MT Axle H', 'TT05 - something', 'I160011401'),
-(0, NULL, 'MT Transmission I', 'TT01 - something', 'I160011501'),
-(0, NULL, 'MT Transmission C', 'TT04 - something', 'I160011601'),
-(0, NULL, 'MT Transmission J', 'TT01 - something', 'I160011701'),
-(0, NULL, 'MT Transmission D', 'TT05 - something', 'I160011801'),
-(0, NULL, 'MT Cab Structure', 'CS13 - Ignition coil parts', 'I160011901'),
-(0, NULL, 'MT Cab Structure', 'CS11 - Ignition Coil Connector', 'I160012001'),
-(0, NULL, 'MT Transmission B', 'TT04 - something', 'I160012101'),
-(0, NULL, 'MT Axle J', 'TT04 - something', 'I160012201'),
-(0, NULL, 'MT Transmission D', 'TT03 - something', 'I160012301'),
-(0, NULL, 'MT Architecture', 'AR31 - Battery Cable terminal', 'I160012401'),
-(0, NULL, 'MT Axle G', 'TT03 - something', 'I160012501'),
-(0, NULL, 'MT Components', 'CO42 - Performance Battery', 'I160012601'),
-(0, NULL, 'Entire Vehicle', 'EV02 - Rims', 'I160012701'),
-(0, NULL, 'MT Axle A', 'TT04 - something', 'I160012801'),
-(0, NULL, 'MT Cab Structure', 'CS11 - Ignition Coil Connector', 'I160012901'),
-(0, NULL, 'MT Transmission H', 'TT02 - something', 'I160013001'),
-(0, NULL, 'MT Components', 'CO42 - Performance Battery', 'I160013101'),
-(0, NULL, 'MT Axle A', 'TT02 - something', 'I160013201'),
-(0, NULL, 'MT Transmission H', 'TT01 - something', 'I160013301'),
-(0, NULL, 'MT Transmission A', 'TT03 - something', 'I160013401'),
-(0, NULL, 'MT Chassis', 'CH22 - Distributor', 'I160013501'),
-(0, NULL, 'MT Transmission J', 'TT01 - something', 'I160013601'),
-(0, NULL, 'MT Transmission A', 'TT04 - something', 'I160013701'),
-(0, NULL, 'MT Axle A', 'TT01 - something', 'I160013801'),
-(0, NULL, 'MT Cab Structure', 'CS12 - Tachometer', 'I160013901'),
-(0, NULL, 'MT Transmission E', 'TT02 - something', 'I160014001'),
-(0, NULL, 'MT Cab Structure', 'CS14 - Ignition magneto', 'I160014101'),
-(0, NULL, 'MT Test & Te/st', 'TT92 - Radiator core support', 'I160014201'),
-(0, NULL, 'MT Interior', 'IN61 - Quarter panel', 'I160014301'),
-(0, NULL, 'MT Axle C', 'TT04 - something', 'I160014401'),
-(0, NULL, 'MT Interior', 'IN61 - Quarter panel', 'I160014501'),
-(0, NULL, 'MT Transmission B', 'TT03 - something', 'I160014601'),
-(0, NULL, 'MT Chassis', 'CH20 - Battery', 'I160014701'),
-(0, NULL, 'MT Axle A', 'TT04 - something', 'I160014801'),
-(0, NULL, 'MT Transmission J', 'TT04 - something', 'I160014901'),
-(0, NULL, 'MT Test & Te/st', 'TT94 - Distilled Water', 'I160015001'),
-(0, NULL, 'MT Transmission D', 'TT05 - something', 'I160015101'),
-(0, NULL, 'Entire Vehicle', 'EV00 - Hubcap', 'I160015201'),
-(0, NULL, 'MT Transmission A', 'TT02 - something', 'I160015301'),
-(0, NULL, 'MT Transmission F', 'TT01 - something', 'I160015401'),
-(0, NULL, 'MT Transmission E', 'TT02 - something', 'I160015501'),
-(0, NULL, 'MT Transmission A', 'TT03 - something', 'I160015601'),
-(0, NULL, 'MT Transmission J', 'TT01 - something', 'I160015701'),
-(0, NULL, 'MT Axle E', 'TT02 - something', 'I160015801'),
-(0, NULL, 'MT Cab Structure', 'CS14 - Ignition magneto', 'I160015901'),
-(0, NULL, 'MT Mechatronics', 'ME71 - Alternator', 'I160016001'),
-(0, NULL, 'MT Axle B', 'TT04 - something', 'I160016101'),
-(0, NULL, 'MT Interior', 'IN63 - Sulphuric Acid', 'I160016201'),
-(0, NULL, 'MT Transmission G', 'TT01 - something', 'I160016301'),
-(0, NULL, 'MT Components', 'CO43 - Odometer', 'I160016401'),
-(0, NULL, 'MT Components', 'CO43 - Odometer', 'I160016501'),
-(0, NULL, 'MT Architecture', 'AR31 - Battery Cable terminal', 'I160016601'),
-(0, NULL, 'MT Chassis', 'CH20 - Battery', 'I160016701'),
-(0, NULL, 'MT Axle C', 'TT04 - something', 'I160016801'),
-(0, NULL, 'MT Mechatronics', 'ME70 - Battery tray', 'I160016901'),
-(0, NULL, 'MT Cab Structure', 'CS10 - Oil level sensor', 'I160017001'),
-(0, NULL, 'MT Thermomanagement', 'TM80 - Speaker', 'I160017101'),
-(0, NULL, 'MT Mechatronics', 'ME72 - Knock sensor', 'I160017201'),
-(0, NULL, 'MT Mechatronics', 'ME72 - Knock sensor', 'I160017301'),
-(0, NULL, 'MT Thermomanagement', 'TM82 - Ignition box', 'I160017401'),
-(0, NULL, 'MT Axle C', 'TT03 - something', 'I160017501'),
-(0, NULL, 'MT Interior', 'IN63 - Sulphuric Acid', 'I160017601'),
-(0, NULL, 'Entire Vehicle', 'EV01 - Exposed bumper', 'I160017701'),
-(0, NULL, 'MT Thermomanagement', 'TM81 - Welded assembly', 'I160017801'),
-(0, NULL, 'MT Axle D', 'TT01 - something', 'I160017901'),
-(0, NULL, 'MT Architecture', 'AR31 - Battery Cable terminal', 'I160018001'),
-(0, NULL, 'MT Exterior', 'EX51 - Automatic transmission speed sensor', 'I160018101'),
-(0, NULL, 'Entire Vehicle', 'EV01 - Exposed bumper', 'I160018201'),
-(0, NULL, 'MT Mechatronics', 'ME71 - Alternator', 'I160018301'),
-(0, NULL, 'MT Architecture', 'AR31 - Battery Cable terminal', 'I160018401'),
-(0, NULL, 'MT Axle D', 'TT04 - something', 'I160018501'),
-(0, NULL, 'MT Axle B', 'TT04 - something', 'I160018601'),
-(0, NULL, 'MT Transmission E', 'TT01 - something', 'I160018701'),
-(0, NULL, 'MT Axle E', 'TT03 - something', 'I160018801'),
-(0, NULL, 'MT Interior', 'IN63 - Sulphuric Acid', 'I160018901'),
-(0, NULL, 'MT Components', 'CO41 - Battery Cable', 'I160019001'),
-(0, NULL, 'MT Thermomanagement', 'TM83 - Mass airflow sensor', 'I160019101'),
-(0, NULL, 'MT Test & Te/st', 'TT92 - Radiator core support', 'I160019201'),
-(0, NULL, 'MT Axle B', 'TT04 - something', 'I160019301'),
-(0, NULL, 'MT Axle B', 'TT03 - something', 'I160019401'),
-(0, NULL, 'MT Exterior', 'EX50 - Subwoofer', 'I160019501'),
-(0, NULL, 'MT Axle E', 'TT04 - something', 'I160019601'),
-(0, NULL, 'MT Axle I', 'TT03 - something', 'I160019701'),
-(0, NULL, 'MT Axle B', 'TT04 - something', 'I160019801'),
-(0, NULL, 'MT Axle H', 'TT05 - something', 'I160019901'),
-(0, NULL, 'Entire Vehicle', 'EV00 - Hubcap', 'I160020001'),
-(0, NULL, 'MT Transmission I', 'TT03 - something', 'I160020101'),
-(0, NULL, 'MT Axle J', 'TT03 - something', 'I160020201'),
-(0, NULL, 'MT Transmission C', 'TT01 - something', 'I160020301'),
-(0, NULL, 'MT Axle F', 'TT04 - something', 'I160020401'),
-(0, NULL, 'MT Transmission A', 'TT04 - something', 'I160020501'),
-(0, NULL, 'MT Exterior', 'EX53 - Clinometer', 'I160020601'),
-(0, NULL, 'MT Interior', 'IN61 - Quarter panel', 'I160020701'),
-(0, NULL, 'MT Axle E', 'TT02 - something', 'I160020801'),
-(0, NULL, 'MT Transmission C', 'TT05 - something', 'I160020901'),
-(0, NULL, 'MT Exterior', 'EX52 - Crankshaft position sensor', 'I160021001'),
-(0, NULL, 'MT Cab Structure', 'CS10 - Oil level sensor', 'I160021101'),
-(0, NULL, 'MT Transmission G', 'TT02 - something', 'I160021201'),
-(0, NULL, 'MT Mechatronics', 'ME72 - Knock sensor', 'I160021301'),
-(0, NULL, 'MT Architecture', 'AR30 - Oil pressure sensor', 'I160021401'),
-(0, NULL, 'Entire Vehicle', 'EV01 - Exposed bumper', 'I160021501'),
-(0, NULL, 'MT Transmission B', 'TT04 - something', 'I160021601'),
-(0, NULL, 'MT Test & Te/st', 'TT93 - Fascia', 'I160021701'),
-(0, NULL, 'MT Transmission H', 'TT01 - something', 'I160021801'),
-(0, NULL, 'MT Axle C', 'TT01 - something', 'I160021901'),
-(0, NULL, 'MT Axle I', 'TT05 - something', 'I160022001'),
-(0, NULL, 'MT Transmission I', 'TT05 - something', 'I160022101'),
-(0, NULL, 'MT Axle J', 'TT03 - something', 'I160022201'),
-(0, NULL, 'Entire Vehicle', 'EV02 - Rims', 'I160022301'),
-(0, NULL, 'MT Transmission H', 'TT01 - something', 'I160022401'),
-(0, NULL, 'MT Exterior', 'EX53 - Clinometer', 'I160022501'),
-(0, NULL, 'MT Transmission D', 'TT01 - something', 'I160022601'),
-(0, NULL, 'MT Mechatronics', 'ME71 - Alternator', 'I160022701'),
-(0, NULL, 'MT Axle G', 'TT01 - something', 'I160022801'),
-(0, NULL, 'MT Cab Structure', 'CS11 - Ignition Coil Connector', 'I160022901'),
-(0, NULL, 'MT Axle B', 'TT04 - something', 'I160023001'),
-(0, NULL, 'MT Chassis', 'CH22 - Distributor', 'I160023101'),
-(0, NULL, 'MT Axle A', 'TT02 - something', 'I160023201'),
-(0, NULL, 'MT Transmission J', 'TT03 - something', 'I160023301'),
-(0, NULL, 'MT Axle B', 'TT01 - something', 'I160023401'),
-(0, NULL, 'MT Transmission G', 'TT01 - something', 'I160023501'),
-(0, NULL, 'MT Transmission B', 'TT05 - something', 'I160023601'),
-(0, NULL, 'MT Cab Structure', 'CS11 - Ignition Coil Connector', 'I160023701'),
-(0, NULL, 'MT Transmission G', 'TT05 - something', 'I160023801'),
-(0, NULL, 'MT Transmission A', 'TT03 - something', 'I160023901'),
-(0, NULL, 'MT Test & Te/st', 'TT90 - Dashcam', 'I160024001'),
-(0, NULL, 'MT Mechatronics', 'ME70 - Battery tray', 'I160024101'),
-(0, NULL, 'MT Components', 'CO44 - Hinges and springs', 'I160024201'),
-(0, NULL, 'MT Architecture', 'AR30 - Oil pressure sensor', 'I160024301'),
-(0, NULL, 'MT Thermomanagement', 'TM80 - Speaker', 'I160024401'),
-(0, NULL, 'MT Architecture', 'AR30 - Oil pressure sensor', 'I160024501'),
-(0, NULL, 'Entire Vehicle', 'EV01 - Exposed bumper', 'I160024601'),
-(0, NULL, 'MT Thermomanagement', 'TM80 - Speaker', 'I160024701'),
-(0, NULL, 'MT Components', 'CO43 - Odometer', 'I160024801'),
-(0, NULL, 'MT Exterior', 'EX51 - Automatic transmission speed sensor', 'I160024901'),
-(0, NULL, 'MT Transmission H', 'TT01 - something', 'I160025001'),
-(0, NULL, 'MT Axle B', 'TT02 - something', 'I160025101'),
-(0, NULL, 'MT Transmission D', 'TT03 - something', 'I160025201'),
-(0, NULL, 'MT Transmission I', 'TT02 - something', 'I160025301'),
-(0, NULL, 'MT Axle E', 'TT05 - something', 'I160025401'),
-(0, NULL, 'MT Transmission E', 'TT05 - something', 'I160025501'),
-(0, NULL, 'MT Components', 'CO40 - Ammeter', 'I160025601'),
-(0, NULL, 'MT Transmission E', 'TT02 - something', 'I160025701'),
-(0, NULL, 'MT Axle G', 'TT03 - something', 'I160025801'),
-(0, NULL, 'MT Components', 'CO44 - Hinges and springs', 'I160025901'),
-(0, NULL, 'MT Transmission C', 'TT03 - something', 'I160026001'),
-(0, NULL, 'MT Transmission B', 'TT01 - something', 'I160026101'),
-(0, NULL, 'MT Axle D', 'TT02 - something', 'I160026201'),
-(0, NULL, 'MT Test & Te/st', 'TT91 - Rocker', 'I160026301'),
-(0, NULL, 'MT Axle A', 'TT02 - something', 'I160026401'),
-(0, NULL, 'MT Transmission H', 'TT04 - something', 'I160026501'),
-(0, NULL, 'MT Cab Structure', 'CS11 - Ignition Coil Connector', 'I160026601'),
-(0, NULL, 'MT Transmission I', 'TT01 - something', 'I160026701'),
-(0, NULL, 'MT Axle J', 'TT04 - something', 'I160026801'),
-(0, NULL, 'MT Chassis', 'CH21 - Oil pressure gauge', 'I160026901'),
-(0, NULL, 'MT Chassis', 'CH22 - Distributor', 'I160027001'),
-(0, NULL, 'MT Cab Structure', 'CS11 - Ignition Coil Connector', 'I160027101'),
-(0, NULL, 'MT Axle G', 'TT04 - something', 'I160027201'),
-(0, NULL, 'MT Axle F', 'TT02 - something', 'I160027301'),
-(0, NULL, 'MT Interior', 'IN63 - Sulphuric Acid', 'I160027401'),
-(0, NULL, 'MT Thermomanagement', 'TM80 - Speaker', 'I160027501'),
-(0, NULL, 'MT Axle E', 'TT04 - something', 'I160027601'),
-(0, NULL, 'MT Thermomanagement', 'TM81 - Welded assembly', 'I160027701'),
-(0, NULL, 'MT Components', 'CO44 - Hinges and springs', 'I160027801'),
-(0, NULL, 'Entire Vehicle', 'EV00 - Hubcap', 'I160027901'),
-(0, NULL, 'MT Test & Te/st', 'TT94 - Distilled Water', 'I160028001'),
-(0, NULL, 'MT Axle D', 'TT02 - something', 'I160028101'),
-(0, NULL, 'MT Cab Structure', 'CS14 - Ignition magneto', 'I160028201'),
-(0, NULL, 'MT Test & Te/st', 'TT94 - Distilled Water', 'I160028301'),
-(0, NULL, 'MT Axle F', 'TT04 - something', 'I160028401'),
-(0, NULL, 'MT Interior', 'IN60 - Camshaft position sensor', 'I160028501'),
-(0, NULL, 'Entire Vehicle', 'EV00 - Hubcap', 'I160028601'),
-(0, NULL, 'MT Axle H', 'TT01 - something', 'I160028701'),
-(0, NULL, 'MT Transmission B', 'TT01 - something', 'I160028801'),
-(0, NULL, 'MT Components', 'CO42 - Performance Battery', 'I160028901'),
-(0, NULL, 'MT Thermomanagement', 'TM82 - Ignition box', 'I160029001'),
-(0, NULL, 'MT Transmission C', 'TT05 - something', 'I160029101'),
-(0, NULL, 'MT Axle A', 'TT01 - something', 'I160029201'),
-(0, NULL, 'MT Transmission C', 'TT03 - something', 'I160029301'),
-(0, NULL, 'MT Architecture', 'AR31 - Battery Cable terminal', 'I160029401'),
-(0, NULL, 'Entire Vehicle', 'EV01 - Exposed bumper', 'I160029501'),
-(0, NULL, 'MT Architecture', 'AR31 - Battery Cable terminal', 'I160029601'),
-(0, NULL, 'MT Transmission I', 'TT03 - something', 'I160029701'),
-(0, NULL, 'MT Axle J', 'TT01 - something', 'I160029801'),
-(0, NULL, 'MT Axle J', 'TT01 - something', 'I160029901'),
-(0, NULL, 'MT Components', 'CO42 - Performance Battery', 'I160030001'),
-(0, NULL, 'MT Thermomanagement', 'TM80 - Speaker', 'I160030101'),
-(0, NULL, 'MT Axle C', 'TT04 - something', 'I160030201'),
-(0, NULL, 'MT Axle D', 'TT01 - something', 'I160030301'),
-(0, NULL, 'MT Transmission F', 'TT01 - something', 'I160030401'),
-(0, NULL, 'MT Axle C', 'TT02 - something', 'I160030501'),
-(0, NULL, 'MT Transmission D', 'TT02 - something', 'I160030601'),
-(0, NULL, 'MT Transmission H', 'TT03 - something', 'I160030701'),
-(0, NULL, 'MT Axle D', 'TT02 - something', 'I160030801'),
-(0, NULL, 'MT Transmission A', 'TT01 - something', 'I160030901'),
-(0, NULL, 'MT Transmission I', 'TT03 - something', 'I160031001'),
-(0, NULL, 'Entire Vehicle', 'EV01 - Exposed bumper', 'I160031101'),
-(0, NULL, 'MT Mechatronics', 'ME70 - Battery tray', 'I160031201'),
-(0, NULL, 'MT Transmission E', 'TT05 - something', 'I160031301'),
-(0, NULL, 'MT Transmission E', 'TT01 - something', 'I160031401'),
-(0, NULL, 'MT Mechatronics', 'ME72 - Knock sensor', 'I160031501'),
-(0, NULL, 'MT Chassis', 'CH22 - Distributor', 'I160031601'),
-(0, NULL, 'MT Components', 'CO40 - Ammeter', 'I160031701'),
-(0, NULL, 'MT Axle C', 'TT04 - something', 'I160031801'),
-(0, NULL, 'MT Transmission J', 'TT03 - something', 'I160031901'),
-(0, NULL, 'MT Axle H', 'TT01 - something', 'I160032001'),
-(0, NULL, 'MT Axle A', 'TT01 - something', 'I160032101'),
-(0, NULL, 'MT Axle J', 'TT02 - something', 'I160032201'),
-(0, NULL, 'MT Axle J', 'TT01 - something', 'I160032301'),
-(0, NULL, 'MT Exterior', 'EX51 - Automatic transmission speed sensor', 'I160032401'),
-(0, NULL, 'MT Architecture', 'AR30 - Oil pressure sensor', 'I160032501'),
-(0, NULL, 'MT Axle H', 'TT04 - something', 'I160032601'),
-(0, NULL, 'MT Exterior', 'EX52 - Crankshaft position sensor', 'I160032701'),
-(0, NULL, 'MT Components', 'CO42 - Performance Battery', 'I160032801'),
-(0, NULL, 'MT Axle E', 'TT02 - something', 'I160032901'),
-(0, NULL, 'MT Transmission F', 'TT02 - something', 'I160033001'),
-(0, NULL, 'MT Axle J', 'TT05 - something', 'I160033101'),
-(0, NULL, 'MT Test & Te/st', 'TT92 - Radiator core support', 'I160033201'),
-(0, NULL, 'MT Axle J', 'TT01 - something', 'I160033301');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mt_agenda_test_2`
---
-
-CREATE TABLE `mt_agenda_test_2` (
-  `item_id` float NOT NULL,
-  `md_team` varchar(255) DEFAULT NULL,
-  `GFT` varchar(255) DEFAULT NULL,
-  `Change_Request` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `mt_agenda_test_2`
---
-
-INSERT INTO `mt_agenda_test_2` (`item_id`, `md_team`, `GFT`, `Change_Request`) VALUES
-(1, 'Module Team A', 'GFT_A1', 'CR_A1'),
-(2, 'Module Team A', 'GFT_A1', 'CR_A2'),
-(3, 'Module Team A', 'GFT_A1', 'CR_A3'),
-(4, 'Module Team A', 'GFT_A1', 'CR_A4'),
-(5, 'Module Team A', 'GFT_A2', 'CR_A5'),
-(6, 'Module Team A', 'GFT_A2', 'CR_A6'),
-(7, 'Module Team A', 'GFT_A2', 'CR_A7'),
-(8, 'Module Team A', 'GFT_A2', 'CR_A8'),
-(9, 'Module Team A', 'GFT_A3', 'CR_A9'),
-(10, 'Module Team A', 'GFT_A3', 'CR_A10'),
-(11, 'Module Team A', 'GFT_A3', 'CR_A11'),
-(12, 'Module Team A', 'GFT_A3', 'CR_A12'),
-(13, 'Module Team A', 'GFT_A4', 'CR_A13'),
-(14, 'Module Team A', 'GFT_A4', 'CR_A14'),
-(15, 'Module Team A', 'GFT_A4', 'CR_A15'),
-(16, 'Module Team A', 'GFT_A4', 'CR_A16'),
-(17, 'Module Team B', 'GFT_B1', 'CR_B1'),
-(18, 'Module Team B', 'GFT_B1', 'CR_B2'),
-(19, 'Module Team B', 'GFT_B1', 'CR_B3'),
-(20, 'Module Team B', 'GFT_B1', 'CR_B4'),
-(21, 'Module Team B', 'GFT_B2', 'CR_B5'),
-(22, 'Module Team B', 'GFT_B2', 'CR_B6'),
-(23, 'Module Team B', 'GFT_B2', 'CR_B7'),
-(24, 'Module Team B', 'GFT_B2', 'CR_B8'),
-(25, 'Module Team B', 'GFT_B3', 'CR_B9'),
-(26, 'Module Team B', 'GFT_B3', 'CR_B10'),
-(27, 'Module Team B', 'GFT_B3', 'CR_B11'),
-(28, 'Module Team B', 'GFT_B3', 'CR_B12'),
-(29, 'Module Team B', 'GFT_B4', 'CR_B13'),
-(30, 'Module Team B', 'GFT_B4', 'CR_B14'),
-(31, 'Module Team B', 'GFT_B4', 'CR_B15'),
-(32, 'Module Team B', 'GFT_B4', 'CR_B16');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `org_boards`
---
-
-CREATE TABLE `org_boards` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `product_type` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `org_boards`
---
-
-INSERT INTO `org_boards` (`id`, `name`, `product_type`) VALUES
-(1, 'Product Team', 'Vehicle'),
-(2, 'Change Management', 'Vehicle');
+(113, '2024-06-24', '', '0000-00-00', '0000-00-00', '2024-06-24', 'MT Exterior');
 
 -- --------------------------------------------------------
 
@@ -9054,243 +8428,6 @@ INSERT INTO `org_gfts` (`id`, `name`, `moduleteam`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `org_line_functions`
---
-
-CREATE TABLE `org_line_functions` (
-  `id` int(11) NOT NULL,
-  `function` varchar(100) NOT NULL,
-  `ordering` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `org_line_functions`
---
-
-INSERT INTO `org_line_functions` (`id`, `function`, `ordering`) VALUES
-(1, 'Product Management', 1),
-(2, 'Product Engineering', 2),
-(3, 'Network Management', 3),
-(4, 'Supplier Management', 4),
-(5, 'Manufacturing Engineering', 5),
-(6, 'Cost Engineering', 6),
-(7, 'Procurement', 7),
-(8, 'Controlling', 8),
-(9, 'Quality Management', 9),
-(10, 'Sales & Marketing', 10),
-(11, 'After Sales', 11);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `org_members_vehicle`
---
-
-CREATE TABLE `org_members_vehicle` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `team` varchar(100) NOT NULL,
-  `line_function` varchar(100) NOT NULL,
-  `gft` varchar(100) NOT NULL,
-  `is_nominated_substitute` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `org_members_vehicle`
---
-
-INSERT INTO `org_members_vehicle` (`id`, `name`, `team`, `line_function`, `gft`, `is_nominated_substitute`) VALUES
-(1, 'Brynlee Wilkins', 'Product Team', 'Product Management', '', 0),
-(2, 'Van Charles', 'Product Team', 'Product Management', '', 1),
-(3, 'Ermias Paul', 'Product Team', 'Product Engineering', '', 0),
-(4, 'Kingsley Harper', 'Product Team', 'Product Engineering', '', 1),
-(5, 'Juliana Marquez', 'Product Team', 'Network Management', '', 0),
-(6, 'Ensley Liu', 'Product Team', 'Network Management', '', 1),
-(7, 'Celia Vaughn', 'Product Team', 'Supplier Management', '', 0),
-(8, 'Madilyn Kerr', 'Product Team', 'Supplier Management', '', 1),
-(9, 'Zyair Burke', 'Product Team', 'Manufacturing Engineering', '', 0),
-(10, 'Shepherd Perry', 'Product Team', 'Manufacturing Engineering', '', 1),
-(11, 'Caden Bryant', 'Product Team', 'Cost Engineering', '', 0),
-(12, 'Ryann Phillips', 'Product Team', 'Procurement', '', 0),
-(13, 'Ashton Acevedo', 'Product Team', 'Procurement', '', 1),
-(14, 'Hadleigh Levy', 'Product Team', 'Controlling', '', 0),
-(15, 'Alessandra McCullough', 'Product Team', 'Controlling', '', 1),
-(16, 'Mateo Newman', 'Product Team', 'Quality Management', '', 0),
-(17, 'Viviana Campbell', 'Product Team', 'Quality Management', '', 1),
-(18, 'Asa Norman', 'Product Team', 'Sales & Marketing', '', 0),
-(19, 'Angela Hurley', 'Product Team', 'Sales & Marketing', '', 1),
-(20, 'Kareem Barrera', 'Product Team', 'After Sales', '', 0),
-(21, 'Desmond Ahmed', 'Product Team', 'After Sales', '', 1),
-(22, 'Nadia Velazquez', 'Change Management', 'Product Management', '', 0),
-(23, 'Huxley Clayton', 'Change Management', 'Product Management', '', 1),
-(24, 'Ayden Pittman', 'Change Management', 'Product Engineering', '', 1),
-(25, 'Brooklyn Ray', 'Change Management', 'Network Management', '', 0),
-(26, 'Aurelia Griffin', 'Change Management', 'Network Management', '', 1),
-(27, 'Remy Ellis', 'Change Management', 'Supplier Management', '', 0),
-(28, 'Florence Small', 'Change Management', 'Supplier Management', '', 1),
-(29, 'Alonzo Hutchinson', 'Change Management', 'Manufacturing Engineering', '', 0),
-(30, 'Armando Ho', 'Change Management', 'Manufacturing Engineering', '', 1),
-(31, 'Selah Juarez', 'Change Management', 'Cost Engineering', '', 0),
-(32, 'Helena Marsh', 'Change Management', 'Cost Engineering', '', 1),
-(33, 'April Larsen', 'Change Management', 'Procurement', '', 0),
-(34, 'Martha Patterson', 'Change Management', 'Procurement', '', 1),
-(35, 'Destiny Trujillo', 'Change Management', 'Controlling', '', 0),
-(36, 'Diego Kim', 'Change Management', 'Controlling', '', 1),
-(37, 'Nadia Richard', 'Change Management', 'Quality Management', '', 0),
-(38, 'Alexis Burnett', 'Change Management', 'Quality Management', '', 1),
-(39, 'Davion Donaldson', 'Change Management', 'Sales & Marketing', '', 0),
-(40, 'Ryann Ellis', 'Change Management', 'Sales & Marketing', '', 1),
-(41, 'Cayson Wyatt', 'Change Management', 'After Sales', '', 0),
-(42, 'Kyrie Atkins', 'Change Management', 'After Sales', '', 1),
-(43, 'Matias Morrison', 'Entire Vehicle', 'Product Management', '', 0),
-(44, 'Tomas Camacho', 'Entire Vehicle', 'Product Engineering', '', 0),
-(45, 'Destiny Hogan', 'Entire Vehicle', 'Supplier Management', '', 0),
-(46, 'Khalid Singleton', 'Entire Vehicle', 'Cost Engineering', '', 0),
-(47, 'Crosby Hayden', 'Entire Vehicle', 'Procurement', '', 0),
-(48, 'Milana Callahan', 'Entire Vehicle', 'Controlling', '', 0),
-(49, 'Archie Cook', 'Entire Vehicle', 'Sales & Marketing', '', 0),
-(50, 'Wren Morales', 'Entire Vehicle', 'After Sales', '', 0),
-(51, 'Amani Peterson', 'Entire Vehicle', 'Product Engineering', 'EV00 - Hubcap', 0),
-(52, 'Jaylah Savage', 'Entire Vehicle', 'Network Management', 'EV00 - Hubcap', 0),
-(53, 'Kyro Miller', 'Entire Vehicle', 'Supplier Management', 'EV00 - Hubcap', 0),
-(54, 'Adele Conway', 'Entire Vehicle', 'Manufacturing Engineering', 'EV00 - Hubcap', 0),
-(55, 'Rocky Ortega', 'Entire Vehicle', 'Cost Engineering', 'EV00 - Hubcap', 0),
-(56, 'Myla Nelson', 'Entire Vehicle', 'Procurement', 'EV00 - Hubcap', 0),
-(57, 'Lucca Kramer', 'Entire Vehicle', 'Controlling', 'EV00 - Hubcap', 0),
-(58, 'Maria Ramsey', 'Entire Vehicle', 'Quality Management', 'EV00 - Hubcap', 0),
-(59, 'Eddie Small', 'Entire Vehicle', 'Sales & Marketing', 'EV00 - Hubcap', 0),
-(60, 'Monica Perkins', 'Entire Vehicle', 'After Sales', 'EV00 - Hubcap', 0),
-(61, 'Scarlett Figueroa', 'Entire Vehicle', 'Product Management', 'EV01 - Exposed bumper', 0),
-(62, 'Anahi Orozco', 'Entire Vehicle', 'Network Management', 'EV01 - Exposed bumper', 0),
-(63, 'Nadia Hogan', 'Entire Vehicle', 'Supplier Management', 'EV01 - Exposed bumper', 0),
-(64, 'Joey Pacheco', 'Entire Vehicle', 'Manufacturing Engineering', 'EV01 - Exposed bumper', 0),
-(65, 'Apollo Bruce', 'Entire Vehicle', 'Procurement', 'EV01 - Exposed bumper', 0),
-(66, 'Murphy Mason', 'Entire Vehicle', 'Controlling', 'EV01 - Exposed bumper', 0),
-(67, 'Joyce Scott', 'Entire Vehicle', 'Quality Management', 'EV01 - Exposed bumper', 0),
-(68, 'Grayson Glover', 'Entire Vehicle', 'Sales & Marketing', 'EV01 - Exposed bumper', 0),
-(69, 'Nina Newman', 'Entire Vehicle', 'After Sales', 'EV01 - Exposed bumper', 0),
-(70, 'Nathanael George', 'Entire Vehicle', 'Product Management', 'EV02 - Rims', 0),
-(71, 'Easton Barton', 'Entire Vehicle', 'Product Engineering', 'EV02 - Rims', 0),
-(72, 'Emely Contreras', 'Entire Vehicle', 'Network Management', 'EV02 - Rims', 0),
-(73, 'Giuliana Fisher', 'Entire Vehicle', 'Supplier Management', 'EV02 - Rims', 0),
-(74, 'Kaylee Leblanc', 'Entire Vehicle', 'Manufacturing Engineering', 'EV02 - Rims', 0),
-(75, 'Sloane Kerr', 'Entire Vehicle', 'Cost Engineering', 'EV02 - Rims', 0),
-(76, 'Conner Page', 'Entire Vehicle', 'Procurement', 'EV02 - Rims', 0),
-(77, 'Patrick Conway', 'Entire Vehicle', 'Controlling', 'EV02 - Rims', 0),
-(78, 'Tinsley Francis', 'Entire Vehicle', 'Quality Management', 'EV02 - Rims', 0),
-(79, 'Kaia Barrera', 'Entire Vehicle', 'Sales & Marketing', 'EV02 - Rims', 0),
-(80, 'Joaquin Moss', 'Entire Vehicle', 'After Sales', 'EV02 - Rims', 0),
-(81, 'Louie Owen', 'MT Cab Structure', 'Product Management', '', 0),
-(82, 'Keaton Combs', 'MT Cab Structure', 'Product Engineering', '', 0),
-(83, 'Jayden Cobb', 'MT Cab Structure', 'Network Management', '', 0),
-(84, 'Alan Roman', 'MT Cab Structure', 'Supplier Management', '', 0),
-(85, 'Joaquin Beck', 'MT Cab Structure', 'Manufacturing Engineering', '', 0),
-(86, 'Vance Khan', 'MT Cab Structure', 'Cost Engineering', '', 0),
-(87, 'Malakai Merritt', 'MT Cab Structure', 'Procurement', '', 0),
-(88, 'Gracelyn Hodges', 'MT Cab Structure', 'Controlling', '', 0),
-(89, 'Alexis Crane', 'MT Cab Structure', 'Quality Management', '', 0),
-(90, 'Zaire Bridges', 'MT Cab Structure', 'Sales & Marketing', '', 0),
-(91, 'Malachi Le', 'MT Cab Structure', 'After Sales', '', 0),
-(92, 'Bryant Martinez', 'MT Cab Structure', 'Product Management', 'CS10 - Oil level sensor', 0),
-(93, 'Eloise Dorsey', 'MT Cab Structure', 'Product Engineering', 'CS10 - Oil level sensor', 0),
-(94, 'Drew Howell', 'MT Cab Structure', 'Network Management', 'CS10 - Oil level sensor', 0),
-(95, 'Mckenna Shaffer', 'MT Cab Structure', 'Cost Engineering', 'CS10 - Oil level sensor', 0),
-(96, 'Rhett Blake', 'MT Cab Structure', 'Procurement', 'CS10 - Oil level sensor', 0),
-(97, 'Alijah Lindsey', 'MT Cab Structure', 'Controlling', 'CS10 - Oil level sensor', 0),
-(98, 'Kelsey Wall', 'MT Cab Structure', 'Quality Management', 'CS10 - Oil level sensor', 0),
-(99, 'Gia Figueroa', 'MT Cab Structure', 'Sales & Marketing', 'CS10 - Oil level sensor', 0),
-(100, 'Julius Shepherd', 'MT Cab Structure', 'Product Management', 'CS11 - Ignition Coil Connector', 0),
-(101, 'Callan Vaughn', 'MT Cab Structure', 'Product Engineering', 'CS11 - Ignition Coil Connector', 0),
-(102, 'Emory Hess', 'MT Cab Structure', 'Network Management', 'CS11 - Ignition Coil Connector', 0),
-(103, 'Boone Knight', 'MT Cab Structure', 'Supplier Management', 'CS11 - Ignition Coil Connector', 0),
-(104, 'Makai Rojas', 'MT Cab Structure', 'Manufacturing Engineering', 'CS11 - Ignition Coil Connector', 0),
-(105, 'Maxine Robertson', 'MT Cab Structure', 'Cost Engineering', 'CS11 - Ignition Coil Connector', 0),
-(106, 'Amalia Eaton', 'MT Cab Structure', 'Controlling', 'CS11 - Ignition Coil Connector', 0),
-(107, 'Manuel Curtis', 'MT Cab Structure', 'Quality Management', 'CS11 - Ignition Coil Connector', 0),
-(108, 'Nasir Bonilla', 'MT Cab Structure', 'Sales & Marketing', 'CS11 - Ignition Coil Connector', 0),
-(109, 'Landen Turner', 'MT Cab Structure', 'After Sales', 'CS11 - Ignition Coil Connector', 0),
-(110, 'Scarlet Hubbard', 'MT Cab Structure', 'Product Management', 'CS12 - Tachometer', 0),
-(111, 'Paris Rhodes', 'MT Cab Structure', 'Product Engineering', 'CS12 - Tachometer', 0),
-(112, 'Eden Shepard', 'MT Cab Structure', 'Network Management', 'CS12 - Tachometer', 0),
-(113, 'Alondra Owens', 'MT Cab Structure', 'Manufacturing Engineering', 'CS12 - Tachometer', 0),
-(114, 'Zaria Stephens', 'MT Cab Structure', 'Cost Engineering', 'CS12 - Tachometer', 0),
-(115, 'Maliyah Montoya', 'MT Cab Structure', 'Procurement', 'CS12 - Tachometer', 0),
-(116, 'Treasure Diaz', 'MT Cab Structure', 'Controlling', 'CS12 - Tachometer', 0),
-(117, 'Quinton Howell', 'MT Cab Structure', 'Quality Management', 'CS12 - Tachometer', 0),
-(118, 'Kate Pierce', 'MT Cab Structure', 'Sales & Marketing', 'CS12 - Tachometer', 0),
-(119, 'Astrid Logan', 'MT Cab Structure', 'After Sales', 'CS12 - Tachometer', 0),
-(120, 'Clyde Navarro', 'MT Cab Structure', 'Product Management', 'CS13 - Ignition coil parts', 0),
-(121, 'Mia Villegas', 'MT Cab Structure', 'Network Management', 'CS13 - Ignition coil parts', 0),
-(122, 'Donald Vasquez', 'MT Cab Structure', 'Manufacturing Engineering', 'CS13 - Ignition coil parts', 0),
-(123, 'Jaxen Larsen', 'MT Cab Structure', 'Cost Engineering', 'CS13 - Ignition coil parts', 0),
-(124, 'Hattie Olsen', 'MT Cab Structure', 'Controlling', 'CS13 - Ignition coil parts', 0),
-(125, 'Esther McDonald', 'MT Cab Structure', 'Quality Management', 'CS13 - Ignition coil parts', 0),
-(126, 'Aaliyah Reyna', 'MT Cab Structure', 'Sales & Marketing', 'CS13 - Ignition coil parts', 0),
-(127, 'Rex Lambert', 'MT Cab Structure', 'After Sales', 'CS13 - Ignition coil parts', 0),
-(128, 'Evie Lozano', 'MT Cab Structure', 'Product Management', 'CS14 - Ignition magneto', 0),
-(129, 'Lyra Guerrero', 'MT Cab Structure', 'Product Engineering', 'CS14 - Ignition magneto', 0),
-(130, 'Lennox Woodward', 'MT Cab Structure', 'Network Management', 'CS14 - Ignition magneto', 0),
-(131, 'Kinslee Monroe', 'MT Cab Structure', 'Manufacturing Engineering', 'CS14 - Ignition magneto', 0),
-(132, 'Harlem Charles', 'MT Cab Structure', 'Cost Engineering', 'CS14 - Ignition magneto', 0),
-(133, 'Elaine Daniel', 'MT Cab Structure', 'Procurement', 'CS14 - Ignition magneto', 0),
-(134, 'Serena Carter', 'MT Cab Structure', 'Controlling', 'CS14 - Ignition magneto', 0),
-(135, 'Devin Cuevas', 'MT Cab Structure', 'Quality Management', 'CS14 - Ignition magneto', 0),
-(136, 'Salem Brady', 'MT Cab Structure', 'Sales & Marketing', 'CS14 - Ignition magneto', 0),
-(137, 'Garrett Clarke', 'MT Cab Structure', 'Product Management', 'CS15 - Brake sensor', 0),
-(138, 'Ana Diaz', 'MT Cab Structure', 'Network Management', 'CS15 - Brake sensor', 0),
-(139, 'Parker Garner', 'MT Cab Structure', 'Supplier Management', 'CS15 - Brake sensor', 0),
-(140, 'Ruby Fleming', 'MT Cab Structure', 'Manufacturing Engineering', 'CS15 - Brake sensor', 0),
-(141, 'Maeve Eaton', 'MT Cab Structure', 'Cost Engineering', 'CS15 - Brake sensor', 0),
-(142, 'Haley Duffy', 'MT Cab Structure', 'Procurement', 'CS15 - Brake sensor', 0),
-(143, 'Forrest Pennington', 'MT Cab Structure', 'Controlling', 'CS15 - Brake sensor', 0),
-(144, 'Catherine McCann', 'MT Cab Structure', 'Quality Management', 'CS15 - Brake sensor', 0),
-(145, 'Andre Wilkerson', 'MT Cab Structure', 'Sales & Marketing', 'CS15 - Brake sensor', 0),
-(146, 'Nathan Hines', 'MT Cab Structure', 'After Sales', 'CS15 - Brake sensor', 0),
-(147, 'London Calderon', 'MT Chassis', 'Product Engineering', '', 0),
-(148, 'Briar Waters', 'MT Chassis', 'Supplier Management', '', 0),
-(149, 'Amira Kane', 'MT Chassis', 'Manufacturing Engineering', '', 0),
-(150, 'Kaylani Barrera', 'MT Chassis', 'Cost Engineering', '', 0),
-(151, 'Alana Roberts', 'MT Chassis', 'Procurement', '', 0),
-(152, 'Aubree Miller', 'MT Chassis', 'Quality Management', '', 0),
-(153, 'Kelsey Ponce', 'MT Chassis', 'Sales & Marketing', '', 0),
-(154, 'Maxine Fleming', 'MT Chassis', 'After Sales', '', 0),
-(155, 'Rebecca Haley', 'MT Chassis', 'Product Management', 'CH20 - Battery', 0),
-(156, 'Jayson Hodge', 'MT Chassis', 'Product Engineering', 'CH20 - Battery', 0),
-(157, 'Jasper McDonald', 'MT Chassis', 'Network Management', 'CH20 - Battery', 0),
-(158, 'Charli Esparza', 'MT Chassis', 'Supplier Management', 'CH20 - Battery', 0),
-(159, 'Saylor Warner', 'MT Chassis', 'Manufacturing Engineering', 'CH20 - Battery', 0),
-(160, 'Jacqueline Guevara', 'MT Chassis', 'Cost Engineering', 'CH20 - Battery', 0),
-(161, 'Marley Kelley', 'MT Chassis', 'Procurement', 'CH20 - Battery', 0),
-(162, 'Kelly Colon', 'MT Chassis', 'Controlling', 'CH20 - Battery', 0),
-(163, 'Emilio Higgins', 'MT Chassis', 'Quality Management', 'CH20 - Battery', 0),
-(164, 'Koa Conner', 'MT Chassis', 'Sales & Marketing', 'CH20 - Battery', 0),
-(165, 'Kyle Person', 'MT Chassis', 'After Sales', 'CH20 - Battery', 0),
-(166, 'Julien McLean', 'MT Chassis', 'Product Management', 'CH21 - Oil pressure gauge', 0),
-(167, 'Kadence Bruce', 'MT Chassis', 'Product Engineering', 'CH21 - Oil pressure gauge', 0),
-(168, 'Thaddeus Perry', 'MT Chassis', 'Network Management', 'CH21 - Oil pressure gauge', 0),
-(169, 'Trenton Silva', 'MT Chassis', 'Supplier Management', 'CH21 - Oil pressure gauge', 0),
-(170, 'Ava Humphrey', 'MT Chassis', 'Manufacturing Engineering', 'CH21 - Oil pressure gauge', 0),
-(171, 'Charley Sims', 'MT Chassis', 'Procurement', 'CH21 - Oil pressure gauge', 0),
-(172, 'Cade Pollard', 'MT Chassis', 'Controlling', 'CH21 - Oil pressure gauge', 0),
-(173, 'Abdullah Harvey', 'MT Chassis', 'Quality Management', 'CH21 - Oil pressure gauge', 0),
-(174, 'Melody Ahmed', 'MT Chassis', 'Sales & Marketing', 'CH21 - Oil pressure gauge', 0),
-(175, 'Axton Franklin', 'MT Chassis', 'After Sales', 'CH21 - Oil pressure gauge', 0),
-(176, 'Milan Moyer', 'MT Chassis', 'Product Management', 'CH22 - Distributor', 0),
-(177, 'Emory Baxter', 'MT Chassis', 'Product Engineering', 'CH22 - Distributor', 0),
-(178, 'Miley Bradshaw', 'MT Chassis', 'Network Management', 'CH22 - Distributor', 0),
-(179, 'Flora Stevenson', 'MT Chassis', 'Supplier Management', 'CH22 - Distributor', 0),
-(180, 'Benson Warren', 'MT Chassis', 'Manufacturing Engineering', 'CH22 - Distributor', 0),
-(181, 'Sylvie Nicholson', 'MT Chassis', 'Cost Engineering', 'CH22 - Distributor', 0),
-(182, 'Rose Walters', 'MT Chassis', 'Procurement', 'CH22 - Distributor', 0),
-(183, 'Nicolas Terry', 'MT Chassis', 'Controlling', 'CH22 - Distributor', 0),
-(184, 'Orlando Hodge', 'MT Chassis', 'Quality Management', 'CH22 - Distributor', 0),
-(185, 'Bode Jones', 'MT Chassis', 'Sales & Marketing', 'CH22 - Distributor', 0),
-(186, 'Lawson Miles', 'MT Chassis', 'After Sales', 'CH22 - Distributor', 0),
-(187, 'Haley Velez', 'MT Architecture', 'Product Management', '', 0);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `org_moduleteams`
 --
 
@@ -9340,85 +8477,6 @@ INSERT INTO `personal_tasks` (`id`, `user_id`, `summary`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `spec_book`
---
-
-CREATE TABLE `spec_book` (
-  `Module_Team` varchar(100) DEFAULT NULL,
-  `GFT` varchar(100) DEFAULT NULL,
-  `Project` varchar(100) DEFAULT NULL,
-  `Component` varchar(200) NOT NULL,
-  `CRS_Signature` date DEFAULT NULL,
-  `CRS_Done` varchar(10) DEFAULT NULL,
-  `Supplier_Awarding` varchar(100) DEFAULT NULL,
-  `CIS_Alignment` date DEFAULT NULL,
-  `CIS_Done` varchar(10) DEFAULT NULL,
-  `E_Signing_Completed` date DEFAULT NULL,
-  `E_Signing_Done` varchar(50) DEFAULT NULL,
-  `Archived` varchar(10) DEFAULT NULL,
-  `Doors_Next_Module` varchar(2000) DEFAULT NULL,
-  `Comment` varchar(2000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `spec_book`
---
-
-INSERT INTO `spec_book` (`Module_Team`, `GFT`, `Project`, `Component`, `CRS_Signature`, `CRS_Done`, `Supplier_Awarding`, `CIS_Alignment`, `CIS_Done`, `E_Signing_Completed`, `E_Signing_Done`, `Archived`, `Doors_Next_Module`, `Comment`) VALUES
-('MT Cab Structure', 'CS15 - Brake sensor', 'eActros 1', '2-2020-00003: something', '2020-07-31', 'Yes', 'supplier 3', '2020-04-02', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM81 - Welded assembly', 'Bus C', '2-2020-00012: something', '2020-12-09', 'Delay', 'supplier 12', '2020-07-16', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR31 - Battery Cable terminal', '02-Project', '2-2020-00029: something', '2020-11-23', NULL, 'supplier 29', '2020-04-07', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX50 - Subwoofer', 'eActros 3', '2-2020-00031: something', '2020-08-13', NULL, 'supplier 31', '2020-12-17', NULL, NULL, NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV02 - Rims', 'Powertrain B', '2-2020-00037: something', '2020-12-25', 'Delay', 'supplier 37', '2020-05-17', 'Delay', '2024-04-29', NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV00 - Hubcap', 'Powertrain A', '2-2020-00041: something', '2020-03-30', 'Delay', 'supplier 41', '2020-02-17', 'Delay', NULL, NULL, NULL, NULL, NULL),
-('MT Cab Structure', 'CS10 - Oil level sensor', 'Axle 3', '2-2021-00000: something', '2021-01-22', NULL, 'supplier 0', '2021-02-08', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX51 - Automatic transmission speed sensor', 'Bus B', '2-2021-00002: something', '2021-03-11', 'Yes', 'supplier 2', '2021-09-15', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Cab Structure', 'CS12 - Tachometer', 'eActros 2', '2-2021-00004: something', '2021-05-14', 'Yes', 'supplier 4', '2021-02-25', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX50 - Subwoofer', 'Bus A', '2-2021-00005: something', '2021-05-01', 'Yes', 'supplier 5', '2021-01-14', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR30 - Oil pressure sensor', 'Bus A', '2-2021-00009: something', '2021-08-27', NULL, 'supplier 9', '2021-08-24', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Interior', 'IN63 - Sulphuric Acid', 'Powertrain A', '2-2021-00010: something', '2021-02-26', 'Delay', 'supplier 10', '2021-09-15', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR31 - Battery Cable terminal', 'eActros 1', '2-2021-00013: something', '2021-03-01', 'Delay', 'supplier 13', '2021-12-04', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR30 - Oil pressure sensor', '01-Series', '2-2021-00014: something', '2021-04-24', 'Yes', 'supplier 14', '2021-12-28', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM82 - Ignition box', 'Bus A', '2-2021-00017: something', '2021-11-29', 'Delay', 'supplier 17', '2021-07-11', NULL, NULL, NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV00 - Hubcap', 'eActros 3', '2-2021-00021: something', '2021-03-21', NULL, 'supplier 21', '2021-01-26', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME70 - Battery tray', 'Powertrain C', '2-2021-00032: something', '2021-08-29', 'Yes', 'supplier 32', '2021-03-06', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX53 - Clinometer', '02-Project', '2-2021-00034: something', '2021-04-18', 'Yes', 'supplier 34', '2021-06-16', NULL, NULL, NULL, NULL, NULL, '29.01.2024: something...'),
-('MT Mechatronics', 'ME72 - Knock sensor', 'Axle 3', '2-2021-00035: something', '2021-07-17', 'Delay', 'supplier 35', '2021-09-13', 'Delay', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME72 - Knock sensor', 'eAtego 2', '2-2021-00038: something', '2021-01-11', NULL, 'supplier 38', '2021-02-20', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME72 - Knock sensor', 'Powertrain C', '2-2021-00042: something', '2021-12-23', NULL, 'supplier 42', '2021-10-11', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM80 - Speaker', '02-Project', '2-2021-00044: something', '2021-11-03', 'Delay', 'supplier 44', '2021-02-09', NULL, NULL, NULL, NULL, NULL, '19.02.2024: something...'),
-('MT Cab Structure', 'CS12 - Tachometer', 'Axle 3', '2-2021-00047: something', '2021-07-14', 'Yes', 'supplier 47', '2021-10-22', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM82 - Ignition box', 'eAtego 2', '2-2022-00006: something', '2022-09-19', 'Yes', 'supplier 6', '2022-06-09', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV02 - Rims', 'Bus C', '2-2022-00007: something', '2022-12-07', NULL, 'supplier 7', '2022-07-17', 'NULL', '2022-03-08', NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM81 - Welded assembly', 'eActros 2', '2-2022-00023: something', '2022-01-13', NULL, 'supplier 23', '2022-04-01', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Components', 'CO44 - Hinges and springs', 'Bus B', '2-2022-00024: something', '2022-07-03', NULL, 'supplier 24', '2022-12-21', 'NULL', '2023-02-04', NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME70 - Battery tray', 'Powertrain B', '2-2022-00025: something', '2022-02-28', 'Yes', 'supplier 25', '2022-03-12', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Interior', 'IN60 - Camshaft position sensor', 'Axle 1', '2-2022-00033: something', '2022-10-18', 'Delay', 'supplier 33', '2022-06-23', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Chassis', 'CH22 - Distributor', 'eAtego 3', '2-2022-00036: something', '2022-09-17', 'Yes', 'supplier 36', '2022-11-30', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR30 - Oil pressure sensor', 'eActros 3', '2-2022-00046: something', '2022-07-16', NULL, 'supplier 46', '2022-02-28', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Test & Te/st', 'TT91 - Rocker', 'eActros 1', '2-2022-00048: something', '2022-10-07', 'Yes', 'supplier 48', '2022-11-02', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Chassis', 'CH20 - Battery', 'Powertrain C', '2-2023-00011: something', '2023-06-24', NULL, 'supplier 11', '2023-06-25', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME71 - Alternator', 'eActros 1', '2-2023-00016: something', '2023-06-18', 'Delay', 'supplier 16', '2023-09-24', NULL, NULL, NULL, NULL, NULL, '05.01.2024: something...'),
-('MT Cab Structure', 'CS12 - Tachometer', 'Bus A', '2-2023-00018: something', '2023-10-23', NULL, 'supplier 18', '2023-05-17', 'NULL', '2024-04-20', NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX53 - Clinometer', 'eActros 2', '2-2023-00020: something', '2023-07-15', 'Yes', 'supplier 20', '2023-07-22', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX51 - Automatic transmission speed sensor', 'eActros 2', '2-2023-00022: something', '2023-06-01', NULL, 'supplier 22', '2023-02-24', 'NULL', NULL, NULL, NULL, NULL, '09.01.2024: something...'),
-('MT Test & Te/st', 'TT90 - Dashcam', 'Bus B', '2-2023-00027: something', '2023-09-04', NULL, 'supplier 27', '2023-03-12', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME72 - Knock sensor', 'eActros 3', '2-2023-00030: something', '2023-05-01', 'Yes', 'supplier 30', '2023-01-17', 'Yes', '2023-09-20', NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR31 - Battery Cable terminal', 'Powertrain B', '2-2023-00039: something', '2023-11-30', 'Yes', 'supplier 39', '2023-08-02', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV00 - Hubcap', 'Axle 1', '2-2023-00043: something', '2023-09-18', NULL, 'supplier 43', '2023-01-27', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV00 - Hubcap', 'Axle 1', '2-2024-00001: something', '2024-11-19', 'Yes', 'supplier 1', '2024-11-29', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Test & Te/st', 'TT94 - Distilled Water', '03-Mixed', '2-2024-00008: something', '2024-12-23', NULL, 'supplier 8', '2024-02-22', NULL, '2024-01-07', NULL, NULL, NULL, NULL),
-('MT Chassis', 'CH21 - Oil pressure gauge', 'eActros 2', '2-2024-00015: something', '2024-01-11', 'Delay', 'supplier 15', '2024-03-27', 'Delay', '2024-02-15', NULL, NULL, NULL, NULL),
-('MT Test & Te/st', 'TT90 - Dashcam', 'Powertrain A', '2-2024-00019: something', '2024-06-05', 'Yes', 'supplier 19', '2024-03-10', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME70 - Battery tray', 'Powertrain A', '2-2024-00026: something', '2024-11-25', NULL, 'supplier 26', '2024-02-20', NULL, NULL, NULL, NULL, NULL, '07.02.2024: something...'),
-('MT Exterior', 'EX50 - Subwoofer', 'eAtego 3', '2-2024-00028: something', '2024-05-17', 'Delay', 'supplier 28', '2024-06-08', 'Delay', NULL, NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM83 - Mass airflow sensor', '01-Series', '2-2024-00040: something', '2024-12-30', 'Yes', 'supplier 40', '2024-02-20', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX52 - Crankshaft position sensor', 'Axle 2', '2-2024-00045: something', '2024-03-06', 'Yes', 'supplier 45', '2024-11-20', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME70 - Battery tray', 'Axle 3', '2-2024-00049: something', '2024-09-11', 'Yes', 'supplier 49', '2024-11-07', NULL, '2024-04-03', NULL, NULL, NULL, NULL);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tasks`
 --
 
@@ -9432,17 +8490,17 @@ CREATE TABLE `tasks` (
   `details` text DEFAULT NULL,
   `deleted` tinyint(1) DEFAULT NULL,
   `asap` int(1) DEFAULT 0,
-  `deadline` date DEFAULT NULL
+  `deadline` date DEFAULT NULL,
+  `sent` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`, `deleted`, `asap`, `deadline`) VALUES
-(1, 76, 'content', 'responsible', 'EX50 - Subwoofer', 'I170129001', '', 1, 0, NULL),
-(2, 76, 'This is a task for the Topic above', 'Responcible person for the task', 'EX50 - Subwoofer', 'I170114801', '', 0, 0, '2024-06-20'),
-(3, 76, 'This is a task for the change request above', 'Someone responcible', 'EX51 - Automatic transmission speed sensor', 'I160063701', '', 1, 1, NULL);
+INSERT INTO `tasks` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`, `deleted`, `asap`, `deadline`, `sent`) VALUES
+(1, 113, 'Task description', 'John Doe', 'EX50 - Subwoofer', 'I170114801', '', 0, 0, '2024-06-28', 0),
+(2, 113, 'Task for the above change request', 'Larry King', 'EX50 - Subwoofer', 'I170129001', '', 0, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -9465,17 +8523,30 @@ CREATE TABLE `topics` (
 --
 
 INSERT INTO `topics` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`) VALUES
-(1, 76, 'This is a topic responsible for the change request above', 'Perhaps a topic responsible', 'EX50 - Subwoofer', 'I170114801', '');
+(1, 113, 'Topic for above change request', 'Someone', 'EX50 - Subwoofer', 'I170114801', '');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `agenda_change_request_filters`
+--
+ALTER TABLE `agenda_change_request_filters`
+  ADD PRIMARY KEY (`agenda_id`,`change_request_id`),
+  ADD KEY `change_request_id` (`change_request_id`);
+
+--
 -- Indexes for table `assignment`
 --
 ALTER TABLE `assignment`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `change_requests`
+--
+ALTER TABLE `change_requests`
+  ADD KEY `idx_change_requests_id` (`ID`);
 
 --
 -- Indexes for table `decision`
@@ -9502,15 +8573,9 @@ ALTER TABLE `information`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mdt_tbl`
+-- Indexes for table `module_team_guest_attendance`
 --
-ALTER TABLE `mdt_tbl`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `module_team_guest_guest_attendance`
---
-ALTER TABLE `module_team_guest_guest_attendance`
+ALTER TABLE `module_team_guest_attendance`
   ADD PRIMARY KEY (`id`),
   ADD KEY `agenda_id` (`agenda_id`),
   ADD KEY `guest_id` (`guest_id`);
@@ -9530,40 +8595,16 @@ ALTER TABLE `module_team_member_attendance`
   ADD KEY `member_id` (`member_id`);
 
 --
--- Indexes for table `mt_agenda`
---
-ALTER TABLE `mt_agenda`
-  ADD PRIMARY KEY (`item_id`),
-  ADD KEY `agenda_id` (`agenda_id`);
-
---
 -- Indexes for table `mt_agenda_list`
 --
 ALTER TABLE `mt_agenda_list`
-  ADD PRIMARY KEY (`agenda_id`);
-
---
--- Indexes for table `org_boards`
---
-ALTER TABLE `org_boards`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`agenda_id`),
+  ADD KEY `idx_mt_agenda_list_agenda_id` (`agenda_id`);
 
 --
 -- Indexes for table `org_gfts`
 --
 ALTER TABLE `org_gfts`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `org_line_functions`
---
-ALTER TABLE `org_line_functions`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `org_members_vehicle`
---
-ALTER TABLE `org_members_vehicle`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -9577,12 +8618,6 @@ ALTER TABLE `org_moduleteams`
 --
 ALTER TABLE `personal_tasks`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `spec_book`
---
-ALTER TABLE `spec_book`
-  ADD PRIMARY KEY (`Component`);
 
 --
 -- Indexes for table `tasks`
@@ -9606,13 +8641,13 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT for table `assignment`
 --
 ALTER TABLE `assignment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `decision`
 --
 ALTER TABLE `decision`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -9624,25 +8659,19 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `guests`
 --
 ALTER TABLE `guests`
-  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `information`
 --
 ALTER TABLE `information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `mdt_tbl`
+-- AUTO_INCREMENT for table `module_team_guest_attendance`
 --
-ALTER TABLE `mdt_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `module_team_guest_guest_attendance`
---
-ALTER TABLE `module_team_guest_guest_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `module_team_guest_attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `module_team_members`
@@ -9660,31 +8689,13 @@ ALTER TABLE `module_team_member_attendance`
 -- AUTO_INCREMENT for table `mt_agenda_list`
 --
 ALTER TABLE `mt_agenda_list`
-  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
-
---
--- AUTO_INCREMENT for table `org_boards`
---
-ALTER TABLE `org_boards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `org_gfts`
 --
 ALTER TABLE `org_gfts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
-
---
--- AUTO_INCREMENT for table `org_line_functions`
---
-ALTER TABLE `org_line_functions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `org_members_vehicle`
---
-ALTER TABLE `org_members_vehicle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=523;
 
 --
 -- AUTO_INCREMENT for table `org_moduleteams`
@@ -9702,7 +8713,7 @@ ALTER TABLE `personal_tasks`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `topics`
@@ -9715,30 +8726,11 @@ ALTER TABLE `topics`
 --
 
 --
--- Constraints for table `module_team_guest_guest_attendance`
+-- Constraints for table `agenda_change_request_filters`
 --
-ALTER TABLE `module_team_guest_guest_attendance`
-  ADD CONSTRAINT `module_team_guest_guest_attendance_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`),
-  ADD CONSTRAINT `module_team_guest_guest_attendance_ibfk_2` FOREIGN KEY (`guest_id`) REFERENCES `guests` (`guest_id`);
-
---
--- Constraints for table `module_team_member_attendance`
---
-ALTER TABLE `module_team_member_attendance`
-  ADD CONSTRAINT `module_team_member_attendance_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`),
-  ADD CONSTRAINT `module_team_member_attendance_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `module_team_members` (`member_id`);
-
---
--- Constraints for table `tasks`
---
-ALTER TABLE `tasks`
-  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`);
-
---
--- Constraints for table `topics`
---
-ALTER TABLE `topics`
-  ADD CONSTRAINT `topics_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`);
+ALTER TABLE `agenda_change_request_filters`
+  ADD CONSTRAINT `agenda_change_request_filters_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`),
+  ADD CONSTRAINT `agenda_change_request_filters_ibfk_2` FOREIGN KEY (`change_request_id`) REFERENCES `change_requests` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
