@@ -235,7 +235,6 @@ if ($result_personal_tasks->num_rows > 0) {
                         });
                     </script>
                 </div>
-            </div>
             <div class="d-flex justify-content-between mb-3">
                 <button type="button" class="btn btn-light flex-fill mx-1" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
                     Personal Task
