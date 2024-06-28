@@ -774,5 +774,51 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-
 });
+
+// Delete mt agenda
+$(document).ready(function() {
+    let deleteAgendaFocused = false;
+
+    // Track when the deleteAgendaSelect is focused
+    $('#deleteAgendaSelect').on('click', function () {
+        deleteAgendaFocused = true;
+    });
+
+    // Add event listener to handle clicks outside the deleteAgendaSelect
+    $(document).on('click', function (event) {
+        if (deleteAgendaFocused && !$(event.target).closest('#deleteAgendaSelect').length) {
+            deleteAgendaFocused = false;
+            var selectedAgendaIds = $('#deleteAgendaSelect').val();
+            if (selectedAgendaIds.length > 0 && confirm('Are you sure you want to delete the selected agendas?')) {
+                deleteSelectedAgendas(selectedAgendaIds);
+            }
+            resetDeleteAgendaPlaceholder();
+        }
+    });
+
+    function deleteSelectedAgendas(selectedAgendaIds) {
+        $.ajax({
+            type: "POST",
+            url: "deleteAgenda.php",
+            data: { agenda_ids: selectedAgendaIds },
+            success: function(response) {
+                var parsedResponse = JSON.parse(response);
+                if (parsedResponse.success) {
+                    alert('Agendas deleted successfully.');
+                    location.reload(); // Reload the page to reflect changes
+                } else {
+                    alert('Error deleting agendas: ' + parsedResponse.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("An error occurred: " + status + " " + error);
+            }
+        });
+    }
+
+    function resetDeleteAgendaPlaceholder() {
+        $('#deleteAgendaSelect').val(null).trigger('change');
+    }
+});
+

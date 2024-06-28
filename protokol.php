@@ -162,29 +162,24 @@ if ($result_personal_tasks->num_rows > 0) {
 
 <body>
 
-    <div class="container">
+<div class="container">
         <div class="container mt-5" style="color: #fff;">
             <h1 style="color: #777" class='mt-4'>PROTOKOLL</h1>
-            <select id="protokolSelect" data-search="true" class="styled-select w-100 mb-3" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;"> <!-- This should work but it doesn't -->
-                <option value="">Select protocol...</option>
-                <?php
-                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
-                $stmt = $conn->prepare($sql);
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <select id="protokolSelect" data-search="true" class="styled-select w-100 mb-3" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
+                        <option value="">Select protocol...</option>
+                        <?php
+                        $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                        $stmt = $conn->prepare($sql);
 
-                if ($stmt) {
-                    $stmt->bind_param('s', $selected_team);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
+                        if ($stmt) {
+                            $stmt->bind_param('s', $selected_team);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
 
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
-                                . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
-                                . "</option>";
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    // Check if the current option is the selected one
                                     $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
                                     echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
                                         . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
@@ -194,22 +189,54 @@ if ($result_personal_tasks->num_rows > 0) {
                                     }
                                 }
                             }
+
+                            $stmt->close();
+                        } else {
+                            echo "Error: " . $conn->error;
                         }
-                    }
+                        ?>
+                    </select>
+                    <script>
+                        VirtualSelect.init({
+                            ele: '#protokolSelect'
+                        });
+                    </script>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <select id="deleteProtokolSelect" data-search="true" class="styled-select" style="width: 50%; background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
+                        <option value="">Delete Protocol...</option>
+                        <?php
+                        $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                        $stmt = $conn->prepare($sql);
 
-                    $stmt->close();
-                } else {
-                    echo "Error: " . $conn->error;
-                }
-                ?>
-            </select>
-            <script>
-                VirtualSelect.init({
-                    ele: '#protokolSelect'
-                });
-            </script>
+                        if ($stmt) {
+                            $stmt->bind_param('s', $selected_team);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "'>" . htmlspecialchars($row["agenda_name"]) . "</option>";
+                                }
+                            }
+
+                            $stmt->close();
+                        } else {
+                            echo "Error: " . $conn->error;
+                        }
+                        ?>
+                    </select>
+                    <!--Virtual Select Trigger-->
+                    <script>
+                        VirtualSelect.init({
+                            multiple: true,
+                            ele: '#deleteProtokolSelect',
+                            placeholder: 'Delete Protocol...'
+                        });
+                    </script>
+                </div>
+            </div>
             <div class="d-flex justify-content-between mb-3">
-
                 <button type="button" class="btn btn-light flex-fill mx-1" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
                     Personal Task
                 </button>
@@ -217,8 +244,10 @@ if ($result_personal_tasks->num_rows > 0) {
                 <button type="button" class="button-12 addRow flex-fill mx-1" onclick="window.location.href = 'mt_agenda.php?agenda_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
                     To Agenda
                 </button>
-                <div id="filterDiv">
-                    <select id="changeRequestSelect" data-search="true" multiple class="styled-select w-10">
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <div id="filterDiv" style="width: 100%;">
+                    <select id="changeRequestSelect" data-search="true" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
                         <option value="">Filter Change Request</option>
                         <?php
                         // Fetch change requests with the filter status for the selected protokol
@@ -239,16 +268,13 @@ if ($result_personal_tasks->num_rows > 0) {
                         ?>
                     </select>
                 </div>
-
             </div>
-
             <?php
             if (isset($agenda_date)) {
                 echo "<h3 class='mt-4'>Agenda Date: $agenda_date</h3>";
             }
             ?>
         </div>
-
 
         <!-- Personal Task Modal -->
         <div class="modal fade" id="personalTaskModal" tabindex="-1" aria-labelledby="personalTaskLabel" aria-hidden="true">
@@ -271,7 +297,6 @@ if ($result_personal_tasks->num_rows > 0) {
                 </div>
             </div>
         </div>
-
 
         <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
             <div class="modal-dialog">
@@ -323,7 +348,7 @@ if ($result_personal_tasks->num_rows > 0) {
             echo "<h3 class='mt-4'>Agenda Date: $protokol_date</h3>";
         }
         ?>
-
+    </div>
         <table id="protokolTable" class="display">
             <thead>
                 <tr>

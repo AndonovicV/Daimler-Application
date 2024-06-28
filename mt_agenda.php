@@ -48,6 +48,38 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                 $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
                 $output .= "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
                     . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
+                    //. "<span class='delete-agenda' data-agenda-id='" . htmlspecialchars($row["agenda_id"]) . "'>&#128465;</span>" // Add trashcan icon. Doesnt work because of virtual select.
+                    . "</option>";
+            }
+        }
+
+        $stmt->close();
+    } else {
+        $output .= "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
+    }
+
+    $output .= '</select>';
+    return $output;
+}
+
+// Only for deleting the agendas
+function generateDeleteAgendaSelect($conn, $selected_team)
+{
+    $output = '<select id="deleteAgendaSelect" data-search="true" class="form-select">';
+    $output .= '<option value="">Delete Agenda...</option>';
+
+    $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt) {
+        $stmt->bind_param('s', $selected_team);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $output .= "<option value='" . htmlspecialchars($row["agenda_id"]) . "'>"
+                    . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
                     . "</option>";
             }
         }
@@ -102,93 +134,122 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
     <link href="custom_css\mt_agenda.css" rel="stylesheet">
     <!-- Custom JS -->
     <script src="custom_js/mt_agenda.js"></script>
-
 </head>
-
 <body>
     <div class="container">
-        <div class="container mt-5">
-            <h1 style="color: #777" class='mt-4'>MT AGENDA</h1>
-            <div class="mb-3">
-                <select id="agendaSelect" data-search="true" class="styled-select w-100" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
-                    <option value="">Select Agenda...</option>
-                    <?php
-                    $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
-                    $stmt = $conn->prepare($sql);
+    <h1 style="color: #777" class='mt-4'>MT AGENDA</h1>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <select id="agendaSelect" data-search="true" class="styled-select w-100" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
+                <option value="">Select Agenda...</option>
+                <?php
+                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                $stmt = $conn->prepare($sql);
 
-                    if ($stmt) {
-                        $stmt->bind_param('s', $selected_team);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
+                if ($stmt) {
+                    $stmt->bind_param('s', $selected_team);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
 
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                                echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>" . htmlspecialchars($row["agenda_name"]) . "</option>";
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
+                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>" . htmlspecialchars($row["agenda_name"]) . "</option>";
 
-                                if ($selected) {
-                                    $agenda_date = htmlspecialchars($row["agenda_date"]);
-                                }
+                            if ($selected) {
+                                $agenda_date = htmlspecialchars($row["agenda_date"]);
                             }
                         }
-
-                        $stmt->close();
-                    } else {
-                        echo "Error: " . $conn->error;
                     }
-                    ?>
-                </select>
-                <!--Virtual Select Trigger-->
-                <script>
-                    VirtualSelect.init({
-                        ele: '#agendaSelect'
-                    });
-                </script>
-            </div>
-            <div class="d-flex justify-content-between mb-3">
+                    $stmt->close();
+                } else {
+                    echo "Error: " . $conn->error;
+                }
+                ?>
+            </select>
+            <!--Virtual Select Trigger-->
+            <script>
+                VirtualSelect.init({
+                    ele: '#agendaSelect'
+                });
+            </script>
+            <div style="margin-left: 99.9%; width:15%">
+            <select id="deleteAgendaSelect" data-search="true" class="styled-select" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
+                <option value="">Delete Agenda...</option>
+                <?php
+                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                $stmt = $conn->prepare($sql);
 
-                <button type="button" class="btn btn-light flex-fill mx-1" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
-                    Personal Task
-                </button>
-                <button type="button" id="createAgendaBtn" class="btn btn-primary flex-fill mx-1" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
-                    Create a new agenda
-                </button>
-                <button type="button" class="btn btn-primary flex-fill mx-1" onclick="window.location.href = 'protokol.php?protokol_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
-                    To Protokoll
-                </button>
+                if ($stmt) {
+                    $stmt->bind_param('s', $selected_team);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "'>" . htmlspecialchars($row["agenda_name"]) . "</option>";
+                        }
+                    }
+
+                    $stmt->close();
+                } else {
+                    echo "Error: " . $conn->error;
+                }
+                ?>
+            </select>
+            <!--Virtual Select Trigger-->
+            <script>
+                VirtualSelect.init({
+                    multiple: true,
+                    ele: '#deleteAgendaSelect',
+                    placeholder: 'Delete Agenda...'
+                });
+            </script>
             </div>
-            <div class="d-flex justify-content-between mb-3">
-                <div id="filterDiv" style="width: 100%;">
-                    <select id="changeRequestSelect" data-search="true" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
-                        <option value="">Filter Change Request</option>
-                        <?php
-                        // Fetch change requests with the filter status for the selected agenda
-                        $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active
+        </div>
+    </div>
+
+        <div class="d-flex justify-content-between mb-3">
+
+            <button type="button" class="btn btn-light flex-fill mx-1" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
+                Personal Task
+            </button>
+            <button type="button" id="createAgendaBtn" class="btn btn-primary flex-fill mx-1" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
+                Create a new agenda
+            </button>
+            <button type="button" class="btn btn-primary flex-fill mx-1" onclick="window.location.href = 'protokol.php?protokol_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
+                To Protokoll
+            </button>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+            <div id="filterDiv" style="width: 100%;">
+                <select id="changeRequestSelect" data-search="true" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
+                    <option value="">Filter Change Request</option>
+                    <?php
+                    // Fetch change requests with the filter status for the selected agenda
+                    $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active
                                 FROM change_requests cr
                                 LEFT JOIN agenda_change_request_filters acrf ON cr.ID = acrf.change_request_id AND acrf.agenda_id = ?
                                 WHERE cr.lead_module_team = ? AND cr.fasttrack = 'Yes'";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param('is', $selectedAgendaId, $selected_team);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        while ($row = $result->fetch_assoc()) {
-                            // Check the filter status
-                            $selected = ($row['filter_active']) ? 'selected' : '';
-                            echo '<option value="' . htmlspecialchars($row['title']) . '" ' . $selected . '>' . htmlspecialchars($row['title']) . '</option>';
-                        }
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param('is', $selectedAgendaId, $selected_team);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    while ($row = $result->fetch_assoc()) {
+                        // Check the filter status
+                        $selected = ($row['filter_active']) ? 'selected' : '';
+                        echo '<option value="' . htmlspecialchars($row['title']) . '" ' . $selected . '>' . htmlspecialchars($row['title']) . '</option>';
+                    }
 
-                        ?>
-                    </select>
-                </div>
+                    ?>
+                </select>
             </div>
-
-            <?php
-            if (isset($agenda_date)) {
-                echo "<h3 class='mt-4'>Agenda Date: $agenda_date</h3>";
-            }
-            ?>
-
         </div>
+        <?php
+        if (isset($agenda_date)) {
+            echo "<h3 class='mt-4'>Agenda Date: $agenda_date</h3>";
+        }
+        ?>
         <!-- Modal for creating a new agenda -->
         <div class="modal fade" id="createAgendaModal" tabindex="-1" aria-labelledby="createAgendaModalLabel" aria-hidden="true">
             <div class="modal-dialog">

@@ -774,3 +774,49 @@ function saveToDatabase(newRow, gft, project) {
         });
     });
 }
+
+//Delete Protokol
+$(document).ready(function() {
+    let deleteProtokolFocused = false;
+
+    // Track when the deleteProtokolSelect is focused
+    $('#deleteProtokolSelect').on('click', function () {
+        deleteProtokolFocused = true;
+    });
+
+    // Add event listener to handle clicks outside the deleteProtokolSelect
+    $(document).on('click', function (event) {
+        if (deleteProtokolFocused && !$(event.target).closest('#deleteProtokolSelect').length) {
+            deleteProtokolFocused = false;
+            var selectedAgendaIds = $('#deleteProtokolSelect').val();
+            if (selectedAgendaIds.length > 0 && confirm('Are you sure you want to delete the selected protocols?')) {
+                deleteSelectedProtokols(selectedAgendaIds);
+            }
+            resetDeleteProtokolPlaceholder();
+        }
+    });
+
+    function deleteSelectedProtokols(selectedAgendaIds) {
+        $.ajax({
+            type: "POST",
+            url: "deleteAgenda.php",
+            data: { agenda_ids: selectedAgendaIds },
+            success: function(response) {
+                var parsedResponse = JSON.parse(response);
+                if (parsedResponse.success) {
+                    alert('Protocols deleted successfully.');
+                    location.reload(); // Reload the page to reflect changes
+                } else {
+                    alert('Error deleting protocols: ' + parsedResponse.error);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("An error occurred: " + status + " " + error);
+            }
+        });
+    }
+
+    function resetDeleteProtokolPlaceholder() {
+        $('#deleteProtokolSelect').val(null).trigger('change');
+    }
+});
