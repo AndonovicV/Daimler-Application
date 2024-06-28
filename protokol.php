@@ -503,7 +503,7 @@ if ($result_personal_tasks->num_rows > 0) {
                             while ($row_information = $result_information->fetch_assoc()) {
                                 echo "<tr id='{$row_information["id"]}' data-type='I' data-id='{$row_information["id"]}'>";
                                 echo "<td><strong>I</strong></td>"; // Empty column for module team
-                                echo "<td class='editable-cell' contenteditable='true'>"  .  htmlspecialchars($row_information["content"]) . "</td>"; // Content
+                                echo "<td class='editable-cell' data-field='content' contenteditable='true'>"  .  htmlspecialchars($row_information["content"]) . "</td>"; // Content
                                 echo "<td></td>"; // Responsible
                                 echo "<td>
                         <div class='button-container'>
@@ -531,8 +531,8 @@ if ($result_personal_tasks->num_rows > 0) {
                             while ($row_assignment = $result_assignment->fetch_assoc()) {
                                 echo "<tr id='{$row_assignment["id"]}' data-type='A' data-id='{$row_assignment["id"]}'>";
                                 echo "<td><strong>A</strong></td>"; // Empty column for module team
-                                echo "<td class='editable-cell' contenteditable='true'>" .  htmlspecialchars($row_assignment["content"]) . "</td>"; // Content
-                                echo "<td></td>"; // Responsible
+                                echo "<td class='editable-cell' data-field='content' contenteditable='true'>" .  htmlspecialchars($row_assignment["content"]) . "</td>"; // Content
+                                echo "<td class='editable-cell' data-field='responsible' contenteditable='true'>" .  htmlspecialchars($row_assignment["responsible"]) . "</td>"; // Content
                                 echo "<td>
                         <div class='button-container'>
                         <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
@@ -559,7 +559,7 @@ if ($result_personal_tasks->num_rows > 0) {
                             while ($row_decision = $result_decision->fetch_assoc()) {
                                 echo "<tr id='{$row_decision["id"]}' data-type='D' data-id='{$row_decision["id"]}'>";
                                 echo "<td><strong>D</strong></td>"; // Empty column for module team
-                                echo "<td class='editable-cell' contenteditable='true'>" . htmlspecialchars($row_decision["content"]) . "</td>"; // Content
+                                echo "<td class='editable-cell' data-field='content' contenteditable='true'>" . htmlspecialchars($row_decision["content"]) . "</td>"; // Content
                                 echo "<td></td>"; // Responsible
                                 echo "<td>
                         <div class='button-container'>

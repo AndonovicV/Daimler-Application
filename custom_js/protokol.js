@@ -363,6 +363,7 @@ $(document).ready(function () {
         var newValue = $cell.text();
         var Id = $cell.closest('tr').data('id');
         var rowType = $cell.closest('tr').data('type');
+        var fieldType = $cell.data('field'); // Read the data-field attribute
 
         $.ajax({
             url: 'saveContent.php',
@@ -371,7 +372,8 @@ $(document).ready(function () {
             data: JSON.stringify({
                 id: Id,
                 row_type: rowType,
-                content: newValue
+                content: newValue,
+                field_type: fieldType
             }),
             success: function (response) {
                 console.log('Content saved successfully');
@@ -582,7 +584,7 @@ async function addTask(cell) {
         </tr>
         <tr id="${lastInformationId}" data-type="I" data-id="${lastInformationId}">
             <td><strong>I</strong></td>
-            <td class="editable-cell" contenteditable="true"></td>
+            <td class="editable-cell" data-field='content' contenteditable="true"></td>
             <td></td>
             <td>
                 <div class="button-container">
@@ -600,7 +602,8 @@ async function addTask(cell) {
         </tr>
         <tr id="${lastAssignmentId}" data-type="A" data-id="${lastAssignmentId}">
             <td><strong>A</strong></td>
-            <td class="editable-cell" contenteditable="true"></td>
+            <td class="editable-cell" data-field='content' contenteditable="true"></td>
+            <td class='editable-cell' data-field='responsible' contenteditable='true'></td> 
             <td></td>
             <td>
                 <div class="button-container">
@@ -618,7 +621,7 @@ async function addTask(cell) {
         </tr>
         <tr id="${lastDecisionId}" data-type="D" data-id="${lastDecisionId}">
             <td><strong>D</strong></td>
-            <td class="editable-cell" contenteditable="true"></td>
+            <td class="editable-cell" data-field='content' contenteditable="true"></td>
             <td></td>
             <td>
                 <div class="button-container">
