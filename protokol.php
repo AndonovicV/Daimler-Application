@@ -202,8 +202,8 @@ if ($result_personal_tasks->num_rows > 0) {
                         });
                     </script>
                 </div>
-                <div class="col-md-6 d-flex justify-content-end">
-                    <select id="deleteProtokolSelect" data-search="true" class="styled-select" style="width: 50%; background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
+                <div class="col-md-6 d-flex justify-content-end" style="margin-left: 99.9%; width:20%">
+                    <select id="deleteProtokolSelect" data-search="true" class="styled-select" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
                         <option value="">Delete Protocol...</option>
                         <?php
                         $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
