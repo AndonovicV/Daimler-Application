@@ -34,15 +34,88 @@ $(document).ready(function () {
             "topStart": {
                 "buttons": [
                     {
+                        extend: 'excelHtml5',
+                        text: 'Excel',
+                        filename: selectedAgendaId,
+                        exportOptions: {
+                            columns: ':not(:last-child)', // Exclude the last column
+                            format: {
+                                body: function(data, row, column, node) {
+                                    // Remove HTML tags from the first and second columns for cleaner data processing
+                                    if (column === 0 || column === 1) {
+                                        // Use a method to clean out HTML tags robustly
+                                        var cleanText = $("<div>").html(data).text().trim();
+                                        console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
+                                        return cleanText;
+                                    }
+                    
+                                    // Conditional export based on the content of the cleaned first column
+                                    var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
+                                    console.log("First column text:", firstColumnText); // Debug statement
+                    
+                                    if (column === 2) {
+                                        if (firstColumnText.includes("Task")) {
+                                            var responsible = $(node).find('input[data-column="responsible"]').val();
+                                            var deadline = $(node).find('input[data-column="deadline"]').val();
+                                            var asapStatus = $(node).find('.asap-button').text().trim();
+                                            return `Responsible: ${responsible}, Deadline: ${deadline}, ASAP: ${asapStatus}`;
+                                        } else if (firstColumnText.includes("Topic")) {
+                                            var responsible = $(node).text().trim(); // Get the text directly for the contenteditable cell
+                                            return `Responsible: ${responsible}`;
+                                        }
+                                    }
+                                    return data;
+                                }
+                            }
+                        },
+                        customize: function(xlsx) {
+                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                    
+                            // Set custom column widths
+                            $('col', sheet).each(function (index) {
+                                if (index === 1) {
+                                    $(this).attr('width', 100);
+                                    $(this).attr('customWidth', 1);
+                                } else if (index === 2) {
+                                    $(this).attr('width', 75);
+                                    $(this).attr('customWidth', 1);
+                                }
+                            });
+                    
+                            // Define a new font style for bold text
+                            var fontIndex = $('fonts font', sheet).length;
+                            var boldFont = '<font><b/><sz val="11"/><color rgb="000000"/><name val="Calibri"/></font>';
+                            $('fonts', sheet).append(boldFont);
+                            $('fonts', sheet).attr('count', fontIndex + 1);
+                    
+                            // Define a new cell style using the bold font
+                            var styleBase = $('cellXfs xf', sheet).length;
+                            var boldStyle = `<xf numFmtId="0" fontId="${fontIndex}" fillId="0" borderId="0" xfId="0" applyFont="1"/>`;
+                            $('cellXfs', sheet).append(boldStyle);
+                            $('cellXfs', sheet).attr('count', styleBase + 1);
+                    
+                            // Apply the bold style to cells where the first column contains 'GFT'
+                            $('row', sheet).each(function () {
+                                var row = $(this);
+                                var firstCellText = $($('c t', row).first()).text().trim(); // Extract the text content of the first cell
+                                console.log("First cell text in row:", firstCellText); // Debug statement
+                                if (firstCellText.includes("GFT")) { // Check for 'GFT' in the text
+                                    // Apply the bold style to the first column cell only
+                                    $('c', row).first().attr('s', styleBase);
+                                }
+                            });
+                        }
+                    },
+                    {
                         extend: 'csvHtml5',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Exclude the last column (typically the actions column)
+                            columns: ':not(:last-child)' // Exclude the last column
                         }
                     },
                     {
                         extend: 'pdfHtml5',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Exclude the last column (typically the actions column)
+                            columns: ':not(:last-child)' // Exclude the last column
                         }
                     }
                 ]
@@ -515,7 +588,7 @@ async function addTopic(cell) {
             <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
                 <td class = "topic-row"><strong>Topic</strong></td>
                 <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
-                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
+                <td class="editabletasktopic-cell" data-column="responsible" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td>
                     <div class="button-container">
                         <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>

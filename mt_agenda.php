@@ -96,6 +96,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
     <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
     <!--Link to checkbox JS-->
     <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> <!-- Required for Excel -->
 
     <!-- Custom CSS -->
     <link href="custom_css\mt_agenda.css" rel="stylesheet">
@@ -404,7 +405,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
                                 echo "<tr id='{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
                                 echo "<td class = 'topic-row'><strong>Topic</strong></td>"; // Empty column for module team
                                 echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff; max-width: 200px;'>" . htmlspecialchars($row_topic["name"]) . "</td>";
-                                echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
+                                echo "<td class='editabletasktopic-cell' data-column='responsible' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
                                 echo "<td>
                                         <div class='button-container'>
                                             <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
