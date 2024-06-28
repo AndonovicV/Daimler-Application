@@ -331,7 +331,7 @@ if ($result_personal_tasks->num_rows > 0) {
                                     $stmt->close();
                                 } else {
                                     echo "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
-                                }
+                                } 
                                 ?>
                             </select>
                         </div>
