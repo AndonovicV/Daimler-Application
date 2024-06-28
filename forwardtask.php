@@ -39,6 +39,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cr = $row['cr'];
         $details = $row['details'];
         
+        // Check if the filter for the Change Request is already active
+        $check_stmt = $conn->prepare("SELECT * FROM agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = ? AND filter_active = 1");
+        $check_stmt->bind_param("is", $new_agenda_id, $cr);
+        $check_stmt->execute();
+        $check_result = $check_stmt->get_result();
+
+        if ($check_result->num_rows == 0) {
+            // Activate the filter for the Change Request connected to the task
+            $filter_stmt = $conn->prepare("INSERT INTO agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?,  ?, 1)");
+            $filter_stmt->bind_param("is", $new_agenda_id, $cr);
+            $filter_stmt->execute();
+            $filter_stmt->close();
+        }
+        $check_stmt->close();
+
+
         // Prepare and execute the query to insert the new task or topic with the new agenda_id
         if ($old_task_id !== null) {
             $insert_stmt = $conn->prepare("INSERT INTO tasks (name, responsible, deadline, gft, cr, details, agenda_id, deleted, sent) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)");
