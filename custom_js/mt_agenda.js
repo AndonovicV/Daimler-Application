@@ -28,7 +28,6 @@ $(document).ready(function () {
         "order": [],
         "paging": false, // Disable pagination
         "searchable": true,
-
         "bDestroy": true, // Ignores the error popup (cannot reinitialize), it works even with the error but purely for aesthetic purpose. Might delete later
         "layout": {
             "topStart": {
@@ -120,7 +119,15 @@ $(document).ready(function () {
                     }
                 ]
             }
-        }
+        },
+        "columns": [
+            null, // Type
+            null, // Description
+            null, // Responsible
+            null, // Start
+            null, // Duration
+            null  // Actions
+        ]
     });
 
     // Initialize flatpickr for existing datepicker elements
@@ -143,7 +150,6 @@ $(document).ready(function () {
 
     // Creating New Row
     var counter = 1;
-
 
     function deleteRow(clickedCell) {
         var row = $(clickedCell).closest('tr');
@@ -203,9 +209,6 @@ $(document).ready(function () {
         });
     });
 
-
-
-
     // Initialize flatpickr for existing datepicker elements
     flatpickr('.datepicker', {
         dateFormat: 'Y-m-d',
@@ -234,8 +237,6 @@ $(document).ready(function () {
             }
         });
     });
-
-
 
     //Triggers the virtual select
     VirtualSelect.init({
@@ -296,25 +297,23 @@ $(document).ready(function () {
             alert("Please select or create an agenda to continue.");
         }
 
-
-    function unselectFilter(title, agendaId) {
-        $.ajax({
-            type: "POST",
-            url: "actions.php", // Your PHP script to handle the data
-            data: { title: title, agenda_id: agendaId, action: 'unselect' },
-            success: function (response) {
-                console.log(response); // Handle success response
-                $row.remove();
-                //location.reload();
-            },
-            error: function (xhr, status, error) {
-                console.error("An error occurred: " + status + " " + error);
-            }
-        });
-    }
+        function unselectFilter(title, agendaId) {
+            $.ajax({
+                type: "POST",
+                url: "actions.php", // Your PHP script to handle the data
+                data: { title: title, agenda_id: agendaId, action: 'unselect' },
+                success: function (response) {
+                    console.log(response); // Handle success response
+                    $row.remove();
+                    //location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred: " + status + " " + error);
+                }
+            });
+        }
+    });
 });
-});
-
 
 $(document).ready(function () {
     $(document).on('blur', 'td[contenteditable=true]', function () {
@@ -343,8 +342,6 @@ $(document).ready(function () {
         });
     });
 });
-
-
 
 $(document).ready(function () {
     $(document).on('blur', 'input.editabletasktopic-cell', function () {
@@ -421,8 +418,6 @@ $(document).ready(function () {
         });
     }
 });
-
-
 
 function toggleDropdown(button) {
     const dropdown = button.nextElementSibling;
@@ -504,6 +499,8 @@ async function addTask(cell) {
                     <button class="asap-button" data-task-id="${lastTask}" style="width: 30%; color: white;">ASAP</button>
                 </div>
             </td>
+            <td></td> <!-- Empty cell for Start column -->
+            <td></td> <!-- Empty cell for Duration column -->
             <td>
                 <div class="button-container">
                     <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
@@ -543,6 +540,7 @@ function updateASAPStatus(taskId, status) {
         }
     });
 }
+
 function initializeASAPButton(taskId) {
     var button = $(`.asap-button[data-task-id="${taskId}"]`);
     button.click(function() {
@@ -589,6 +587,8 @@ async function addTopic(cell) {
                 <td class = "topic-row"><strong>Topic</strong></td>
                 <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td class="editabletasktopic-cell" data-column="responsible" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
+                <td class="editabletasktopic-cell" data-column="start" contenteditable="true" style="border: 1px solid #dfbaff;"></td> <!-- New Start column -->
+                <td class="editabletasktopic-cell" data-column="duration" contenteditable="true" style="border: 1px solid #dfbaff;"></td> <!-- New Duration column -->
                 <td>
                     <div class="button-container">
                         <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
@@ -820,5 +820,83 @@ $(document).ready(function() {
     function resetDeleteAgendaPlaceholder() {
         $('#deleteAgendaSelect').val(null).trigger('change');
     }
+});
+
+//Timepicker
+document.addEventListener('DOMContentLoaded', function () {
+    console.log("Initializing flatpickr");
+    flatpickr(".timepicker", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true
+    });
+});
+
+// Minutepicker
+document.addEventListener('DOMContentLoaded', function () {
+    const durationSelects = document.querySelectorAll('.duration-select');
+    durationSelects.forEach(select => {
+        select.addEventListener('change', function () {
+            console.log("Duration changed to: " + this.value + " minutes");
+        });
+    });
+});
+
+$(document).ready(function() {
+    $('.timepicker').each(function() {
+        var inputElement = this; // Reference to the input element for later use
+        flatpickr(inputElement, {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true,
+            onClose: function(selectedDates, dateStr, instance) {
+                var topicId = $(inputElement).data('topic-id');
+                if (dateStr !== "") {
+                    $.ajax({
+                        url: 'update_start_time.php', // Endpoint for updating start time
+                        type: 'POST',
+                        data: {
+                            topic_id: topicId,
+                            start: dateStr
+                        },
+                        success: function(response) {
+                            console.log('Start time updated successfully:', response);
+                            alert('Start time saved successfully!');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Failed to update start time:', status, error);
+                            alert('Failed to save start time.');
+                        }
+                    });
+                }
+            }
+        });
+    });
+});
+
+$(document).ready(function() {
+    // Save duration when input loses focus
+    $('body').on('blur', '.duration-input', function() {
+        var topicId = $(this).data('topic-id');
+        var duration = $(this).val();
+        if (duration.trim() !== '') { // Ensure non-empty input before sending
+            $.ajax({
+                url: 'update_duration.php',
+                type: 'POST',
+                data: {
+                    topic_id: topicId,
+                    duration: duration
+                },
+                success: function(response) {
+                    alert('Duration saved successfully!');
+                },
+                error: function(xhr, status, error) {
+                    alert('Failed to save duration. Error: ' + error);
+                }
+            });
+        }
+    });
 });
 
