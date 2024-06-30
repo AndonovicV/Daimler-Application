@@ -87,82 +87,9 @@ if ($result_personal_tasks->num_rows > 0) {
 
 </head>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
-        var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
-        var forwardModal = document.getElementById('forwardModal');
-        var sendTaskBtn = document.getElementById('sendTaskBtn');
-
-        forwardTaskBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var taskId = this.getAttribute('data-id');
-                forwardModal.setAttribute('data-task-id', taskId);
-
-                var modalTitle = forwardModal.querySelector('.modal-title');
-                modalTitle.textContent = 'Forward Task ID: ' + taskId;
-            });
-        });
-
-        forwardTopicBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var topicId = this.getAttribute('data-id');
-                forwardModal.setAttribute('data-topic-id', topicId);
-
-                var modalTitle = forwardModal.querySelector('.modal-title');
-                modalTitle.textContent = 'Forward Topic ID: ' + topicId;
-            });
-        });
-
-        sendTaskBtn.addEventListener('click', function() {
-            console.log("Send button clicked");
-            var taskId = forwardModal.getAttribute('data-task-id');
-            var topicId = forwardModal.getAttribute('data-topic-id');
-            var selectedAgendaId = document.getElementById('agendaSelectTask').value;
-            console.log('Task ID:', taskId);
-            console.log('Topic ID:', topicId);
-            console.log('Selected Agenda ID:', selectedAgendaId);
-
-            // Create an object with the data to be sent
-
-            var data = {};
-            if (taskId) {
-                data = {
-                    task_id: taskId,
-                    agenda_id: selectedAgendaId
-                };
-            } else {
-                data = {
-                    topic_id: topicId,
-                    agenda_id: selectedAgendaId
-                };
-            }
-
-            console.log('Data to send:', data);
-
-            // Perform the AJAX request
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'forwardtask.php', true); // Changed URL to forwardtask.php
-            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        console.log('Task successfully copied to the agenda');
-                    } else {
-                        console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
-                    }
-                }
-            };
-            xhr.send(JSON.stringify(data));
-
-        });
-    });
-</script>
-
-
 <body>
 
-<div class="container">
+    <div class="container">
         <div class="container mt-5" style="color: #fff;">
             <h1 style="color: #777" class='mt-4'>PROTOKOLL</h1>
             <div class="row mb-3">
@@ -235,119 +162,119 @@ if ($result_personal_tasks->num_rows > 0) {
                         });
                     </script>
                 </div>
-            <div class="d-flex justify-content-between mb-3">
-                <button type="button" class="btn btn-light flex-fill mx-1" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
-                    Personal Task
-                </button>
+                <div class="d-flex justify-content-between mb-3">
+                    <button type="button" class="btn btn-light flex-fill mx-1" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
+                        Personal Task
+                    </button>
 
-                <button type="button" class="button-12 addRow flex-fill mx-1" onclick="window.location.href = 'mt_agenda.php?agenda_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
-                    To Agenda
-                </button>
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-                <div id="filterDiv" style="width: 100%;">
-                    <select id="changeRequestSelect" data-search="true" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
-                        <option value="">Filter Change Request</option>
-                        <?php
-                        // Fetch change requests with the filter status for the selected protokol
-                        $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active
+                    <button type="button" class="button-12 addRow flex-fill mx-1" onclick="window.location.href = 'mt_agenda.php?agenda_id=<?php echo $selectedAgendaId; ?>'" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
+                        To Agenda
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <div id="filterDiv" style="width: 100%;">
+                        <select id="changeRequestSelect" data-search="true" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
+                            <option value="">Filter Change Request</option>
+                            <?php
+                            // Fetch change requests with the filter status for the selected protokol
+                            $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active
                                 FROM change_requests cr
                                 LEFT JOIN agenda_change_request_filters acrf ON cr.ID = acrf.change_request_id AND acrf.agenda_id = ?
                                 WHERE cr.lead_module_team = ? AND cr.fasttrack = 'Yes'";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param('is', $selectedAgendaId, $selected_team);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        while ($row = $result->fetch_assoc()) {
-                            // Check the filter status
-                            $selected = ($row['filter_active']) ? 'selected' : '';
-                            echo '<option value="' . htmlspecialchars($row['title']) . '" ' . $selected . '>' . htmlspecialchars($row['title']) . '</option>';
-                        }
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bind_param('is', $selectedAgendaId, $selected_team);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            while ($row = $result->fetch_assoc()) {
+                                // Check the filter status
+                                $selected = ($row['filter_active']) ? 'selected' : '';
+                                echo '<option value="' . htmlspecialchars($row['title']) . '" ' . $selected . '>' . htmlspecialchars($row['title']) . '</option>';
+                            }
 
-                        ?>
-                    </select>
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <?php
+                if (isset($agenda_date)) {
+                    echo "<h3 class='mt-4'>Agenda Date: $agenda_date</h3>";
+                }
+                ?>
+            </div>
+
+            <!-- Personal Task Modal -->
+            <div class="modal fade" id="personalTaskModal" tabindex="-1" aria-labelledby="personalTaskLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <!-- Display the selected agenda ID in the modal title -->
+                            <h1 class="modal-title fs-5" id="personalTaskLabel">Personal Tasks</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="field">
+                                <textarea name="summary" id="summary" rows="16" class="text" style="width: 100%;">><?php echo htmlspecialchars($summary); ?></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="personalTaskBtn">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="forwardModalLabel">Forward</h1>
+                        </div>
+                        <div class="modal-body">
+                            <div class="field">
+                                <label for="agendaSelectTask">Select Agenda:</label>
+                                <select id="agendaSelectTask" data-search="true" class="form-select">
+                                    <option value="">Select Agenda...</option>
+                                    <?php
+
+                                    $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                                    $stmt = $conn->prepare($sql);
+
+                                    if ($stmt) {
+                                        $stmt->bind_param('s', $selected_team);
+                                        $stmt->execute();
+                                        $result = $stmt->get_result();
+
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
+                                                echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
+                                                    . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
+                                                    . "</option>";
+                                            }
+                                        }
+
+                                        $stmt->close();
+                                    } else {
+                                        echo "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-light" id="sendTaskBtn" data-bs-dismiss="modal">Send</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <?php
-            if (isset($agenda_date)) {
-                echo "<h3 class='mt-4'>Agenda Date: $agenda_date</h3>";
+            if (isset($protokol_date)) {
+                echo "<h3 class='mt-4'>Agenda Date: $protokol_date</h3>";
             }
             ?>
         </div>
-
-        <!-- Personal Task Modal -->
-        <div class="modal fade" id="personalTaskModal" tabindex="-1" aria-labelledby="personalTaskLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- Display the selected agenda ID in the modal title -->
-                        <h1 class="modal-title fs-5" id="personalTaskLabel">Personal Tasks</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="field">
-                            <textarea name="summary" id="summary" rows="16" class="text" style="width: 100%;">><?php echo htmlspecialchars($summary); ?></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="personalTaskBtn">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="forwardModal" tabindex="-1" aria-labelledby="forwardModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="forwardModalLabel">Forward</h1>
-                    </div>
-                    <div class="modal-body">
-                        <div class="field">
-                            <label for="agendaSelectTask">Select Agenda:</label>
-                            <select id="agendaSelectTask" data-search="true" class="form-select">
-                                <option value="">Select Agenda...</option>
-                                <?php
-
-                                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
-                                $stmt = $conn->prepare($sql);
-
-                                if ($stmt) {
-                                    $stmt->bind_param('s', $selected_team);
-                                    $stmt->execute();
-                                    $result = $stmt->get_result();
-
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
-                                                . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
-                                                . "</option>";
-                                        }
-                                    }
-
-                                    $stmt->close();
-                                } else {
-                                    echo "<option value=''>Error: " . htmlspecialchars($conn->error) . "</option>";
-                                } 
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-light" id="sendTaskBtn" data-bs-dismiss="modal">Send</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
-        if (isset($protokol_date)) {
-            echo "<h3 class='mt-4'>Agenda Date: $protokol_date</h3>";
-        }
-        ?>
-    </div>
         <table id="protokolTable" class="display">
             <thead>
                 <tr>

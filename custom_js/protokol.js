@@ -890,7 +890,6 @@ $(document).ready(function() {
     }
 });
 
-
 $(document).ready(function() {
     // Assuming the DataTable is stored in a variable 'agendaTable' from your initialization code.
     var agendaTable = $('#protokolTable').DataTable();
@@ -916,3 +915,59 @@ $(document).ready(function() {
         }
     }
 });
+
+// FORWARD TASK / TOPIC
+document.addEventListener('DOMContentLoaded', function() {
+    var forwardModal = document.getElementById('forwardModal');
+    var sendTaskBtn = document.getElementById('sendTaskBtn');
+
+    // Handle click events for both task and topic forwarding buttons
+    document.querySelectorAll('.forwardTaskBtns, .forwardTopicBtns').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var id = this.getAttribute('data-id');
+            var type = this.classList.contains('forwardTaskBtns') ? 'task' : 'topic';
+
+            // Set the data attributes on the modal for later retrieval
+            forwardModal.setAttribute('data-id', id);
+            forwardModal.setAttribute('data-type', type);
+
+            // Update modal title accordingly
+            var modalTitle = forwardModal.querySelector('.modal-title');
+            modalTitle.textContent = 'Forward ' + (type.charAt(0).toUpperCase() + type.slice(1)) + ' ID: ' + id;
+        });
+    });
+
+    sendTaskBtn.addEventListener('click', function() {
+        var id = forwardModal.getAttribute('data-id');
+        var type = forwardModal.getAttribute('data-type');
+        var selectedAgendaId = document.getElementById('agendaSelectTask').value;
+
+        if (id && selectedAgendaId) {
+            forwardItem(type, id, selectedAgendaId);
+        } else {
+            console.error('ID or Selected Agenda ID missing');
+        }
+    });
+});
+
+function forwardItem(type, id, selectedAgendaId) {
+    var endpoint = 'forward_task_with_details.php'; // Assuming a single endpoint for forwarding tasks/topics
+    var data = {
+        agenda_id: selectedAgendaId
+    };
+    data[type + '_id'] = id; // Dynamically set the appropriate key based on type
+
+    // Perform the AJAX request using jQuery for simplicity and better browser compatibility
+    $.ajax({
+        type: 'POST',
+        url: endpoint,
+        data: data,
+        success: function(response) {
+            console.log(`${type.charAt(0).toUpperCase() + type.slice(1)} and related details forwarded successfully`, response);
+            // Implement additional UI feedback here
+        },
+        error: function(xhr, status, error) {
+            console.error(`Failed to forward ${type}`, status, error);
+        }
+    });
+}
