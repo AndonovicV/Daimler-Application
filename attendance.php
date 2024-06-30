@@ -16,6 +16,10 @@ include 'conn.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
     <script src="plugins/virtual_select/virtual-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
 </head>
 
 <body style="background-color: #222; color: #fff;">
@@ -24,32 +28,34 @@ include 'conn.php';
         <hr>
         <div class="page-title mb-3 text-light text-center" style="text-align: center; margin-top: 40px;">
             <h1 style="color: #777; display: inline-block; margin-bottom: 20px;">Manage Attendance</h1>
-            <select id="protokolSelect" data-search="true" class="styled-select w-50 mb-3" style="background-color: #333; color: #fff; border: 1px solid #444; border-radius: 4px; height: 40px; display: inline-block; text-align-last: center;">
-                <option value="">Select protocol...</option>
-                <?php
-                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
-                $stmt = $conn->prepare($sql);
+            <div style="display: flex; justify-content: center;">
+                <select id="protokolSelect" data-search="true" class="styled-select w-50 mb-3" style="background-color: #333; color: #fff; border: 1px solid #444; border-radius: 4px; height: 40px; display: inline-block; text-align-last: center;">
+                    <option value="">Select protocol...</option>
+                    <?php
+                    $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                    $stmt = $conn->prepare($sql);
 
-                if ($stmt) {
-                    $stmt->bind_param('s', $selected_team);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
+                    if ($stmt) {
+                        $stmt->bind_param('s', $selected_team);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
 
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
-                            echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' data-name='" . htmlspecialchars($row["agenda_name"]) . "' data-date='" . htmlspecialchars($row["agenda_date"]) . "' $selected>"
-                                . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
-                                . "</option>";
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
+                                echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' data-name='" . htmlspecialchars($row["agenda_name"]) . "' data-date='" . htmlspecialchars($row["agenda_date"]) . "' $selected>"
+                                    . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
+                                    . "</option>";
+                            }
                         }
-                    }
 
-                    $stmt->close();
-                } else {
-                    echo "Error: " . $conn->error;
-                }
-                ?>
-            </select>
+                        $stmt->close();
+                    } else {
+                        echo "Error: " . $conn->error;
+                    }
+                    ?>
+                </select>
+            </div>
         </div>
 
         <script>
@@ -145,6 +151,7 @@ include 'conn.php';
             <hr>
             <h1 class="text-light text-center">Attendance List</h1>
             <button onclick="exportPDF()" class="btn btn-success">Export as PDF</button>
+            <button onclick="exportPDF()" class="btn btn-success" id="exportCombinedPDF">Export All PDFs for this agenda</button>
             <hr>
             <form action="" id="manage-attendance">
                 <input type="hidden" name="agenda_id" value="">

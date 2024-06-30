@@ -214,6 +214,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             <button type="button" class="btn btn-light flex-fill mx-1" data-bs-toggle="modal" data-bs-target="#personalTaskModal" id="modalBtn" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
                 Personal Task
             </button>
+
             <button type="button" id="createAgendaBtn" class="btn btn-primary flex-fill mx-1" style="background-color: #333 !important; color: #fff !important; border-color: #444 !important;">
                 Create a new agenda
             </button>
@@ -413,15 +414,15 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                                     echo "<td></td>"; // Responsible
 
                                     echo "<td>
-        <div class='button-container'>
-        <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
-        <div class='dropdown-menu'>
-            <button class='dropdown-item' onclick='addTask(this)'>Task</button>
-            <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
-        </div>
-        <button id='unselectFilterBtn' class='button-12 unselect' role='button'>x</button>
-    </div>
-      </td>"; // Actions
+                                            <div class='button-container'>
+                                            <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                            <div class='dropdown-menu'>
+                                                <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                                <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                            </div>
+                                            <button id='unselectFilterBtn' class='button-12 unselect' role='button'>x</button>
+                                        </div>
+                                        </td>"; // Actions
                                     echo "</tr>";
 
                                     // Fetch topics and tasks for this change request
