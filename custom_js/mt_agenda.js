@@ -584,11 +584,15 @@ async function addTopic(cell) {
 
         var newRow = $(`
             <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
-                <td class = "topic-row"><strong>Topic</strong></td>
+                <td class="topic-row"><strong>Topic</strong></td>
                 <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td class="editabletasktopic-cell" data-column="responsible" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
-                <td class="editabletasktopic-cell" data-column="start" contenteditable="true" style="border: 1px solid #dfbaff;"></td> <!-- New Start column -->
-                <td class="editabletasktopic-cell" data-column="duration" contenteditable="true" style="border: 1px solid #dfbaff;"></td> <!-- New Duration column -->
+                <td class="editabletasktopic-cell" style="border: 1px solid #dfbaff;">
+                    <input type="text" class="timepicker" data-topic-id="${lastTopic}" placeholder="HH:MM">
+                </td> <!-- New Start column -->
+                <td class="editabletasktopic-cell" style="border: 1px solid #dfbaff;">
+                    <input type="text" class="duration-input" data-topic-id="${lastTopic}" placeholder="Duration (minutes)">
+                </td> <!-- New Duration column -->
                 <td>
                     <div class="button-container">
                         <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
@@ -603,12 +607,33 @@ async function addTopic(cell) {
             </tr>
         `);
         newRow.insertAfter($(cell).closest('tr'));
+
+        // Initialize flatpickr for the new datepicker and timepicker inputs
+        flatpickr(newRow.find('.timepicker'), {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true,
+            onClose: function(selectedDates, dateStr, instance) {
+                var topicId = instance.input.dataset.topicId;
+                // Save the start time via AJAX
+                updateStartTime(topicId, dateStr);
+            }
+        });
+
+        // Attach blur event to save duration on change
+        newRow.find('.duration-input').on('blur', function() {
+            var topicId = $(this).data('topic-id');
+            var duration = $(this).val();
+            updateDuration(topicId, duration);
+        });
+
     } catch (error) {
         console.error('Error parsing JSON:', error);
         return;
     }
-
 }
+
 
 function saveToDatabase(newRow, gft, project) {
     console.log(newRow);
@@ -824,7 +849,6 @@ $(document).ready(function() {
 
 //Timepicker
 document.addEventListener('DOMContentLoaded', function () {
-    console.log("Initializing flatpickr");
     flatpickr(".timepicker", {
         enableTime: true,
         noCalendar: true,
@@ -863,7 +887,7 @@ $(document).ready(function() {
                         },
                         success: function(response) {
                             console.log('Start time updated successfully:', response);
-                            alert('Start time saved successfully!');
+                            //alert('Start time saved successfully!');
                         },
                         error: function(xhr, status, error) {
                             console.error('Failed to update start time:', status, error);
@@ -890,7 +914,7 @@ $(document).ready(function() {
                     duration: duration
                 },
                 success: function(response) {
-                    alert('Duration saved successfully!');
+                    //alert('Duration saved successfully!');
                 },
                 error: function(xhr, status, error) {
                     alert('Failed to save duration. Error: ' + error);
@@ -900,3 +924,34 @@ $(document).ready(function() {
     });
 });
 
+function updateStartTime(topicId, startTime) {
+    $.ajax({
+        url: 'update_start_time.php',
+        type: 'POST',
+        data: { topic_id: topicId, start: startTime },
+        success: function(response) {
+            console.log('Start time updated successfully:', response);
+            //alert('Start time saved successfully!');
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to update start time:', status, error);
+            alert('Failed to save start time.');
+        }
+    });
+}
+
+function updateDuration(topicId, duration) {
+    $.ajax({
+        url: 'update_duration.php',
+        type: 'POST',
+        data: { topic_id: topicId, duration: duration },
+        success: function(response) {
+            console.log('Duration updated successfully:', response);
+            //alert('Duration saved successfully!');
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to update duration:', status, error);
+            alert('Failed to save duration.');
+        }
+    });
+}
