@@ -31,147 +31,143 @@ $(document).ready(function () {
         "bDestroy": true, // Ignores the error popup (cannot reinitialize), it works even with the error but purely for aesthetic purpose. Might delete later
         "layout": {
             "topStart": {
-            "buttons": [
-                {
-                    extend: 'excelHtml5',
-                    text: 'Excel',
-                    filename: selectedAgendaId,
-                    exportOptions: {
-                        columns: ':not(:last-child)', // Exclude the last column
-                        format: {
-                            body: function(data, row, column, node) {
-                                if (column === 0 || column === 1) {
-                                    var cleanText = $("<div>").html(data).text().trim();
-                                    console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
-                                    return cleanText;
-                                }
-
-                                var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
-                                console.log("First column text:", firstColumnText); // Debug statement
-
-                                if (column === 2) {
-                                    if (firstColumnText.includes("Task")) {
-                                        var responsible = $(node).find('input[data-column="responsible"]').val();
-                                        var deadline = $(node).find('input[data-column="deadline"]').val();
-                                        var asapStatus = $(node).find('.asap-button').css('color') === 'rgb(255, 0, 0)' ? 'Yes' : 'No'; // Check for red color
-                                        return `Responsible: ${responsible}, Deadline: ${deadline}, ASAP: ${asapStatus}`;
-                                    } else if (firstColumnText.includes("Topic")) {
-                                        var responsible = $(node).text().trim();
-                                        return `Responsible: ${responsible}`;
+"buttons": [
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel',
+                        filename: selectedAgendaId,
+                        exportOptions: {
+                            columns: ':not(:last-child)', // Exclude the last column
+                            format: {
+                                body: function(data, row, column, node) {
+                                    if (column === 0 || column === 1) {
+                                        var cleanText = $("<div>").html(data).text().trim();
+                                        console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
+                                        return cleanText;
                                     }
-                                }
-                                return data;
-                            }
-                        }
-                    },
-                    customize: function(xlsx) {
-                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
-
-                        $('col', sheet).each(function (index) {
-                            if (index === 1) {
-                                $(this).attr('width', 100);
-                                $(this).attr('customWidth', 1);
-                            } else if (index === 2) {
-                                $(this).attr('width', 75);
-                                $(this).attr('customWidth', 1);
-                            }
-                        });
-
-                        var fontIndex = $('fonts font', sheet).length;
-                        var boldFont = '<font><b/><sz val="11"/><color rgb="000000"/><name val="Calibri"/></font>';
-                        $('fonts', sheet).append(boldFont);
-                        $('fonts', sheet).attr('count', fontIndex + 1);
-
-                        var styleBase = $('cellXfs xf', sheet).length;
-                        var boldStyle = `<xf numFmtId="0" fontId="${fontIndex}" fillId="0" borderId="0" xfId="0" applyFont="1"/>`;
-                        $('cellXfs', sheet).append(boldStyle);
-                        $('cellXfs', sheet).attr('count', styleBase + 1);
-
-                        $('row', sheet).each(function () {
-                            var row = $(this);
-                            var firstCellText = $($('c t', row).first()).text().trim();
-                            console.log("First cell text in row:", firstCellText); // Debug statement
-                            if (firstCellText.includes("GFT")) {
-                                $('c', row).first().attr('s', styleBase);
-                            }
-                        });
-                    }
-                },
-                {
-                    extend: 'csvHtml5',
-                    exportOptions: {
-                        columns: ':not(:last-child)' // Exclude the last column
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    filename: 'Agenda_PDF_' + selectedAgendaId,
-                    exportOptions: {
-                        columns: ':not(:last-child)', // Exclude the last column
-                        format: {
-                            body: function(data, row, column, node) {
-                                if (column === 0 || column === 1) {
-                                    var cleanText = $("<div>").html(data).text().trim();
-                                    //console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
-                                    return cleanText;
-                                }
-
-                                var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
-                                //console.log("First column text:", firstColumnText); // Debug statement
-
-                                if (column === 2) {
-                                    if (firstColumnText.includes("Task")) {
-                                        var responsible = $(node).find('input[data-column="responsible"]').val();
-                                        var deadline = $(node).find('input[data-column="deadline"]').val();
-                                        var asapStatus = $(node).find('.asap-button').css('color') === 'rgb(255, 0, 0)' ? 'Yes' : 'No'; // Check for red color
-                                        return `Responsible: ${responsible} | Deadline: ${deadline} | ASAP: ${asapStatus}`;
-                                    } else if (firstColumnText.includes("Topic")) {
-                                        var responsible = $(node).text().trim();
-                                        return `Responsible: ${responsible}`;
+    
+                                    var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
+                                    console.log("First column text:", firstColumnText); // Debug statement
+    
+                                    if (column === 2) {
+                                        if (firstColumnText.includes("Task")) {
+                                            var responsible = $(node).find('input[data-column="responsible"]').val();
+                                            var deadline = $(node).find('input[data-column="deadline"]').val();
+                                            var asapStatus = $(node).find('.asap-button').css('color') === 'rgb(255, 0, 0)' ? 'Yes' : 'No'; // Check for red color
+                                            return `Responsible: ${responsible}, Deadline: ${deadline}, ASAP: ${asapStatus}`;
+                                        } else if (firstColumnText.includes("Topic")) {
+                                            var responsible = $(node).text().trim();
+                                            return `Responsible: ${responsible}`;
+                                        }
                                     }
+                                    return data;
                                 }
-                                return data;
                             }
                         },
-                        customize: function(doc) {
-                            var taskRowStyle = {
-                                fillColor: [255, 230, 230] // Light red background for tasks
-                            };
-                            var topicRowStyle = {
-                                fillColor: [230, 230, 255] // Light blue background for topics
-                            };
-
-                            for (var i = 1; i < doc.content[1].table.body.length; i++) {
-                                var row = doc.content[1].table.body[i];
-                                var firstCellText = row[0].text.trim();
-                                //console.log("First cell text in PDF row:", firstCellText); // Debug statement
-
+                        customize: function(xlsx) {
+                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+    
+                            $('col', sheet).each(function (index) {
+                                if (index === 1) {
+                                    $(this).attr('width', 100);
+                                    $(this).attr('customWidth', 1);
+                                } else if (index === 2) {
+                                    $(this).attr('width', 75);
+                                    $(this).attr('customWidth', 1);
+                                }
+                            });
+    
+                            var fontIndex = $('fonts font', sheet).length;
+                            var boldFont = '<font><b/><sz val="11"/><color rgb="000000"/><name val="Calibri"/></font>';
+                            $('fonts', sheet).append(boldFont);
+                            $('fonts', sheet).attr('count', fontIndex + 1);
+    
+                            var styleBase = $('cellXfs xf', sheet).length;
+                            var boldStyle = `<xf numFmtId="0" fontId="${fontIndex}" fillId="0" borderId="0" xfId="0" applyFont="1"/>`;
+                            $('cellXfs', sheet).append(boldStyle);
+                            $('cellXfs', sheet).attr('count', styleBase + 1);
+    
+                            $('row', sheet).each(function () {
+                                var row = $(this);
+                                var firstCellText = $($('c t', row).first()).text().trim();
+                                console.log("First cell text in row:", firstCellText); // Debug statement
                                 if (firstCellText.includes("GFT")) {
-                                    row[0].style = { bold: true };
+                                    $('c', row).first().attr('s', styleBase);
                                 }
-                                if (firstCellText.includes("Task")) {
-                                    row.forEach(cell => {
-                                        cell.fillColor = taskRowStyle.fillColor;
-                                    });
-                                } else if (firstCellText.includes("Topic")) {
-                                    row.forEach(cell => {
-                                        cell.fillColor = topicRowStyle.fillColor;
-                                    });
+                            });
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        filename: 'Agenda_PDF_' + selectedAgendaId,
+                        exportOptions: {
+                            columns: ':not(:last-child)', // Exclude the last column
+                            format: {
+                                body: function(data, row, column, node) {
+                                    if (column === 0 || column === 1) {
+                                        var cleanText = $("<div>").html(data).text().trim();
+                                        //console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
+                                        return cleanText;
+                                    }
+    
+                                    var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
+                                    //console.log("First column text:", firstColumnText); // Debug statement
+    
+                                    if (column === 2) {
+                                        if (firstColumnText.includes("Task")) {
+                                            var responsible = $(node).find('input[data-column="responsible"]').val();
+                                            var deadline = $(node).find('input[data-column="deadline"]').val();
+                                            var asapStatus = $(node).find('.asap-button').css('color') === 'rgb(255, 0, 0)' ? 'Yes' : 'No'; // Check for red color
+                                            return `Responsible: ${responsible} | Deadline: ${deadline} | ASAP: ${asapStatus}`;
+                                        } else if (firstColumnText.includes("Topic")) {
+                                            var responsible = $(node).text().trim();
+                                            return `Responsible: ${responsible}`;
+                                        }
+                                    }
+                                    return data;
                                 }
+                            },
+                            customize: function(doc) {
+                                var taskRowStyle = {
+                                    fillColor: [255, 230, 230] // Light red background for tasks
+                                };
+                                var topicRowStyle = {
+                                    fillColor: [230, 230, 255] // Light blue background for topics
+                                };
+    
+                                for (var i = 1; i < doc.content[1].table.body.length; i++) {
+                                    var row = doc.content[1].table.body[i];
+                                    var firstCellText = row[0].text.trim();
+                                    //console.log("First cell text in PDF row:", firstCellText); // Debug statement
+    
+                                    if (firstCellText.includes("GFT")) {
+                                        row[0].style = { bold: true };
+                                    }
+                                    if (firstCellText.includes("Task")) {
+                                        row.forEach(cell => {
+                                            cell.fillColor = taskRowStyle.fillColor;
+                                        });
+                                    } else if (firstCellText.includes("Topic")) {
+                                        row.forEach(cell => {
+                                            cell.fillColor = topicRowStyle.fillColor;
+                                        });
+                                    }
+                                }
+    
+                                // Set custom column widths
+                                var colWidths = ['*', 100, 75]; // Adjust as necessary for your table
+                                doc.content[1].table.widths = colWidths;
                             }
-
-                            // Set custom column widths
-                            var colWidths = ['*', 100, 75]; // Adjust as necessary for your table
-                            doc.content[1].table.widths = colWidths;
                         }
                     }
-                }
-            ]
+                ]
             }
-<<<<<<< HEAD
-        }
-        
-=======
         },
         "columns": [
             null, // Type
@@ -181,7 +177,6 @@ $(document).ready(function () {
             null, // Duration
             null  // Actions
         ]
->>>>>>> b90754b78ef8f0691268080145bff1066ec7598d
     });
 
     // Initialize flatpickr for existing datepicker elements
@@ -204,10 +199,6 @@ $(document).ready(function () {
 
     // Creating New Row
     var counter = 1;
-<<<<<<< HEAD
-    
-=======
->>>>>>> b90754b78ef8f0691268080145bff1066ec7598d
 
     function deleteRow(clickedCell) {
         var row = $(clickedCell).closest('tr');
@@ -355,54 +346,6 @@ $(document).ready(function () {
             alert("Please select or create an agenda to continue.");
         }
 
-<<<<<<< HEAD
-
-    function unselectFilter(title, agendaId) {
-        $.ajax({
-            type: "POST",
-            url: "actions.php", // Your PHP script to handle the data
-            data: { title: title, agenda_id: agendaId, action: 'unselect' },
-            success: function (response) {
-                console.log(response); // Handle success response
-                $row.remove();
-                //location.reload();
-            },
-            error: function (xhr, status, error) {
-                console.error("An error occurred: " + status + " " + error);
-            }
-        });
-    }
-    
-
-        // Debugging output to check if the script loads
-    console.log("DataTable and custom script loaded successfully.");
-
-
-});
-        
-    function triggerExportButton(index) {
-        var button = agendaTable.button(index); // Refer to the already initialized table's buttons
-        if (button) {
-            button.trigger();
-        } else {
-            console.log("Button index not valid:", index);
-        }
-    }
-
-    // Parse URL parameters to determine if an export should be triggered
-    var urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('export')) {
-        var exportParam = parseInt(urlParams.get('export'), 10);
-        if (!isNaN(exportParam)) {
-            triggerExportButton(exportParam);
-        } else {
-            console.log("Export parameter is not a number:", urlParams.get('export'));
-        }
-    }
-
-});
-
-=======
         function unselectFilter(title, agendaId) {
             $.ajax({
                 type: "POST",
@@ -420,7 +363,6 @@ $(document).ready(function () {
         }
     });
 });
->>>>>>> b90754b78ef8f0691268080145bff1066ec7598d
 
 $(document).ready(function () {
     $(document).on('blur', 'td[contenteditable=true]', function () {
@@ -670,8 +612,6 @@ function initializeASAPButton(taskId) {
         }
     });
 }
-
-
 
 async function addTopic(cell) {
     var protokolId = $('#agendaSelect').val(); // Get the selected protokol_id
@@ -956,33 +896,6 @@ $(document).ready(function() {
     }
 });
 
-<<<<<<< HEAD
-$(document).ready(function() {
-    // Assuming the DataTable is stored in a variable 'agendaTable' from your initialization code.
-    var agendaTable = $('#agendaTable').DataTable();
-
-    // Function to trigger export buttons based on URL parameter
-    function triggerExportButton(index) {
-        var button = agendaTable.button(index); // Refer to the buttons by index
-        if (button) {
-            button.trigger(); // Trigger the specified button
-        } else {
-            console.log("Button index not valid:", index);
-        }
-    }
-
-    // Parse URL parameters to determine if an export should be triggered
-    var urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('export')) {
-        var exportParam = parseInt(urlParams.get('export'), 10);
-        if (!isNaN(exportParam)) {
-            triggerExportButton(exportParam); // Trigger the button based on the index
-        } else {
-            console.log("Export parameter is not a number:", urlParams.get('export'));
-        }
-    }
-});
-=======
 //Timepicker
 document.addEventListener('DOMContentLoaded', function () {
     flatpickr(".timepicker", {
@@ -1091,4 +1004,28 @@ function updateDuration(topicId, duration) {
         }
     });
 }
->>>>>>> b90754b78ef8f0691268080145bff1066ec7598d
+$(document).ready(function() {
+    // Assuming the DataTable is stored in a variable 'agendaTable' from your initialization code.
+    var agendaTable = $('#agendaTable').DataTable();
+
+    // Function to trigger export buttons based on URL parameter
+    function triggerExportButton(index) {
+        var button = agendaTable.button(index); // Refer to the buttons by index
+        if (button) {
+            button.trigger(); // Trigger the specified button
+        } else {
+            console.log("Button index not valid:", index);
+        }
+    }
+
+    // Parse URL parameters to determine if an export should be triggered
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('export')) {
+        var exportParam = parseInt(urlParams.get('export'), 10);
+        if (!isNaN(exportParam)) {
+            triggerExportButton(exportParam); // Trigger the button based on the index
+        } else {
+            console.log("Export parameter is not a number:", urlParams.get('export'));
+        }
+    }
+});
