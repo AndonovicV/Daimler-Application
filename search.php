@@ -36,17 +36,17 @@ $conn->close();
 <div class="container">
 <div class="container mt-5">
     <h1 style="color: #777" class='mt-4'>Search</h1>
-    <div class="d-flex mb-3">
+    <div class="d-flex mb-3 centered-container">
         <input 
             type="text" 
             id="searchBox" 
-            class="w-100" 
+            class="styled-input"
             style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align: center!important;" 
             placeholder="Press Enter to search..." />
     </div>
     
-    <div class="d-flex mb-3">
-        <select id="filterBox" class="w-100" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
+    <div class="search-container mb-3">
+        <select id="filterBox" class="styled-select" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
             <option value="">All</option>
             <option class = 'topic-row' value="topics">Topics</option>
             <option class = 'task-row'value="tasks">Tasks</option>
@@ -95,6 +95,9 @@ $conn->close();
     </script>
 </div>
 </div>
+
+<!-- Custom CSS -->
+<link href="custom_css\search.css" rel="stylesheet">
 
 </body>
 
