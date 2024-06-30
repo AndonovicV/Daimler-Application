@@ -23,8 +23,8 @@ include 'conn.php';
     <div class="container mt-5">
         <hr>
         <div class="page-title mb-3 text-light text-center" style="text-align: center; margin-top: 40px;">
-            <h1 style="color: #777; display: inline-block; margin-bottom: 20px;">Manage Attendance</h1>
-            <select id="protokolSelect" data-search="true" class="styled-select w-50 mb-3" style="background-color: #333; color: #fff; border: 1px solid #444; border-radius: 4px; height: 40px; display: inline-block; text-align-last: center;">
+            <h1 style="color: #777" class = "mt-4">Manage Attendance</h1> <!-- color: #777; display: inline-block; margin-bottom: 20px; -->
+            <select id="protokolSelect" data-search="true" class="styled-select w-100" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
                 <option value="">Select protocol...</option>
                 <?php
                 $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
@@ -265,6 +265,8 @@ include 'conn.php';
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="custom_js/attendance.js"></script>
+    <!-- Custom CSS -->
+    <link href="custom_css\protokol.css" rel="stylesheet">
 </body>
 
 </html>

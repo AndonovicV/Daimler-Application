@@ -98,15 +98,3 @@ text-align: center;
 #search-task {
   border-color: orange;
 }
-
-.editabletasktopic-cell {
-  border: 1px solid #ced4da; /* Default border color */
-}
-
-.editabletasktopic-cell.task {
-  border-color: red; /* Border color for Task */
-}
-
-.editabletasktopic-cell.topic {
-  border-color: blue; /* Border color for Topic */
-}
