@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:8888
--- Generation Time: Jun 17, 2024 at 07:52 PM
+-- Host: localhost:8888
+-- Generation Time: Jun 30, 2024 at 08:13 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `agenda_change_request_filters`
+--
+
+CREATE TABLE `agenda_change_request_filters` (
+  `agenda_id` int(11) NOT NULL,
+  `change_request_id` varchar(20) NOT NULL,
+  `filter_active` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `agenda_change_request_filters`
+--
+
+INSERT INTO `agenda_change_request_filters` (`agenda_id`, `change_request_id`, `filter_active`) VALUES
+(124, 'I160063701', 1),
+(124, 'I160100901', 1),
+(124, 'I160128601', 1),
+(124, 'I170114801', 1),
+(124, 'I170128301', 1),
+(124, 'I170129001', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `assignment`
 --
 
@@ -33,75 +57,16 @@ CREATE TABLE `assignment` (
   `gft` varchar(255) DEFAULT NULL,
   `cr` varchar(255) DEFAULT NULL,
   `task_id` varchar(255) DEFAULT NULL,
-  `content` text DEFAULT NULL
+  `content` text DEFAULT NULL,
+  `responsible` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `assignment`
 --
 
-INSERT INTO `assignment` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`) VALUES
-(1, 61, 'EX50 - Subwoofer', '0', NULL, 'sa'),
-(2, 61, 'EX50 - Subwoofer', '0', '30', 'tringjo grudo bitchface'),
-(3, 61, 'EX50 - Subwoofer', '0', '31', 'trial'),
-(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr'),
-(5, 61, 'EX50 - Subwoofer', '0', '33', 'test'),
-(6, 61, 'EX52 - Crankshaft position sensor', '0', '37', 'pr'),
-(7, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
-(8, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
-(9, 60, 'EX50 - Subwoofer', '0', '40', 'MIAUsda'),
-(10, 60, 'EX50 - Subwoofer', '0', '41', 'Slay'),
-(11, 60, 'EX53 - Clinometer', '0', '42', 'dfsfs'),
-(12, 60, 'EX50 - Subwoofer', '0', '43', 'content'),
-(13, 60, 'EX50 - Subwoofer', '0', '44', 'content'),
-(14, 60, 'EX53 - Clinometer', '0', '44', 'content'),
-(15, 60, 'EX53 - Clinometer', '0', '44', 'content'),
-(16, 60, 'EX53 - Clinometer', '0', '47', 'content'),
-(17, 60, 'EX53 - Clinometer', '0', '47', 'content'),
-(18, 60, 'EX53 - Clinometer', '0', '58', 'content'),
-(19, 60, 'EX52 - Crankshaft position sensor', '0', '59', 'content'),
-(20, 60, 'EX52 - Crankshaft position sensor', '0', '60', 'content'),
-(21, 60, 'EX51 - Automatic transmission speed sensor', '0', '61', 'content'),
-(22, 60, 'EX51 - Automatic transmission speed sensor', '0', '62', 'content'),
-(23, 60, 'EX52 - Crankshaft position sensor', '0', '63', 'content'),
-(24, 60, 'EX52 - Crankshaft position sensor', '0', '64', 'content'),
-(25, 60, 'EX51 - Automatic transmission speed sensor', '0', '65', 'sads'),
-(26, 60, 'EX52 - Crankshaft position sensor', '0', '66', 'content'),
-(27, 60, 'EX51 - Automatic transmission speed sensor', '0', '67', 'content'),
-(28, 60, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content'),
-(29, 61, 'EX52 - Crankshaft position sensor', '0', '69', 'content'),
-(30, 60, 'EX52 - Crankshaft position sensor', '0', '70', 'content'),
-(31, 60, 'EX51 - Automatic transmission speed sensor', '0', '71', 'content'),
-(32, 60, 'EX50 - Subwoofer', '0', '72', 'content'),
-(33, 60, 'EX50 - Subwoofer', '0', '73', 'content'),
-(34, 60, 'EX51 - Automatic transmission speed sensor', '0', '74', 'content'),
-(35, 60, 'EX51 - Automatic transmission speed sensor', '0', '75', 'it works'),
-(36, 60, 'EX50 - Subwoofer', '0', '76', 'content'),
-(37, 60, 'EX50 - Subwoofer', '0', '77', 'content'),
-(38, 60, 'EX51 - Automatic transmission speed sensor', '0', '78', 'content'),
-(39, 60, 'EX50 - Subwoofer', '0', '79', 'content'),
-(40, 60, 'EX53 - Clinometer', '0', '80', 'sdsaasdas'),
-(41, 59, 'EX51 - Automatic transmission speed sensor', '0', '81', 'content'),
-(42, 59, 'EX51 - Automatic transmission speed sensor', '0', '82', 'content'),
-(44, 59, 'EX50 - Subwoofer', '0', '84', 'content'),
-(45, 59, 'EX51 - Automatic transmission speed sensor', '0', '85', 'content'),
-(46, 61, 'EX52 - Crankshaft position sensor', '0', '86', 'content'),
-(47, 61, 'EX52 - Crankshaft position sensor', '0', '87', 'content'),
-(48, 61, 'EX53 - Clinometer', '0', '88', 'content'),
-(49, 61, 'EX50 - Subwoofer', '0', '89', 'content'),
-(50, 61, 'EX51 - Automatic transmission speed sensor', '0', '90', 'content'),
-(51, 61, 'EX51 - Automatic transmission speed sensor', '0', '91', 'content'),
-(52, 61, 'EX51 - Automatic transmission speed sensor', '0', '92', 'content'),
-(53, 58, 'EX51 - Automatic transmission speed sensor', '0', '95', 'content'),
-(54, 0, 'EX50 - Subwoofer', '0', NULL, 'content'),
-(55, 76, 'EX50 - Subwoofer', '0', '1', 'content'),
-(58, 0, 'CH22 - Distributor', '0', NULL, 'content'),
-(59, 0, 'CH22 - Distributor', '0', NULL, 'content'),
-(60, 76, 'EX51 - Automatic transmission speed sensor', '0', '6', 'content'),
-(61, 77, 'CH22 - Distributor', '0', '7', 'content'),
-(62, 77, 'CH20 - Battery', '0', '8', 'Any of these columns can be independently removed'),
-(63, 78, 'EX50 - Subwoofer', '0', '10', 'content'),
-(64, 78, 'EX51 - Automatic transmission speed sensor', '0', '11', 'content');
+INSERT INTO `assignment` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`, `responsible`) VALUES
+(1, 124, 'EX50 - Subwoofer', '0', '1', 'Give them away', 'Santa');
 
 -- --------------------------------------------------------
 
@@ -110,12 +75,12 @@ INSERT INTO `assignment` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`) 
 --
 
 CREATE TABLE `change_requests` (
-  `ID` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `project` text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `lead_gft` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `lead_module_team` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'Bitte eintragen',
-  `fasttrack` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `ID` varchar(20) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `project` mediumtext DEFAULT NULL,
+  `lead_gft` varchar(255) DEFAULT NULL,
+  `lead_module_team` varchar(255) DEFAULT 'Bitte eintragen',
+  `fasttrack` varchar(15) DEFAULT NULL,
   `filter_checkbox` tinyint(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -8230,24 +8195,16 @@ CREATE TABLE `decision` (
   `gft` varchar(255) DEFAULT NULL,
   `cr` varchar(255) DEFAULT NULL,
   `task_id` varchar(255) DEFAULT NULL,
-  `content` text DEFAULT NULL
+  `content` text DEFAULT NULL,
+  `responsible` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `decision`
 --
 
-INSERT INTO `decision` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`) VALUES
-(1, 76, 'EX50 - Subwoofer', '0', '1', 'content'),
-(2, 76, 'EX50 - Subwoofer', '0', '2', 'Here you can add your decisions'),
-(3, 76, 'EX51 - Automatic transmission speed sensor', '0', '3', 'If you remove the task above, the decision will still remain'),
-(4, 0, 'CH22 - Distributor', '0', NULL, 'content'),
-(5, 0, 'CH22 - Distributor', '0', NULL, 'content'),
-(6, 76, 'EX51 - Automatic transmission speed sensor', '0', '6', 'content'),
-(7, 77, 'CH22 - Distributor', '0', '7', 'Here you can add your decisions'),
-(8, 77, 'CH20 - Battery', '0', '8', 'If the Task is removed, the decision stays'),
-(9, 78, 'EX50 - Subwoofer', '0', '10', 'content'),
-(10, 78, 'EX51 - Automatic transmission speed sensor', '0', '11', 'content');
+INSERT INTO `decision` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`, `responsible`) VALUES
+(1, 124, 'EX50 - Subwoofer', '0', '1', 'Now!', NULL);
 
 -- --------------------------------------------------------
 
@@ -8292,8 +8249,7 @@ INSERT INTO `guests` (`guest_id`, `guest_name`, `department`) VALUES
 (4, 'B.B. King', 'HR'),
 (5, 'Robert Plant', 'Marketing'),
 (6, 'Jimmy Page', 'Finance'),
-(8, 'Keith Richards', 'HR'),
-(9, 'Stevie Ray Vaughan', 'Finance');
+(8, 'Keith Richards', 'HR');
 
 -- --------------------------------------------------------
 
@@ -8307,84 +8263,16 @@ CREATE TABLE `information` (
   `gft` varchar(255) DEFAULT NULL,
   `cr` varchar(255) DEFAULT NULL,
   `task_id` varchar(255) DEFAULT NULL,
-  `content` text DEFAULT NULL
+  `content` text DEFAULT NULL,
+  `responsible` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `information`
 --
 
-INSERT INTO `information` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`) VALUES
-(1, 61, 'EX50 - Subwoofer', '0', NULL, 'sa'),
-(2, 61, 'EX50 - Subwoofer', '0', '30', 'testrun on the testrun'),
-(3, 61, 'EX50 - Subwoofer', '0', '31', 'trial'),
-(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr'),
-(6, 61, 'EX50 - Subwoofer', '0', '33', 'test'),
-(7, 61, 'EX52 - Crankshaft position sensor', '0', '37', 'Test'),
-(8, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
-(9, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here'),
-(10, 60, 'EX50 - Subwoofer', '0', '40', 'asdadasddd'),
-(11, 60, 'EX50 - Subwoofer', '0', '41', 'Slay'),
-(12, 60, 'EX53 - Clinometer', '0', '42', 'dfsfs'),
-(13, 60, 'EX50 - Subwoofer', '0', '43', 'content'),
-(14, 60, 'EX50 - Subwoofer', '0', '44', 'content'),
-(15, 60, 'EX53 - Clinometer', '0', '44', 'content'),
-(16, 60, 'EX53 - Clinometer', '0', '44', 'content'),
-(17, 60, 'EX53 - Clinometer', '0', '47', 'content'),
-(18, 60, 'EX53 - Clinometer', '0', '47', 'content'),
-(19, 60, 'EX53 - Clinometer', '0', '58', 'content'),
-(20, 60, 'EX52 - Crankshaft position sensor', '0', '59', 'content'),
-(21, 60, 'EX52 - Crankshaft position sensor', '0', '60', 'content'),
-(22, 60, 'EX51 - Automatic transmission speed sensor', '0', '61', 'content'),
-(23, 60, 'EX51 - Automatic transmission speed sensor', '0', '62', 'content'),
-(24, 60, 'EX52 - Crankshaft position sensor', '0', '63', 'content'),
-(25, 60, 'EX52 - Crankshaft position sensor', '0', '64', 'content'),
-(26, 60, 'EX51 - Automatic transmission speed sensor', '0', '65', 'savaadsasd'),
-(27, 60, 'EX52 - Crankshaft position sensor', '0', '66', 'content'),
-(28, 60, 'EX51 - Automatic transmission speed sensor', '0', '67', 'content'),
-(29, 60, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content'),
-(30, 61, 'EX52 - Crankshaft position sensor', '0', '69', 'content'),
-(31, 60, 'EX52 - Crankshaft position sensor', '0', '70', 'content'),
-(32, 60, 'EX51 - Automatic transmission speed sensor', '0', '71', 'content'),
-(33, 60, 'EX50 - Subwoofer', '0', '72', 'content'),
-(34, 60, 'EX50 - Subwoofer', '0', '73', 'content'),
-(35, 60, 'EX51 - Automatic transmission speed sensor', '0', '74', 'content'),
-(36, 60, 'EX51 - Automatic transmission speed sensor', '0', '75', 'but here'),
-(37, 60, 'EX50 - Subwoofer', '0', '76', 'content'),
-(38, 60, 'EX50 - Subwoofer', '0', '77', 'content'),
-(39, 60, 'EX51 - Automatic transmission speed sensor', '0', '78', 'content'),
-(40, 60, 'EX50 - Subwoofer', '0', '79', 'content'),
-(41, 60, 'EX53 - Clinometer', '0', '80', 'sdsasdasdasdasd'),
-(42, NULL, NULL, NULL, '40', 'asdadasddd'),
-(43, NULL, NULL, NULL, '40', 'asdadasddd'),
-(44, 59, 'EX51 - Automatic transmission speed sensor', '0', '81', 'content'),
-(45, 59, 'EX51 - Automatic transmission speed sensor', '0', '82', 'content'),
-(46, 59, 'EX53 - Clinometer', '0', '83', 'Your arsons match'),
-(47, 59, 'EX50 - Subwoofer', '0', '84', 'content'),
-(48, NULL, NULL, NULL, '82', ''),
-(49, NULL, NULL, NULL, '83', 'your dynamite'),
-(50, NULL, NULL, NULL, '83', 'and I still see it'),
-(51, 59, 'EX51 - Automatic transmission speed sensor', '0', '85', 'hjkhjk'),
-(52, NULL, NULL, NULL, '83', 'until I die'),
-(53, NULL, NULL, NULL, '83', 'you\'re the loss of my life'),
-(55, NULL, NULL, NULL, '82', 'MIAUZS'),
-(56, 61, 'EX52 - Crankshaft position sensor', '0', '86', 'content'),
-(57, 61, 'EX52 - Crankshaft position sensor', '0', '87', 'content'),
-(58, 61, 'EX53 - Clinometer', '0', '88', 'content'),
-(59, 61, 'EX50 - Subwoofer', '0', '89', 'content'),
-(60, 61, 'EX51 - Automatic transmission speed sensor', '0', '90', 'content'),
-(61, 61, 'EX51 - Automatic transmission speed sensor', '0', '91', 'content'),
-(62, 61, 'EX51 - Automatic transmission speed sensor', '0', '92', 'content'),
-(63, 58, 'EX51 - Automatic transmission speed sensor', '0', '95', 'content'),
-(64, 0, 'EX50 - Subwoofer', '0', NULL, 'content'),
-(65, 76, 'EX50 - Subwoofer', '0', '1', 'Any of these columns can be independently removed '),
-(66, 76, 'EX50 - Subwoofer', '0', '2', 'These fields are automatically generated underneath each task'),
-(68, 0, 'CH22 - Distributor', '0', NULL, 'content'),
-(69, 0, 'CH22 - Distributor', '0', NULL, 'content'),
-(70, 76, 'EX51 - Automatic transmission speed sensor', '0', '6', 'content'),
-(71, 77, 'CH22 - Distributor', '0', '7', 'These fields are automatically generated underneath each task'),
-(73, 78, 'EX50 - Subwoofer', '0', '10', 'content'),
-(74, 78, 'EX51 - Automatic transmission speed sensor', '0', '11', 'content');
+INSERT INTO `information` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`, `responsible`) VALUES
+(1, 124, 'EX50 - Subwoofer', '0', '1', 'Presents', NULL);
 
 -- --------------------------------------------------------
 
@@ -8406,162 +8294,11 @@ CREATE TABLE `module_team_guest_attendance` (
 --
 
 INSERT INTO `module_team_guest_attendance` (`id`, `agenda_id`, `guest_id`, `department`, `substitute`, `present`) VALUES
-(1, 76, 3, 'Finance', NULL, 1),
-(2, 76, 4, 'HR', '', 1),
-(3, 76, 5, 'Marketing', NULL, 0),
-(4, 76, 6, 'Finance', NULL, 1),
-(5, 76, 8, 'HR', 'Emily Davis', 1),
-(6, 76, 9, 'Finance', NULL, 1),
-(7, 77, 3, 'Finance', NULL, 0),
-(8, 77, 4, 'HR', NULL, 0),
-(9, 77, 5, 'Marketing', NULL, 0),
-(10, 77, 6, 'Finance', NULL, 0),
-(11, 77, 8, 'HR', NULL, 0),
-(12, 77, 9, 'Finance', NULL, 0),
-(13, 78, 3, 'Finance', NULL, 0),
-(14, 78, 4, 'HR', NULL, 0),
-(15, 78, 5, 'Marketing', NULL, 0),
-(16, 78, 6, 'Finance', NULL, 0),
-(17, 78, 8, 'HR', NULL, 0),
-(18, 78, 9, 'Finance', NULL, 0),
-(19, 79, 3, 'Finance', NULL, 0),
-(20, 79, 4, 'HR', NULL, 0),
-(21, 79, 5, 'Marketing', NULL, 0),
-(22, 79, 6, 'Finance', NULL, 0),
-(23, 79, 8, 'HR', NULL, 0),
-(24, 79, 9, 'Finance', NULL, 0),
-(25, 80, 3, 'Finance', NULL, 0),
-(26, 80, 4, 'HR', NULL, 0),
-(27, 80, 5, 'Marketing', NULL, 0),
-(28, 80, 6, 'Finance', NULL, 0),
-(29, 80, 8, 'HR', NULL, 0),
-(30, 80, 9, 'Finance', NULL, 0),
-(31, 81, 3, 'Finance', NULL, 0),
-(32, 81, 4, 'HR', NULL, 0),
-(33, 81, 5, 'Marketing', NULL, 0),
-(34, 81, 6, 'Finance', NULL, 0),
-(35, 81, 8, 'HR', NULL, 0),
-(36, 81, 9, 'Finance', NULL, 0),
-(37, 82, 3, 'Finance', NULL, 0),
-(38, 82, 4, 'HR', NULL, 0),
-(39, 82, 5, 'Marketing', NULL, 0),
-(40, 82, 6, 'Finance', NULL, 0),
-(41, 82, 8, 'HR', NULL, 0),
-(42, 82, 9, 'Finance', NULL, 0),
-(43, 83, 3, 'Finance', NULL, 0),
-(44, 83, 4, 'HR', NULL, 0),
-(45, 83, 5, 'Marketing', NULL, 0),
-(46, 83, 6, 'Finance', NULL, 0),
-(47, 83, 8, 'HR', NULL, 0),
-(48, 83, 9, 'Finance', NULL, 0),
-(49, 84, 3, 'Finance', NULL, 0),
-(50, 84, 4, 'HR', NULL, 0),
-(51, 84, 5, 'Marketing', NULL, 0),
-(52, 84, 6, 'Finance', NULL, 0),
-(53, 84, 8, 'HR', NULL, 0),
-(54, 84, 9, 'Finance', NULL, 0),
-(55, 85, 3, 'Finance', NULL, 0),
-(56, 85, 4, 'HR', NULL, 0),
-(57, 85, 5, 'Marketing', NULL, 0),
-(58, 85, 6, 'Finance', NULL, 0),
-(59, 85, 8, 'HR', NULL, 0),
-(60, 85, 9, 'Finance', NULL, 0),
-(61, 86, 3, 'Finance', NULL, 0),
-(62, 86, 4, 'HR', NULL, 0),
-(63, 86, 5, 'Marketing', NULL, 0),
-(64, 86, 6, 'Finance', NULL, 0),
-(65, 86, 8, 'HR', NULL, 0),
-(66, 86, 9, 'Finance', NULL, 0),
-(67, 87, 3, 'Finance', NULL, 0),
-(68, 87, 4, 'HR', NULL, 0),
-(69, 87, 5, 'Marketing', NULL, 0),
-(70, 87, 6, 'Finance', NULL, 0),
-(71, 87, 8, 'HR', NULL, 0),
-(72, 87, 9, 'Finance', NULL, 0),
-(73, 88, 3, 'Finance', NULL, 0),
-(74, 88, 4, 'HR', NULL, 0),
-(75, 88, 5, 'Marketing', NULL, 0),
-(76, 88, 6, 'Finance', NULL, 0),
-(77, 88, 8, 'HR', NULL, 0),
-(78, 88, 9, 'Finance', NULL, 0),
-(79, 89, 3, 'Finance', NULL, 0),
-(80, 89, 4, 'HR', NULL, 0),
-(81, 89, 5, 'Marketing', NULL, 0),
-(82, 89, 6, 'Finance', NULL, 0),
-(83, 89, 8, 'HR', NULL, 0),
-(84, 89, 9, 'Finance', NULL, 0),
-(85, 90, 3, 'Finance', NULL, 0),
-(86, 90, 4, 'HR', NULL, 0),
-(87, 90, 5, 'Marketing', NULL, 0),
-(88, 90, 6, 'Finance', NULL, 0),
-(89, 90, 8, 'HR', NULL, 0),
-(90, 90, 9, 'Finance', NULL, 0),
-(91, 91, 3, 'Finance', NULL, 0),
-(92, 91, 4, 'HR', NULL, 0),
-(93, 91, 5, 'Marketing', NULL, 0),
-(94, 91, 6, 'Finance', NULL, 0),
-(95, 91, 8, 'HR', NULL, 0),
-(96, 91, 9, 'Finance', NULL, 0),
-(97, 92, 3, 'Finance', NULL, 0),
-(98, 92, 4, 'HR', NULL, 0),
-(99, 92, 5, 'Marketing', NULL, 0),
-(100, 92, 6, 'Finance', NULL, 0),
-(101, 92, 8, 'HR', NULL, 0),
-(102, 92, 9, 'Finance', NULL, 0),
-(103, 93, 3, 'Finance', NULL, 0),
-(104, 93, 4, 'HR', NULL, 0),
-(105, 93, 5, 'Marketing', NULL, 0),
-(106, 93, 6, 'Finance', NULL, 0),
-(107, 93, 8, 'HR', NULL, 0),
-(108, 93, 9, 'Finance', NULL, 0),
-(109, 94, 3, 'Finance', NULL, 0),
-(110, 94, 4, 'HR', NULL, 0),
-(111, 94, 5, 'Marketing', NULL, 0),
-(112, 94, 6, 'Finance', NULL, 0),
-(113, 94, 8, 'HR', NULL, 0),
-(114, 94, 9, 'Finance', NULL, 0),
-(115, 95, 3, 'Finance', NULL, 0),
-(116, 95, 4, 'HR', NULL, 0),
-(117, 95, 5, 'Marketing', NULL, 0),
-(118, 95, 6, 'Finance', NULL, 0),
-(119, 95, 8, 'HR', NULL, 0),
-(120, 95, 9, 'Finance', NULL, 0),
-(121, 96, 3, 'Finance', NULL, 0),
-(122, 96, 4, 'HR', NULL, 0),
-(123, 96, 5, 'Marketing', NULL, 0),
-(124, 96, 6, 'Finance', NULL, 0),
-(125, 96, 8, 'HR', NULL, 0),
-(126, 96, 9, 'Finance', NULL, 0),
-(127, 97, 3, 'Finance', NULL, 0),
-(128, 97, 4, 'HR', NULL, 0),
-(129, 97, 5, 'Marketing', NULL, 0),
-(130, 97, 6, 'Finance', NULL, 0),
-(131, 97, 8, 'HR', NULL, 0),
-(132, 97, 9, 'Finance', NULL, 0),
-(133, 98, 3, 'Finance', NULL, 0),
-(134, 98, 4, 'HR', NULL, 0),
-(135, 98, 5, 'Marketing', NULL, 0),
-(136, 98, 6, 'Finance', NULL, 0),
-(137, 98, 8, 'HR', NULL, 0),
-(138, 98, 9, 'Finance', NULL, 0),
-(139, 99, 3, 'Finance', NULL, 0),
-(140, 99, 4, 'HR', NULL, 0),
-(141, 99, 5, 'Marketing', NULL, 0),
-(142, 99, 6, 'Finance', NULL, 0),
-(143, 99, 8, 'HR', NULL, 0),
-(144, 99, 9, 'Finance', NULL, 0),
-(145, 100, 3, 'Finance', NULL, 0),
-(146, 100, 4, 'HR', NULL, 0),
-(147, 100, 5, 'Marketing', NULL, 0),
-(148, 100, 6, 'Finance', NULL, 0),
-(149, 100, 8, 'HR', NULL, 0),
-(150, 100, 9, 'Finance', NULL, 0),
-(151, 101, 3, 'Finance', NULL, 0),
-(152, 101, 4, 'HR', NULL, 0),
-(153, 101, 5, 'Marketing', NULL, 0),
-(154, 101, 6, 'Finance', NULL, 0),
-(155, 101, 8, 'HR', NULL, 0),
-(156, 101, 9, 'Finance', NULL, 0);
+(1, 124, 3, 'Finance', NULL, 0),
+(2, 124, 4, 'HR', NULL, 0),
+(3, 124, 5, 'Marketing', NULL, 0),
+(4, 124, 6, 'Finance', NULL, 0),
+(5, 124, 8, 'HR', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -8607,218 +8344,11 @@ CREATE TABLE `module_team_member_attendance` (
 --
 
 INSERT INTO `module_team_member_attendance` (`id`, `agenda_id`, `member_id`, `department`, `present`, `absent`, `substituted`) VALUES
-(1, 76, 1, 'Engineering', 1, 0, 0),
-(2, 76, 2, 'Marketing', 0, 1, 0),
-(3, 76, 3, 'Finance', 0, 1, 0),
-(4, 76, 4, 'HR', 0, 0, 1),
-(5, 76, 5, 'IT', 1, 0, 0),
-(6, 77, 1, 'Engineering', 0, 0, 0),
-(7, 77, 2, 'Marketing', 0, 0, 0),
-(8, 77, 3, 'Finance', 0, 0, 0),
-(9, 77, 4, 'HR', 0, 0, 0),
-(10, 77, 5, 'IT', 0, 0, 0),
-(11, 78, 1, 'Engineering', 0, 0, 0),
-(12, 78, 2, 'Marketing', 0, 0, 0),
-(13, 78, 3, 'Finance', 0, 0, 0),
-(14, 78, 4, 'HR', 0, 0, 0),
-(15, 78, 5, 'IT', 0, 0, 0),
-(16, 79, 1, 'Engineering', 0, 0, 0),
-(17, 79, 2, 'Marketing', 0, 0, 0),
-(18, 79, 3, 'Finance', 0, 0, 0),
-(19, 79, 4, 'HR', 0, 0, 0),
-(20, 79, 5, 'IT', 0, 0, 0),
-(21, 80, 1, 'Engineering', 0, 0, 0),
-(22, 80, 2, 'Marketing', 0, 0, 0),
-(23, 80, 3, 'Finance', 0, 0, 0),
-(24, 80, 4, 'HR', 0, 0, 0),
-(25, 80, 5, 'IT', 0, 0, 0),
-(26, 81, 1, 'Engineering', 0, 0, 0),
-(27, 81, 2, 'Marketing', 0, 0, 0),
-(28, 81, 3, 'Finance', 0, 0, 0),
-(29, 81, 4, 'HR', 0, 0, 0),
-(30, 81, 5, 'IT', 0, 0, 0),
-(31, 82, 1, 'Engineering', 0, 0, 0),
-(32, 82, 2, 'Marketing', 0, 0, 0),
-(33, 82, 3, 'Finance', 0, 0, 0),
-(34, 82, 4, 'HR', 0, 0, 0),
-(35, 82, 5, 'IT', 0, 0, 0),
-(36, 83, 1, 'Engineering', 0, 0, 0),
-(37, 83, 2, 'Marketing', 0, 0, 0),
-(38, 83, 3, 'Finance', 0, 0, 0),
-(39, 83, 4, 'HR', 0, 0, 0),
-(40, 83, 5, 'IT', 0, 0, 0),
-(41, 84, 1, 'Engineering', 0, 0, 0),
-(42, 84, 2, 'Marketing', 0, 0, 0),
-(43, 84, 3, 'Finance', 0, 0, 0),
-(44, 84, 4, 'HR', 0, 0, 0),
-(45, 84, 5, 'IT', 0, 0, 0),
-(46, 85, 1, 'Engineering', 0, 0, 0),
-(47, 85, 2, 'Marketing', 0, 0, 0),
-(48, 85, 3, 'Finance', 0, 0, 0),
-(49, 85, 4, 'HR', 0, 0, 0),
-(50, 85, 5, 'IT', 0, 0, 0),
-(51, 86, 1, 'Engineering', 0, 0, 0),
-(52, 86, 2, 'Marketing', 0, 0, 0),
-(53, 86, 3, 'Finance', 0, 0, 0),
-(54, 86, 4, 'HR', 0, 0, 0),
-(55, 86, 5, 'IT', 0, 0, 0),
-(56, 87, 1, 'Engineering', 0, 0, 0),
-(57, 87, 2, 'Marketing', 0, 0, 0),
-(58, 87, 3, 'Finance', 0, 0, 0),
-(59, 87, 4, 'HR', 0, 0, 0),
-(60, 87, 5, 'IT', 0, 0, 0),
-(61, 88, 1, 'Engineering', 0, 0, 0),
-(62, 88, 2, 'Marketing', 0, 0, 0),
-(63, 88, 3, 'Finance', 0, 0, 0),
-(64, 88, 4, 'HR', 0, 0, 0),
-(65, 88, 5, 'IT', 0, 0, 0),
-(66, 89, 1, 'Engineering', 0, 0, 0),
-(67, 89, 2, 'Marketing', 0, 0, 0),
-(68, 89, 3, 'Finance', 0, 0, 0),
-(69, 89, 4, 'HR', 0, 0, 0),
-(70, 89, 5, 'IT', 0, 0, 0),
-(71, 90, 1, 'Engineering', 0, 0, 0),
-(72, 90, 2, 'Marketing', 0, 0, 0),
-(73, 90, 3, 'Finance', 0, 0, 0),
-(74, 90, 4, 'HR', 0, 0, 0),
-(75, 90, 5, 'IT', 0, 0, 0),
-(76, 91, 1, 'Engineering', 0, 0, 0),
-(77, 91, 2, 'Marketing', 0, 0, 0),
-(78, 91, 3, 'Finance', 0, 0, 0),
-(79, 91, 4, 'HR', 0, 0, 0),
-(80, 91, 5, 'IT', 0, 0, 0),
-(81, 92, 1, 'Engineering', 0, 0, 0),
-(82, 92, 2, 'Marketing', 0, 0, 0),
-(83, 92, 3, 'Finance', 0, 0, 0),
-(84, 92, 4, 'HR', 0, 0, 0),
-(85, 92, 5, 'IT', 0, 0, 0),
-(86, 93, 1, 'Engineering', 0, 0, 0),
-(87, 93, 2, 'Marketing', 0, 0, 0),
-(88, 93, 3, 'Finance', 0, 0, 0),
-(89, 93, 4, 'HR', 0, 0, 0),
-(90, 93, 5, 'IT', 0, 0, 0),
-(91, 94, 1, 'Engineering', 0, 0, 0),
-(92, 94, 2, 'Marketing', 0, 0, 0),
-(93, 94, 3, 'Finance', 0, 0, 0),
-(94, 94, 4, 'HR', 0, 0, 0),
-(95, 94, 5, 'IT', 0, 0, 0),
-(96, 95, 1, 'Engineering', 0, 0, 0),
-(97, 95, 2, 'Marketing', 0, 0, 0),
-(98, 95, 3, 'Finance', 0, 0, 0),
-(99, 95, 4, 'HR', 0, 0, 0),
-(100, 95, 5, 'IT', 0, 0, 0),
-(101, 96, 1, 'Engineering', 0, 0, 0),
-(102, 96, 2, 'Marketing', 0, 0, 0),
-(103, 96, 3, 'Finance', 0, 0, 0),
-(104, 96, 4, 'HR', 0, 0, 0),
-(105, 96, 5, 'IT', 0, 0, 0),
-(106, 97, 1, 'Engineering', 0, 0, 0),
-(107, 97, 2, 'Marketing', 0, 0, 0),
-(108, 97, 3, 'Finance', 0, 0, 0),
-(109, 97, 4, 'HR', 0, 0, 0),
-(110, 97, 5, 'IT', 0, 0, 0),
-(111, 98, 1, 'Engineering', 0, 0, 0),
-(112, 98, 2, 'Marketing', 0, 0, 0),
-(113, 98, 3, 'Finance', 0, 0, 0),
-(114, 98, 4, 'HR', 0, 0, 0),
-(115, 98, 5, 'IT', 0, 0, 0),
-(116, 99, 1, 'Engineering', 0, 0, 0),
-(117, 99, 2, 'Marketing', 0, 0, 0),
-(118, 99, 3, 'Finance', 0, 0, 0),
-(119, 99, 4, 'HR', 0, 0, 0),
-(120, 99, 5, 'IT', 0, 0, 0),
-(121, 100, 1, 'Engineering', 0, 0, 0),
-(122, 100, 2, 'Marketing', 0, 0, 0),
-(123, 100, 3, 'Finance', 0, 0, 0),
-(124, 100, 4, 'HR', 0, 0, 0),
-(125, 100, 5, 'IT', 0, 0, 0),
-(126, 101, 1, 'Engineering', 0, 0, 0),
-(127, 101, 2, 'Marketing', 0, 0, 0),
-(128, 101, 3, 'Finance', 0, 0, 0),
-(129, 101, 4, 'HR', 0, 0, 0),
-(130, 101, 5, 'IT', 0, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mt_agenda`
---
-
-CREATE TABLE `mt_agenda` (
-  `item_id` float NOT NULL,
-  `GFT` varchar(255) DEFAULT NULL,
-  `Topic` varchar(255) DEFAULT NULL,
-  `Status` varchar(255) DEFAULT NULL,
-  `Change_Request` varchar(255) DEFAULT NULL,
-  `Task` varchar(255) DEFAULT NULL,
-  `Comment` varchar(255) DEFAULT NULL,
-  `Milestone` varchar(255) DEFAULT NULL,
-  `Responsible` varchar(255) DEFAULT NULL,
-  `Start` varchar(255) DEFAULT NULL,
-  `New_Row` enum('Yes','No') DEFAULT NULL,
-  `Delete_Row` enum('Yes','No') DEFAULT NULL,
-  `agenda_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `mt_agenda`
---
-
-INSERT INTO `mt_agenda` (`item_id`, `GFT`, `Topic`, `Status`, `Change_Request`, `Task`, `Comment`, `Milestone`, `Responsible`, `Start`, `New_Row`, `Delete_Row`, `agenda_id`) VALUES
-(0, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 0),
-(1.25, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
-(1.4375, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
-(1.5, 'GFT2', 'Topic2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(1.75, '3', '3', '3', '3', '3', '3', '3', '3', '3', 'Yes', 'No', 1),
-(2.5, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 1),
-(3, 'GFT 1', 'Top 1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4, 'Change Request 1', 'Top 2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4.125, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 2),
-(4.25, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 2),
-(4.5, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 2),
-(5, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 23),
-(5.5, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 23),
-(6, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 23),
-(7, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 24),
-(7.5, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 24),
-(7.625, '4', '4', '4', '4', '4', '4', '4', '4', '4', 'Yes', 'No', 24),
-(7.75, '3', '3', '3', '3', '3', '3', '3', '3', '3', 'Yes', 'No', 24),
-(8, '2', '2', '2', '2', '2', '2', '2', '2', '2', 'Yes', 'No', 24),
-(9, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 25),
-(10, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 26),
-(11, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 27),
-(12, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 28),
-(13, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 29),
-(14, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 30),
-(15, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 31),
-(16, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 32),
-(17, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 33),
-(18, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 34),
-(19, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 35),
-(20, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 36),
-(21, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 37),
-(22, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 38),
-(23, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 39),
-(24, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 40),
-(25, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 41),
-(26, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 42),
-(27, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 43),
-(28, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 44),
-(29, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 45),
-(30, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 46),
-(31, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 49),
-(32, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 50),
-(33, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 51),
-(34, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 52),
-(35, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 53),
-(36, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 54),
-(37, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 55),
-(38, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 56),
-(39, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 57),
-(40, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 58),
-(41, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 59),
-(42, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 60),
-(43, '', '', '', '', '', '', '', '', '', 'Yes', 'No', 61);
+(1, 124, 1, 'Engineering', 0, 0, 0),
+(2, 124, 2, 'Marketing', 0, 0, 0),
+(3, 124, 3, 'Finance', 0, 0, 0),
+(4, 124, 4, 'HR', 0, 0, 0),
+(5, 124, 5, 'IT', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -8841,10 +8371,7 @@ CREATE TABLE `mt_agenda_list` (
 --
 
 INSERT INTO `mt_agenda_list` (`agenda_id`, `agenda_name`, `created_by`, `created_date`, `last_modified`, `agenda_date`, `module_team`) VALUES
-(76, 'Agenda Test 1', '', '0000-00-00', '0000-00-00', '2024-06-09', 'MT Exterior'),
-(77, 'Agenda Test 1', '', '0000-00-00', '0000-00-00', '2024-06-10', 'MT Chassis'),
-(100, '2001-09-11', '', '0000-00-00', '0000-00-00', '2001-09-11', 'MT Exterior'),
-(101, '2024-12-20', '', '0000-00-00', '0000-00-00', '2024-12-20', 'MT Exterior');
+(124, '2024-06-30', '', '0000-00-00', '0000-00-00', '2024-06-30', 'MT Exterior');
 
 -- --------------------------------------------------------
 
@@ -8955,85 +8482,6 @@ INSERT INTO `personal_tasks` (`id`, `user_id`, `summary`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `spec_book`
---
-
-CREATE TABLE `spec_book` (
-  `Module_Team` varchar(100) DEFAULT NULL,
-  `GFT` varchar(100) DEFAULT NULL,
-  `Project` varchar(100) DEFAULT NULL,
-  `Component` varchar(200) NOT NULL,
-  `CRS_Signature` date DEFAULT NULL,
-  `CRS_Done` varchar(10) DEFAULT NULL,
-  `Supplier_Awarding` varchar(100) DEFAULT NULL,
-  `CIS_Alignment` date DEFAULT NULL,
-  `CIS_Done` varchar(10) DEFAULT NULL,
-  `E_Signing_Completed` date DEFAULT NULL,
-  `E_Signing_Done` varchar(50) DEFAULT NULL,
-  `Archived` varchar(10) DEFAULT NULL,
-  `Doors_Next_Module` varchar(2000) DEFAULT NULL,
-  `Comment` varchar(2000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `spec_book`
---
-
-INSERT INTO `spec_book` (`Module_Team`, `GFT`, `Project`, `Component`, `CRS_Signature`, `CRS_Done`, `Supplier_Awarding`, `CIS_Alignment`, `CIS_Done`, `E_Signing_Completed`, `E_Signing_Done`, `Archived`, `Doors_Next_Module`, `Comment`) VALUES
-('MT Cab Structure', 'CS15 - Brake sensor', 'eActros 1', '2-2020-00003: something', '2020-07-31', 'Yes', 'supplier 3', '2020-04-02', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM81 - Welded assembly', 'Bus C', '2-2020-00012: something', '2020-12-09', 'Delay', 'supplier 12', '2020-07-16', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR31 - Battery Cable terminal', '02-Project', '2-2020-00029: something', '2020-11-23', NULL, 'supplier 29', '2020-04-07', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX50 - Subwoofer', 'eActros 3', '2-2020-00031: something', '2020-08-13', NULL, 'supplier 31', '2020-12-17', NULL, NULL, NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV02 - Rims', 'Powertrain B', '2-2020-00037: something', '2020-12-25', 'Delay', 'supplier 37', '2020-05-17', 'Delay', '2024-04-29', NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV00 - Hubcap', 'Powertrain A', '2-2020-00041: something', '2020-03-30', 'Delay', 'supplier 41', '2020-02-17', 'Delay', NULL, NULL, NULL, NULL, NULL),
-('MT Cab Structure', 'CS10 - Oil level sensor', 'Axle 3', '2-2021-00000: something', '2021-01-22', NULL, 'supplier 0', '2021-02-08', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX51 - Automatic transmission speed sensor', 'Bus B', '2-2021-00002: something', '2021-03-11', 'Yes', 'supplier 2', '2021-09-15', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Cab Structure', 'CS12 - Tachometer', 'eActros 2', '2-2021-00004: something', '2021-05-14', 'Yes', 'supplier 4', '2021-02-25', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX50 - Subwoofer', 'Bus A', '2-2021-00005: something', '2021-05-01', 'Yes', 'supplier 5', '2021-01-14', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR30 - Oil pressure sensor', 'Bus A', '2-2021-00009: something', '2021-08-27', NULL, 'supplier 9', '2021-08-24', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Interior', 'IN63 - Sulphuric Acid', 'Powertrain A', '2-2021-00010: something', '2021-02-26', 'Delay', 'supplier 10', '2021-09-15', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR31 - Battery Cable terminal', 'eActros 1', '2-2021-00013: something', '2021-03-01', 'Delay', 'supplier 13', '2021-12-04', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR30 - Oil pressure sensor', '01-Series', '2-2021-00014: something', '2021-04-24', 'Yes', 'supplier 14', '2021-12-28', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM82 - Ignition box', 'Bus A', '2-2021-00017: something', '2021-11-29', 'Delay', 'supplier 17', '2021-07-11', NULL, NULL, NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV00 - Hubcap', 'eActros 3', '2-2021-00021: something', '2021-03-21', NULL, 'supplier 21', '2021-01-26', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME70 - Battery tray', 'Powertrain C', '2-2021-00032: something', '2021-08-29', 'Yes', 'supplier 32', '2021-03-06', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX53 - Clinometer', '02-Project', '2-2021-00034: something', '2021-04-18', 'Yes', 'supplier 34', '2021-06-16', NULL, NULL, NULL, NULL, NULL, '29.01.2024: something...'),
-('MT Mechatronics', 'ME72 - Knock sensor', 'Axle 3', '2-2021-00035: something', '2021-07-17', 'Delay', 'supplier 35', '2021-09-13', 'Delay', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME72 - Knock sensor', 'eAtego 2', '2-2021-00038: something', '2021-01-11', NULL, 'supplier 38', '2021-02-20', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME72 - Knock sensor', 'Powertrain C', '2-2021-00042: something', '2021-12-23', NULL, 'supplier 42', '2021-10-11', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM80 - Speaker', '02-Project', '2-2021-00044: something', '2021-11-03', 'Delay', 'supplier 44', '2021-02-09', NULL, NULL, NULL, NULL, NULL, '19.02.2024: something...'),
-('MT Cab Structure', 'CS12 - Tachometer', 'Axle 3', '2-2021-00047: something', '2021-07-14', 'Yes', 'supplier 47', '2021-10-22', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM82 - Ignition box', 'eAtego 2', '2-2022-00006: something', '2022-09-19', 'Yes', 'supplier 6', '2022-06-09', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV02 - Rims', 'Bus C', '2-2022-00007: something', '2022-12-07', NULL, 'supplier 7', '2022-07-17', 'NULL', '2022-03-08', NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM81 - Welded assembly', 'eActros 2', '2-2022-00023: something', '2022-01-13', NULL, 'supplier 23', '2022-04-01', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Components', 'CO44 - Hinges and springs', 'Bus B', '2-2022-00024: something', '2022-07-03', NULL, 'supplier 24', '2022-12-21', 'NULL', '2023-02-04', NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME70 - Battery tray', 'Powertrain B', '2-2022-00025: something', '2022-02-28', 'Yes', 'supplier 25', '2022-03-12', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Interior', 'IN60 - Camshaft position sensor', 'Axle 1', '2-2022-00033: something', '2022-10-18', 'Delay', 'supplier 33', '2022-06-23', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Chassis', 'CH22 - Distributor', 'eAtego 3', '2-2022-00036: something', '2022-09-17', 'Yes', 'supplier 36', '2022-11-30', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR30 - Oil pressure sensor', 'eActros 3', '2-2022-00046: something', '2022-07-16', NULL, 'supplier 46', '2022-02-28', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Test & Te/st', 'TT91 - Rocker', 'eActros 1', '2-2022-00048: something', '2022-10-07', 'Yes', 'supplier 48', '2022-11-02', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Chassis', 'CH20 - Battery', 'Powertrain C', '2-2023-00011: something', '2023-06-24', NULL, 'supplier 11', '2023-06-25', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME71 - Alternator', 'eActros 1', '2-2023-00016: something', '2023-06-18', 'Delay', 'supplier 16', '2023-09-24', NULL, NULL, NULL, NULL, NULL, '05.01.2024: something...'),
-('MT Cab Structure', 'CS12 - Tachometer', 'Bus A', '2-2023-00018: something', '2023-10-23', NULL, 'supplier 18', '2023-05-17', 'NULL', '2024-04-20', NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX53 - Clinometer', 'eActros 2', '2-2023-00020: something', '2023-07-15', 'Yes', 'supplier 20', '2023-07-22', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX51 - Automatic transmission speed sensor', 'eActros 2', '2-2023-00022: something', '2023-06-01', NULL, 'supplier 22', '2023-02-24', 'NULL', NULL, NULL, NULL, NULL, '09.01.2024: something...'),
-('MT Test & Te/st', 'TT90 - Dashcam', 'Bus B', '2-2023-00027: something', '2023-09-04', NULL, 'supplier 27', '2023-03-12', NULL, NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME72 - Knock sensor', 'eActros 3', '2-2023-00030: something', '2023-05-01', 'Yes', 'supplier 30', '2023-01-17', 'Yes', '2023-09-20', NULL, NULL, NULL, NULL),
-('MT Architecture', 'AR31 - Battery Cable terminal', 'Powertrain B', '2-2023-00039: something', '2023-11-30', 'Yes', 'supplier 39', '2023-08-02', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV00 - Hubcap', 'Axle 1', '2-2023-00043: something', '2023-09-18', NULL, 'supplier 43', '2023-01-27', 'NULL', NULL, NULL, NULL, NULL, NULL),
-('Entire Vehicle', 'EV00 - Hubcap', 'Axle 1', '2-2024-00001: something', '2024-11-19', 'Yes', 'supplier 1', '2024-11-29', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Test & Te/st', 'TT94 - Distilled Water', '03-Mixed', '2-2024-00008: something', '2024-12-23', NULL, 'supplier 8', '2024-02-22', NULL, '2024-01-07', NULL, NULL, NULL, NULL),
-('MT Chassis', 'CH21 - Oil pressure gauge', 'eActros 2', '2-2024-00015: something', '2024-01-11', 'Delay', 'supplier 15', '2024-03-27', 'Delay', '2024-02-15', NULL, NULL, NULL, NULL),
-('MT Test & Te/st', 'TT90 - Dashcam', 'Powertrain A', '2-2024-00019: something', '2024-06-05', 'Yes', 'supplier 19', '2024-03-10', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME70 - Battery tray', 'Powertrain A', '2-2024-00026: something', '2024-11-25', NULL, 'supplier 26', '2024-02-20', NULL, NULL, NULL, NULL, NULL, '07.02.2024: something...'),
-('MT Exterior', 'EX50 - Subwoofer', 'eAtego 3', '2-2024-00028: something', '2024-05-17', 'Delay', 'supplier 28', '2024-06-08', 'Delay', NULL, NULL, NULL, NULL, NULL),
-('MT Thermomanagement', 'TM83 - Mass airflow sensor', '01-Series', '2-2024-00040: something', '2024-12-30', 'Yes', 'supplier 40', '2024-02-20', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Exterior', 'EX52 - Crankshaft position sensor', 'Axle 2', '2-2024-00045: something', '2024-03-06', 'Yes', 'supplier 45', '2024-11-20', 'Yes', NULL, NULL, NULL, NULL, NULL),
-('MT Mechatronics', 'ME70 - Battery tray', 'Axle 3', '2-2024-00049: something', '2024-09-11', 'Yes', 'supplier 49', '2024-11-07', NULL, '2024-04-03', NULL, NULL, NULL, NULL);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tasks`
 --
 
@@ -9056,29 +8504,7 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`, `deleted`, `asap`, `deadline`, `sent`) VALUES
-(1, 76, 'content', 'responsible', 'EX50 - Subwoofer', 'I170129001', '', 1, 0, NULL, 0),
-(2, 76, 'This is a task for the Topic above', 'Responcible person for the task', 'EX50 - Subwoofer', 'I170114801', '', 0, 1, '2024-06-20', 1),
-(3, 76, 'This task is for the change_request above', 'Task Responcible', 'EX51 - Automatic transmission speed sensor', 'I160063701', '', 1, 1, '2024-06-10', 0),
-(6, 76, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 1),
-(7, 77, 'This is a task for the Topic above', 'Task Responsible', 'CH22 - Distributor', 'I160057901', '', 0, 1, '2024-06-10', 0),
-(8, 77, 'This is a task for the Change Request above', 'Task Responcible', 'CH20 - Battery', 'I160095701', '', 0, 0, '2024-06-10', 0),
-(9, 78, 'This is a task for the Topic above', 'Responcible person for the task', 'EX50 - Subwoofer', 'I170114801', '', 0, 1, NULL, 0),
-(10, 78, 'dfsdf', 'adasd', 'EX50 - Subwoofer', 'I170129001', '', 1, 0, '2024-06-27', NULL),
-(11, 78, 'hhghgh', 'responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, NULL, NULL),
-(12, 84, 'This is a task for the Topic above', 'Responcible person for the task', 'EX50 - Subwoofer', 'I170114801', '', 0, 0, NULL, NULL),
-(20, 94, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, NULL, NULL),
-(21, 95, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 0),
-(22, NULL, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, NULL, NULL),
-(23, 96, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, NULL, 0),
-(24, 100, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, NULL, 0),
-(25, 99, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '1970-01-01', 0),
-(26, 100, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '1970-01-01', 0),
-(27, 101, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '1970-01-01', 0),
-(28, 101, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '0000-00-00', 0),
-(29, 100, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 1),
-(30, 100, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 1),
-(31, 100, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 0),
-(32, 76, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 0);
+(1, 124, 'Task describing what to do', 'Santa', 'EX50 - Subwoofer', 'I170114801', '', 0, 1, '2024-07-05', 0);
 
 -- --------------------------------------------------------
 
@@ -9091,6 +8517,8 @@ CREATE TABLE `topics` (
   `agenda_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `responsible` varchar(255) DEFAULT NULL,
+  `start` time DEFAULT NULL,
+  `duration` time DEFAULT NULL,
   `gft` varchar(50) DEFAULT NULL,
   `cr` varchar(50) DEFAULT NULL,
   `details` text DEFAULT NULL
@@ -9100,19 +8528,31 @@ CREATE TABLE `topics` (
 -- Dumping data for table `topics`
 --
 
-INSERT INTO `topics` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`) VALUES
-(1, 76, 'This Topic is responsible for the change request above ', 'Topic responsible', 'EX50 - Subwoofer', 'I170114801', ''),
-(3, 77, 'This Topic is responsible for the Change Request above ', 'Topic Responsible', 'CH22 - Distributor', 'I160057901', '');
+INSERT INTO `topics` (`id`, `agenda_id`, `name`, `responsible`, `start`, `duration`, `gft`, `cr`, `details`) VALUES
+(1, 124, 'Topic for doing something', 'Someone Does it', '12:45:00', '00:15:00', 'EX50 - Subwoofer', 'I170114801', '');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `agenda_change_request_filters`
+--
+ALTER TABLE `agenda_change_request_filters`
+  ADD PRIMARY KEY (`agenda_id`,`change_request_id`),
+  ADD KEY `change_request_id` (`change_request_id`);
+
+--
 -- Indexes for table `assignment`
 --
 ALTER TABLE `assignment`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `change_requests`
+--
+ALTER TABLE `change_requests`
+  ADD KEY `idx_change_requests_id` (`ID`);
 
 --
 -- Indexes for table `decision`
@@ -9161,17 +8601,11 @@ ALTER TABLE `module_team_member_attendance`
   ADD KEY `member_id` (`member_id`);
 
 --
--- Indexes for table `mt_agenda`
---
-ALTER TABLE `mt_agenda`
-  ADD PRIMARY KEY (`item_id`),
-  ADD KEY `agenda_id` (`agenda_id`);
-
---
 -- Indexes for table `mt_agenda_list`
 --
 ALTER TABLE `mt_agenda_list`
-  ADD PRIMARY KEY (`agenda_id`);
+  ADD PRIMARY KEY (`agenda_id`),
+  ADD KEY `idx_mt_agenda_list_agenda_id` (`agenda_id`);
 
 --
 -- Indexes for table `org_gfts`
@@ -9190,12 +8624,6 @@ ALTER TABLE `org_moduleteams`
 --
 ALTER TABLE `personal_tasks`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `spec_book`
---
-ALTER TABLE `spec_book`
-  ADD PRIMARY KEY (`Component`);
 
 --
 -- Indexes for table `tasks`
@@ -9219,13 +8647,13 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT for table `assignment`
 --
 ALTER TABLE `assignment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `decision`
 --
 ALTER TABLE `decision`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -9237,19 +8665,19 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `guests`
 --
 ALTER TABLE `guests`
-  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `information`
 --
 ALTER TABLE `information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `module_team_guest_attendance`
 --
 ALTER TABLE `module_team_guest_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `module_team_members`
@@ -9261,13 +8689,13 @@ ALTER TABLE `module_team_members`
 -- AUTO_INCREMENT for table `module_team_member_attendance`
 --
 ALTER TABLE `module_team_member_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `mt_agenda_list`
 --
 ALTER TABLE `mt_agenda_list`
-  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `org_gfts`
@@ -9291,43 +8719,24 @@ ALTER TABLE `personal_tasks`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `module_team_guest_attendance`
+-- Constraints for table `agenda_change_request_filters`
 --
-ALTER TABLE `module_team_guest_attendance`
-  ADD CONSTRAINT `module_team_guest_attendance_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`),
-  ADD CONSTRAINT `module_team_guest_attendance_ibfk_2` FOREIGN KEY (`guest_id`) REFERENCES `guests` (`guest_id`);
-
---
--- Constraints for table `module_team_member_attendance`
---
-ALTER TABLE `module_team_member_attendance`
-  ADD CONSTRAINT `module_team_member_attendance_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`),
-  ADD CONSTRAINT `module_team_member_attendance_ibfk_2` FOREIGN KEY (`member_id`) REFERENCES `module_team_members` (`member_id`);
-
---
--- Constraints for table `tasks`
---
-ALTER TABLE `tasks`
-  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`);
-
---
--- Constraints for table `topics`
---
-ALTER TABLE `topics`
-  ADD CONSTRAINT `topics_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`);
+ALTER TABLE `agenda_change_request_filters`
+  ADD CONSTRAINT `agenda_change_request_filters_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`),
+  ADD CONSTRAINT `agenda_change_request_filters_ibfk_2` FOREIGN KEY (`change_request_id`) REFERENCES `change_requests` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
