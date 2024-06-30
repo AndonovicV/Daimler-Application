@@ -107,29 +107,49 @@ $(document).ready(function () {
                         exportOptions: {
                             columns: ':not(:last-child)', // Exclude the last column
                             format: {
-                                body: function(data, row, column, node) {
-                                    if (column === 0 || column === 1) {
-                                        var cleanText = $("<div>").html(data).text().trim();
-                                        //console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
-                                        return cleanText;
-                                    }
+                                    body: function(data, row, column, node) {
+                                        var $node = $(node);
+                                        var $currentRow = $node.closest('tr');
+                                        var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(1).html())).text().trim();
     
-                                    var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
-                                    //console.log("First column text:", firstColumnText); // Debug statement
-    
-                                    if (column === 2) {
-                                        if (firstColumnText.includes("Task")) {
-                                            var responsible = $(node).find('input[data-column="responsible"]').val();
-                                            var deadline = $(node).find('input[data-column="deadline"]').val();
-                                            var asapStatus = $(node).find('.asap-button').css('color') === 'rgb(255, 0, 0)' ? 'Yes' : 'No'; // Check for red color
-                                            return `Responsible: ${responsible} | Deadline: ${deadline} | ASAP: ${asapStatus}`;
-                                        } else if (firstColumnText.includes("Topic")) {
-                                            var responsible = $(node).text().trim();
-                                            return `Responsible: ${responsible}`;
+                                        // Check if the next row contains "No change requests for GFT"
+                                        var $nextRow = $currentRow.next('tr');
+                                        if ($nextRow.length > 0) {
+                                            var nextFirstColumnText = $($.parseHTML($('td', $nextRow.get(0)).eq(1).html())).text().trim();
+                                            if (nextFirstColumnText.includes("No change requests for GFT")) {
+                                                $currentRow.addClass('exclude-row');
+                                                $nextRow.addClass('exclude-row');
+                                                return '';
+                                            }
                                         }
+    
+                                        // If this row is marked for exclusion, return an empty string
+                                        if ($currentRow.hasClass('exclude-row')) {
+                                            return '';
+                                        }
+    
+                                        if (column === 0 || column === 1) {
+                                            var cleanText = $("<div>").html(data).text().trim();
+                                            //console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
+                                            return cleanText;
+                                        }
+        
+                                        var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
+                                        //console.log("First column text:", firstColumnText); // Debug statement
+        
+                                        if (column === 2) {
+                                            if (firstColumnText.includes("Task")) {
+                                                var responsible = $(node).find('input[data-column="responsible"]').val();
+                                                var deadline = $(node).find('input[data-column="deadline"]').val();
+                                                var asapStatus = $(node).find('.asap-button').css('color') === 'rgb(255, 0, 0)' ? 'Yes' : 'No'; // Check for red color
+                                                return `Responsible: ${responsible} | Deadline: ${deadline} | ASAP: ${asapStatus}`;
+                                            } else if (firstColumnText.includes("Topic")) {
+                                                var responsible = $(node).text().trim();
+                                                return `Responsible: ${responsible}`;
+                                            }
+                                        }
+                                        return data;
                                     }
-                                    return data;
-                                }
                             },
                             customize: function(doc) {
                                 var taskRowStyle = {

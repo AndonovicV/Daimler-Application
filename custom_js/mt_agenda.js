@@ -110,6 +110,26 @@ $(document).ready(function () {
                             columns: ':not(:last-child)', // Exclude the last column
                             format: {
                                 body: function(data, row, column, node) {
+                                    var $node = $(node);
+                                    var $currentRow = $node.closest('tr');
+                                    var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(1).html())).text().trim();
+
+                                    // Check if the next row contains "No change requests for GFT"
+                                    var $nextRow = $currentRow.next('tr');
+                                    if ($nextRow.length > 0) {
+                                        var nextFirstColumnText = $($.parseHTML($('td', $nextRow.get(0)).eq(1).html())).text().trim();
+                                        if (nextFirstColumnText.includes("No change requests for GFT")) {
+                                            $currentRow.addClass('exclude-row');
+                                            $nextRow.addClass('exclude-row');
+                                            return '';
+                                        }
+                                    }
+
+                                    // If this row is marked for exclusion, return an empty string
+                                    if ($currentRow.hasClass('exclude-row')) {
+                                        return '';
+                                    }
+
                                     if (column === 0 || column === 1) {
                                         var cleanText = $("<div>").html(data).text().trim();
                                         //console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
@@ -134,35 +154,50 @@ $(document).ready(function () {
                                 }
                             },
                             customize: function(doc) {
-                                var taskRowStyle = {
-                                    fillColor: [255, 230, 230] // Light red background for tasks
-                                };
-                                var topicRowStyle = {
-                                    fillColor: [230, 230, 255] // Light blue background for topics
-                                };
-    
-                                for (var i = 1; i < doc.content[1].table.body.length; i++) {
-                                    var row = doc.content[1].table.body[i];
-                                    var firstCellText = row[0].text.trim();
-                                    //console.log("First cell text in PDF row:", firstCellText); // Debug statement
-    
-                                    if (firstCellText.includes("GFT")) {
-                                        row[0].style = { bold: true };
+                                    var taskRowStyle = {
+                                        fillColor: [255, 230, 230] // Light red background for tasks
+                                    };
+                                    var topicRowStyle = {
+                                        fillColor: [230, 230, 255] // Light blue background for topics
+                                    };
+                            
+                                    // Filter out flagged rows and their preceding rows
+                                    doc.content[1].table.body = doc.content[1].table.body.filter(function(row, index, array) {
+                                        var firstCellText = row[0].text.trim();
+                                        if (firstCellText.includes("No change requests for GFT")) {
+                                            return false; // Exclude this row
+                                        }
+                                        // Check if the next row contains "No change requests for GFT"
+                                        if (index < array.length - 1) {
+                                            var nextRowFirstCellText = array[index + 1][0].text.trim();
+                                            if (nextRowFirstCellText.includes("No change requests for GFT")) {
+                                                return false; // Exclude this row (preceding row)
+                                            }
+                                        }
+                                        return true; // Include this row
+                                    });
+                            
+                                    for (var i = 1; i < doc.content[1].table.body.length; i++) {
+                                        var row = doc.content[1].table.body[i];
+                                        var firstCellText = row[0].text.trim();
+                            
+                                        if (firstCellText.includes("GFT")) {
+                                            row[0].style = { bold: true };
+                                        }
+                                        if (firstCellText.includes("Task")) {
+                                            row.forEach(cell => {
+                                                cell.fillColor = taskRowStyle.fillColor;
+                                            });
+                                        } else if (firstCellText.includes("Topic")) {
+                                            row.forEach(cell => {
+                                                cell.fillColor = topicRowStyle.fillColor;
+                                            });
+                                        }
                                     }
-                                    if (firstCellText.includes("Task")) {
-                                        row.forEach(cell => {
-                                            cell.fillColor = taskRowStyle.fillColor;
-                                        });
-                                    } else if (firstCellText.includes("Topic")) {
-                                        row.forEach(cell => {
-                                            cell.fillColor = topicRowStyle.fillColor;
-                                        });
-                                    }
-                                }
-    
-                                // Set custom column widths
-                                var colWidths = ['*', 100, 75]; // Adjust as necessary for your table
-                                doc.content[1].table.widths = colWidths;
+                            
+                                    // Set custom column widths
+                                    var colWidths = ['*', 100, 75]; // Adjust as necessary for your table
+                                    doc.content[1].table.widths = colWidths;
                             }
                         }
                     }

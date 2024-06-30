@@ -81,7 +81,7 @@ include 'conn.php';
 
                 const agendaName = selectedOption.textContent.trim().split(' (')[0];
                 const agendaDate = selectedOption.textContent.trim().split(' (')[1];
-                const fileName = agendaName ? `${agendaName}.pdf` : 'attendance.pdf';
+                const fileName = agendaName ? `${agendaName}attendance.pdf` : 'attendance.pdf';
 
                 var docDefinition = {
                     content: [{
