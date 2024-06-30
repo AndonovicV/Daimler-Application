@@ -775,9 +775,9 @@ async function addTopic(cell) {
 
         var newRow = $(`
             <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
-                <td><strong>Topic</strong></td>
-                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
-                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid white;"></td>
+                <td style='color: #dfbaff'><strong>Topic</strong></td>
+                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid  #dfbaff;"></td>
+                <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid  #dfbaff;"></td>
                 <td>
                     <div class="button-container">
                         <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>

@@ -98,3 +98,9 @@ text-align: center;
 #search-task {
   border-color: orange;
 }
+
+
+#changeRequestSelect {
+  width: 100% !important; /* Ensure it uses the full width of its container */
+  max-width: 25em; /* Set the maximum width you desire */
+}

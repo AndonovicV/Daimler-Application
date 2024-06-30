@@ -672,10 +672,10 @@ async function addTopic(cell) {
                 <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td class="editabletasktopic-cell" data-column="responsible" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td class="editabletasktopic-cell" style="border: 1px solid #dfbaff;">
-                    <input type="text" class="timepicker" data-topic-id="${lastTopic}" placeholder="HH:MM">
+                    <input type="text" class="timepicker" data-topic-id="${lastTopic}" placeholder="HH:MM" style="width: 80px;">
                 </td> <!-- New Start column -->
                 <td class="editabletasktopic-cell" style="border: 1px solid #dfbaff;">
-                    <input type="text" class="duration-input" data-topic-id="${lastTopic}" placeholder="Duration (minutes)">
+                    <input type="text" class="duration-input" data-topic-id="${lastTopic}" placeholder="Duration (minutes)" style="width: 120px;">
                 </td> <!-- New Duration column -->
                 <td>
                     <div class="button-container">
@@ -690,6 +690,7 @@ async function addTopic(cell) {
                 </td>
             </tr>
         `);
+        
         newRow.insertAfter($(cell).closest('tr'));
 
         // Initialize flatpickr for the new datepicker and timepicker inputs

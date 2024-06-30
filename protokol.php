@@ -90,7 +90,7 @@ if ($result_personal_tasks->num_rows > 0) {
 <body>
 
     <div class="container">
-        <div class="container mt-5" style="color: #fff;">
+        <div class="container mt-4" style="color: #fff;">
             <h1 style="color: #777" class='mt-4'>PROTOKOLL</h1>
             <div class="row mb-3">
                 <div class="col-md-6">
@@ -109,7 +109,7 @@ if ($result_personal_tasks->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
                                     $selected = ($row["agenda_id"] == $selectedAgendaId) ? "selected" : "";
                                     echo "<option value='" . htmlspecialchars($row["agenda_id"]) . "' $selected>"
-                                        . htmlspecialchars($row["agenda_name"]) . " (" . htmlspecialchars($row["agenda_date"]) . ")"
+                                        . htmlspecialchars($row["agenda_name"])
                                         . "</option>";
                                     if ($selected) {
                                         $agenda_date = htmlspecialchars($row["agenda_date"]);
@@ -173,7 +173,7 @@ if ($result_personal_tasks->num_rows > 0) {
                 </div>
                 <div class="d-flex justify-content-between mb-3">
                     <div id="filterDiv" style="width: 100%;">
-                        <select id="changeRequestSelect" data-search="true" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
+                        <select id="changeRequestSelect" data-search="true" placeholder = "Filter Change Request" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
                             <option value="">Filter Change Request</option>
                             <?php
                             // Fetch change requests with the filter status for the selected protokol
@@ -279,7 +279,7 @@ if ($result_personal_tasks->num_rows > 0) {
             <thead>
                 <tr>
                     <th align="center">Type</th>
-                    <th align="center"></th> <!--GFT/Change Request/Task description -->
+                    <th align="center">Description</th> <!--GFT/Change Request/Task description -->
                     <th align="center">Responsible</th>
                     <th align="center" class="actions">Actions</th>
                 </tr>
@@ -289,8 +289,8 @@ if ($result_personal_tasks->num_rows > 0) {
                 if ($result_gfts->num_rows > 0) {
                     while ($row_gft = $result_gfts->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td><strong>GFT "; // Type
-                        echo "<td><strong>GFT " . $row_gft["name"] . "</strong></td>"; // GFT
+                        echo "<td style='color: #2E8B57'><strong>GFT</strong></td>"; // Type
+                        echo "<td style='color: #2E8B57'><strong>GFT " . $row_gft["name"] . "</strong></td>"; // GFT
                         echo "<td></td>"; // Responsible 
 
                         echo "<td>
@@ -320,15 +320,15 @@ if ($result_personal_tasks->num_rows > 0) {
                         $result_change_requests = $stmt->get_result();
 
                         if ($result_change_requests->num_rows > 0) {
-                            echo "<tr>";
-                            echo "<td></td>"; // Type
-                            echo "<td><strong>Change requests:</strong></td>"; // Change Request
-                            echo "<td></td>"; // Responsible
-                            echo "<td></td>"; // Actions
-                            echo "</tr>";
+                            // echo "<tr>";
+                            // echo "<td></td>"; // Type
+                            // echo "<td><strong>Change requests:</strong></td>"; // Change Request
+                            // echo "<td></td>"; // Responsible
+                            // echo "<td></td>"; // Actions
+                            // echo "</tr>";
                             while ($row_change_request = $result_change_requests->fetch_assoc()) {
                                 echo "<tr>";
-                                echo "<td></td>"; // Type
+                                echo "<td><strong>CH</strong></td>"; // Type
                                 echo "<td>" . $row_change_request["title"] . "</a></td>"; // Change Request
                                 echo "<td></td>"; // Responsible
 
@@ -386,7 +386,7 @@ if ($result_personal_tasks->num_rows > 0) {
                     if ($result_topics->num_rows > 0) {
                         while ($row_topic = $result_topics->fetch_assoc()) {
                             echo "<tr id='topic-{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
-                            echo "<td><strong>Topic</strong></td>"; // Empty column for module team
+                            echo "<td style='color: #dfbaff'><strong>Topic</strong></td>"; // Empty column for module team
                             echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Type
                             echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
                             echo "<td>
@@ -419,7 +419,7 @@ if ($result_personal_tasks->num_rows > 0) {
                                 $buttonColor = $isASAP ? 'red' : 'white';
                                 $datepickerVisibility = $isASAP ? 'display:none;' : 'display:block;';
                                 echo "<tr id='{$taskId}' data-type='task' data-id='{$taskId}'>";
-                                echo "<td><strong>Task</strong></td>"; // Static task name or type
+                                echo "<td style='color: orange'><strong>Task</strong></td>"; // Static task name or type
                                 echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid orange; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>";
                                 echo "<td style='background-color: #212529 !important; width: 100px !important;'>"; // Apply background color and minimum width
                                 echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid orange; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>"; // Adjust width to fill the container

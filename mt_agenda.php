@@ -228,7 +228,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
         </div>
         <div class="d-flex justify-content-between mb-3">
             <div id="filterDiv" style="width: 100%;">
-                <select id="changeRequestSelect" data-search="true" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
+                <select id="changeRequestSelect" data-search="true" multiple class="styled-select" placeholder="Filter Change Request" style="width: 100% !important; height: 200px; font-size: 16px;">
                     <option value="">Filter Change Request</option>
                     <?php
                     // Fetch change requests with the filter status for the selected agenda
@@ -373,8 +373,8 @@ function generateDeleteAgendaSelect($conn, $selected_team)
        if ($result_gfts->num_rows > 0) {
         while ($row_gft = $result_gfts->fetch_assoc()) {
             echo "<tr>";
-            echo "<td><strong>GFT</strong></td>"; // Type
-            echo "<td><strong>GFT " . htmlspecialchars($row_gft["name"]) . "</strong></td>"; // Description
+            echo "<td style='color: #2E8B57'><strong>GFT</strong></td>"; // Type
+            echo "<td style='color: #2E8B57'><strong>GFT " . htmlspecialchars($row_gft["name"]) . "</strong></td>"; // Description
             echo "<td></td>"; // Responsible
             echo "<td></td>"; // Start
             echo "<td></td>"; // Duration
@@ -402,18 +402,18 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             $result_change_requests = $stmt->get_result();
     
             if ($result_change_requests->num_rows > 0) {
-                echo "<tr>";
-                echo "<td></td>"; // Type
-                echo "<td><strong>Change requests:</strong></td>"; // Description
-                echo "<td></td>"; // Responsible
-                echo "<td></td>"; // Start
-                echo "<td></td>"; // Duration
-                echo "<td></td>"; // Actions
-                echo "</tr>";
+                // echo "<tr>";
+                // echo "<td></td>"; // Type
+                // echo "<td><strong>Change requests:</strong></td>"; // Description
+                // echo "<td></td>"; // Responsible
+                // echo "<td></td>"; // Start
+                // echo "<td></td>"; // Duration
+                // echo "<td></td>"; // Actions
+                // echo "</tr>";
     
                 while ($row_change_request = $result_change_requests->fetch_assoc()) {
                     echo "<tr data-title='" . htmlspecialchars($row_change_request["title"]) . "'>";
-                    echo "<td></td>"; // Type
+                    echo "<td><strong>CH</strong></td>"; // Type
                     echo "<td>" . htmlspecialchars($row_change_request["title"]) . "</td>"; // Description
                     echo "<td></td>"; // Responsible
                     echo "<td></td>"; // Start
