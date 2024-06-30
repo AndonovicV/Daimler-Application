@@ -1,0 +1,26 @@
+change_requests: Used in Mt agenda and protocol for loading change requests. - filter checkbox is used to mark whether the respective change request is needed or not -
+assignment/information/decision: Used only in protocol for saving assignment information and decision data for each task
+departments: Used in the attendance -> voki can explain more
+guests: Used in the attendance -> voki can explain more
+module_team_guest_attendance:  Used in the attendance -> voki can explain more
+module_team_members:  Used in the attendance -> voki can explain more
+module_team_members_attendance:  Used in the attendance -> voki can explain more
+mt_agenda: not being used / should be deleted
+mt_agenda_list: used in almost every view to save mt agendas and protocols as well.
+org_gfts: not being used / should be deleted
+org_moduleteams: used in index.php to load all module teams
+personal_tasks: for personal tasks -> voki can explain more
+spec_book: GFTs in mt agenda and protkol are loaded from spec_book
+tasks / topics: for saving tasks and topics both from mt agenda and protocol
+
+
+how mt agenda and protocol are loaded:
+
+1. Gfts are loaded from specbook and filtered through the selected module team (loaded from org_moduleteams)
+2. Change requests are then loaded per Gft from change_requests table
+3. tasks and topics are loaded per Change request afterwards
+
+how a new task / topic is saved:
+
+1. the clicked row is identified and the needed type is identified
+2. DOMM then iterates upwards until a change request is found -> then a gft, or a gft immedietly (then the task is loaded directly under the gft)
