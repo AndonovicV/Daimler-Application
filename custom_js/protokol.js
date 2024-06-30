@@ -38,26 +38,23 @@ $(document).ready(function () {
                             columns: ':not(:last-child)', // Exclude the last column
                             format: {
                                 body: function(data, row, column, node) {
-                                    // Remove HTML tags from the first and second columns for cleaner data processing
                                     if (column === 0 || column === 1) {
-                                        // Use a method to clean out HTML tags robustly
                                         var cleanText = $("<div>").html(data).text().trim();
                                         console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
                                         return cleanText;
                                     }
-                    
-                                    // Conditional export based on the content of the cleaned first column
+    
                                     var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
                                     console.log("First column text:", firstColumnText); // Debug statement
-                    
+    
                                     if (column === 2) {
                                         if (firstColumnText.includes("Task")) {
                                             var responsible = $(node).find('input[data-column="responsible"]').val();
                                             var deadline = $(node).find('input[data-column="deadline"]').val();
-                                            var asapStatus = $(node).find('.asap-button').text().trim();
+                                            var asapStatus = $(node).find('.asap-button').css('color') === 'rgb(255, 0, 0)' ? 'Yes' : 'No'; // Check for red color
                                             return `Responsible: ${responsible}, Deadline: ${deadline}, ASAP: ${asapStatus}`;
                                         } else if (firstColumnText.includes("Topic")) {
-                                            var responsible = $(node).text().trim(); // Get the text directly for the contenteditable cell
+                                            var responsible = $(node).text().trim();
                                             return `Responsible: ${responsible}`;
                                         }
                                     }
@@ -67,8 +64,7 @@ $(document).ready(function () {
                         },
                         customize: function(xlsx) {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                    
-                            // Set custom column widths
+    
                             $('col', sheet).each(function (index) {
                                 if (index === 1) {
                                     $(this).attr('width', 100);
@@ -78,26 +74,22 @@ $(document).ready(function () {
                                     $(this).attr('customWidth', 1);
                                 }
                             });
-                    
-                            // Define a new font style for bold text
+    
                             var fontIndex = $('fonts font', sheet).length;
                             var boldFont = '<font><b/><sz val="11"/><color rgb="000000"/><name val="Calibri"/></font>';
                             $('fonts', sheet).append(boldFont);
                             $('fonts', sheet).attr('count', fontIndex + 1);
-                    
-                            // Define a new cell style using the bold font
+    
                             var styleBase = $('cellXfs xf', sheet).length;
                             var boldStyle = `<xf numFmtId="0" fontId="${fontIndex}" fillId="0" borderId="0" xfId="0" applyFont="1"/>`;
                             $('cellXfs', sheet).append(boldStyle);
                             $('cellXfs', sheet).attr('count', styleBase + 1);
-                    
-                            // Apply the bold style to cells where the first column contains 'GFT'
+    
                             $('row', sheet).each(function () {
                                 var row = $(this);
-                                var firstCellText = $($('c t', row).first()).text().trim(); // Extract the text content of the first cell
+                                var firstCellText = $($('c t', row).first()).text().trim();
                                 console.log("First cell text in row:", firstCellText); // Debug statement
-                                if (firstCellText.includes("GFT")) { // Check for 'GFT' in the text
-                                    // Apply the bold style to the first column cell only
+                                if (firstCellText.includes("GFT")) {
                                     $('c', row).first().attr('s', styleBase);
                                 }
                             });
@@ -106,13 +98,90 @@ $(document).ready(function () {
                     {
                         extend: 'csvHtml5',
                         exportOptions: {
-                            columns: ':not(:last-child)' // Exclude the last column (typically the actions column)
+                            columns: ':not(:last-child)' // Exclude the last column
                         }
                     },
                     {
                         extend: 'pdfHtml5',
+                        filename: 'Protokol_PDF_' + selectedAgendaId,
                         exportOptions: {
-                            columns: ':not(:last-child)' // Exclude the last column (typically the actions column)
+                            columns: ':not(:last-child)', // Exclude the last column
+                            format: {
+                                    body: function(data, row, column, node) {
+                                        var $node = $(node);
+                                        var $currentRow = $node.closest('tr');
+                                        var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(1).html())).text().trim();
+    
+                                        // Check if the next row contains "No change requests for GFT"
+                                        var $nextRow = $currentRow.next('tr');
+                                        if ($nextRow.length > 0) {
+                                            var nextFirstColumnText = $($.parseHTML($('td', $nextRow.get(0)).eq(1).html())).text().trim();
+                                            if (nextFirstColumnText.includes("No change requests for GFT")) {
+                                                $currentRow.addClass('exclude-row');
+                                                $nextRow.addClass('exclude-row');
+                                                return '';
+                                            }
+                                        }
+    
+                                        // If this row is marked for exclusion, return an empty string
+                                        if ($currentRow.hasClass('exclude-row')) {
+                                            return '';
+                                        }
+    
+                                        if (column === 0 || column === 1) {
+                                            var cleanText = $("<div>").html(data).text().trim();
+                                            //console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
+                                            return cleanText;
+                                        }
+        
+                                        var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
+                                        //console.log("First column text:", firstColumnText); // Debug statement
+        
+                                        if (column === 2) {
+                                            if (firstColumnText.includes("Task")) {
+                                                var responsible = $(node).find('input[data-column="responsible"]').val();
+                                                var deadline = $(node).find('input[data-column="deadline"]').val();
+                                                var asapStatus = $(node).find('.asap-button').css('color') === 'rgb(255, 0, 0)' ? 'Yes' : 'No'; // Check for red color
+                                                return `Responsible: ${responsible} | Deadline: ${deadline} | ASAP: ${asapStatus}`;
+                                            } else if (firstColumnText.includes("Topic")) {
+                                                var responsible = $(node).text().trim();
+                                                return `Responsible: ${responsible}`;
+                                            }
+                                        }
+                                        return data;
+                                    }
+                            },
+                            customize: function(doc) {
+                                var taskRowStyle = {
+                                    fillColor: [255, 230, 230] // Light red background for tasks
+                                };
+                                var topicRowStyle = {
+                                    fillColor: [230, 230, 255] // Light blue background for topics
+                                };
+    
+                                for (var i = 1; i < doc.content[1].table.body.length; i++) {
+                                    var row = doc.content[1].table.body[i];
+                                    var firstCellText = row[0].text.trim();
+                                    //console.log("First cell text in PDF row:", firstCellText); // Debug statement
+    
+                                    if (firstCellText.includes("GFT")) {
+                                        row[0].style = { bold: true };
+                                    }
+                                    if (firstCellText.includes("Task")) {
+                                        row.forEach(cell => {
+                                            cell.fillColor = taskRowStyle.fillColor;
+                                        });
+                                    } else if (firstCellText.includes("Topic")) {
+                                        row.forEach(cell => {
+                                            cell.fillColor = topicRowStyle.fillColor;
+                                        });
+                                    }
+                                }
+    
+                                // Set custom column widths
+                                var colWidths = ['*', 100, 75]; // Adjust as necessary for your table
+                                doc.content[1].table.widths = colWidths;
+                            }
                         }
                     }
                 ]
@@ -818,5 +887,32 @@ $(document).ready(function() {
 
     function resetDeleteProtokolPlaceholder() {
         $('#deleteProtokolSelect').val(null).trigger('change');
+    }
+});
+
+
+$(document).ready(function() {
+    // Assuming the DataTable is stored in a variable 'agendaTable' from your initialization code.
+    var agendaTable = $('#protokolTable').DataTable();
+
+    // Function to trigger export buttons based on URL parameter
+    function triggerExportButton(index) {
+        var button = agendaTable.button(index); // Refer to the buttons by index
+        if (button) {
+            button.trigger(); // Trigger the specified button
+        } else {
+            console.log("Button index not valid:", index);
+        }
+    }
+
+    // Parse URL parameters to determine if an export should be triggered
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('export')) {
+        var exportParam = parseInt(urlParams.get('export'), 10);
+        if (!isNaN(exportParam)) {
+            triggerExportButton(exportParam); // Trigger the button based on the index
+        } else {
+            console.log("Export parameter is not a number:", urlParams.get('export'));
+        }
     }
 });

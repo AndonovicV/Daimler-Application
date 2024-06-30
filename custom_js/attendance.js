@@ -254,3 +254,30 @@ $(document).ready(function () {
         });
     });
 });
+
+document.getElementById('exportCombinedPDF').addEventListener('click', function () {
+    let protokolId = $('#protokolSelect').val();
+    let agendaUrl = `http://localhost/Daimler/mt_agenda.php?export=2&agenda_id=${protokolId}`;
+    let protokolUrl = `http://localhost/Daimler/protokol.php?export=2&protokol_id=${protokolId}`;
+
+    // Create iframes to trigger the downloads
+    let agendaIframe = document.createElement('iframe');
+    agendaIframe.style.display = 'none';
+    agendaIframe.src = agendaUrl;
+    document.body.appendChild(agendaIframe);
+
+    let protokolIframe = document.createElement('iframe');
+    protokolIframe.style.display = 'none';
+    protokolIframe.src = protokolUrl;
+    document.body.appendChild(protokolIframe);
+
+    // Remove the iframes after a short delay
+    setTimeout(function () {
+        document.body.removeChild(agendaIframe);
+        document.body.removeChild(protokolIframe);
+    }, 2000); // Adjust the delay as necessary
+});
+
+$('#protokolSelect').on('change', function () {
+    console.log('Protokol ID changed to: ' + $(this).val());
+});
