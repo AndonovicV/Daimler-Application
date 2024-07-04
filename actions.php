@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $responsible = $_POST['responsible'] ?? '';
         $gft = $_POST['gft'] ?? '';
         $cr = $_POST['cr'] ?? '';
-
+        $topic = $_POST['topic'] ?? '';
         // Debugging: Echo the received data
         echo "Received Data:<br>";
         echo "Agenda ID: " . htmlspecialchars($agendaId) . "<br>";
@@ -32,10 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if it's a task or a topic
         if (isset($_POST['taskContent'])) {
             // It's a task
-            $sql = "INSERT INTO tasks (agenda_id, name, responsible, gft, cr, details, deleted, sent) 
-                    VALUES (?, ?, ?, ?, ?, '', 0, 0)";
+            $sql = "INSERT INTO tasks (agenda_id, name, responsible, gft, cr, topic_id, details, deleted, sent) 
+                    VALUES (?, ?, ?, ?, ?, ?, '', 0, 0)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("issss", $agendaId, $content, $responsible, $gft, $cr);
+            $stmt->bind_param("isssss", $agendaId, $content, $responsible, $gft, $cr, $topic);
             echo "Inserting as Task<br>";
             if ($stmt->execute()) {
                 echo "Data saved successfully";

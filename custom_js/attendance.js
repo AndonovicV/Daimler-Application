@@ -1,4 +1,54 @@
 $(document).ready(function () {
+
+
+        // Extract agenda_id from URL
+        function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+    
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+    
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
+    
+        var agendaId = getUrlParameter('agenda_id');
+        if (agendaId) {
+            // Log to console for debugging
+            console.log("Agenda ID from URL: " + agendaId);
+    
+            // Set agenda_id in the form
+            $('input[name="agenda_id"]').val(agendaId);
+    
+            // Make the AJAX request
+            $.ajax({
+                url: 'fetch_attendance.php',
+                type: 'GET',
+                data: { agenda_id: agendaId },
+                success: function (response) {
+                    $('#tables-container').show();
+                    var data = JSON.parse(response);
+                    $('#attendance-tbl-body').html(data.attendance);
+                    $('#guest-list-tbl-body').html(data.guest_list);
+                },
+                error: function () {
+                    alert('Error retrieving data.');
+                }
+            });
+
+            // Set the dropdown to the agenda_id
+            $('#protokolSelect').val(agendaId);
+    
+            // Trigger the change event to load the data
+            $('#protokolSelect').trigger('change');
+        }
+
     $('#protokolSelect').on('change', function () {
         var agendaId = $(this).val();
         $('input[name="agenda_id"]').val(agendaId);  // Set agenda_id in the form

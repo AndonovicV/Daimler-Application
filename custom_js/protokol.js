@@ -549,34 +549,41 @@ window.onclick = function (event) {
     }
 }
 
+// Function to add a new row
 async function addNewRow(type, clickedCell) {
     var gft = "";
     var project = "";
+    var topic = "";
     var gftFound = false;
     var projectFound = false;
+    var topicFound = false;
     var currentRow = $(clickedCell).closest('tr');
-    console.log(currentRow);
 
-    while (currentRow.length > 0 && !gftFound) {
-        var cells = currentRow.find('td:eq(1)');
+    while (currentRow.length > 0 && !(gftFound && projectFound && topicFound)) {
+        var cells = currentRow.find('td:eq(0)');
         var cellContent = cells.text().trim();
-        if (cellContent.startsWith("GFT")) {
-            console.log(cellContent);
-            gft = cellContent;
+        if (cellContent.startsWith("GFT") && !gftFound) {
+            var gftId = cells.find('.gft-id').val();
+            gft = gftId ? gftId : cellContent;
             gftFound = true;
-        } else if (cellContent.startsWith("title") && !projectFound) {
-            console.log(cellContent);
-            project = cellContent;
+        } else if (cellContent.startsWith("CH") && !projectFound) {
+            var changeRequestId = cells.find('.change-request-id').val();
+            project = changeRequestId ? changeRequestId : cellContent;
             projectFound = true;
+        } else if (cellContent.startsWith("Topic") && !topicFound) {
+            var topicId = cells.find('.topic-id').val(); 
+            topic = topicId;
+            topicFound = true;
         }
         currentRow = currentRow.prev();
     }
 
-    project = project.substring("title for".length).trim();
-    gft = gft.substring("GFT".length).trim();
+    //project = project.substring("title for".length).trim();
+    //gft = gft.substring("GFT".length).trim();
 
-    // Await the saveToDatabase call
-    await saveToDatabase(type, gft, project);
+    console.log(type, gft, project, topic);
+
+    await saveToDatabase(type, gft, project, topic);
 }
 
 $(document).ready(function () {
@@ -629,7 +636,7 @@ async function addTask(cell) {
 
     var newRow = $(`
         <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
-            <td class="task-row"><strong>Task</strong></td>
+            <td class="task-row"><strong>Task</strong> <input type='hidden' class='task-id' value="${lastTask}"></td>
             <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid orange; max-width: 200px;"></td>
             <td style="background-color: #212529; width: 100px;">
                 <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529; border: 1px solid orange; width: 100%; color: grey;" placeholder="Enter responsible person">
@@ -673,7 +680,6 @@ async function addTask(cell) {
             <td><strong>A</strong></td>
             <td class="editable-cell" data-field='content' contenteditable="true"></td>
             <td class='editable-cell' data-field='responsible' contenteditable='true'></td> 
-            <td></td>
             <td>
                 <div class="button-container">
                     <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
@@ -775,7 +781,7 @@ async function addTopic(cell) {
 
         var newRow = $(`
             <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
-                <td style='color: #dfbaff'><strong>Topic</strong></td>
+                <td class="topic-row"><strong>Topic</strong> <input type='hidden' class='topic-id' value="${lastTopic}"> </td>
                 <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid  #dfbaff;"></td>
                 <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid  #dfbaff;"></td>
                 <td>
@@ -799,7 +805,7 @@ async function addTopic(cell) {
 
 }
 
-function saveToDatabase(newRow, gft, project) {
+function saveToDatabase(newRow, gft, project, topic) {
     console.log(newRow);
     console.log(gft);
     console.log(project);
@@ -814,7 +820,8 @@ function saveToDatabase(newRow, gft, project) {
         content: content,
         responsible: responsible,
         gft: gft,
-        cr: project
+        cr: project,
+        topic: topic
     };
 
     console.log(ajaxData);
@@ -843,6 +850,7 @@ function saveToDatabase(newRow, gft, project) {
         });
     });
 }
+
 
 //Delete Protokol
 $(document).ready(function() {

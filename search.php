@@ -74,7 +74,7 @@ $conn->close();
             function performSearch() {
                 var query = $('#searchBox').val();
                 var filter = $('#filterBox').val();
-                if (query) {
+                 
                     $.ajax({
                         url: 'searchfunction.php',
                         type: 'GET',
@@ -87,9 +87,7 @@ $conn->close();
                             $('#searchResults').html('<p>An error occurred while searching.</p>');
                         }
                     });
-                } else {
-                    $('#searchResults').html('<p>Please enter a search query.</p>');
-                }
+                
             }
         });
     </script>

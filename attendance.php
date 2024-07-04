@@ -1,6 +1,9 @@
 <?php
 include_once('navigation.php');
 include 'conn.php';
+
+$agendaId = isset($_GET['agenda_id']) ? htmlspecialchars($_GET['agenda_id']) : null;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +30,7 @@ include 'conn.php';
     <div class="container mt-5">
         <hr>
         <div class="page-title mb-3 text-light text-center" style="text-align: center; margin-top: 40px;">
-            <h1 style="color: #777" class = "mt-4">Manage Attendance</h1> <!-- color: #777; display: inline-block; margin-bottom: 20px; -->
+            <h1 style="color: #777" class="mt-4">Manage Attendance</h1>
             <select id="protokolSelect" data-search="true" class="styled-select w-100" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
                 <option value="">Select protocol...</option>
                 <?php
@@ -55,7 +58,7 @@ include 'conn.php';
                     ?>
                 </select>
             </div>
-        </div>
+        <!-- Removed extra closing div here -->
 
         <script>
             VirtualSelect.init({
@@ -76,7 +79,6 @@ include 'conn.php';
                     alert('Please select a protocol before exporting.');
                     return;
                 }
-
 
                 const agendaName = selectedOption.textContent.trim().split(' (')[0];
                 const agendaDate = selectedOption.textContent.trim().split(' (')[1];
@@ -144,12 +146,12 @@ include 'conn.php';
                 pdfMake.createPdf(docDefinition).download(fileName);
             }
         </script>
-
+        
         <!-- Placeholder for the tables -->
         <div id="tables-container" style="display: none;">
             <hr>
             <h1 class="text-light text-center">Attendance List</h1>
-            <button onclick="exportPDF()" class="btn btn-success">Export as PDF</button>
+            <button onclick="exportPDF()" class="btn btn-success">Export Attendance only</button>
             <button onclick="exportPDF()" class="btn btn-success" id="exportCombinedPDF">Export All PDFs for this agenda</button>
             <hr>
             <form action="" id="manage-attendance">
