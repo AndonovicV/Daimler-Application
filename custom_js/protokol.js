@@ -186,7 +186,7 @@ $(document).ready(function () {
                     }
                 ]
             }
-        }
+        },
     });
 
     //Datatable Deadline Date Picker
@@ -979,3 +979,27 @@ function forwardItem(type, id, selectedAgendaId) {
         }
     });
 }
+
+$(document).ready(function() {
+    $('.order-input').change(function() {
+        var gftId = $(this).data('gft-id');
+        var orderValue = $(this).val();
+        var agendaId = $('#agendaSelect').val();
+
+        $.ajax({
+            type: 'POST',
+            url: 'save_gft_order.php',
+            data: {
+                gft_id: gftId,
+                order_value: orderValue,
+                agenda_id: agendaId
+            },
+            success: function(response) {
+                alert('Order updated successfully!');
+            },
+            error: function(xhr, status, error) {
+                alert('Failed to update order: ' + error);
+            }
+        });
+    });
+});

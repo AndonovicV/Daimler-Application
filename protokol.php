@@ -17,8 +17,19 @@ if ($selectedAgendaId) {
 }
 
 // Fetch GFTs connected to the selected team
-$sql_gfts = "SELECT DISTINCT name as name, id as id, moduleteam as moduleteam FROM org_gfts WHERE moduleteam = '$selected_team'";
-$result_gfts = $conn->query($sql_gfts);
+// Fetch GFTs connected to the selected team and order by order_value
+$sql_gfts = "
+    SELECT g.name, g.moduleteam, g.id, o.order_value
+    FROM org_gfts g
+    LEFT JOIN gft_order o ON g.id = o.gft_id AND o.agenda_id = ?
+    WHERE g.moduleteam = ?
+    ORDER BY o.order_value IS NULL, o.order_value ASC, g.name ASC";
+
+$stmt_gfts = $conn->prepare($sql_gfts);
+$stmt_gfts->bind_param('is', $selectedAgendaId, $selected_team);
+$stmt_gfts->execute();
+$result_gfts = $stmt_gfts->get_result();
+
 $selectedAgendaId = isset($_GET['protokol_id']) ? $_GET['protokol_id'] : null;
 
 
