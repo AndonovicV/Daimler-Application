@@ -14,9 +14,19 @@ if ($selectedAgendaId) {
     $_SESSION['selected_agenda_id'] = $selectedAgendaId;
 }
 
-// Fetch GFTs connected to the selected team
-$sql_gfts = "SELECT DISTINCT name as name, moduleteam as moduleteam, id FROM org_gfts WHERE moduleteam = '$selected_team'";
-$result_gfts = $conn->query($sql_gfts);
+// Fetch GFTs connected to the selected team and order by order_value
+$sql_gfts = "
+    SELECT g.name, g.moduleteam, g.id, o.order_value
+    FROM org_gfts g
+    LEFT JOIN gft_order o ON g.id = o.gft_id AND o.agenda_id = ?
+    WHERE g.moduleteam = ?
+    ORDER BY o.order_value IS NULL, o.order_value ASC, g.name ASC";
+
+$stmt_gfts = $conn->prepare($sql_gfts);
+$stmt_gfts->bind_param('is', $selectedAgendaId, $selected_team);
+$stmt_gfts->execute();
+$result_gfts = $stmt_gfts->get_result();
+
 
 // PERSONAL TASK variables
 $user_id = 1; // Example user ID
@@ -373,7 +383,9 @@ function generateDeleteAgendaSelect($conn, $selected_team)
        if ($result_gfts->num_rows > 0) {
         while ($row_gft = $result_gfts->fetch_assoc()) {
             $gftId = $row_gft["id"]; // Assuming there's an ID field for GFT
+            $orderValue = isset($row_gft['order_value']) ? $row_gft['order_value'] : '';
             echo "<tr id='{$gftId}'>";
+            echo "<td><input type='number' name='order[" . $row_gft['id'] . "]' value='" . $orderValue . "' class='form-control order-input' data-gft-id='" . $row_gft['id'] . "' style='width: 80px;'></td>";
             echo "<td style='color: #2E8B57; position: relative;'>";
             echo "<strong>GFT</strong>";
             echo "<input type='hidden' class='gft-id' value='{$gftId}'>";
@@ -422,6 +434,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     echo "<strong>CH</strong>";
                     echo "<input type='hidden' class='change-request-id' value='{$changeRequestId}'>";
                     echo "</td>"; // Type
+                    echo "<td></td>"; // Order Input
                     echo "<td>" . htmlspecialchars($row_change_request["title"]) . "</td>"; // Description
                     echo "<td></td>"; // Responsible
                     echo "<td></td>"; // Start
@@ -444,6 +457,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             } else {
                 echo "<tr>";
                 echo "<td></td>"; // Type
+                echo "<td></td>"; // Order Input
                 echo "<td colspan='5'>No change requests for GFT " . htmlspecialchars($row_gft["name"]) . "</td>"; //description?
                 echo "<td></td>"; // Responsible
                 echo "<td></td>"; // Start
@@ -460,6 +474,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
     } else {
         echo "<tr>";
         echo "<td></td>"; // Type
+        echo "<td></td>"; // Order Input
         echo "<td colspan='5'>No change requests for this team</td>"; //description?
         echo "<td></td>"; // Responsible
         echo "<td></td>"; // Start
@@ -490,7 +505,8 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     echo "<td class='topic-row' style='position: relative;'>";
                     echo "<strong>Topic</strong>";
                     echo "<input type='hidden' class='topic-id' value='{$topicId}'>";
-                    echo "</td>"; // Type                    
+                    echo "</td>"; // Type    
+                    echo "<td></td>"; // Order Input                
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff; max-width: 200px;'>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Description
                     echo "<td class='editabletasktopic-cell' data-column='responsible' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
                     echo "<td class='editabletasktopic-cell' style='border: 1px solid #dfbaff;'>";
@@ -535,7 +551,8 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     echo "<td class='task-row' style='position: relative;'>";
                     echo "<strong>Task</strong>";
                     echo "<input type='hidden' class='task-id' value='{$taskId}'>";
-                    echo "</td>"; // Type                    
+                    echo "</td>"; // Type     
+                    echo "<td></td>"; // Order Input               
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid orange; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>"; // Description
                     echo "<td style='background-color: #212529 !important; width: 300px !important;'>"; // Responsible
                     echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid orange; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>";
@@ -581,7 +598,8 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     echo "<td class='task-row' style='position: relative;'>";
                     echo "<strong>Task</strong>";
                     echo "<input type='hidden' class='task-id' value='{$taskId}'>";
-                    echo "</td>"; // Type                    
+                    echo "</td>"; // Type  
+                    echo "<td></td>"; // Order Input                  
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid orange; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>"; // Description
                     echo "<td style='background-color: #212529 !important; width: 300px !important;'>"; // Responsible
                     echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid orange; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>";
