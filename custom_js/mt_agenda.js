@@ -1094,7 +1094,6 @@ $(document).ready(function() {
                 agenda_id: agendaId
             },
             success: function(response) {
-                alert('Order updated successfully!');
             },
             error: function(xhr, status, error) {
                 alert('Failed to update order: ' + error);
