@@ -206,6 +206,7 @@ $(document).ready(function () {
         },
         "columns": [
             null, // Type
+            null,  // Order Input (its the same column but technically not)
             null, // Description
             null, // Responsible
             null, // Start
@@ -532,28 +533,39 @@ $(document).ready(function () {
 async function addNewRow(type, clickedCell) {
     var gft = "";
     var project = "";
+    var topic = "";
     var gftFound = false;
     var projectFound = false;
+    var topicFound = false;
     var currentRow = $(clickedCell).closest('tr');
 
-    while (currentRow.length > 0 && !gftFound) {
-        var cells = currentRow.find('td:eq(1)');
+    while (currentRow.length > 0 && !(gftFound && projectFound && topicFound)) {
+        var cells = currentRow.find('td:eq(0)');
         var cellContent = cells.text().trim();
-        if (cellContent.startsWith("GFT")) {
-            gft = cellContent;
+        if (cellContent.startsWith("GFT") && !gftFound) {
+            var gftId = cells.find('.gft-id').val();
+            gft = gftId ? gftId : cellContent;
             gftFound = true;
-        } else if (cellContent.startsWith("title") && !projectFound) {
-            project = cellContent;
+        } else if (cellContent.startsWith("CH") && !projectFound) {
+            var changeRequestId = cells.find('.change-request-id').val();
+            project = changeRequestId ? changeRequestId : cellContent;
             projectFound = true;
+        } else if (cellContent.startsWith("Topic") && !topicFound) {
+            var topicId = cells.find('.topic-id').val(); 
+            topic = topicId;
+            topicFound = true;
         }
         currentRow = currentRow.prev();
     }
 
-    project = project.substring("title for".length).trim();
-    gft = gft.substring("GFT".length).trim();
+    //project = project.substring("title for".length).trim();
+    //gft = gft.substring("GFT".length).trim();
 
-    await saveToDatabase(type, gft, project);
+    console.log(type, gft, project, topic);
+
+    await saveToDatabase(type, gft, project, topic);
 }
+
 
 async function addTask(cell) {
     var protokolId = $('#agendaSelect').val();
@@ -573,9 +585,9 @@ async function addTask(cell) {
     var lastTask = data.last_task_id;
     var newRow = $(`
         <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
-            <td class="task-row"><strong>Task</strong></td>
+            <td class="task-row"><strong>Task</strong> <input type='hidden' class='task-id' value="${lastTask}"></td>
             <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid orange; max-width: 200px;"></td>
-            <td style="background-color: #212529; width: 100px;">
+            <td style="background-color: #212529; width: 300px;">
                 <input class="editabletasktopic-cell" data-column="responsible" type="text" style="background-color: #212529; border: 1px solid orange; width: 100%; color: grey;" placeholder="Enter responsible person">
                 <br><br>
                 <div class="flex-container">
@@ -583,8 +595,8 @@ async function addTask(cell) {
                     <button class="asap-button" data-task-id="${lastTask}" style="width: 30%; color: white;">ASAP</button>
                 </div>
             </td>
-            <td></td> <!-- Empty cell for Start column -->
-            <td></td> <!-- Empty cell for Duration column -->
+            <td style="width: 0px;"></td> <!-- Empty cell for Start column -->
+            <td style="width: 0px;"></td> <!-- Empty cell for Duration column -->
             <td>
                 <div class="button-container">
                     <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
@@ -668,7 +680,7 @@ async function addTopic(cell) {
 
         var newRow = $(`
             <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
-                <td class="topic-row"><strong>Topic</strong></td>
+                <td class="topic-row"><strong>Topic</strong> <input type='hidden' class='topic-id' value="${lastTopic}"> </td>
                 <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td class="editabletasktopic-cell" data-column="responsible" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td class="editabletasktopic-cell" style="border: 1px solid #dfbaff;">
@@ -720,7 +732,7 @@ async function addTopic(cell) {
 }
 
 
-function saveToDatabase(newRow, gft, project) {
+function saveToDatabase(newRow, gft, project, topic) {
     console.log(newRow);
     console.log(gft);
     console.log(project);
@@ -733,7 +745,8 @@ function saveToDatabase(newRow, gft, project) {
         content: content,
         responsible: responsible,
         gft: gft,
-        cr: project
+        cr: project,
+        topic: topic
     };
 
     console.log(ajaxData);
@@ -1064,4 +1077,28 @@ $(document).ready(function() {
             console.log("Export parameter is not a number:", urlParams.get('export'));
         }
     }
+});
+
+$(document).ready(function() {
+    $('.order-input').change(function() {
+        var gftId = $(this).data('gft-id');
+        var orderValue = $(this).val();
+        var agendaId = $('#agendaSelect').val();
+
+        $.ajax({
+            type: 'POST',
+            url: 'save_gft_order.php',
+            data: {
+                gft_id: gftId,
+                order_value: orderValue,
+                agenda_id: agendaId
+            },
+            success: function(response) {
+                alert('Order updated successfully!');
+            },
+            error: function(xhr, status, error) {
+                alert('Failed to update order: ' + error);
+            }
+        });
+    });
 });
