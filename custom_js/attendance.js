@@ -197,6 +197,19 @@ $(document).ready(function () {
     }
 });
 
+$(document).ready(function () {
+    // Function to clear the modal input fields
+    function clearModalInputs() {
+        $('#guestNameInput').val('');
+        $('#guestDepartmentInput').val('');
+        $('#guestSubstituteInput').val('');
+    }
+        // Clear input fields when the modal is hidden
+        $('#addGuestModal').on('hidden.bs.modal', function () {
+            clearModalInputs();
+        });
+});
+
     // Open modal for adding new guest
     $('#add_guest').on('click', function () {
         $('#addGuestModal').modal('show');
