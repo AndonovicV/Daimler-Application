@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($old_task_id !== null) {
         // Prepare and execute the query to fetch the old task data
-        $stmt = $conn->prepare("SELECT id, agenda_id, name, responsible, gft, cr, details, deadline FROM tasks WHERE id = ?");
+        $stmt = $conn->prepare("SELECT id, agenda_id, name, responsible, gft, cr, details, deadline, topic_id FROM tasks WHERE id = ?");
         $stmt->bind_param("i", $old_task_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -38,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $gft = $row['gft'];
         $cr = $row['cr'];
         $details = $row['details'];
-        
+        $topic_id = $row['topic_id']
+
         // Check if the filter for the Change Request is already active
         $check_stmt = $conn->prepare("SELECT * FROM agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = ? AND filter_active = 1");
         $check_stmt->bind_param("is", $new_agenda_id, $cr);
@@ -56,11 +57,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Prepare and execute the query to insert the new task or topic with the new agenda_id
         if ($old_task_id !== null) {
-            $insert_stmt = $conn->prepare("INSERT INTO tasks (name, responsible, deadline, gft, cr, details, agenda_id, deleted, sent) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)");
-            $insert_stmt->bind_param("ssssssi", $name, $responsible, $deadline, $gft, $cr, $details, $new_agenda_id);
+            $insert_stmt = $conn->prepare("INSERT INTO tasks (name, responsible, deadline, gft, cr, details, agenda_id, deleted, topic_id, sent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0,? ,0)");
+            $insert_stmt->bind_param("sssssssi", $name, $responsible, $deadline, $gft, $cr, $details, $new_agenda_id, $topic_id);
         } elseif ($old_topic_id !== null) {
             $insert_stmt = $conn->prepare("INSERT INTO topics (name, responsible, gft, cr, details, agenda_id) VALUES (?, ?, ?, ?, ?, ?)");
             $insert_stmt->bind_param("sssssi", $name, $responsible, $gft, $cr, $details, $new_agenda_id);
+
+                    // Check if the filter for the Change Request is already active
+            $taskfortopic_stmt = $conn->prepare("SELECT * FROM tasks WHERE topic_id = ? AND deleted = 0");
+            $taskfortopic_stmt->bind_param("is", $old_topic_id);
+            $taskfortopic_stmt->execute();
+            $tasks_result = $taskfortopic_stmt->get_result();
+
+            if ($tasks_result->num_rows == 0) {
+                $row = $tasks_result->fetch_assoc();
+                $deadline = isset($row['deadline']) ? $row['deadline'] : null;
+                $name = $row['name'];
+                $responsible = $row['responsible'];
+                $gft = $row['gft'];
+                $cr = $row['cr'];
+                $details = $row['details'];
+                $topic_id = $row['topic_id']
+        
+                // Activate the filter for the Change Request connected to the task
+                $filter_stmt = $conn->prepare("INSERT INTO tasks (agenda_id, change_request_id, filter_active) VALUES (?,  ?, 1)");
+                $filter_stmt->bind_param("is", $new_agenda_id, $cr);
+                $filter_stmt->execute();
+                $filter_stmt->close();
+            }
+            $check_stmt->close();
+
         }
         
         if ($insert_stmt->execute()) {

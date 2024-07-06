@@ -407,7 +407,7 @@ $(document).ready(function () {
         var rowId = $cell.closest('tr').attr('id');  // Use .attr('id') to get the row's ID attribute
         var cellIndex = $cell.index();
         var type = $cell.closest('tr').data('type');
-        var columnName = (cellIndex === 1) ? 'name' : 'responsible';
+        var columnName = (cellIndex === 2) ? 'name' : 'responsible';
 
         $.ajax({
             url: 'update_cell.php',
@@ -540,7 +540,7 @@ async function addNewRow(type, clickedCell) {
     var currentRow = $(clickedCell).closest('tr');
 
     while (currentRow.length > 0 && !(gftFound && projectFound && topicFound)) {
-        var cells = currentRow.find('td:eq(0)');
+        var cells = currentRow.find('td:eq(1)');
         var cellContent = cells.text().trim();
         if (cellContent.startsWith("GFT") && !gftFound) {
             var gftId = cells.find('.gft-id').val();
@@ -585,6 +585,7 @@ async function addTask(cell) {
     var lastTask = data.last_task_id;
     var newRow = $(`
         <tr id="${lastTask}" data-type="task" data-id="${lastTask}">
+            <td></td>
             <td class="task-row"><strong>Task</strong> <input type='hidden' class='task-id' value="${lastTask}"></td>
             <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid orange; max-width: 200px;"></td>
             <td style="background-color: #212529; width: 300px;">
@@ -680,7 +681,8 @@ async function addTopic(cell) {
 
         var newRow = $(`
             <tr id="${lastTopic}" data-type="topic" data-id="${lastTopic}">
-                <td class="topic-row"><strong>Topic</strong> <input type='hidden' class='topic-id' value="${lastTopic}"> </td>
+            <td></td>
+            <td class="topic-row"><strong>Topic</strong> <input type='hidden' class='topic-id' value="${lastTopic}"> </td>
                 <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td class="editabletasktopic-cell" data-column="responsible" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td class="editabletasktopic-cell" style="border: 1px solid #dfbaff;">

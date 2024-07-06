@@ -54,7 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $check_stmt->close();
 
-
         // Prepare and execute the query to insert the new task or topic with the new agenda_id
         if ($old_task_id !== null) {
             $insert_stmt = $conn->prepare("INSERT INTO tasks (name, responsible, deadline, gft, cr, details, agenda_id, deleted, sent) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0)");
@@ -63,9 +62,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $insert_stmt = $conn->prepare("INSERT INTO topics (name, responsible, gft, cr, details, agenda_id) VALUES (?, ?, ?, ?, ?, ?)");
             $insert_stmt->bind_param("sssssi", $name, $responsible, $gft, $cr, $details, $new_agenda_id);
         }
-        
+
         if ($insert_stmt->execute()) {
             echo 'Task or Topic successfully copied to the new agenda';
+
+            if ($old_topic_id !== null) {
+                // Get the ID of the newly inserted topic
+                $new_topic_id = $conn->insert_id;
+
+                // Fetch and copy all tasks associated with the old topic_id
+                $task_stmt = $conn->prepare("SELECT name, responsible, deadline, gft, cr, details FROM tasks WHERE topic_id = ?");
+                $task_stmt->bind_param("i", $old_topic_id);
+                $task_stmt->execute();
+                $task_result = $task_stmt->get_result();
+
+                while ($task_row = $task_result->fetch_assoc()) {
+                    $task_name = $task_row['name'];
+                    $task_responsible = $task_row['responsible'];
+                    $task_deadline = $task_row['deadline'];
+                    $task_gft = $task_row['gft'];
+                    $task_cr = $task_row['cr'];
+                    $task_details = $task_row['details'];
+
+                    $task_insert_stmt = $conn->prepare("INSERT INTO tasks (name, responsible, deadline, gft, cr, details, agenda_id, topic_id, deleted, sent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 0)");
+                    $task_insert_stmt->bind_param("ssssssii", $task_name, $task_responsible, $task_deadline, $task_gft, $task_cr, $task_details, $new_agenda_id, $new_topic_id);
+                    $task_insert_stmt->execute();
+                    $task_insert_stmt->close();
+                }
+                $task_stmt->close();
+            }
+
             // Set the old task/topic as deleted
             if ($old_task_id !== null) {
                 $update_stmt = $conn->prepare("UPDATE tasks SET sent = 1 WHERE id = ?");

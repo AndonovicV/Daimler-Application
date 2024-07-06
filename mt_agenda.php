@@ -370,11 +370,12 @@ function generateDeleteAgendaSelect($conn, $selected_team)
         <table id="agendaTable" class="display">
     <thead>
         <tr>
+            <th align="center">Order</th>
             <th align="center">Type</th>
-            <th align="center"></th>
-            <th align="center">Responsible</th>
-            <th align="center" style="width: 8.5%;">Start</th>
-            <th align="center" style="width: 5%;">Duration</th>
+            <th align="center">Content</th>
+            <th align="center" style="width: 15%;">Responsible</th>
+            <th align="center" style="width: 5%;">Start</th>
+            <th align="center" style="width: 10%;">Duration</th> <!-- Adjust the width as needed -->
             <th align="center" style="width: 15%;">Actions</th> <!-- Adjust the width as needed -->
         </tr>
     </thead>
@@ -398,13 +399,14 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     <div class='button-container'>
                         <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
                         <div class='dropdown-menu'>
-                            <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                             <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
                         </div>
                     </div>
                   </td>"; // Actions
             echo "</tr>";
-    
+            
+            fetchTasksAndTopicsforGFT($conn,$gftId);
+
             $selected_team = $row_gft["moduleteam"];
             $selected_gft = $row_gft["name"];
             $sql_change_requests = "SELECT cr.title,cr.ID 
@@ -430,11 +432,11 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                 while ($row_change_request = $result_change_requests->fetch_assoc()) {
                     $changeRequestId = $row_change_request["ID"];
                     echo "<tr data-title='" . htmlspecialchars($row_change_request["title"]) . "'>";
+                    echo "<td></td>"; // Order Input
                     echo "<td style='position: relative;'>";
                     echo "<strong>CH</strong>";
                     echo "<input type='hidden' class='change-request-id' value='{$changeRequestId}'>";
                     echo "</td>"; // Type
-                    echo "<td></td>"; // Order Input
                     echo "<td>" . htmlspecialchars($row_change_request["title"]) . "</td>"; // Description
                     echo "<td></td>"; // Responsible
                     echo "<td></td>"; // Start
@@ -468,7 +470,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
 
 
                 // Fetch topics and tasks for this GFT only
-                fetchTasksAndTopics($conn, $gftId, null);
+                //fetchTasksAndTopics($conn, $gftId, null);
             }
         }
     } else {
@@ -490,9 +492,9 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             $cr_stripped = $cr ? str_replace('title for ', '', $cr) : null;
             $selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
             
-            $sql_topics = "SELECT * FROM topics WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL)";
+            $sql_topics = "SELECT * FROM topics WHERE agenda_id = ? AND gft = ? AND (cr = ?)";
             $stmt_topics = $conn->prepare($sql_topics);
-            $stmt_topics->bind_param('isss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped);
+            $stmt_topics->bind_param('iss', $selectedAgendaId, $gft, $cr);
             $stmt_topics->execute();
             $result_topics = $stmt_topics->get_result();
 
@@ -502,11 +504,11 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     $start = isset($row_topic["start"]) ? htmlspecialchars($row_topic["start"]) : '';
                     $duration = isset($row_topic["duration"]) ? htmlspecialchars(date('H:i', strtotime($row_topic["duration"]))) : '00:00';  // Ensure default format
                     echo "<tr id='{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
+                    echo "<td></td>"; // Order Input                
                     echo "<td class='topic-row' style='position: relative;'>";
                     echo "<strong>Topic</strong>";
                     echo "<input type='hidden' class='topic-id' value='{$topicId}'>";
                     echo "</td>"; // Type    
-                    echo "<td></td>"; // Order Input                
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff; max-width: 200px;'>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Description
                     echo "<td class='editabletasktopic-cell' data-column='responsible' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
                     echo "<td class='editabletasktopic-cell' style='border: 1px solid #dfbaff;'>";
@@ -548,11 +550,11 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     $buttonColor = $isASAP ? 'red' : 'white';
                     $datepickerVisibility = $isASAP ? 'display:none;' : 'display:block;';
                     echo "<tr id='{$taskId}' data-type='task' data-id='{$taskId}'>";
+                    echo "<td></td>"; // Order Input               
                     echo "<td class='task-row' style='position: relative;'>";
                     echo "<strong>Task</strong>";
                     echo "<input type='hidden' class='task-id' value='{$taskId}'>";
                     echo "</td>"; // Type     
-                    echo "<td></td>"; // Order Input               
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid orange; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>"; // Description
                     echo "<td style='background-color: #212529 !important; width: 300px !important;'>"; // Responsible
                     echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid orange; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>";
@@ -595,11 +597,11 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     $buttonColor = $isASAP ? 'red' : 'white';
                     $datepickerVisibility = $isASAP ? 'display:none;' : 'display:block;';
                     echo "<tr id='{$taskId}' data-type='task' data-id='{$taskId}'>";
+                    echo "<td></td>"; // Order Input                  
                     echo "<td class='task-row' style='position: relative;'>";
                     echo "<strong>Task</strong>";
                     echo "<input type='hidden' class='task-id' value='{$taskId}'>";
                     echo "</td>"; // Type  
-                    echo "<td></td>"; // Order Input                  
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid orange; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>"; // Description
                     echo "<td style='background-color: #212529 !important; width: 300px !important;'>"; // Responsible
                     echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid orange; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>";
@@ -618,14 +620,106 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                                     <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
                                 </div>
                                 <button class='button-12 deleteRow' role='button'>-</button>
+                            </div>
+                        </td>"; // Actions
+                    echo "</tr>";
+                }
+            }
+        }
+
+        // Function to fetch tasks and topics
+        function fetchTasksAndTopicsforGFT($conn, $gft)
+        {
+            // Remove "title for " from the CR value if present
+            $selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
+            
+            $sql_topics = "SELECT * FROM topics WHERE agenda_id = ? AND gft = ? AND (cr = '') ";
+            $stmt_topics = $conn->prepare($sql_topics);
+            $stmt_topics->bind_param('is', $selectedAgendaId, $gft);
+            $stmt_topics->execute();
+            $result_topics = $stmt_topics->get_result();
+
+            if ($result_topics->num_rows > 0) {
+                while ($row_topic = $result_topics->fetch_assoc()) {
+                    $topicId = $row_topic["id"];
+                    $start = isset($row_topic["start"]) ? htmlspecialchars($row_topic["start"]) : '';
+                    $duration = isset($row_topic["duration"]) ? htmlspecialchars(date('H:i', strtotime($row_topic["duration"]))) : '00:00';  // Ensure default format
+                    echo "<tr id='{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
+                    echo "<td></td>"; // Order Input                
+                    echo "<td class='topic-row' style='position: relative;'>";
+                    echo "<strong>Topic</strong>";
+                    echo "<input type='hidden' class='topic-id' value='{$topicId}'>";
+                    echo "</td>"; // Type    
+                    echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff; max-width: 200px;'>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Description
+                    echo "<td class='editabletasktopic-cell' data-column='responsible' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
+                    echo "<td class='editabletasktopic-cell' style='border: 1px solid #dfbaff;'>";
+                        echo "<input type='text' class='timepicker' data-topic-id='{$row_topic["id"]}' value='{$start}' style='width: 100%;'>";
+                    echo "</td>"; // Start
+                    echo "<td class='editabletasktopic-cell' style='border: 1px solid #dfbaff;'>";
+                        $duration_value = !empty($row_topic["duration"]) ? htmlspecialchars(date('H:i', strtotime($row_topic["duration"]))) : '';
+                        $duration_placeholder = empty($duration_value) ? 'minutes' : '';
+                        echo "<input type='text' class='duration-input' data-topic-id='{$row_topic["id"]}' value='{$duration_value}' placeholder='{$duration_placeholder}' style='width: 100%;'>";
+                    echo "</td>"; // Duration
+                    echo "<td>
+                            <div class='button-container'>
+                                <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                <div class='dropdown-menu'>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                </div>
+                                <button class='button-12 deleteRow' role='button'>-</button>
+                                <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' role='button'>→</button>  
+                            </div>
+                          </td>"; // Actions
+                    echo "</tr>";
+
+                    fetchTasksforTopics($conn, $topicId, $selectedAgendaId, $gft, "");
+                }
+            }
+            
+                      
+            $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = '') AND sent = 0 AND deleted = 0 AND topic_id= '' ";
+            $stmt_tasks = $conn->prepare($sql_tasks);
+            $stmt_tasks->bind_param('is', $selectedAgendaId, $gft);
+            $stmt_tasks->execute();
+            $result_tasks = $stmt_tasks->get_result();
+
+            if ($result_tasks->num_rows > 0) {
+                while ($row_task = $result_tasks->fetch_assoc()) {
+                    $taskId = $row_task["id"];
+                    $isASAP = $row_task["asap"] == 1;
+                    $buttonColor = $isASAP ? 'red' : 'white';
+                    $datepickerVisibility = $isASAP ? 'display:none;' : 'display:block;';
+                    echo "<tr id='{$taskId}' data-type='task' data-id='{$taskId}'>";
+                    echo "<td></td>"; // Order Input               
+                    echo "<td class='task-row' style='position: relative;'>";
+                    echo "<strong>Task</strong>";
+                    echo "<input type='hidden' class='task-id' value='{$taskId}'>";
+                    echo "</td>"; // Type     
+                    echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid orange; max-width: 200px;'>" . htmlspecialchars($row_task["name"]) . "</td>"; // Description
+                    echo "<td style='background-color: #212529 !important; width: 300px !important;'>"; // Responsible
+                    echo "<input class='editabletasktopic-cell' data-column='responsible' type='text' style='background-color: #212529 !important; border: 1px solid orange; width: 100%;' value='" . htmlspecialchars($row_task["responsible"]) . "'>";
+                    echo "<br>";
+                    echo "<br>";
+                    echo "<input class='editabletasktopic-cell datepicker' data-column='deadline' type='text' id='datepicker-{$taskId}' style='color: white !important; border: 1px solid orange; width: 70%; {$datepickerVisibility}' value='" . htmlspecialchars($row_task["deadline"]) . "'>";
+                    echo "<button class='asap-button' data-task-id='{$taskId}' style='color: {$buttonColor};'>ASAP</button>";
+                    echo "</td>";
+                    echo "<td style='width: 0px !important;'></td>"; // Start (empty for tasks)
+                    echo "<td style='width: 0px !important'></td>"; // Duration (empty for tasks)
+                    echo "<td>
+                            <div class='button-container'>
+                                <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                <div class='dropdown-menu'>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                </div>
+                                <button class='button-12 deleteRow' role='button'>-</button>
                                 <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$taskId}' class='button-12 forwardTaskBtns' role='button'>→</button>  
                             </div>
                         </td>"; // Actions
                     echo "</tr>";
                 }
             }
-
-
         }
         ?>
     </tbody>
