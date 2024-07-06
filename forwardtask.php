@@ -25,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("i", $old_task_id);
     } elseif ($old_topic_id !== null) {
         log_message("Fetching old topic data for topic_id: $old_topic_id");
-        // Prepare and execute the query to fetch the old topic data
-        $stmt = $conn->prepare("SELECT id, agenda_id, name, responsible, gft, cr, details FROM topics WHERE id = ?");
+        // Prepare and execute the query to fetch the old topic data, including the new columns
+        $stmt = $conn->prepare("SELECT id, agenda_id, name, responsible, gft, cr, details, start, duration FROM topics WHERE id = ?");
         $stmt->bind_param("i", $old_topic_id);
     } else {
         log_message('Task or Topic ID not provided');
@@ -48,6 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $gft = $row['gft'];
         $cr = $row['cr'];
         $details = $row['details'];
+        $start = isset($row['start']) ? $row['start'] : null;
+        $duration = isset($row['duration']) ? $row['duration'] : null;
     
         log_message("Fetched data: " . print_r($row, true));
     
@@ -97,8 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo 'Task and related details forwarded successfully';
         }  elseif ($old_topic_id !== null) {
             log_message("Inserting new topic with agenda_id: $new_agenda_id");
-            $insert_stmt = $conn->prepare("INSERT INTO topics (name, responsible, gft, cr, details, agenda_id) VALUES (?, ?, ?, ?, ?, ?)");
-            $insert_stmt->bind_param("sssssi", $name, $responsible, $gft, $cr, $details, $new_agenda_id);
+            $insert_stmt = $conn->prepare("INSERT INTO topics (name, responsible, gft, cr, details, agenda_id, start, duration) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $insert_stmt->bind_param("ssssssis", $name, $responsible, $gft, $cr, $details, $new_agenda_id, $start, $duration);
         }
     if ($old_topic_id !== null) {
 
