@@ -67,17 +67,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $check_stmt->close();
     
-        // Prepare and execute the query to insert the new task or topic with the new agenda_id
         if ($old_task_id !== null) {
+            $conn->begin_transaction(); // Start transaction
             log_message("Inserting new task with agenda_id: $new_agenda_id");
             $insert_stmt = $conn->prepare("INSERT INTO tasks (name, responsible, deadline, gft, cr, details, agenda_id, deleted, sent, topic_id) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0, '')");
+            if ($insert_stmt === false) {
+                $conn->rollback(); // Rollback transaction on error
+                throw new Exception('Prepare failed: ' . $conn->error);
+            }
             $insert_stmt->bind_param("ssssssi", $name, $responsible, $deadline, $gft, $cr, $details, $new_agenda_id);
-        } elseif ($old_topic_id !== null) {
+            $insert_stmt->execute();
+            $newTaskId = $conn->insert_id; // Get the ID of the newly inserted task
+        
+            // Types of IAD rows to handle
+            $types = ['information', 'assignment', 'decision'];
+            foreach ($types as $type) {
+                $sql = "INSERT INTO $type (agenda_id, gft, cr, task_id, content, responsible) 
+                        SELECT ?, gft, cr, ?, content, responsible FROM $type WHERE task_id = ?";
+                $stmt = $conn->prepare($sql);
+                if ($stmt === false) {
+                    $conn->rollback(); // Rollback transaction on error
+                    throw new Exception('Prepare failed: ' . $conn->error);
+                }
+                $stmt->bind_param("iii", $new_agenda_id, $newTaskId, $old_task_id);
+                $stmt->execute();
+            }
+            
+            $conn->commit(); // Commit the transaction
+            echo 'Task and related details forwarded successfully';
+        }  elseif ($old_topic_id !== null) {
             log_message("Inserting new topic with agenda_id: $new_agenda_id");
             $insert_stmt = $conn->prepare("INSERT INTO topics (name, responsible, gft, cr, details, agenda_id) VALUES (?, ?, ?, ?, ?, ?)");
             $insert_stmt->bind_param("sssssi", $name, $responsible, $gft, $cr, $details, $new_agenda_id);
         }
-        
+    if ($old_topic_id !== null) {
+
         // Execute the insert statement
         if ($insert_stmt->execute()) {
             // Check if the insert was successful
@@ -168,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             log_message('Failed to copy task or topic to the new agenda');
             echo 'Failed to copy task or topic to the new agenda';
         }
-        
+    }
         $insert_stmt->close();
     } else {
         log_message('Task or Topic not found');

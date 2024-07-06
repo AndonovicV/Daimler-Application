@@ -36,3 +36,291 @@
 [2024-07-06 16:32:42] Marking old task as sent: 83
 [2024-07-06 16:32:42] Successfully updated/deleted old task/topic with ID: 83
 [2024-07-06 16:32:42] Script ended.
+[2024-07-06 16:34:29] Script started.
+[2024-07-06 16:34:29] POST data received: Array
+(
+    [task_id] => 86
+    [agenda_id] => 135
+)
+
+[2024-07-06 16:34:29] Fetching old task data for task_id: 86
+[2024-07-06 16:34:29] Data fetched successfully from the database.
+[2024-07-06 16:34:29] Fetched data: Array
+(
+    [id] => 86
+    [agenda_id] => 134
+    [name] => a
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160063701
+    [details] => 
+    [deadline] => 
+)
+
+[2024-07-06 16:34:29] Activating filter for Change Request: I160063701
+[2024-07-06 16:34:29] Inserting new task with agenda_id: 135
+[2024-07-06 16:34:29] New topic/task inserted with ID: 87
+[2024-07-06 16:34:29] Task or Topic successfully copied to the new agenda
+[2024-07-06 16:34:29] Marking old task as sent: 86
+[2024-07-06 16:34:29] Successfully updated/deleted old task/topic with ID: 86
+[2024-07-06 16:34:29] Script ended.
+[2024-07-06 16:36:23] Script started.
+[2024-07-06 16:36:23] POST data received: Array
+(
+    [task_id] => 86
+    [agenda_id] => 135
+)
+
+[2024-07-06 16:36:23] Fetching old task data for task_id: 86
+[2024-07-06 16:36:23] Data fetched successfully from the database.
+[2024-07-06 16:36:23] Fetched data: Array
+(
+    [id] => 86
+    [agenda_id] => 134
+    [name] => a
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160063701
+    [details] => 
+    [deadline] => 
+)
+
+[2024-07-06 16:36:23] Inserting new task with agenda_id: 135
+[2024-07-06 16:36:23] New topic/task inserted with ID: 88
+[2024-07-06 16:36:23] Task or Topic successfully copied to the new agenda
+[2024-07-06 16:36:23] Marking old task as sent: 86
+[2024-07-06 16:36:23] Successfully updated/deleted old task/topic with ID: 86
+[2024-07-06 16:36:23] Script ended.
+[2024-07-06 16:37:31] Script started.
+[2024-07-06 16:37:31] POST data received: Array
+(
+    [task_id] => 86
+    [agenda_id] => 135
+)
+
+[2024-07-06 16:37:31] Fetching old task data for task_id: 86
+[2024-07-06 16:37:31] Data fetched successfully from the database.
+[2024-07-06 16:37:31] Fetched data: Array
+(
+    [id] => 86
+    [agenda_id] => 134
+    [name] => a
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160063701
+    [details] => 
+    [deadline] => 
+)
+
+[2024-07-06 16:37:31] Inserting new task with agenda_id: 135
+[2024-07-06 16:37:31] New topic/task inserted with ID: 90
+[2024-07-06 16:37:31] Task or Topic successfully copied to the new agenda
+[2024-07-06 16:37:31] Marking old task as sent: 86
+[2024-07-06 16:37:31] Successfully updated/deleted old task/topic with ID: 86
+[2024-07-06 16:37:31] Script ended.
+[2024-07-06 16:37:48] Script started.
+[2024-07-06 16:37:48] POST data received: Array
+(
+    [task_id] => 86
+    [agenda_id] => 135
+)
+
+[2024-07-06 16:37:48] Fetching old task data for task_id: 86
+[2024-07-06 16:37:48] Data fetched successfully from the database.
+[2024-07-06 16:37:48] Fetched data: Array
+(
+    [id] => 86
+    [agenda_id] => 134
+    [name] => a
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160063701
+    [details] => 
+    [deadline] => 
+)
+
+[2024-07-06 16:37:48] Inserting new task with agenda_id: 135
+[2024-07-06 16:37:48] New topic/task inserted with ID: 92
+[2024-07-06 16:37:48] Task or Topic successfully copied to the new agenda
+[2024-07-06 16:37:48] Marking old task as sent: 86
+[2024-07-06 16:37:48] Successfully updated/deleted old task/topic with ID: 86
+[2024-07-06 16:37:48] Script ended.
+[2024-07-06 16:41:17] Script started.
+[2024-07-06 16:41:17] POST data received: Array
+(
+    [task_id] => 91
+    [agenda_id] => 136
+)
+
+[2024-07-06 16:41:17] Fetching old tasks data for ID: 91
+[2024-07-06 16:41:17] Fetched data: Array
+(
+    [id] => 91
+    [agenda_id] => 135
+    [name] => a
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160063701
+    [details] => 
+    [deleted] => 0
+    [asap] => 0
+    [deadline] => 
+    [sent] => 0
+    [topic_id] => 
+)
+
+[2024-07-06 16:41:21] Script started.
+[2024-07-06 16:41:21] POST data received: Array
+(
+    [topic_id] => 39
+    [agenda_id] => 136
+)
+
+[2024-07-06 16:41:21] Fetching old topics data for ID: 39
+[2024-07-06 16:41:21] Fetched data: Array
+(
+    [id] => 39
+    [agenda_id] => 135
+    [name] => I am back in london
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160100901
+    [details] => 
+)
+
+[2024-07-06 16:41:46] Script started.
+[2024-07-06 16:41:46] POST data received: Array
+(
+    [task_id] => 91
+    [agenda_id] => 136
+)
+
+[2024-07-06 16:41:46] Fetching old task data for task_id: 91
+[2024-07-06 16:41:46] Data fetched successfully from the database.
+[2024-07-06 16:41:46] Fetched data: Array
+(
+    [id] => 91
+    [agenda_id] => 135
+    [name] => a
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160063701
+    [details] => 
+    [deadline] => 
+)
+
+[2024-07-06 16:41:46] Activating filter for Change Request: I160063701
+[2024-07-06 16:41:46] Inserting new task with agenda_id: 136
+[2024-07-06 16:41:46] New topic/task inserted with ID: 94
+[2024-07-06 16:41:46] Task or Topic successfully copied to the new agenda
+[2024-07-06 16:41:46] Marking old task as sent: 91
+[2024-07-06 16:41:46] Successfully updated/deleted old task/topic with ID: 91
+[2024-07-06 16:41:46] Script ended.
+[2024-07-06 16:41:51] Script started.
+[2024-07-06 16:41:51] POST data received: Array
+(
+    [topic_id] => 39
+    [agenda_id] => 136
+)
+
+[2024-07-06 16:41:51] Fetching old topic data for topic_id: 39
+[2024-07-06 16:41:51] Data fetched successfully from the database.
+[2024-07-06 16:41:51] Fetched data: Array
+(
+    [id] => 39
+    [agenda_id] => 135
+    [name] => I am back in london
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160100901
+    [details] => 
+)
+
+[2024-07-06 16:41:51] Activating filter for Change Request: I160100901
+[2024-07-06 16:41:51] Inserting new topic with agenda_id: 136
+[2024-07-06 16:41:51] New topic/task inserted with ID: 40
+[2024-07-06 16:41:51] Task or Topic successfully copied to the new agenda
+[2024-07-06 16:41:51] Copying tasks associated with the old topic_id: 39
+[2024-07-06 16:41:51] Found task with ID: 85 associated with the old topic_id: 39
+[2024-07-06 16:41:51] Inserted new task with ID: 95 for new topic_id: 40
+[2024-07-06 16:41:51] Processing related table: information for old task ID: 85
+[2024-07-06 16:41:51] Found related row in table information for old task ID: 85 with content: {"gft":"21","cr":"0","content":"contentaasdas","responsible":null}
+[2024-07-06 16:41:51] Inserted related row into table information for new task ID: 95
+[2024-07-06 16:41:51] Processing related table: assignment for old task ID: 85
+[2024-07-06 16:41:51] Found related row in table assignment for old task ID: 85 with content: {"gft":"21","cr":"0","content":"contentsss","responsible":null}
+[2024-07-06 16:41:51] Inserted related row into table assignment for new task ID: 95
+[2024-07-06 16:41:51] Processing related table: decision for old task ID: 85
+[2024-07-06 16:41:51] Found related row in table decision for old task ID: 85 with content: {"gft":"21","cr":"0","content":"contentddddd","responsible":null}
+[2024-07-06 16:41:51] Inserted related row into table decision for new task ID: 95
+[2024-07-06 16:41:51] Marking old task as sent: 85
+[2024-07-06 16:41:51] Successfully updated/deleted old task/topic with ID: 85
+[2024-07-06 16:41:51] Script ended.
+[2024-07-06 16:49:23] Script started.
+[2024-07-06 16:49:23] POST data received: Array
+(
+    [task_id] => 91
+    [agenda_id] => 136
+)
+
+[2024-07-06 16:49:23] Fetching old task data for task_id: 91
+[2024-07-06 16:49:23] Data fetched successfully from the database.
+[2024-07-06 16:49:23] Fetched data: Array
+(
+    [id] => 91
+    [agenda_id] => 135
+    [name] => a
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160063701
+    [details] => 
+    [deadline] => 
+)
+
+[2024-07-06 16:49:23] Inserting new task with agenda_id: 136
+[2024-07-06 16:49:23] Script ended.
+[2024-07-06 16:54:30] Script started.
+[2024-07-06 16:54:30] POST data received: Array
+(
+    [task_id] => 96
+    [agenda_id] => 134
+)
+
+[2024-07-06 16:54:30] Fetching old task data for task_id: 96
+[2024-07-06 16:54:30] Data fetched successfully from the database.
+[2024-07-06 16:54:30] Fetched data: Array
+(
+    [id] => 96
+    [agenda_id] => 136
+    [name] => a
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160063701
+    [details] => 
+    [deadline] => 
+)
+
+[2024-07-06 16:54:30] Inserting new task with agenda_id: 134
+[2024-07-06 16:54:30] Script ended.
+[2024-07-06 16:54:39] Script started.
+[2024-07-06 16:54:39] POST data received: Array
+(
+    [task_id] => 86
+    [agenda_id] => 135
+)
+
+[2024-07-06 16:54:39] Fetching old task data for task_id: 86
+[2024-07-06 16:54:39] Data fetched successfully from the database.
+[2024-07-06 16:54:39] Fetched data: Array
+(
+    [id] => 86
+    [agenda_id] => 134
+    [name] => a
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160063701
+    [details] => 
+    [deadline] => 
+)
+
+[2024-07-06 16:54:39] Inserting new task with agenda_id: 135
+[2024-07-06 16:54:39] Script ended.
