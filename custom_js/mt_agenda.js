@@ -546,11 +546,11 @@ async function addNewRow(type, clickedCell) {
             var gftId = cells.find('.gft-id').val();
             gft = gftId ? gftId : cellContent;
             gftFound = true;
-        } else if (cellContent.startsWith("CH") && !projectFound) {
+        } else if (cellContent.startsWith("CH") && !projectFound && !gftFound) {
             var changeRequestId = cells.find('.change-request-id').val();
             project = changeRequestId ? changeRequestId : cellContent;
             projectFound = true;
-        } else if (cellContent.startsWith("Topic") && !topicFound) {
+        } else if (cellContent.startsWith("Topic") && !topicFound && !projectFound && !gftFound) {
             var topicId = cells.find('.topic-id').val(); 
             topic = topicId;
             topicFound = true;

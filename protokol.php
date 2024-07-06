@@ -292,7 +292,7 @@ if ($result_personal_tasks->num_rows > 0) {
                     <th align="center">Type</th>
                     <th align="center">Description</th> <!--GFT/Change Request/Task description -->
                     <th align="center">Responsible</th>
-                    <th align="center" class="actions">Actions</th>
+                    <th align="center" class="actions"  style="width: 15%;">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -312,15 +312,16 @@ if ($result_personal_tasks->num_rows > 0) {
                                 <div class='button-container'>
                                 <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
                                 <div class='dropdown-menu'>
-                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                                     <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
                                 </div>
                             </div>
                                 </div>
                             </td>"; // Actions
-
-
                         echo "</tr>";
+
+                        fetchTopicsforGFT($conn, $row_gft["id"], null);
+
+
                         // Fetch change requests based on $selected_team and $row_gft["name"]
                         $selected_team = $row_gft["moduleteam"];
                         $selected_gft = $row_gft["name"];
@@ -375,7 +376,7 @@ if ($result_personal_tasks->num_rows > 0) {
                             echo "</tr>";
 
                             // Fetch topics and tasks for this GFT only
-                            fetchTasksAndTopics($conn, $row_gft["id"], null);
+                            //fetchTasksAndTopics($conn, $row_gft["id"], null);
                         }
                     }
                 } else {
@@ -596,7 +597,6 @@ if ($result_personal_tasks->num_rows > 0) {
                                             <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
                                         </div>
                                         <button class='button-12 deleteRow' role='button'>-</button>
-                                        <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$taskId}' class='button-12 forwardTaskBtns' role='button'>→</button>  
                                     </div>
                                 </td>"; // Actions
                             echo "</tr>";
@@ -686,6 +686,48 @@ if ($result_personal_tasks->num_rows > 0) {
                                  echo "</tr>";
                              }                       
                     }
+                    }
+                }
+                // Function to fetch tasks and topics
+                function fetchTopicsforGFT($conn, $gft, $cr)
+                {
+                    // Remove "title for " from the CR value if present
+                    $cr_stripped = $cr ? str_replace('title for ', '', $cr) : null;
+                    $selectedAgendaId = isset($_GET['protokol_id']) ? $_GET['protokol_id'] : null;
+                    // Debugging output
+                    //echo "<tr><td colspan='5'>Fetching Topics and Tasks for GFT: " . htmlspecialchars($gft) . " and CR: " . htmlspecialchars($cr_stripped) . "</td></tr>";
+
+                    $sql_topics = "SELECT * FROM topics WHERE agenda_id = ? AND gft = ? AND (cr = '')";
+                    $stmt_topics = $conn->prepare($sql_topics);
+                    $stmt_topics->bind_param('is', $selectedAgendaId, $gft);
+                    $stmt_topics->execute();
+
+                    $result_topics = $stmt_topics->get_result();
+                    if ($result_topics->num_rows > 0) {
+                        while ($row_topic = $result_topics->fetch_assoc()) {
+                            $topicId = $row_topic["id"];
+                            echo "<tr id='topic-{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
+                            echo "<td class='topic-row' style='position: relative;'>";
+                            echo "<strong>Topic</strong>";
+                            echo "<input type='hidden' class='topic-id' value='{$topicId}'>";
+                            echo "</td>"; // Type                              
+                            echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Type
+                            echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
+                            echo "<td>
+                            <div class='button-container'>
+                                <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                <div class='dropdown-menu'>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                </div>
+                                <button class='button-12 deleteRow' role='button'>-</button>
+                                <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' role='button'>→</button>  
+                            </div>
+                          </td>";
+                            echo "</tr>";
+
+                            fetchTasksforTopics($conn, $topicId, $selectedAgendaId, $gft, $cr_stripped);
+                        }
                     }
                 }
                 ?>
