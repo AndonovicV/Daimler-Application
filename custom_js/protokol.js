@@ -925,57 +925,124 @@ $(document).ready(function() {
 });
 
 // FORWARD TASK / TOPIC
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    var forwardTaskBtns = document.querySelectorAll('.forwardTaskBtns');
+    var forwardTopicBtns = document.querySelectorAll('.forwardTopicBtns');
     var forwardModal = document.getElementById('forwardModal');
     var sendTaskBtn = document.getElementById('sendTaskBtn');
+    var createAgendaConfirmWithTaskBtn = document.getElementById('createAgendaConfirmWithTaskBtn');
 
-    // Handle click events for both task and topic forwarding buttons
-    document.querySelectorAll('.forwardTaskBtns, .forwardTopicBtns').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var id = this.getAttribute('data-id');
-            var type = this.classList.contains('forwardTaskBtns') ? 'task' : 'topic';
+    forwardTaskBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var taskId = this.getAttribute('data-id');
+            forwardModal.setAttribute('data-task-id', taskId);
 
-            // Set the data attributes on the modal for later retrieval
-            forwardModal.setAttribute('data-id', id);
-            forwardModal.setAttribute('data-type', type);
-
-            // Update modal title accordingly
             var modalTitle = forwardModal.querySelector('.modal-title');
-            modalTitle.textContent = 'Forward ' + (type.charAt(0).toUpperCase() + type.slice(1)) + ' ID: ' + id;
+            modalTitle.textContent = 'Forward Task ID: ' + taskId;
         });
     });
 
-    sendTaskBtn.addEventListener('click', function() {
-        var id = forwardModal.getAttribute('data-id');
-        var type = forwardModal.getAttribute('data-type');
-        var selectedAgendaId = document.getElementById('agendaSelectTask').value;
+    forwardTopicBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var topicId = this.getAttribute('data-id');
+            forwardModal.setAttribute('data-topic-id', topicId);
 
-        if (id && selectedAgendaId) {
-            forwardItem(type, id, selectedAgendaId);
+            var modalTitle = forwardModal.querySelector('.modal-title');
+            modalTitle.textContent = 'Forward Topic ID: ' + topicId;
+        });
+    });
+
+    sendTaskBtn.addEventListener('click', function () {
+        console.log("Send button clicked");
+        var taskId = forwardModal.getAttribute('data-task-id');
+        var topicId = forwardModal.getAttribute('data-topic-id');
+        var selectedAgendaId = document.getElementById('agendaSelectTask').value;
+        console.log('Task ID:', taskId);
+        console.log('Topic ID:', topicId);
+        console.log('Selected Agenda ID:', selectedAgendaId);
+
+        var data = {};
+        if (taskId) {
+            data = {
+                task_id: taskId,
+                agenda_id: selectedAgendaId
+            };
         } else {
-            console.error('ID or Selected Agenda ID missing');
+            data = {
+                topic_id: topicId,
+                agenda_id: selectedAgendaId
+            };
         }
+
+        console.log('Data to send:', data);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'forwardtask.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log('Task successfully copied to the agenda');
+                    location.reload();
+                } else {
+                    console.error('Failed to copy task to the agenda', xhr.status, xhr.responseText);
+                }
+            }
+        };
+        xhr.send(JSON.stringify(data));
+    });
+
+    createAgendaConfirmWithTaskBtn.addEventListener('click', function () {
+        var newAgendaName = $('#newagendaDate').val();
+        var newAgendaDate = $('#newagendaDate').val();
+
+        $.ajax({
+            type: 'POST',
+            url: 'createAgenda.php',
+            data: {
+                agenda_name: newAgendaName,
+                agenda_date: newAgendaDate
+            },
+            success: function (response) {
+                var parsedResponse = JSON.parse(response);
+                var newAgendaId = parsedResponse.agenda_id; // Extract the agenda_id from the JSON response
+                console.log('New Agenda ID:', newAgendaId);
+
+                var taskId = forwardModal.getAttribute('data-task-id');
+                var topicId = forwardModal.getAttribute('data-topic-id');
+                var data = {};
+
+                if (taskId) {
+                    data = {
+                        task_id: taskId,
+                        agenda_id: newAgendaId
+                    };
+                } else {
+                    data = {
+                        topic_id: topicId,
+                        agenda_id: newAgendaId
+                    };
+                }
+
+                console.log('Data to send:', data);
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'forwardtask.php',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                        console.log('Task successfully copied to the new agenda');
+                        window.location.href = 'mt_agenda.php?agenda_id=' + newAgendaId;
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Failed to copy task to the new agenda', xhr.status, xhr.responseText);
+                    }
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
     });
 });
-
-function forwardItem(type, id, selectedAgendaId) {
-    var endpoint = 'forward_task_with_details.php'; // Assuming a single endpoint for forwarding tasks/topics
-    var data = {
-        agenda_id: selectedAgendaId
-    };
-    data[type + '_id'] = id; // Dynamically set the appropriate key based on type
-
-    // Perform the AJAX request using jQuery for simplicity and better browser compatibility
-    $.ajax({
-        type: 'POST',
-        url: endpoint,
-        data: data,
-        success: function(response) {
-            console.log(`${type.charAt(0).toUpperCase() + type.slice(1)} and related details forwarded successfully`, response);
-            // Implement additional UI feedback here
-        },
-        error: function(xhr, status, error) {
-            console.error(`Failed to forward ${type}`, status, error);
-        }
-    });
-}

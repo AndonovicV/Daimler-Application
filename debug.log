@@ -1,0 +1,38 @@
+[2024-07-06 16:32:42] Script started.
+[2024-07-06 16:32:42] POST data received: Array
+(
+    [topic_id] => 38
+    [agenda_id] => 135
+)
+
+[2024-07-06 16:32:42] Fetching old topic data for topic_id: 38
+[2024-07-06 16:32:42] Data fetched successfully from the database.
+[2024-07-06 16:32:42] Fetched data: Array
+(
+    [id] => 38
+    [agenda_id] => 134
+    [name] => I am back in london
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I160100901
+    [details] => 
+)
+
+[2024-07-06 16:32:42] Inserting new topic with agenda_id: 135
+[2024-07-06 16:32:42] New topic/task inserted with ID: 39
+[2024-07-06 16:32:42] Task or Topic successfully copied to the new agenda
+[2024-07-06 16:32:42] Copying tasks associated with the old topic_id: 38
+[2024-07-06 16:32:42] Found task with ID: 83 associated with the old topic_id: 38
+[2024-07-06 16:32:42] Inserted new task with ID: 85 for new topic_id: 39
+[2024-07-06 16:32:42] Processing related table: information for old task ID: 83
+[2024-07-06 16:32:42] Found related row in table information for old task ID: 83 with content: {"gft":"21","cr":"0","content":"contentaasdas","responsible":null}
+[2024-07-06 16:32:42] Inserted related row into table information for new task ID: 85
+[2024-07-06 16:32:42] Processing related table: assignment for old task ID: 83
+[2024-07-06 16:32:42] Found related row in table assignment for old task ID: 83 with content: {"gft":"21","cr":"0","content":"contentsss","responsible":null}
+[2024-07-06 16:32:42] Inserted related row into table assignment for new task ID: 85
+[2024-07-06 16:32:42] Processing related table: decision for old task ID: 83
+[2024-07-06 16:32:42] Found related row in table decision for old task ID: 83 with content: {"gft":"21","cr":"0","content":"contentddddd","responsible":null}
+[2024-07-06 16:32:42] Inserted related row into table decision for new task ID: 85
+[2024-07-06 16:32:42] Marking old task as sent: 83
+[2024-07-06 16:32:42] Successfully updated/deleted old task/topic with ID: 83
+[2024-07-06 16:32:42] Script ended.

@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($check_result->num_rows == 0) {
             log_message("Activating filter for Change Request: $cr");
             // Activate the filter for the Change Request connected to the task
-            $filter_stmt = $conn->prepare("INSERT INTO agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, ?, 1)");
+            $filter_stmt = $conn->prepare("INSERT INTO agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?,  ?, 1)");
             $filter_stmt->bind_param("is", $new_agenda_id, $cr);
             $filter_stmt->execute();
             $filter_stmt->close();
@@ -141,13 +141,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $fetch_related_stmt->close();
                     }
                 }
-                
                 $task_stmt->close();
             }
+            
+            
     
-
-
-            // Set the old task/topic as deleted or sent
+            // Set the old task/topic as deleted
             if ($old_task_id !== null) {
                 log_message("Marking old task as sent: $old_task_id");
                 $update_stmt = $conn->prepare("UPDATE tasks SET sent = 1 WHERE id = ?");
@@ -157,12 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $update_stmt = $conn->prepare("DELETE FROM topics WHERE id = ?");
                 $update_stmt->bind_param("i", $old_topic_id);
             }
-            
-            if ($update_stmt->execute()) {
-                log_message("Successfully updated/deleted old task/topic with ID: " . ($old_task_id !== null ? $old_task_id : $old_topic_id));
-            } else {
-                log_message("Failed to update/delete old task/topic with ID: " . ($old_task_id !== null ? $old_task_id : $old_topic_id) . ". Error: " . $update_stmt->error);
-            }
+            $update_stmt->execute();
             $update_stmt->close();
         } else {
             log_message('Failed to copy task or topic to the new agenda');
@@ -174,6 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         log_message('Task or Topic not found');
         echo 'Task or Topic not found';
     }
+
 
     $stmt->close();
 }
