@@ -233,6 +233,8 @@ $(document).ready(function () {
                     substitute: substitute
                 },
                 success: function (response) {
+                    alert('Guest Succesfully Added. Please reload page to see changes.');
+                    $('#addGuestModal').modal('hide');
                     var data = JSON.parse(response);
                     if (data.status === 'success') {
                         var newRow = `
