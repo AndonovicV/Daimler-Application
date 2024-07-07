@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:8888
--- Generation Time: Jun 28, 2024 at 02:22 PM
+-- Host: localhost:8888
+-- Generation Time: Jul 07, 2024 at 03:48 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,120 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `agenda_change_request_filters`
+-- Table structure for table `domm_agenda_change_request_filters`
 --
 
-CREATE TABLE `agenda_change_request_filters` (
+CREATE TABLE `domm_agenda_change_request_filters` (
   `agenda_id` int(11) NOT NULL,
   `change_request_id` varchar(20) NOT NULL,
   `filter_active` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `agenda_change_request_filters`
---
-
-INSERT INTO `agenda_change_request_filters` (`agenda_id`, `change_request_id`, `filter_active`) VALUES
-(76, 'I160063701', 1),
-(76, 'I160100901', 1),
-(76, 'I160128601', 1),
-(76, 'I160197701', 1),
-(76, 'I170028401', 1),
-(76, 'I170034101', 1),
-(76, 'I170114801', 1),
-(76, 'I170128301', 1),
-(76, 'I180026401', 1),
-(76, 'I180082601', 1),
-(76, 'I180114801', 1),
-(76, 'I190034201', 1),
-(76, 'I190037801', 1),
-(76, 'I190098401', 1),
-(76, 'I190106601', 1),
-(76, 'I190117601', 1),
-(76, 'I200003801', 1),
-(76, 'I200066401', 1),
-(76, 'I210046901', 1),
-(76, 'I220022701', 1),
-(76, 'I220158101', 1),
-(76, 'I220178301', 1),
-(76, 'I230041501', 1),
-(76, 'I230080601', 1),
-(76, 'I230088701', 1),
-(76, 'I240090801', 1),
-(76, 'I240117701', 1),
-(100, 'I160063701', 1),
-(100, 'I160100901', 1),
-(100, 'I160128601', 1),
-(100, 'I160197701', 1),
-(100, 'I170028401', 1),
-(100, 'I170114801', 1),
-(101, 'I160100901', 1),
-(101, 'I160128601', 1),
-(101, 'I160197701', 1),
-(109, 'I160063701', 1),
-(109, 'I160100901', 1),
-(109, 'I160128601', 1),
-(109, 'I160197701', 1),
-(109, 'I170028401', 1),
-(109, 'I170034101', 1),
-(109, 'I170114801', 1),
-(109, 'I170128301', 1),
-(109, 'I170129001', 1),
-(109, 'I180026401', 1),
-(109, 'I180029301', 1),
-(109, 'I180036201', 1),
-(109, 'I180051301', 1),
-(109, 'I180082601', 1),
-(109, 'I180114801', 1),
-(109, 'I190034201', 1),
-(109, 'I190037801', 1),
-(109, 'I190098401', 1),
-(109, 'I190106601', 1),
-(109, 'I190117601', 1),
-(109, 'I200003801', 1),
-(109, 'I200066401', 1),
-(109, 'I200103701', 1),
-(109, 'I210046901', 1),
-(109, 'I210108801', 1),
-(109, 'I220022701', 1),
-(109, 'I220042901', 1),
-(109, 'I220158101', 1),
-(109, 'I220178301', 1),
-(109, 'I230028701', 1),
-(109, 'I230041501', 1),
-(109, 'I230071401', 1),
-(109, 'I230080601', 1),
-(109, 'I230088701', 1),
-(109, 'I240015901', 1),
-(109, 'I240090801', 1),
-(109, 'I240117701', 1),
-(112, 'I160063701', 1),
-(112, 'I160100901', 1),
-(112, 'I160128601', 1),
-(113, 'I170114801', 1),
-(115, 'I160128601', 1),
-(117, 'I160100901', 1),
-(117, 'I160128601', 1),
-(117, 'I160197701', 1),
-(117, 'I170028401', 1),
-(117, 'I170034101', 1),
-(118, 'I170034101', 1),
-(118, 'I170114801', 1),
-(118, 'I180036201', 1),
-(118, 'I180051301', 1),
-(118, 'I180082601', 1),
-(119, 'I160128601', 1),
-(119, 'I180082601', 1),
-(120, 'I160128601', 1),
-(120, 'I170114801', 1);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `assignment`
+-- Table structure for table `domm_assignment`
 --
 
-CREATE TABLE `assignment` (
+CREATE TABLE `domm_assignment` (
   `id` int(11) NOT NULL,
   `agenda_id` int(11) DEFAULT NULL,
   `gft` varchar(255) DEFAULT NULL,
@@ -147,90 +49,13 @@ CREATE TABLE `assignment` (
   `responsible` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `assignment`
---
-
-INSERT INTO `assignment` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`, `responsible`) VALUES
-(1, 61, 'EX50 - Subwoofer', '0', NULL, 'sa', 'default'),
-(2, 61, 'EX50 - Subwoofer', '0', '30', 'tringjo grudo bitchface', 'default'),
-(3, 61, 'EX50 - Subwoofer', '0', '31', 'trial', 'default'),
-(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr', 'default'),
-(5, 61, 'EX50 - Subwoofer', '0', '33', 'test', 'default'),
-(6, 61, 'EX52 - Crankshaft position sensor', '0', '37', 'pr', 'default'),
-(7, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here', 'default'),
-(8, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here', 'default'),
-(9, 60, 'EX50 - Subwoofer', '0', '40', 'MIAUsda', 'default'),
-(10, 60, 'EX50 - Subwoofer', '0', '41', 'Slay', 'default'),
-(11, 60, 'EX53 - Clinometer', '0', '42', 'dfsfs', 'default'),
-(12, 60, 'EX50 - Subwoofer', '0', '43', 'works??', 'meow'),
-(13, 60, 'EX50 - Subwoofer', '0', '44', 'content', 'default'),
-(14, 60, 'EX53 - Clinometer', '0', '44', 'content', 'default'),
-(15, 60, 'EX53 - Clinometer', '0', '44', 'content', 'default'),
-(18, 60, 'EX53 - Clinometer', '0', '58', 'content', 'default'),
-(19, 60, 'EX52 - Crankshaft position sensor', '0', '59', 'content', 'default'),
-(20, 60, 'EX52 - Crankshaft position sensor', '0', '60', 'content', 'default'),
-(21, 60, 'EX51 - Automatic transmission speed sensor', '0', '61', 'content', 'default'),
-(25, 60, 'EX51 - Automatic transmission speed sensor', '0', '65', 'sads', 'default'),
-(26, 60, 'EX52 - Crankshaft position sensor', '0', '66', 'content', 'default'),
-(27, 60, 'EX51 - Automatic transmission speed sensor', '0', '67', 'content', 'default'),
-(28, 60, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content', 'default'),
-(29, 61, 'EX52 - Crankshaft position sensor', '0', '69', 'content', 'default'),
-(30, 60, 'EX52 - Crankshaft position sensor', '0', '70', 'content', 'default'),
-(31, 60, 'EX51 - Automatic transmission speed sensor', '0', '71', 'content', 'default'),
-(32, 60, 'EX50 - Subwoofer', '0', '72', 'content', 'default'),
-(33, 60, 'EX50 - Subwoofer', '0', '73', 'content', 'default'),
-(34, 60, 'EX51 - Automatic transmission speed sensor', '0', '74', 'content', 'default'),
-(35, 60, 'EX51 - Automatic transmission speed sensor', '0', '75', 'it works', 'default'),
-(36, 60, 'EX50 - Subwoofer', '0', '76', 'content', 'default'),
-(37, 60, 'EX50 - Subwoofer', '0', '77', 'content', 'default'),
-(38, 60, 'EX51 - Automatic transmission speed sensor', '0', '78', 'content', 'default'),
-(39, 60, 'EX50 - Subwoofer', '0', '79', 'content', 'default'),
-(40, 60, 'EX53 - Clinometer', '0', '80', 'sdsaasdas', 'default'),
-(41, 59, 'EX51 - Automatic transmission speed sensor', '0', '81', 'content', 'default'),
-(42, 59, 'EX51 - Automatic transmission speed sensor', '0', '82', 'content', 'default'),
-(44, 59, 'EX50 - Subwoofer', '0', '84', 'content', 'default'),
-(45, 59, 'EX51 - Automatic transmission speed sensor', '0', '85', 'content', 'default'),
-(46, 61, 'EX52 - Crankshaft position sensor', '0', '86', 'content', 'default'),
-(47, 61, 'EX52 - Crankshaft position sensor', '0', '87', 'content', 'default'),
-(48, 61, 'EX53 - Clinometer', '0', '88', 'content', 'default'),
-(49, 61, 'EX50 - Subwoofer', '0', '89', 'content', 'default'),
-(50, 61, 'EX51 - Automatic transmission speed sensor', '0', '90', 'content', 'default'),
-(51, 61, 'EX51 - Automatic transmission speed sensor', '0', '91', 'content', 'default'),
-(52, 61, 'EX51 - Automatic transmission speed sensor', '0', '92', 'content', 'default'),
-(53, 58, 'EX51 - Automatic transmission speed sensor', '0', '95', 'content', 'default'),
-(54, 0, 'EX50 - Subwoofer', '0', NULL, 'content', 'default'),
-(55, 76, 'EX50 - Subwoofer', '0', '1', 'content', 'default'),
-(58, 0, 'CH22 - Distributor', '0', NULL, 'content', 'default'),
-(59, 0, 'CH22 - Distributor', '0', NULL, 'content', 'default'),
-(60, 76, 'EX51 - Automatic transmission speed sensor', '0', '6', 'content', 'default'),
-(61, 77, 'CH22 - Distributor', '0', '7', 'content', 'default'),
-(62, 77, 'CH20 - Battery', '0', '8', 'Any of these columns can be independently removed', 'default'),
-(63, 78, 'EX50 - Subwoofer', '0', '10', 'content', 'default'),
-(64, 78, 'EX51 - Automatic transmission speed sensor', '0', '11', 'content', 'default'),
-(65, 110, 'EV02 - Rims', '0', '33', 'content', 'default'),
-(66, 112, 'EX51 - Automatic transmission speed sensor', '0', '35', 'content', 'default'),
-(68, 76, 'EX50 - Subwoofer', '0', '43', 'content', 'default'),
-(69, 0, 'EX51 - Automatic transmission speed sensor', '0', '44', 'content', 'default'),
-(72, 118, 'EX53 - Clinometer', '0', '51', 'asdasda', 'default'),
-(73, 117, 'EX52 - Crankshaft position sensor', '0', '57', 'content', 'default'),
-(74, 117, 'EX51 - Automatic transmission speed sensor', '0', '58', 'content', 'default'),
-(75, 117, 'EX51 - Automatic transmission speed sensor', '0', '59', 'content', 'default'),
-(76, 117, 'EX52 - Crankshaft position sensor', '0', '60', 'content', 'default'),
-(77, 118, 'EX52 - Crankshaft position sensor', '0', '61', 'content', 'default'),
-(78, 100, 'EX50 - Subwoofer', '0', '66', 'content', 'default'),
-(79, 120, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content', 'default'),
-(80, NULL, NULL, NULL, '48', 'asdasd', 'sadasd'),
-(81, 115, 'EX51 - Automatic transmission speed sensor', '0', '69', 'content', 'default'),
-(82, 115, 'EX51 - Automatic transmission speed sensor', '0', '69', 'content', 'default');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `change_requests`
+-- Table structure for table `domm_change_requests`
 --
 
-CREATE TABLE `change_requests` (
+CREATE TABLE `domm_change_requests` (
   `ID` varchar(20) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `project` mediumtext DEFAULT NULL,
@@ -241,10 +66,10 @@ CREATE TABLE `change_requests` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `change_requests`
+-- Dumping data for table `domm_change_requests`
 --
 
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
 ('I160000301', 'title for I160000301', 'Powertrain C', 'TT02 - something', 'MT Transmission C', 'Yes', 1),
 ('I160000701', 'title for I160000701', 'eActros 3', 'IN62 - Battery Box', 'MT Interior', 'No', 0),
 ('I160000901', 'title for I160000901', '01-Series', 'CH20 - Battery', 'MT Chassis', 'No', 1),
@@ -747,7 +572,7 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I160100601', 'title for I160100601', '02-Project', 'TT01 - something', 'MT Axle F', 'No', 1),
 ('I160100901', 'title for I160100901', '01-Series', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'Yes', 1),
 ('I160101001', 'title for I160101001', 'eAtego 3', 'CS13 - Ignition coil parts', 'MT Cab Structure', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
 ('I160101101', 'title for I160101101', 'eAtego 2', 'IN61 - Quarter panel', 'MT Interior', 'Yes', 1),
 ('I160101201', 'title for I160101201', '03-Mixed', 'EX50 - Subwoofer', 'MT Exterior', 'No', 1),
 ('I160101301', 'title for I160101301', 'eAtego 2', 'CH20 - Battery', 'MT Chassis', 'Yes', 1),
@@ -1248,9 +1073,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I160201501', 'title for I160201501', 'Bus B', 'TT03 - something', 'MT Transmission C', 'No', 1),
 ('I160201701', 'title for I160201701', 'Powertrain A', 'CO40 - Ammeter', 'MT Components', 'Yes', 1),
 ('I160201801', 'title for I160201801', 'eAtego 1', 'EV02 - Rims', 'Entire Vehicle', 'No', 1),
-('I160201901', 'title for I160201901', 'Axle 3', 'EV01 - Exposed bumper', 'Entire Vehicle', 'No', 1),
-('I160202101', 'title for I160202101', '03-Mixed', 'EX50 - Subwoofer', 'MT Exterior', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I160201901', 'title for I160201901', 'Axle 3', 'EV01 - Exposed bumper', 'Entire Vehicle', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I160202101', 'title for I160202101', '03-Mixed', 'EX50 - Subwoofer', 'MT Exterior', 'No', 1),
 ('I160202201', 'title for I160202201', 'Axle 3', 'TT05 - something', 'MT Axle H', 'No', 1),
 ('I160202601', 'title for I160202601', 'eAtego 1', 'TT01 - something', 'MT Axle F', 'No', 1),
 ('I160202901', 'title for I160202901', '03-Mixed', 'TT01 - something', 'MT Transmission I', 'No', 1),
@@ -1752,9 +1577,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I170038501', 'title for I170038501', 'eAtego 2', 'TT04 - something', 'MT Axle H', 'No', 1),
 ('I170038701', 'title for I170038701', '02-Project', 'TT02 - something', 'MT Transmission F', 'No', 1),
 ('I170038801', 'title for I170038801', '01-Series', 'TT01 - something', 'MT Transmission D', 'No', 1),
-('I170039501', 'title for I170039501', 'eActros 1', 'TT03 - something', 'MT Transmission G', 'No', 1),
-('I170039601', 'title for I170039601', 'Axle 2', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I170039501', 'title for I170039501', 'eActros 1', 'TT03 - something', 'MT Transmission G', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I170039601', 'title for I170039601', 'Axle 2', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1),
 ('I170039701', 'title for I170039701', 'eAtego 2', 'EV02 - Rims', 'Entire Vehicle', 'No', 1),
 ('I170039801', 'title for I170039801', 'Powertrain A', 'EX53 - Clinometer', 'MT Exterior', 'No', 1),
 ('I170039901', 'title for I170039901', 'eAtego 3', 'EV02 - Rims', 'Entire Vehicle', 'No', 0),
@@ -2256,9 +2081,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I170137601', 'title for I170137601', 'Bus B', 'CH21 - Oil pressure gauge', 'MT Chassis', 'No', 1),
 ('I170137901', 'title for I170137901', 'eActros 2', 'TM83 - Mass airflow sensor', 'MT Thermomanagement', 'No', 1),
 ('I170138001', 'title for I170138001', 'Axle 1', 'TT04 - something', 'MT Axle D', 'No', 1),
-('I170138201', 'title for I170138201', 'eActros 3', 'TT04 - something', 'MT Axle H', 'No', 1),
-('I170138401', 'title for I170138401', 'Bus A', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I170138201', 'title for I170138201', 'eActros 3', 'TT04 - something', 'MT Axle H', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I170138401', 'title for I170138401', 'Bus A', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 1),
 ('I170138601', 'title for I170138601', 'eAtego 2', 'TT03 - something', 'MT Axle J', 'No', 1),
 ('I170138701', 'title for I170138701', 'eAtego 3', 'TT03 - something', 'MT Transmission I', 'No', 1),
 ('I170138901', 'title for I170138901', 'Bus B', 'CS13 - Ignition coil parts', 'MT Cab Structure', 'No', 1),
@@ -2759,9 +2584,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I180047501', 'title for I180047501', 'eAtego 2', 'ME72 - Knock sensor', 'MT Mechatronics', 'No', 1),
 ('I180047901', 'title for I180047901', 'Bus B', 'TT05 - something', 'MT Axle E', 'No', 1),
 ('I180048101', 'title for I180048101', 'Bus B', 'TM81 - Welded assembly', 'MT Thermomanagement', 'No', 1),
-('I180048201', 'title for I180048201', '02-Project', 'TT04 - something', 'MT Transmission I', 'No', 1),
-('I180048401', 'title for I180048401', 'Axle 2', 'TT05 - something', 'MT Transmission A', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I180048201', 'title for I180048201', '02-Project', 'TT04 - something', 'MT Transmission I', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I180048401', 'title for I180048401', 'Axle 2', 'TT05 - something', 'MT Transmission A', 'No', 1),
 ('I180048701', 'title for I180048701', 'Bus C', 'CH22 - Distributor', 'MT Chassis', 'Yes', 0),
 ('I180048901', 'title for I180048901', 'Axle 2', 'TT03 - something', 'MT Axle H', 'No', 1),
 ('I180049101', 'title for I180049101', 'Bus A', 'IN62 - Battery Box', 'MT Interior', 'No', 1),
@@ -3264,9 +3089,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I190014101', 'title for I190014101', 'Axle 1', 'TT04 - something', 'MT Transmission G', 'No', 1),
 ('I190014301', 'title for I190014301', '02-Project', 'TT01 - something', 'MT Axle C', 'No', 1),
 ('I190014601', 'title for I190014601', 'eActros 2', 'TT03 - something', 'MT Transmission D', 'No', 1),
-('I190014701', 'title for I190014701', 'eActros 3', 'TT03 - something', 'MT Axle F', 'No', 1),
-('I190014901', 'title for I190014901', 'eActros 2', 'TT01 - something', 'MT Transmission C', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I190014701', 'title for I190014701', 'eActros 3', 'TT03 - something', 'MT Axle F', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I190014901', 'title for I190014901', 'eActros 2', 'TT01 - something', 'MT Transmission C', 'No', 1),
 ('I190015001', 'title for I190015001', 'eActros 1', 'TM83 - Mass airflow sensor', 'MT Thermomanagement', 'No', 1),
 ('I190015201', 'title for I190015201', 'eAtego 1', 'TT03 - something', 'MT Axle F', 'No', 1),
 ('I190015301', 'title for I190015301', 'eActros 2', 'TT05 - something', 'MT Axle B', 'No', 1),
@@ -3765,9 +3590,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I190115501', 'title for I190115501', 'Bus A', 'EV01 - Exposed bumper', 'Entire Vehicle', 'No', 1),
 ('I190115901', 'title for I190115901', '03-Mixed', 'TM82 - Ignition box', 'MT Thermomanagement', 'No', 1),
 ('I190116201', 'title for I190116201', 'Axle 1', 'CH22 - Distributor', 'MT Chassis', 'No', 1),
-('I190116401', 'title for I190116401', 'eActros 2', 'CH20 - Battery', 'MT Chassis', 'No', 0),
-('I190116701', 'title for I190116701', '01-Series', 'TT02 - something', 'MT Axle F', 'Yes', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I190116401', 'title for I190116401', 'eActros 2', 'CH20 - Battery', 'MT Chassis', 'No', 0);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I190116701', 'title for I190116701', '01-Series', 'TT02 - something', 'MT Axle F', 'Yes', 1),
 ('I190116801', 'title for I190116801', 'eAtego 3', 'EV01 - Exposed bumper', 'Entire Vehicle', 'No', 1),
 ('I190117001', 'title for I190117001', 'Powertrain C', 'CH22 - Distributor', 'MT Chassis', 'No', 1),
 ('I190117201', 'title for I190117201', 'eAtego 2', 'TT02 - something', 'MT Axle J', 'No', 1),
@@ -4266,9 +4091,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I200071501', 'title for I200071501', 'Powertrain B', 'TM80 - Speaker', 'MT Thermomanagement', 'No', 1),
 ('I200071601', 'title for I200071601', 'eAtego 1', 'TT01 - something', 'MT Transmission B', 'No', 0),
 ('I200072001', 'title for I200072001', 'Powertrain B', 'TT02 - something', 'MT Transmission B', 'Yes', 1),
-('I200072101', 'title for I200072101', 'Powertrain B', 'ME71 - Alternator', 'MT Mechatronics', 'No', 1),
-('I200072201', 'title for I200072201', 'Bus B', 'ME72 - Knock sensor', 'MT Mechatronics', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I200072101', 'title for I200072101', 'Powertrain B', 'ME71 - Alternator', 'MT Mechatronics', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I200072201', 'title for I200072201', 'Bus B', 'ME72 - Knock sensor', 'MT Mechatronics', 'No', 1),
 ('I200072301', 'title for I200072301', '03-Mixed', 'TT04 - something', 'MT Transmission A', 'No', 1),
 ('I200072401', 'title for I200072401', 'Bus C', 'TT04 - something', 'MT Axle J', 'No', 1),
 ('I200072501', 'title for I200072501', 'eActros 3', 'IN60 - Camshaft position sensor', 'MT Interior', 'No', 1),
@@ -4769,9 +4594,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I210030601', 'title for I210030601', 'Bus A', 'TT03 - something', 'MT Axle G', 'Yes', 1),
 ('I210030701', 'title for I210030701', 'eActros 2', 'EX51 - Automatic transmission speed sensor', 'MT Exterior', 'No', 1),
 ('I210030801', 'title for I210030801', '01-Series', 'EV02 - Rims', 'Entire Vehicle', 'No', 1),
-('I210031201', 'title for I210031201', 'Axle 2', 'TM83 - Mass airflow sensor', 'MT Thermomanagement', 'No', 1),
-('I210031401', 'title for I210031401', 'Powertrain B', 'TT01 - something', 'MT Axle H', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I210031201', 'title for I210031201', 'Axle 2', 'TM83 - Mass airflow sensor', 'MT Thermomanagement', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I210031401', 'title for I210031401', 'Powertrain B', 'TT01 - something', 'MT Axle H', 'No', 1),
 ('I210031701', 'title for I210031701', 'eAtego 3', 'TT04 - something', 'MT Axle I', 'No', 1),
 ('I210032001', 'title for I210032001', 'Bus A', 'TM80 - Speaker', 'MT Thermomanagement', 'No', 1),
 ('I210032401', 'title for I210032401', '01-Series', 'TT05 - something', 'MT Transmission C', 'No', 1),
@@ -5272,9 +5097,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I210136001', 'title for I210136001', 'Powertrain C', 'TT05 - something', 'MT Transmission B', 'No', 1),
 ('I210136301', 'title for I210136301', 'Powertrain C', 'TT04 - something', 'MT Axle G', 'No', 1),
 ('I210136401', 'title for I210136401', 'Powertrain B', 'TT05 - something', 'MT Transmission B', 'No', 1),
-('I210136601', 'title for I210136601', 'eAtego 1', 'CS13 - Ignition coil parts', 'MT Cab Structure', 'No', 1),
-('I210136701', 'title for I210136701', 'Bus A', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I210136601', 'title for I210136601', 'eAtego 1', 'CS13 - Ignition coil parts', 'MT Cab Structure', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I210136701', 'title for I210136701', 'Bus A', 'ME70 - Battery tray', 'MT Mechatronics', 'No', 1),
 ('I210136901', 'title for I210136901', 'Powertrain B', 'TT04 - something', 'MT Axle B', 'Yes', 1),
 ('I210137001', 'title for I210137001', 'Axle 2', 'TT04 - something', 'MT Transmission H', 'No', 1),
 ('I210137201', 'title for I210137201', 'eAtego 3', 'TT91 - Rocker', 'MT Test & Te/st', 'No', 1),
@@ -5773,9 +5598,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220078101', 'title for I220078101', 'eAtego 1', 'CS15 - Brake sensor', 'MT Cab Structure', 'No', 1),
 ('I220078301', 'title for I220078301', 'eAtego 2', 'TT05 - something', 'MT Transmission H', 'No', 1),
 ('I220078401', 'title for I220078401', 'Bus A', 'TT03 - something', 'MT Transmission C', 'No', 1),
-('I220078501', 'title for I220078501', 'eActros 3', 'CH20 - Battery', 'MT Chassis', 'No', 1),
-('I220078601', 'title for I220078601', 'Bus C', 'TT04 - something', 'MT Transmission A', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I220078501', 'title for I220078501', 'eActros 3', 'CH20 - Battery', 'MT Chassis', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I220078601', 'title for I220078601', 'Bus C', 'TT04 - something', 'MT Transmission A', 'No', 1),
 ('I220078701', 'title for I220078701', 'eAtego 1', 'EV02 - Rims', 'Entire Vehicle', 'No', 1),
 ('I220078901', 'title for I220078901', 'Axle 3', 'TT91 - Rocker', 'MT Test & Te/st', 'No', 1),
 ('I220079301', 'title for I220079301', 'eAtego 1', 'CH20 - Battery', 'MT Chassis', 'No', 1),
@@ -6275,9 +6100,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I220181101', 'title for I220181101', '02-Project', 'TT05 - something', 'MT Axle E', 'No', 1),
 ('I220181201', 'title for I220181201', 'eActros 1', 'CS13 - Ignition coil parts', 'MT Cab Structure', 'No', 1),
 ('I220181501', 'title for I220181501', '02-Project', 'EV00 - Hubcap', 'Entire Vehicle', 'No', 1),
-('I220182001', 'title for I220182001', 'eActros 2', 'TT05 - something', 'MT Transmission C', 'No', 1),
-('I220182101', 'title for I220182101', 'Axle 2', 'CO43 - Odometer', 'MT Components', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I220182001', 'title for I220182001', 'eActros 2', 'TT05 - something', 'MT Transmission C', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I220182101', 'title for I220182101', 'Axle 2', 'CO43 - Odometer', 'MT Components', 'No', 1),
 ('I220182201', 'title for I220182201', '03-Mixed', 'IN61 - Quarter panel', 'MT Interior', 'No', 1),
 ('I220182301', 'title for I220182301', 'Bus A', 'TT05 - something', 'MT Transmission C', 'No', 1),
 ('I220182401', 'title for I220182401', 'Bus C', 'IN63 - Sulphuric Acid', 'MT Interior', 'Yes', 1),
@@ -6777,9 +6602,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230027101', 'title for I230027101', '02-Project', 'TT02 - something', 'MT Transmission C', 'No', 1),
 ('I230027201', 'title for I230027201', '03-Mixed', 'TT05 - something', 'MT Transmission I', 'No', 1),
 ('I230027301', 'title for I230027301', 'eAtego 3', 'TM82 - Ignition box', 'MT Thermomanagement', 'No', 1),
-('I230027601', 'title for I230027601', 'Powertrain C', 'TT01 - something', 'MT Transmission F', 'No', 0),
-('I230027801', 'title for I230027801', 'eAtego 3', 'CO41 - Battery Cable', 'MT Components', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I230027601', 'title for I230027601', 'Powertrain C', 'TT01 - something', 'MT Transmission F', 'No', 0);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I230027801', 'title for I230027801', 'eAtego 3', 'CO41 - Battery Cable', 'MT Components', 'No', 1),
 ('I230028301', 'title for I230028301', 'eActros 3', 'TM81 - Welded assembly', 'MT Thermomanagement', 'No', 1),
 ('I230028401', 'title for I230028401', 'Axle 3', 'TT91 - Rocker', 'MT Test & Te/st', 'Yes', 1),
 ('I230028501', 'title for I230028501', 'Powertrain A', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
@@ -7281,9 +7106,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I230123001', 'title for I230123001', 'Powertrain B', 'EV00 - Hubcap', 'Entire Vehicle', 'Yes', 1),
 ('I230123201', 'title for I230123201', '02-Project', 'TT03 - something', 'MT Transmission A', 'No', 1),
 ('I230123301', 'title for I230123301', 'eActros 3', 'TT05 - something', 'MT Axle G', 'No', 1),
-('I230123501', 'title for I230123501', 'Bus C', 'TT05 - something', 'MT Transmission H', 'No', 1),
-('I230123601', 'title for I230123601', 'Axle 2', 'TT02 - something', 'MT Axle E', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I230123501', 'title for I230123501', 'Bus C', 'TT05 - something', 'MT Transmission H', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I230123601', 'title for I230123601', 'Axle 2', 'TT02 - something', 'MT Axle E', 'No', 1),
 ('I230123701', 'title for I230123701', 'eAtego 2', 'TT03 - something', 'MT Transmission E', 'No', 1),
 ('I230124001', 'title for I230124001', 'eAtego 2', 'TT02 - something', 'MT Transmission H', 'No', 1),
 ('I230124101', 'title for I230124101', 'eActros 2', 'TT02 - something', 'MT Transmission F', 'No', 1),
@@ -7783,9 +7608,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I240014501', 'title for I240014501', 'eActros 3', 'TT02 - something', 'MT Axle F', 'No', 1),
 ('I240014801', 'title for I240014801', 'Axle 1', 'TT01 - something', 'MT Axle A', 'No', 1),
 ('I240014901', 'title for I240014901', 'eActros 3', 'CO41 - Battery Cable', 'MT Components', 'No', 1),
-('I240015101', 'title for I240015101', 'eActros 3', 'CS15 - Brake sensor', 'MT Cab Structure', 'No', 1),
-('I240015301', 'title for I240015301', '01-Series', 'TT02 - something', 'MT Axle C', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I240015101', 'title for I240015101', 'eActros 3', 'CS15 - Brake sensor', 'MT Cab Structure', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I240015301', 'title for I240015301', '01-Series', 'TT02 - something', 'MT Axle C', 'No', 1),
 ('I240015401', 'title for I240015401', 'Bus C', 'TT01 - something', 'MT Axle J', 'No', 1),
 ('I240015501', 'title for I240015501', 'Powertrain C', 'IN63 - Sulphuric Acid', 'MT Interior', 'No', 1),
 ('I240015601', 'title for I240015601', 'eActros 1', 'TT04 - something', 'MT Transmission I', 'No', 1),
@@ -8284,9 +8109,9 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 ('I240112601', 'title for I240112601', 'eActros 2', 'AR31 - Battery Cable terminal', 'MT Architecture', 'No', 1),
 ('I240112801', 'title for I240112801', 'Bus A', 'TM81 - Welded assembly', 'MT Thermomanagement', 'No', 1),
 ('I240113301', 'title for I240113301', 'Bus A', 'CH22 - Distributor', 'MT Chassis', 'No', 1),
-('I240113801', 'title for I240113801', 'Powertrain C', 'TT03 - something', 'MT Transmission C', 'No', 1),
-('I240114001', 'title for I240114001', 'Axle 1', 'TT03 - something', 'MT Transmission E', 'No', 1);
-INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I240113801', 'title for I240113801', 'Powertrain C', 'TT03 - something', 'MT Transmission C', 'No', 1);
+INSERT INTO `domm_change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_module_team`, `fasttrack`, `filter_checkbox`) VALUES
+('I240114001', 'title for I240114001', 'Axle 1', 'TT03 - something', 'MT Transmission E', 'No', 1),
 ('I240114301', 'title for I240114301', 'Powertrain A', 'TT90 - Dashcam', 'MT Test & Te/st', 'No', 1),
 ('I240114401', 'title for I240114401', 'eActros 2', 'TT05 - something', 'MT Transmission J', 'No', 1),
 ('I240114701', 'title for I240114701', 'eActros 2', 'AR30 - Oil pressure sensor', 'MT Architecture', 'Yes', 1),
@@ -8342,10 +8167,10 @@ INSERT INTO `change_requests` (`ID`, `title`, `project`, `lead_gft`, `lead_modul
 -- --------------------------------------------------------
 
 --
--- Table structure for table `decision`
+-- Table structure for table `domm_decision`
 --
 
-CREATE TABLE `decision` (
+CREATE TABLE `domm_decision` (
   `id` int(11) NOT NULL,
   `agenda_id` int(11) DEFAULT NULL,
   `gft` varchar(255) DEFAULT NULL,
@@ -8355,92 +8180,85 @@ CREATE TABLE `decision` (
   `responsible` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `decision`
---
-
-INSERT INTO `decision` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`, `responsible`) VALUES
-(1, 76, 'EX50 - Subwoofer', '0', '1', 'content', NULL),
-(2, 76, 'EX50 - Subwoofer', '0', '2', 'Here you can add your decisions', NULL),
-(3, 76, 'EX51 - Automatic transmission speed sensor', '0', '3', 'If you remove the task above, the decision will still remain', NULL),
-(4, 0, 'CH22 - Distributor', '0', NULL, 'content', NULL),
-(5, 0, 'CH22 - Distributor', '0', NULL, 'content', NULL),
-(6, 76, 'EX51 - Automatic transmission speed sensor', '0', '6', 'content', NULL),
-(7, 77, 'CH22 - Distributor', '0', '7', 'Here you can add your decisions', NULL),
-(8, 77, 'CH20 - Battery', '0', '8', 'If the Task is removed, the decision stays', NULL),
-(9, 78, 'EX50 - Subwoofer', '0', '10', 'content', NULL),
-(10, 78, 'EX51 - Automatic transmission speed sensor', '0', '11', 'content', NULL),
-(11, 110, 'EV02 - Rims', '0', '33', 'content', NULL),
-(12, 112, 'EX51 - Automatic transmission speed sensor', '0', '35', 'content', NULL),
-(13, 100, 'EX51 - Automatic transmission speed sensor', '0', '42', 'content', NULL),
-(14, 76, 'EX50 - Subwoofer', '0', '43', 'content', NULL),
-(15, 0, 'EX51 - Automatic transmission speed sensor', '0', '44', 'content', NULL),
-(17, 118, 'EX53 - Clinometer', '0', '51', 'asdas', NULL),
-(18, 117, 'EX52 - Crankshaft position sensor', '0', '57', 'content', NULL),
-(19, 117, 'EX51 - Automatic transmission speed sensor', '0', '58', 'content', NULL),
-(20, 117, 'EX51 - Automatic transmission speed sensor', '0', '59', 'content', NULL),
-(21, 117, 'EX52 - Crankshaft position sensor', '0', '60', 'content', NULL),
-(22, 118, 'EX52 - Crankshaft position sensor', '0', '61', 'content', NULL),
-(23, 100, 'EX50 - Subwoofer', '0', '66', 'content', NULL),
-(24, 120, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content', NULL),
-(25, NULL, NULL, NULL, '48', 'sadas', NULL),
-(26, 115, 'EX51 - Automatic transmission speed sensor', '0', '69', 'content', NULL);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `departments`
+-- Table structure for table `domm_gft_order`
 --
 
-CREATE TABLE `departments` (
-  `department_id` int(11) NOT NULL,
-  `department_name` varchar(255) NOT NULL
+CREATE TABLE `domm_gft_order` (
+  `id` int(11) NOT NULL,
+  `agenda_id` int(11) NOT NULL,
+  `gft_id` int(11) NOT NULL,
+  `order_value` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `departments`
---
-
-INSERT INTO `departments` (`department_id`, `department_name`) VALUES
-(1, 'Engineering'),
-(2, 'Marketing'),
-(3, 'Finance'),
-(4, 'HR'),
-(5, 'IT');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guests`
+-- Table structure for table `domm_guests`
 --
 
-CREATE TABLE `guests` (
+CREATE TABLE `domm_guests` (
   `guest_id` int(11) NOT NULL,
   `guest_name` varchar(255) NOT NULL,
-  `department` varchar(255) NOT NULL
+  `department` varchar(255) NOT NULL,
+  `module_team_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `guests`
+-- Dumping data for table `domm_guests`
 --
 
-INSERT INTO `guests` (`guest_id`, `guest_name`, `department`) VALUES
-(3, 'Eric Clapton', 'Finance'),
-(4, 'B.B. King', 'HR'),
-(5, 'Robert Plant', 'Marketing'),
-(6, 'Jimmy Page', 'Finance'),
-(8, 'Keith Richards', 'HR'),
-(9, 'Stevie Ray Vaughan', 'Finance'),
-(14, 'lolo', ''),
-(15, 'sdas', 'asdasdasd');
+INSERT INTO `domm_guests` (`guest_id`, `guest_name`, `department`, `module_team_name`) VALUES
+(20, 'Alice Johnson', 'Finance', 'Entire Vehicle'),
+(21, 'Bob Smith', 'HR', 'Entire Vehicle'),
+(22, 'Carol White', 'Marketing', 'Entire Vehicle'),
+(23, 'David Brown', 'Engineering', 'Entire Vehicle'),
+(24, 'Emma Wilson', 'Finance', 'MT Cab Structure'),
+(25, 'Frank Moore', 'HR', 'MT Cab Structure'),
+(26, 'Grace Lee', 'Marketing', 'MT Cab Structure'),
+(27, 'Henry Garcia', 'Engineering', 'MT Cab Structure'),
+(28, 'Isabella Martinez', 'Finance', 'MT Chassis'),
+(29, 'Jacob Davis', 'HR', 'MT Chassis'),
+(30, 'Kylie Taylor', 'Marketing', 'MT Chassis'),
+(31, 'Leo Wilson', 'Engineering', 'MT Chassis'),
+(32, 'Mia Anderson', 'Finance', 'MT Architecture'),
+(33, 'Nathan Jones', 'HR', 'MT Architecture'),
+(34, 'Olivia Martin', 'Marketing', 'MT Architecture'),
+(35, 'Peter Thompson', 'Engineering', 'MT Architecture'),
+(36, 'Quinn Hernandez', 'Finance', 'MT Components'),
+(37, 'Rachel King', 'HR', 'MT Components'),
+(38, 'Steven Wright', 'Marketing', 'MT Components'),
+(39, 'Tina Scott', 'Engineering', 'MT Components'),
+(40, 'Uma Nelson', 'Finance', 'MT Exterior'),
+(41, 'Victor Carter', 'HR', 'MT Exterior'),
+(42, 'Wendy Morris', 'Marketing', 'MT Exterior'),
+(43, 'Xander Foster', 'Engineering', 'MT Exterior'),
+(44, 'Yara Roberts', 'Finance', 'MT Interior'),
+(45, 'Zachary Evans', 'HR', 'MT Interior'),
+(46, 'Amber Walker', 'Marketing', 'MT Interior'),
+(47, 'Bruce Allen', 'Engineering', 'MT Interior'),
+(48, 'Cindy Young', 'Finance', 'MT Mechatronics'),
+(49, 'Derek Hall', 'HR', 'MT Mechatronics'),
+(50, 'Elaine Green', 'Marketing', 'MT Mechatronics'),
+(51, 'Fred Adams', 'Engineering', 'MT Mechatronics'),
+(52, 'Gina Mitchell', 'Finance', 'MT Thermomanagement'),
+(53, 'Harry Baker', 'HR', 'MT Thermomanagement'),
+(54, 'Irene Gonzalez', 'Marketing', 'MT Thermomanagement'),
+(55, 'Jack Alexander', 'Engineering', 'MT Thermomanagement'),
+(56, 'Kelly Knight', 'Finance', 'MT Test & Test'),
+(57, 'Louis Ramirez', 'HR', 'MT Test & Test'),
+(58, 'Monica Sanders', 'Marketing', 'MT Test & Test'),
+(59, 'Nick Johnson', 'Engineering', 'MT Test & Test');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `information`
+-- Table structure for table `domm_information`
 --
 
-CREATE TABLE `information` (
+CREATE TABLE `domm_information` (
   `id` int(11) NOT NULL,
   `agenda_id` int(11) DEFAULT NULL,
   `gft` varchar(255) DEFAULT NULL,
@@ -8450,99 +8268,13 @@ CREATE TABLE `information` (
   `responsible` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dumping data for table `information`
---
-
-INSERT INTO `information` (`id`, `agenda_id`, `gft`, `cr`, `task_id`, `content`, `responsible`) VALUES
-(1, 61, 'EX50 - Subwoofer', '0', NULL, 'sa', NULL),
-(2, 61, 'EX50 - Subwoofer', '0', '30', 'testrun on the testrun', NULL),
-(3, 61, 'EX50 - Subwoofer', '0', '31', 'trial', NULL),
-(4, 61, 'EX50 - Subwoofer', '0', '32', 'testerrrrr', NULL),
-(6, 61, 'EX50 - Subwoofer', '0', '33', 'test', NULL),
-(7, 61, 'EX52 - Crankshaft position sensor', '0', '37', 'Test', NULL),
-(8, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here', NULL),
-(9, 61, 'EX51 - Automatic transmission speed sensor', '0', '38', 'add something here', NULL),
-(10, 60, 'EX50 - Subwoofer', '0', '40', 'asdadasddd', NULL),
-(11, 60, 'EX50 - Subwoofer', '0', '41', 'Slay', NULL),
-(12, 60, 'EX53 - Clinometer', '0', '42', 'dfsfs', NULL),
-(13, 60, 'EX50 - Subwoofer', '0', '43', 'content', NULL),
-(14, 60, 'EX50 - Subwoofer', '0', '44', 'content', NULL),
-(15, 60, 'EX53 - Clinometer', '0', '44', 'content', NULL),
-(16, 60, 'EX53 - Clinometer', '0', '44', 'content', NULL),
-(19, 60, 'EX53 - Clinometer', '0', '58', 'content', NULL),
-(20, 60, 'EX52 - Crankshaft position sensor', '0', '59', 'content', NULL),
-(21, 60, 'EX52 - Crankshaft position sensor', '0', '60', 'content', NULL),
-(22, 60, 'EX51 - Automatic transmission speed sensor', '0', '61', 'content', NULL),
-(26, 60, 'EX51 - Automatic transmission speed sensor', '0', '65', 'savaadsasd', NULL),
-(27, 60, 'EX52 - Crankshaft position sensor', '0', '66', 'content', NULL),
-(28, 60, 'EX51 - Automatic transmission speed sensor', '0', '67', 'content', NULL),
-(29, 60, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content', NULL),
-(30, 61, 'EX52 - Crankshaft position sensor', '0', '69', 'content', NULL),
-(31, 60, 'EX52 - Crankshaft position sensor', '0', '70', 'content', NULL),
-(32, 60, 'EX51 - Automatic transmission speed sensor', '0', '71', 'content', NULL),
-(33, 60, 'EX50 - Subwoofer', '0', '72', 'content', NULL),
-(34, 60, 'EX50 - Subwoofer', '0', '73', 'content', NULL),
-(35, 60, 'EX51 - Automatic transmission speed sensor', '0', '74', 'content', NULL),
-(36, 60, 'EX51 - Automatic transmission speed sensor', '0', '75', 'but here', NULL),
-(37, 60, 'EX50 - Subwoofer', '0', '76', 'content', NULL),
-(38, 60, 'EX50 - Subwoofer', '0', '77', 'content', NULL),
-(39, 60, 'EX51 - Automatic transmission speed sensor', '0', '78', 'content', NULL),
-(40, 60, 'EX50 - Subwoofer', '0', '79', 'content', NULL),
-(41, 60, 'EX53 - Clinometer', '0', '80', 'sdsasdasdasdasd', NULL),
-(42, NULL, NULL, NULL, '40', 'asdadasddd', NULL),
-(43, NULL, NULL, NULL, '40', 'asdadasddd', NULL),
-(44, 59, 'EX51 - Automatic transmission speed sensor', '0', '81', 'content', NULL),
-(45, 59, 'EX51 - Automatic transmission speed sensor', '0', '82', 'content', NULL),
-(46, 59, 'EX53 - Clinometer', '0', '83', 'Your arsons match', NULL),
-(47, 59, 'EX50 - Subwoofer', '0', '84', 'content', NULL),
-(48, NULL, NULL, NULL, '82', '', NULL),
-(49, NULL, NULL, NULL, '83', 'your dynamite', NULL),
-(50, NULL, NULL, NULL, '83', 'and I still see it', NULL),
-(51, 59, 'EX51 - Automatic transmission speed sensor', '0', '85', 'hjkhjk', NULL),
-(52, NULL, NULL, NULL, '83', 'until I die', NULL),
-(53, NULL, NULL, NULL, '83', 'you\'re the loss of my life', NULL),
-(55, NULL, NULL, NULL, '82', 'MIAUZS', NULL),
-(56, 61, 'EX52 - Crankshaft position sensor', '0', '86', 'content', NULL),
-(57, 61, 'EX52 - Crankshaft position sensor', '0', '87', 'content', NULL),
-(58, 61, 'EX53 - Clinometer', '0', '88', 'content', NULL),
-(59, 61, 'EX50 - Subwoofer', '0', '89', 'content', NULL),
-(60, 61, 'EX51 - Automatic transmission speed sensor', '0', '90', 'content', NULL),
-(61, 61, 'EX51 - Automatic transmission speed sensor', '0', '91', 'content', NULL),
-(62, 61, 'EX51 - Automatic transmission speed sensor', '0', '92', 'content', NULL),
-(63, 58, 'EX51 - Automatic transmission speed sensor', '0', '95', 'content', NULL),
-(64, 0, 'EX50 - Subwoofer', '0', NULL, 'content', NULL),
-(65, 76, 'EX50 - Subwoofer', '0', '1', 'Any of these columns can be independently removed ', NULL),
-(66, 76, 'EX50 - Subwoofer', '0', '2', 'These fields are automatically generated underneath each task', NULL),
-(68, 0, 'CH22 - Distributor', '0', NULL, 'content', NULL),
-(69, 0, 'CH22 - Distributor', '0', NULL, 'content', NULL),
-(70, 76, 'EX51 - Automatic transmission speed sensor', '0', '6', 'content', NULL),
-(71, 77, 'CH22 - Distributor', '0', '7', 'These fields are automatically generated underneath each task', NULL),
-(73, 78, 'EX50 - Subwoofer', '0', '10', 'content', NULL),
-(74, 78, 'EX51 - Automatic transmission speed sensor', '0', '11', 'content', NULL),
-(75, 110, 'EV02 - Rims', '0', '33', 'content', NULL),
-(76, 112, 'EX51 - Automatic transmission speed sensor', '0', '35', 'content', NULL),
-(78, 76, 'EX50 - Subwoofer', '0', '43', 'content', NULL),
-(79, 0, 'EX51 - Automatic transmission speed sensor', '0', '44', 'content', NULL),
-(82, 118, 'EX53 - Clinometer', '0', '51', 'sdadas', NULL),
-(83, 117, 'EX52 - Crankshaft position sensor', '0', '57', 'content', NULL),
-(84, 117, 'EX51 - Automatic transmission speed sensor', '0', '58', 'content', NULL),
-(85, 117, 'EX51 - Automatic transmission speed sensor', '0', '59', 'content', NULL),
-(86, 117, 'EX52 - Crankshaft position sensor', '0', '60', 'content', NULL),
-(87, 118, 'EX52 - Crankshaft position sensor', '0', '61', 'content', NULL),
-(88, 100, 'EX50 - Subwoofer', '0', '66', 'content', NULL),
-(89, 120, 'EX51 - Automatic transmission speed sensor', '0', '68', 'content', NULL),
-(90, NULL, NULL, NULL, '48', 'asdasd', NULL),
-(91, 115, 'EX51 - Automatic transmission speed sensor', '0', '69', 'content', NULL),
-(92, 115, 'EX51 - Automatic transmission speed sensor', '0', '69', 'content', NULL);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `module_team_guest_attendance`
+-- Table structure for table `domm_module_team_guest_attendance`
 --
 
-CREATE TABLE `module_team_guest_attendance` (
+CREATE TABLE `domm_module_team_guest_attendance` (
   `id` int(11) NOT NULL,
   `agenda_id` int(11) NOT NULL,
   `guest_id` int(11) NOT NULL,
@@ -8552,328 +8284,297 @@ CREATE TABLE `module_team_guest_attendance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `module_team_guest_attendance`
+-- Dumping data for table `domm_module_team_guest_attendance`
 --
 
-INSERT INTO `module_team_guest_attendance` (`id`, `agenda_id`, `guest_id`, `department`, `substitute`, `present`) VALUES
-(1, 76, 3, 'Finance', NULL, 1),
-(2, 76, 4, 'HR', '', 1),
-(3, 76, 5, 'Marketing', NULL, 0),
-(4, 76, 6, 'Finance', NULL, 1),
-(5, 76, 8, 'HR', 'Emily Davis', 1),
-(6, 76, 9, 'Finance', NULL, 1),
-(7, 77, 3, 'Finance', NULL, 0),
-(8, 77, 4, 'HR', NULL, 0),
-(9, 77, 5, 'Marketing', NULL, 0),
-(10, 77, 6, 'Finance', NULL, 0),
-(11, 77, 8, 'HR', NULL, 0),
-(12, 77, 9, 'Finance', NULL, 0),
-(13, 78, 3, 'Finance', NULL, 0),
-(14, 78, 4, 'HR', NULL, 0),
-(15, 78, 5, 'Marketing', NULL, 0),
-(16, 78, 6, 'Finance', NULL, 0),
-(17, 78, 8, 'HR', NULL, 0),
-(18, 78, 9, 'Finance', NULL, 0),
-(19, 79, 3, 'Finance', NULL, 0),
-(20, 79, 4, 'HR', NULL, 0),
-(21, 79, 5, 'Marketing', NULL, 0),
-(22, 79, 6, 'Finance', NULL, 0),
-(23, 79, 8, 'HR', NULL, 0),
-(24, 79, 9, 'Finance', NULL, 0),
-(25, 80, 3, 'Finance', NULL, 0),
-(26, 80, 4, 'HR', NULL, 0),
-(27, 80, 5, 'Marketing', NULL, 0),
-(28, 80, 6, 'Finance', NULL, 0),
-(29, 80, 8, 'HR', NULL, 0),
-(30, 80, 9, 'Finance', NULL, 0),
-(31, 81, 3, 'Finance', NULL, 0),
-(32, 81, 4, 'HR', NULL, 0),
-(33, 81, 5, 'Marketing', NULL, 0),
-(34, 81, 6, 'Finance', NULL, 0),
-(35, 81, 8, 'HR', NULL, 0),
-(36, 81, 9, 'Finance', NULL, 0),
-(37, 82, 3, 'Finance', NULL, 0),
-(38, 82, 4, 'HR', NULL, 0),
-(39, 82, 5, 'Marketing', NULL, 0),
-(40, 82, 6, 'Finance', NULL, 0),
-(41, 82, 8, 'HR', NULL, 0),
-(42, 82, 9, 'Finance', NULL, 0),
-(43, 83, 3, 'Finance', NULL, 0),
-(44, 83, 4, 'HR', NULL, 0),
-(45, 83, 5, 'Marketing', NULL, 0),
-(46, 83, 6, 'Finance', NULL, 0),
-(47, 83, 8, 'HR', NULL, 0),
-(48, 83, 9, 'Finance', NULL, 0),
-(49, 84, 3, 'Finance', NULL, 0),
-(50, 84, 4, 'HR', NULL, 0),
-(51, 84, 5, 'Marketing', NULL, 0),
-(52, 84, 6, 'Finance', NULL, 0),
-(53, 84, 8, 'HR', NULL, 0),
-(54, 84, 9, 'Finance', NULL, 0),
-(55, 85, 3, 'Finance', NULL, 0),
-(56, 85, 4, 'HR', NULL, 0),
-(57, 85, 5, 'Marketing', NULL, 0),
-(58, 85, 6, 'Finance', NULL, 0),
-(59, 85, 8, 'HR', NULL, 0),
-(60, 85, 9, 'Finance', NULL, 0),
-(61, 86, 3, 'Finance', NULL, 0),
-(62, 86, 4, 'HR', NULL, 0),
-(63, 86, 5, 'Marketing', NULL, 0),
-(64, 86, 6, 'Finance', NULL, 0),
-(65, 86, 8, 'HR', NULL, 0),
-(66, 86, 9, 'Finance', NULL, 0),
-(67, 87, 3, 'Finance', NULL, 0),
-(68, 87, 4, 'HR', NULL, 0),
-(69, 87, 5, 'Marketing', NULL, 0),
-(70, 87, 6, 'Finance', NULL, 0),
-(71, 87, 8, 'HR', NULL, 0),
-(72, 87, 9, 'Finance', NULL, 0),
-(73, 88, 3, 'Finance', NULL, 0),
-(74, 88, 4, 'HR', NULL, 0),
-(75, 88, 5, 'Marketing', NULL, 0),
-(76, 88, 6, 'Finance', NULL, 0),
-(77, 88, 8, 'HR', NULL, 0),
-(78, 88, 9, 'Finance', NULL, 0),
-(79, 89, 3, 'Finance', NULL, 0),
-(80, 89, 4, 'HR', NULL, 0),
-(81, 89, 5, 'Marketing', NULL, 0),
-(82, 89, 6, 'Finance', NULL, 0),
-(83, 89, 8, 'HR', NULL, 0),
-(84, 89, 9, 'Finance', NULL, 0),
-(85, 90, 3, 'Finance', NULL, 0),
-(86, 90, 4, 'HR', NULL, 0),
-(87, 90, 5, 'Marketing', NULL, 0),
-(88, 90, 6, 'Finance', NULL, 0),
-(89, 90, 8, 'HR', NULL, 0),
-(90, 90, 9, 'Finance', NULL, 0),
-(91, 91, 3, 'Finance', NULL, 0),
-(92, 91, 4, 'HR', NULL, 0),
-(93, 91, 5, 'Marketing', NULL, 0),
-(94, 91, 6, 'Finance', NULL, 0),
-(95, 91, 8, 'HR', NULL, 0),
-(96, 91, 9, 'Finance', NULL, 0),
-(97, 92, 3, 'Finance', NULL, 0),
-(98, 92, 4, 'HR', NULL, 0),
-(99, 92, 5, 'Marketing', NULL, 0),
-(100, 92, 6, 'Finance', NULL, 0),
-(101, 92, 8, 'HR', NULL, 0),
-(102, 92, 9, 'Finance', NULL, 0),
-(103, 93, 3, 'Finance', NULL, 0),
-(104, 93, 4, 'HR', NULL, 0),
-(105, 93, 5, 'Marketing', NULL, 0),
-(106, 93, 6, 'Finance', NULL, 0),
-(107, 93, 8, 'HR', NULL, 0),
-(108, 93, 9, 'Finance', NULL, 0),
-(109, 94, 3, 'Finance', NULL, 0),
-(110, 94, 4, 'HR', NULL, 0),
-(111, 94, 5, 'Marketing', NULL, 0),
-(112, 94, 6, 'Finance', NULL, 0),
-(113, 94, 8, 'HR', NULL, 0),
-(114, 94, 9, 'Finance', NULL, 0),
-(115, 95, 3, 'Finance', NULL, 0),
-(116, 95, 4, 'HR', NULL, 0),
-(117, 95, 5, 'Marketing', NULL, 0),
-(118, 95, 6, 'Finance', NULL, 0),
-(119, 95, 8, 'HR', NULL, 0),
-(120, 95, 9, 'Finance', NULL, 0),
-(121, 96, 3, 'Finance', NULL, 0),
-(122, 96, 4, 'HR', NULL, 0),
-(123, 96, 5, 'Marketing', NULL, 0),
-(124, 96, 6, 'Finance', NULL, 0),
-(125, 96, 8, 'HR', NULL, 0),
-(126, 96, 9, 'Finance', NULL, 0),
-(127, 97, 3, 'Finance', NULL, 0),
-(128, 97, 4, 'HR', NULL, 0),
-(129, 97, 5, 'Marketing', NULL, 0),
-(130, 97, 6, 'Finance', NULL, 0),
-(131, 97, 8, 'HR', NULL, 0),
-(132, 97, 9, 'Finance', NULL, 0),
-(133, 98, 3, 'Finance', NULL, 0),
-(134, 98, 4, 'HR', NULL, 0),
-(135, 98, 5, 'Marketing', NULL, 0),
-(136, 98, 6, 'Finance', NULL, 0),
-(137, 98, 8, 'HR', NULL, 0),
-(138, 98, 9, 'Finance', NULL, 0),
-(139, 99, 3, 'Finance', NULL, 0),
-(140, 99, 4, 'HR', NULL, 0),
-(141, 99, 5, 'Marketing', NULL, 0),
-(142, 99, 6, 'Finance', NULL, 0),
-(143, 99, 8, 'HR', NULL, 0),
-(144, 99, 9, 'Finance', NULL, 0),
-(145, 100, 3, 'Finance', NULL, 0),
-(146, 100, 4, 'HR', NULL, 0),
-(147, 100, 5, 'Marketing', NULL, 0),
-(148, 100, 6, 'Finance', NULL, 0),
-(149, 100, 8, 'HR', NULL, 0),
-(150, 100, 9, 'Finance', NULL, 0),
-(151, 101, 3, 'Finance', NULL, 0),
-(152, 101, 4, 'HR', NULL, 0),
-(153, 101, 5, 'Marketing', NULL, 0),
-(154, 101, 6, 'Finance', NULL, 0),
-(155, 101, 8, 'HR', NULL, 0),
-(156, 101, 9, 'Finance', NULL, 0),
-(157, 102, 3, 'Finance', NULL, 0),
-(158, 102, 4, 'HR', NULL, 0),
-(159, 102, 5, 'Marketing', NULL, 0),
-(160, 102, 6, 'Finance', NULL, 0),
-(161, 102, 8, 'HR', NULL, 0),
-(162, 102, 9, 'Finance', NULL, 0),
-(163, 103, 3, 'Finance', NULL, 0),
-(164, 103, 4, 'HR', NULL, 0),
-(165, 103, 5, 'Marketing', NULL, 0),
-(166, 103, 6, 'Finance', NULL, 0),
-(167, 103, 8, 'HR', NULL, 0),
-(168, 103, 9, 'Finance', NULL, 0),
-(169, 104, 3, 'Finance', NULL, 0),
-(170, 104, 4, 'HR', NULL, 0),
-(171, 104, 5, 'Marketing', NULL, 0),
-(172, 104, 6, 'Finance', NULL, 0),
-(173, 104, 8, 'HR', NULL, 0),
-(174, 104, 9, 'Finance', NULL, 0),
-(175, 105, 3, 'Finance', NULL, 0),
-(176, 105, 4, 'HR', NULL, 0),
-(177, 105, 5, 'Marketing', NULL, 0),
-(178, 105, 6, 'Finance', NULL, 0),
-(179, 105, 8, 'HR', NULL, 0),
-(180, 105, 9, 'Finance', NULL, 0),
-(181, 106, 3, 'Finance', NULL, 0),
-(182, 106, 4, 'HR', NULL, 0),
-(183, 106, 5, 'Marketing', NULL, 0),
-(184, 106, 6, 'Finance', NULL, 0),
-(185, 106, 8, 'HR', NULL, 0),
-(186, 106, 9, 'Finance', NULL, 0),
-(187, 107, 3, 'Finance', NULL, 0),
-(188, 107, 4, 'HR', NULL, 0),
-(189, 107, 5, 'Marketing', NULL, 0),
-(190, 107, 6, 'Finance', NULL, 0),
-(191, 107, 8, 'HR', NULL, 0),
-(192, 107, 9, 'Finance', NULL, 0),
-(193, 108, 3, 'Finance', NULL, 0),
-(194, 108, 4, 'HR', NULL, 0),
-(195, 108, 5, 'Marketing', NULL, 0),
-(196, 108, 6, 'Finance', NULL, 0),
-(197, 108, 8, 'HR', NULL, 0),
-(198, 108, 9, 'Finance', NULL, 0),
-(199, 109, 3, 'Finance', NULL, 0),
-(200, 109, 4, 'HR', NULL, 0),
-(201, 109, 5, 'Marketing', NULL, 0),
-(202, 109, 6, 'Finance', NULL, 0),
-(203, 109, 8, 'HR', NULL, 0),
-(204, 109, 9, 'Finance', NULL, 0),
-(205, 110, 3, 'Finance', NULL, 0),
-(206, 110, 4, 'HR', NULL, 0),
-(207, 110, 5, 'Marketing', NULL, 0),
-(208, 110, 6, 'Finance', NULL, 0),
-(209, 110, 8, 'HR', NULL, 0),
-(210, 110, 9, 'Finance', NULL, 0),
-(211, 111, 3, 'Finance', NULL, 0),
-(212, 111, 4, 'HR', NULL, 0),
-(213, 111, 5, 'Marketing', NULL, 0),
-(214, 111, 6, 'Finance', NULL, 0),
-(215, 111, 8, 'HR', NULL, 0),
-(216, 111, 9, 'Finance', NULL, 0),
-(217, 112, 3, 'Finance', NULL, 0),
-(218, 112, 4, 'HR', NULL, 0),
-(219, 112, 5, 'Marketing', NULL, 0),
-(220, 112, 6, 'Finance', NULL, 0),
-(221, 112, 8, 'HR', NULL, 0),
-(222, 112, 9, 'Finance', NULL, 0),
-(223, 101, 14, NULL, '', 0),
-(225, 113, 3, 'Finance', NULL, 0),
-(226, 113, 4, 'HR', NULL, 0),
-(227, 113, 5, 'Marketing', NULL, 0),
-(228, 113, 6, 'Finance', NULL, 0),
-(229, 113, 8, 'HR', NULL, 0),
-(230, 113, 9, 'Finance', NULL, 0),
-(231, 113, 14, '', NULL, 0),
-(232, 113, 15, 'asdasdasd', NULL, 0),
-(233, 114, 3, 'Finance', NULL, 0),
-(234, 114, 4, 'HR', NULL, 0),
-(235, 114, 5, 'Marketing', NULL, 0),
-(236, 114, 6, 'Finance', NULL, 0),
-(237, 114, 8, 'HR', NULL, 0),
-(238, 114, 9, 'Finance', NULL, 0),
-(239, 114, 14, '', NULL, 0),
-(240, 114, 15, 'asdasdasd', NULL, 0),
-(241, 115, 3, 'Finance', NULL, 0),
-(242, 115, 4, 'HR', NULL, 0),
-(243, 115, 5, 'Marketing', NULL, 0),
-(244, 115, 6, 'Finance', NULL, 0),
-(245, 115, 8, 'HR', NULL, 0),
-(246, 115, 9, 'Finance', NULL, 0),
-(247, 115, 14, '', NULL, 0),
-(248, 115, 15, 'asdasdasd', NULL, 0),
-(249, 116, 3, 'Finance', NULL, 0),
-(250, 116, 4, 'HR', NULL, 0),
-(251, 116, 5, 'Marketing', NULL, 0),
-(252, 116, 6, 'Finance', NULL, 0),
-(253, 116, 8, 'HR', NULL, 0),
-(254, 116, 9, 'Finance', NULL, 0),
-(255, 116, 14, '', NULL, 0),
-(256, 116, 15, 'asdasdasd', NULL, 0),
-(257, 117, 3, 'Finance', NULL, 0),
-(258, 117, 4, 'HR', NULL, 0),
-(259, 117, 5, 'Marketing', NULL, 0),
-(260, 117, 6, 'Finance', NULL, 0),
-(261, 117, 8, 'HR', NULL, 0),
-(262, 117, 9, 'Finance', NULL, 0),
-(263, 117, 14, '', NULL, 0),
-(264, 117, 15, 'asdasdasd', NULL, 0),
-(265, 118, 3, 'Finance', NULL, 0),
-(266, 118, 4, 'HR', NULL, 0),
-(267, 118, 5, 'Marketing', NULL, 0),
-(268, 118, 6, 'Finance', NULL, 0),
-(269, 118, 8, 'HR', NULL, 0),
-(270, 118, 9, 'Finance', NULL, 0),
-(271, 118, 14, '', NULL, 0),
-(272, 118, 15, 'asdasdasd', NULL, 0),
-(273, 119, 3, 'Finance', NULL, 0),
-(274, 119, 4, 'HR', NULL, 0),
-(275, 119, 5, 'Marketing', NULL, 0),
-(276, 119, 6, 'Finance', NULL, 0),
-(277, 119, 8, 'HR', NULL, 0),
-(278, 119, 9, 'Finance', NULL, 0),
-(279, 119, 14, '', NULL, 0),
-(280, 119, 15, 'asdasdasd', NULL, 0),
-(281, 120, 3, 'Finance', NULL, 0),
-(282, 120, 4, 'HR', NULL, 0),
-(283, 120, 5, 'Marketing', NULL, 0),
-(284, 120, 6, 'Finance', NULL, 0),
-(285, 120, 8, 'HR', NULL, 0),
-(286, 120, 9, 'Finance', NULL, 0),
-(287, 120, 14, '', NULL, 0),
-(288, 120, 15, 'asdasdasd', NULL, 0);
+INSERT INTO `domm_module_team_guest_attendance` (`id`, `agenda_id`, `guest_id`, `department`, `substitute`, `present`) VALUES
+(67, 133, 3, 'Finance', NULL, 0),
+(68, 133, 4, 'HR', NULL, 0),
+(69, 133, 5, 'Marketing', NULL, 0),
+(70, 133, 6, 'Finance', NULL, 0),
+(71, 133, 16, 'some departm', NULL, 0),
+(72, 133, 19, '', NULL, 0),
+(73, 134, 20, 'Finance', NULL, 0),
+(74, 134, 21, 'HR', NULL, 0),
+(75, 134, 22, 'Marketing', NULL, 0),
+(76, 134, 23, 'Engineering', NULL, 0),
+(77, 134, 24, 'Finance', NULL, 0),
+(78, 134, 25, 'HR', NULL, 0),
+(79, 134, 26, 'Marketing', NULL, 0),
+(80, 134, 27, 'Engineering', NULL, 0),
+(81, 134, 28, 'Finance', NULL, 0),
+(82, 134, 29, 'HR', NULL, 0),
+(83, 134, 30, 'Marketing', NULL, 0),
+(84, 134, 31, 'Engineering', NULL, 0),
+(85, 134, 32, 'Finance', NULL, 0),
+(86, 134, 33, 'HR', NULL, 0),
+(87, 134, 34, 'Marketing', NULL, 0),
+(88, 134, 35, 'Engineering', NULL, 0),
+(89, 134, 36, 'Finance', NULL, 0),
+(90, 134, 37, 'HR', NULL, 0),
+(91, 134, 38, 'Marketing', NULL, 0),
+(92, 134, 39, 'Engineering', NULL, 0),
+(93, 134, 40, 'Finance', NULL, 0),
+(94, 134, 41, 'HR', NULL, 0),
+(95, 134, 42, 'Marketing', NULL, 0),
+(96, 134, 43, 'Engineering', NULL, 0),
+(97, 134, 44, 'Finance', NULL, 0),
+(98, 134, 45, 'HR', NULL, 0),
+(99, 134, 46, 'Marketing', NULL, 0),
+(100, 134, 47, 'Engineering', NULL, 0),
+(101, 134, 48, 'Finance', NULL, 0),
+(102, 134, 49, 'HR', NULL, 0),
+(103, 134, 50, 'Marketing', NULL, 0),
+(104, 134, 51, 'Engineering', NULL, 0),
+(105, 134, 52, 'Finance', NULL, 0),
+(106, 134, 53, 'HR', NULL, 0),
+(107, 134, 54, 'Marketing', NULL, 0),
+(108, 134, 55, 'Engineering', NULL, 0),
+(109, 134, 56, 'Finance', NULL, 0),
+(110, 134, 57, 'HR', NULL, 0),
+(111, 134, 58, 'Marketing', NULL, 0),
+(112, 134, 59, 'Engineering', NULL, 0),
+(113, 135, 20, 'Finance', NULL, 0),
+(114, 135, 21, 'HR', NULL, 0),
+(115, 135, 22, 'Marketing', NULL, 0),
+(116, 135, 23, 'Engineering', NULL, 0),
+(117, 135, 24, 'Finance', NULL, 0),
+(118, 135, 25, 'HR', NULL, 0),
+(119, 135, 26, 'Marketing', NULL, 0),
+(120, 135, 27, 'Engineering', NULL, 0),
+(121, 135, 28, 'Finance', NULL, 0),
+(122, 135, 29, 'HR', NULL, 0),
+(123, 135, 30, 'Marketing', NULL, 0),
+(124, 135, 31, 'Engineering', NULL, 0),
+(125, 135, 32, 'Finance', NULL, 0),
+(126, 135, 33, 'HR', NULL, 0),
+(127, 135, 34, 'Marketing', NULL, 0),
+(128, 135, 35, 'Engineering', NULL, 0),
+(129, 135, 36, 'Finance', NULL, 0),
+(130, 135, 37, 'HR', NULL, 0),
+(131, 135, 38, 'Marketing', NULL, 0),
+(132, 135, 39, 'Engineering', NULL, 0),
+(133, 135, 40, 'Finance', NULL, 0),
+(134, 135, 41, 'HR', NULL, 0),
+(135, 135, 42, 'Marketing', NULL, 0),
+(136, 135, 43, 'Engineering', NULL, 0),
+(137, 135, 44, 'Finance', NULL, 0),
+(138, 135, 45, 'HR', NULL, 0),
+(139, 135, 46, 'Marketing', NULL, 0),
+(140, 135, 47, 'Engineering', NULL, 0),
+(141, 135, 48, 'Finance', NULL, 0),
+(142, 135, 49, 'HR', NULL, 0),
+(143, 135, 50, 'Marketing', NULL, 0),
+(144, 135, 51, 'Engineering', NULL, 0),
+(145, 135, 52, 'Finance', NULL, 0),
+(146, 135, 53, 'HR', NULL, 0),
+(147, 135, 54, 'Marketing', NULL, 0),
+(148, 135, 55, 'Engineering', NULL, 0),
+(149, 135, 56, 'Finance', NULL, 0),
+(150, 135, 57, 'HR', NULL, 0),
+(151, 135, 58, 'Marketing', NULL, 0),
+(152, 135, 59, 'Engineering', NULL, 0),
+(154, 136, 20, 'Finance', NULL, 0),
+(155, 136, 21, 'HR', NULL, 0),
+(156, 136, 22, 'Marketing', NULL, 0),
+(157, 136, 23, 'Engineering', NULL, 0),
+(158, 136, 24, 'Finance', NULL, 0),
+(159, 136, 25, 'HR', NULL, 0),
+(160, 136, 26, 'Marketing', NULL, 0),
+(161, 136, 27, 'Engineering', NULL, 0),
+(162, 136, 28, 'Finance', NULL, 0),
+(163, 136, 29, 'HR', NULL, 0),
+(164, 136, 30, 'Marketing', NULL, 0),
+(165, 136, 31, 'Engineering', NULL, 0),
+(166, 136, 32, 'Finance', NULL, 0),
+(167, 136, 33, 'HR', NULL, 0),
+(168, 136, 34, 'Marketing', NULL, 0),
+(169, 136, 35, 'Engineering', NULL, 0),
+(170, 136, 36, 'Finance', NULL, 0),
+(171, 136, 37, 'HR', NULL, 0),
+(172, 136, 38, 'Marketing', NULL, 0),
+(173, 136, 39, 'Engineering', NULL, 0),
+(174, 136, 40, 'Finance', NULL, 0),
+(175, 136, 41, 'HR', NULL, 0),
+(176, 136, 42, 'Marketing', NULL, 0),
+(177, 136, 43, 'Engineering', NULL, 0),
+(178, 136, 44, 'Finance', NULL, 0),
+(179, 136, 45, 'HR', NULL, 0),
+(180, 136, 46, 'Marketing', NULL, 0),
+(181, 136, 47, 'Engineering', NULL, 0),
+(182, 136, 48, 'Finance', NULL, 0),
+(183, 136, 49, 'HR', NULL, 0),
+(184, 136, 50, 'Marketing', NULL, 0),
+(185, 136, 51, 'Engineering', NULL, 0),
+(186, 136, 52, 'Finance', NULL, 0),
+(187, 136, 53, 'HR', NULL, 0),
+(188, 136, 54, 'Marketing', NULL, 0),
+(189, 136, 55, 'Engineering', NULL, 0),
+(190, 136, 56, 'Finance', NULL, 0),
+(191, 136, 57, 'HR', NULL, 0),
+(192, 136, 58, 'Marketing', NULL, 0),
+(193, 136, 59, 'Engineering', NULL, 0),
+(205, 136, 71, NULL, '', 0),
+(206, 136, 72, NULL, '', 0),
+(209, 136, 75, NULL, '', 0),
+(224, 136, 91, NULL, '', 0),
+(225, 137, 20, 'Finance', NULL, 0),
+(226, 137, 21, 'HR', NULL, 0),
+(227, 137, 22, 'Marketing', NULL, 0),
+(228, 137, 23, 'Engineering', NULL, 0),
+(229, 137, 24, 'Finance', NULL, 0),
+(230, 137, 25, 'HR', NULL, 0),
+(231, 137, 26, 'Marketing', NULL, 0),
+(232, 137, 27, 'Engineering', NULL, 0),
+(233, 137, 28, 'Finance', NULL, 0),
+(234, 137, 29, 'HR', NULL, 0),
+(235, 137, 30, 'Marketing', NULL, 0),
+(236, 137, 31, 'Engineering', NULL, 0),
+(237, 137, 32, 'Finance', NULL, 0),
+(238, 137, 33, 'HR', NULL, 0),
+(239, 137, 34, 'Marketing', NULL, 0),
+(240, 137, 35, 'Engineering', NULL, 0),
+(241, 137, 36, 'Finance', NULL, 0),
+(242, 137, 37, 'HR', NULL, 0),
+(243, 137, 38, 'Marketing', NULL, 0),
+(244, 137, 39, 'Engineering', NULL, 0),
+(245, 137, 40, 'Finance', NULL, 0),
+(246, 137, 41, 'HR', NULL, 0),
+(247, 137, 42, 'Marketing', NULL, 0),
+(248, 137, 43, 'Engineering', NULL, 0),
+(249, 137, 44, 'Finance', NULL, 0),
+(250, 137, 45, 'HR', NULL, 0),
+(251, 137, 46, 'Marketing', NULL, 0),
+(252, 137, 47, 'Engineering', NULL, 0),
+(253, 137, 48, 'Finance', NULL, 0),
+(254, 137, 49, 'HR', NULL, 0),
+(255, 137, 50, 'Marketing', NULL, 0),
+(256, 137, 51, 'Engineering', NULL, 0),
+(257, 137, 52, 'Finance', NULL, 0),
+(258, 137, 53, 'HR', NULL, 0),
+(259, 137, 54, 'Marketing', NULL, 0),
+(260, 137, 55, 'Engineering', NULL, 0),
+(261, 137, 56, 'Finance', NULL, 0),
+(262, 137, 57, 'HR', NULL, 0),
+(263, 137, 58, 'Marketing', NULL, 0),
+(264, 137, 59, 'Engineering', NULL, 0),
+(265, 137, 71, '', NULL, 0),
+(266, 137, 72, '', NULL, 0),
+(267, 137, 75, '', NULL, 0),
+(268, 137, 76, '', NULL, 0),
+(269, 137, 91, '', NULL, 0),
+(271, 138, 20, 'Finance', NULL, 0),
+(272, 138, 21, 'HR', NULL, 0),
+(273, 138, 22, 'Marketing', NULL, 0),
+(274, 138, 23, 'Engineering', NULL, 0),
+(275, 138, 24, 'Finance', NULL, 0),
+(276, 138, 25, 'HR', NULL, 0),
+(277, 138, 26, 'Marketing', NULL, 0),
+(278, 138, 27, 'Engineering', NULL, 0),
+(279, 138, 28, 'Finance', NULL, 0),
+(280, 138, 29, 'HR', NULL, 0),
+(281, 138, 30, 'Marketing', NULL, 0),
+(282, 138, 31, 'Engineering', NULL, 0),
+(283, 138, 32, 'Finance', NULL, 0),
+(284, 138, 33, 'HR', NULL, 0),
+(285, 138, 34, 'Marketing', NULL, 0),
+(286, 138, 35, 'Engineering', NULL, 0),
+(287, 138, 36, 'Finance', NULL, 0),
+(288, 138, 37, 'HR', NULL, 0),
+(289, 138, 38, 'Marketing', NULL, 0),
+(290, 138, 39, 'Engineering', NULL, 0),
+(291, 138, 40, 'Finance', NULL, 0),
+(292, 138, 41, 'HR', NULL, 0),
+(293, 138, 42, 'Marketing', NULL, 0),
+(294, 138, 43, 'Engineering', NULL, 0),
+(295, 138, 44, 'Finance', NULL, 0),
+(296, 138, 45, 'HR', NULL, 0),
+(297, 138, 46, 'Marketing', NULL, 0),
+(298, 138, 47, 'Engineering', NULL, 0),
+(299, 138, 48, 'Finance', NULL, 0),
+(300, 138, 49, 'HR', NULL, 0),
+(301, 138, 50, 'Marketing', NULL, 0),
+(302, 138, 51, 'Engineering', NULL, 0),
+(303, 138, 52, 'Finance', NULL, 0),
+(304, 138, 53, 'HR', NULL, 0),
+(305, 138, 54, 'Marketing', NULL, 0),
+(306, 138, 55, 'Engineering', NULL, 0),
+(307, 138, 56, 'Finance', NULL, 0),
+(308, 138, 57, 'HR', NULL, 0),
+(309, 138, 58, 'Marketing', NULL, 0),
+(310, 138, 59, 'Engineering', NULL, 0),
+(311, 138, 71, '', NULL, 0),
+(312, 138, 72, '', NULL, 0),
+(313, 138, 75, '', NULL, 0),
+(314, 138, 76, '', NULL, 0),
+(315, 138, 91, '', NULL, 0),
+(317, 138, 93, NULL, '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `module_team_members`
+-- Table structure for table `domm_module_team_members`
 --
 
-CREATE TABLE `module_team_members` (
+CREATE TABLE `domm_module_team_members` (
   `member_id` int(11) NOT NULL,
   `member_name` varchar(255) NOT NULL,
-  `department` varchar(255) NOT NULL DEFAULT 'Unknown'
+  `department` varchar(255) NOT NULL DEFAULT 'Unknown',
+  `module_team_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `module_team_members`
+-- Dumping data for table `domm_module_team_members`
 --
 
-INSERT INTO `module_team_members` (`member_id`, `member_name`, `department`) VALUES
-(1, 'John Doe', 'Engineering'),
-(2, 'Jane Smith', 'Marketing'),
-(3, 'Michael Brown', 'Finance'),
-(4, 'Emily Davis', 'HR'),
-(5, 'Chris Johnson', 'IT');
+INSERT INTO `domm_module_team_members` (`member_id`, `member_name`, `department`, `module_team_name`) VALUES
+(6, 'Lisa Ray', 'Engineering', 'MT Cab Structure'),
+(7, 'Mark Lee', 'Marketing', 'MT Cab Structure'),
+(8, 'Sarah Connors', 'Finance', 'MT Cab Structure'),
+(9, 'Terry Crews', 'HR', 'MT Chassis'),
+(10, 'Lucy Hale', 'IT', 'MT Chassis'),
+(11, 'Noah Smith', 'Engineering', 'MT Chassis'),
+(12, 'Olivia Brown', 'Marketing', 'MT Chassis'),
+(13, 'Liam Davis', 'Finance', 'MT Architecture'),
+(14, 'Emma Johnson', 'HR', 'MT Architecture'),
+(15, 'James Ray', 'IT', 'MT Architecture'),
+(16, 'Sophia Lee', 'Marketing', 'MT Architecture'),
+(17, 'Jacob Connors', 'Engineering', 'MT Components'),
+(18, 'Mia Crews', 'HR', 'MT Components'),
+(19, 'William Hale', 'IT', 'MT Components'),
+(20, 'Ava Smith', 'Finance', 'MT Components'),
+(21, 'Ethan Brown', 'Marketing', 'MT Exterior'),
+(22, 'Isabella Davis', 'HR', 'MT Exterior'),
+(23, 'Alexander Johnson', 'Engineering', 'MT Exterior'),
+(24, 'Charlotte Ray', 'Finance', 'MT Exterior'),
+(25, 'Jack Lee', 'Marketing', 'MT Interior'),
+(26, 'Amelia Connors', 'HR', 'MT Interior'),
+(27, 'Benjamin Crews', 'IT', 'MT Interior'),
+(28, 'Mia Hale', 'Engineering', 'MT Interior'),
+(29, 'Logan Smith', 'Marketing', 'MT Mechatronics'),
+(30, 'Abigail Brown', 'HR', 'MT Mechatronics'),
+(31, 'Mason Davis', 'Finance', 'MT Mechatronics'),
+(32, 'Ella Johnson', 'IT', 'MT Mechatronics'),
+(33, 'Oliver Ray', 'Engineering', 'MT Thermomanagement'),
+(34, 'Harper Lee', 'Marketing', 'MT Thermomanagement'),
+(35, 'Elijah Connors', 'Finance', 'MT Thermomanagement'),
+(36, 'Evelyn Crews', 'HR', 'MT Thermomanagement'),
+(37, 'James Hale', 'IT', 'MT Test & Test'),
+(38, 'Sophia Smith', 'Engineering', 'MT Test & Test'),
+(39, 'Jacob Brown', 'Marketing', 'MT Test & Test'),
+(40, 'Emma Davis', 'Finance', 'MT Test & Test'),
+(41, 'Alice Green', 'Engineering', 'Entire Vehicle'),
+(42, 'Bob White', 'Marketing', 'Entire Vehicle'),
+(43, 'Charlie Black', 'Finance', 'Entire Vehicle'),
+(44, 'Diana Blue', 'HR', 'Entire Vehicle');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `module_team_member_attendance`
+-- Table structure for table `domm_module_team_member_attendance`
 --
 
-CREATE TABLE `module_team_member_attendance` (
+CREATE TABLE `domm_module_team_member_attendance` (
   `id` int(11) NOT NULL,
   `agenda_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
@@ -8884,243 +8585,252 @@ CREATE TABLE `module_team_member_attendance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `module_team_member_attendance`
+-- Dumping data for table `domm_module_team_member_attendance`
 --
 
-INSERT INTO `module_team_member_attendance` (`id`, `agenda_id`, `member_id`, `department`, `present`, `absent`, `substituted`) VALUES
-(1, 76, 1, 'Engineering', 1, 0, 0),
-(2, 76, 2, 'Marketing', 0, 1, 0),
-(3, 76, 3, 'Finance', 0, 1, 0),
-(4, 76, 4, 'HR', 0, 0, 1),
-(5, 76, 5, 'IT', 1, 0, 0),
-(6, 77, 1, 'Engineering', 0, 0, 0),
-(7, 77, 2, 'Marketing', 0, 0, 0),
-(8, 77, 3, 'Finance', 0, 0, 0),
-(9, 77, 4, 'HR', 0, 0, 0),
-(10, 77, 5, 'IT', 0, 0, 0),
-(11, 78, 1, 'Engineering', 0, 0, 0),
-(12, 78, 2, 'Marketing', 0, 0, 0),
-(13, 78, 3, 'Finance', 0, 0, 0),
-(14, 78, 4, 'HR', 0, 0, 0),
-(15, 78, 5, 'IT', 0, 0, 0),
-(16, 79, 1, 'Engineering', 0, 0, 0),
-(17, 79, 2, 'Marketing', 0, 0, 0),
-(18, 79, 3, 'Finance', 0, 0, 0),
-(19, 79, 4, 'HR', 0, 0, 0),
-(20, 79, 5, 'IT', 0, 0, 0),
-(21, 80, 1, 'Engineering', 0, 0, 0),
-(22, 80, 2, 'Marketing', 0, 0, 0),
-(23, 80, 3, 'Finance', 0, 0, 0),
-(24, 80, 4, 'HR', 0, 0, 0),
-(25, 80, 5, 'IT', 0, 0, 0),
-(26, 81, 1, 'Engineering', 0, 0, 0),
-(27, 81, 2, 'Marketing', 0, 0, 0),
-(28, 81, 3, 'Finance', 0, 0, 0),
-(29, 81, 4, 'HR', 0, 0, 0),
-(30, 81, 5, 'IT', 0, 0, 0),
-(31, 82, 1, 'Engineering', 0, 0, 0),
-(32, 82, 2, 'Marketing', 0, 0, 0),
-(33, 82, 3, 'Finance', 0, 0, 0),
-(34, 82, 4, 'HR', 0, 0, 0),
-(35, 82, 5, 'IT', 0, 0, 0),
-(36, 83, 1, 'Engineering', 0, 0, 0),
-(37, 83, 2, 'Marketing', 0, 0, 0),
-(38, 83, 3, 'Finance', 0, 0, 0),
-(39, 83, 4, 'HR', 0, 0, 0),
-(40, 83, 5, 'IT', 0, 0, 0),
-(41, 84, 1, 'Engineering', 0, 0, 0),
-(42, 84, 2, 'Marketing', 0, 0, 0),
-(43, 84, 3, 'Finance', 0, 0, 0),
-(44, 84, 4, 'HR', 0, 0, 0),
-(45, 84, 5, 'IT', 0, 0, 0),
-(46, 85, 1, 'Engineering', 0, 0, 0),
-(47, 85, 2, 'Marketing', 0, 0, 0),
-(48, 85, 3, 'Finance', 0, 0, 0),
-(49, 85, 4, 'HR', 0, 0, 0),
-(50, 85, 5, 'IT', 0, 0, 0),
-(51, 86, 1, 'Engineering', 0, 0, 0),
-(52, 86, 2, 'Marketing', 0, 0, 0),
-(53, 86, 3, 'Finance', 0, 0, 0),
-(54, 86, 4, 'HR', 0, 0, 0),
-(55, 86, 5, 'IT', 0, 0, 0),
-(56, 87, 1, 'Engineering', 0, 0, 0),
-(57, 87, 2, 'Marketing', 0, 0, 0),
-(58, 87, 3, 'Finance', 0, 0, 0),
-(59, 87, 4, 'HR', 0, 0, 0),
-(60, 87, 5, 'IT', 0, 0, 0),
-(61, 88, 1, 'Engineering', 0, 0, 0),
-(62, 88, 2, 'Marketing', 0, 0, 0),
-(63, 88, 3, 'Finance', 0, 0, 0),
-(64, 88, 4, 'HR', 0, 0, 0),
-(65, 88, 5, 'IT', 0, 0, 0),
-(66, 89, 1, 'Engineering', 0, 0, 0),
-(67, 89, 2, 'Marketing', 0, 0, 0),
-(68, 89, 3, 'Finance', 0, 0, 0),
-(69, 89, 4, 'HR', 0, 0, 0),
-(70, 89, 5, 'IT', 0, 0, 0),
-(71, 90, 1, 'Engineering', 0, 0, 0),
-(72, 90, 2, 'Marketing', 0, 0, 0),
-(73, 90, 3, 'Finance', 0, 0, 0),
-(74, 90, 4, 'HR', 0, 0, 0),
-(75, 90, 5, 'IT', 0, 0, 0),
-(76, 91, 1, 'Engineering', 0, 0, 0),
-(77, 91, 2, 'Marketing', 0, 0, 0),
-(78, 91, 3, 'Finance', 0, 0, 0),
-(79, 91, 4, 'HR', 0, 0, 0),
-(80, 91, 5, 'IT', 0, 0, 0),
-(81, 92, 1, 'Engineering', 0, 0, 0),
-(82, 92, 2, 'Marketing', 0, 0, 0),
-(83, 92, 3, 'Finance', 0, 0, 0),
-(84, 92, 4, 'HR', 0, 0, 0),
-(85, 92, 5, 'IT', 0, 0, 0),
-(86, 93, 1, 'Engineering', 0, 0, 0),
-(87, 93, 2, 'Marketing', 0, 0, 0),
-(88, 93, 3, 'Finance', 0, 0, 0),
-(89, 93, 4, 'HR', 0, 0, 0),
-(90, 93, 5, 'IT', 0, 0, 0),
-(91, 94, 1, 'Engineering', 0, 0, 0),
-(92, 94, 2, 'Marketing', 0, 0, 0),
-(93, 94, 3, 'Finance', 0, 0, 0),
-(94, 94, 4, 'HR', 0, 0, 0),
-(95, 94, 5, 'IT', 0, 0, 0),
-(96, 95, 1, 'Engineering', 0, 0, 0),
-(97, 95, 2, 'Marketing', 0, 0, 0),
-(98, 95, 3, 'Finance', 0, 0, 0),
-(99, 95, 4, 'HR', 0, 0, 0),
-(100, 95, 5, 'IT', 0, 0, 0),
-(101, 96, 1, 'Engineering', 0, 0, 0),
-(102, 96, 2, 'Marketing', 0, 0, 0),
-(103, 96, 3, 'Finance', 0, 0, 0),
-(104, 96, 4, 'HR', 0, 0, 0),
-(105, 96, 5, 'IT', 0, 0, 0),
-(106, 97, 1, 'Engineering', 0, 0, 0),
-(107, 97, 2, 'Marketing', 0, 0, 0),
-(108, 97, 3, 'Finance', 0, 0, 0),
-(109, 97, 4, 'HR', 0, 0, 0),
-(110, 97, 5, 'IT', 0, 0, 0),
-(111, 98, 1, 'Engineering', 0, 0, 0),
-(112, 98, 2, 'Marketing', 0, 0, 0),
-(113, 98, 3, 'Finance', 0, 0, 0),
-(114, 98, 4, 'HR', 0, 0, 0),
-(115, 98, 5, 'IT', 0, 0, 0),
-(116, 99, 1, 'Engineering', 0, 0, 0),
-(117, 99, 2, 'Marketing', 0, 0, 0),
-(118, 99, 3, 'Finance', 0, 0, 0),
-(119, 99, 4, 'HR', 0, 0, 0),
-(120, 99, 5, 'IT', 0, 0, 0),
-(121, 100, 1, 'Engineering', 0, 0, 0),
-(122, 100, 2, 'Marketing', 0, 0, 0),
-(123, 100, 3, 'Finance', 0, 0, 0),
-(124, 100, 4, 'HR', 0, 0, 0),
-(125, 100, 5, 'IT', 0, 0, 0),
-(126, 101, 1, 'Engineering', 0, 0, 0),
-(127, 101, 2, 'Marketing', 0, 0, 0),
-(128, 101, 3, 'Finance', 0, 0, 0),
-(129, 101, 4, 'HR', 0, 0, 0),
-(130, 101, 5, 'IT', 0, 0, 0),
-(131, 102, 1, 'Engineering', 0, 0, 0),
-(132, 102, 2, 'Marketing', 0, 0, 0),
-(133, 102, 3, 'Finance', 0, 0, 0),
-(134, 102, 4, 'HR', 0, 0, 0),
-(135, 102, 5, 'IT', 0, 0, 0),
-(136, 103, 1, 'Engineering', 0, 0, 0),
-(137, 103, 2, 'Marketing', 0, 0, 0),
-(138, 103, 3, 'Finance', 0, 0, 0),
-(139, 103, 4, 'HR', 0, 0, 0),
-(140, 103, 5, 'IT', 0, 0, 0),
-(141, 104, 1, 'Engineering', 0, 0, 0),
-(142, 104, 2, 'Marketing', 0, 0, 0),
-(143, 104, 3, 'Finance', 0, 0, 0),
-(144, 104, 4, 'HR', 0, 0, 0),
-(145, 104, 5, 'IT', 0, 0, 0),
-(146, 105, 1, 'Engineering', 0, 0, 0),
-(147, 105, 2, 'Marketing', 0, 0, 0),
-(148, 105, 3, 'Finance', 0, 0, 0),
-(149, 105, 4, 'HR', 0, 0, 0),
-(150, 105, 5, 'IT', 0, 0, 0),
-(151, 106, 1, 'Engineering', 0, 0, 0),
-(152, 106, 2, 'Marketing', 0, 0, 0),
-(153, 106, 3, 'Finance', 0, 0, 0),
-(154, 106, 4, 'HR', 0, 0, 0),
-(155, 106, 5, 'IT', 0, 0, 0),
-(156, 107, 1, 'Engineering', 0, 0, 0),
-(157, 107, 2, 'Marketing', 0, 0, 0),
-(158, 107, 3, 'Finance', 0, 0, 0),
-(159, 107, 4, 'HR', 0, 0, 0),
-(160, 107, 5, 'IT', 0, 0, 0),
-(161, 108, 1, 'Engineering', 0, 0, 0),
-(162, 108, 2, 'Marketing', 0, 0, 0),
-(163, 108, 3, 'Finance', 0, 0, 0),
-(164, 108, 4, 'HR', 0, 0, 0),
-(165, 108, 5, 'IT', 0, 0, 0),
-(166, 109, 1, 'Engineering', 0, 0, 0),
-(167, 109, 2, 'Marketing', 0, 0, 0),
-(168, 109, 3, 'Finance', 0, 0, 0),
-(169, 109, 4, 'HR', 0, 0, 0),
-(170, 109, 5, 'IT', 0, 0, 0),
-(171, 110, 1, 'Engineering', 0, 0, 0),
-(172, 110, 2, 'Marketing', 0, 0, 0),
-(173, 110, 3, 'Finance', 0, 0, 0),
-(174, 110, 4, 'HR', 0, 0, 0),
-(175, 110, 5, 'IT', 0, 0, 0),
-(176, 111, 1, 'Engineering', 0, 0, 0),
-(177, 111, 2, 'Marketing', 0, 0, 0),
-(178, 111, 3, 'Finance', 0, 0, 0),
-(179, 111, 4, 'HR', 0, 0, 0),
-(180, 111, 5, 'IT', 0, 0, 0),
-(181, 112, 1, 'Engineering', 0, 0, 0),
-(182, 112, 2, 'Marketing', 0, 0, 0),
-(183, 112, 3, 'Finance', 0, 0, 0),
-(184, 112, 4, 'HR', 0, 0, 0),
-(185, 112, 5, 'IT', 0, 0, 0),
-(186, 113, 1, 'Engineering', 0, 0, 0),
-(187, 113, 2, 'Marketing', 0, 0, 0),
-(188, 113, 3, 'Finance', 0, 0, 0),
-(189, 113, 4, 'HR', 0, 0, 0),
-(190, 113, 5, 'IT', 0, 0, 0),
-(191, 114, 1, 'Engineering', 0, 0, 0),
-(192, 114, 2, 'Marketing', 0, 0, 0),
-(193, 114, 3, 'Finance', 0, 0, 0),
-(194, 114, 4, 'HR', 0, 0, 0),
-(195, 114, 5, 'IT', 0, 0, 0),
-(196, 115, 1, 'Engineering', 0, 0, 0),
-(197, 115, 2, 'Marketing', 0, 0, 0),
-(198, 115, 3, 'Finance', 0, 0, 0),
-(199, 115, 4, 'HR', 0, 0, 0),
-(200, 115, 5, 'IT', 0, 0, 0),
-(201, 116, 1, 'Engineering', 0, 0, 0),
-(202, 116, 2, 'Marketing', 0, 0, 0),
-(203, 116, 3, 'Finance', 0, 0, 0),
-(204, 116, 4, 'HR', 0, 0, 0),
-(205, 116, 5, 'IT', 0, 0, 0),
-(206, 117, 1, 'Engineering', 0, 0, 0),
-(207, 117, 2, 'Marketing', 0, 0, 0),
-(208, 117, 3, 'Finance', 0, 0, 0),
-(209, 117, 4, 'HR', 0, 0, 0),
-(210, 117, 5, 'IT', 0, 0, 0),
-(211, 118, 1, 'Engineering', 0, 0, 0),
-(212, 118, 2, 'Marketing', 0, 0, 0),
-(213, 118, 3, 'Finance', 0, 0, 0),
-(214, 118, 4, 'HR', 0, 0, 0),
-(215, 118, 5, 'IT', 0, 0, 0),
-(216, 119, 1, 'Engineering', 0, 0, 0),
-(217, 119, 2, 'Marketing', 0, 0, 0),
-(218, 119, 3, 'Finance', 0, 0, 0),
-(219, 119, 4, 'HR', 0, 0, 0),
-(220, 119, 5, 'IT', 0, 0, 0),
-(221, 120, 1, 'Engineering', 0, 0, 0),
-(222, 120, 2, 'Marketing', 0, 0, 0),
-(223, 120, 3, 'Finance', 0, 0, 0),
-(224, 120, 4, 'HR', 0, 0, 0),
-(225, 120, 5, 'IT', 0, 0, 0);
+INSERT INTO `domm_module_team_member_attendance` (`id`, `agenda_id`, `member_id`, `department`, `present`, `absent`, `substituted`) VALUES
+(115, 133, 6, 'Engineering', 0, 0, 0),
+(116, 133, 7, 'Marketing', 0, 0, 0),
+(117, 133, 8, 'Finance', 0, 0, 0),
+(118, 133, 9, 'HR', 0, 0, 0),
+(119, 133, 10, 'IT', 0, 0, 0),
+(120, 133, 11, 'Engineering', 0, 0, 0),
+(121, 133, 12, 'Marketing', 0, 0, 0),
+(122, 133, 13, 'Finance', 0, 0, 0),
+(123, 133, 14, 'HR', 0, 0, 0),
+(124, 133, 15, 'IT', 0, 0, 0),
+(125, 133, 16, 'Marketing', 0, 0, 0),
+(126, 133, 17, 'Engineering', 0, 0, 0),
+(127, 133, 18, 'HR', 0, 0, 0),
+(128, 133, 19, 'IT', 0, 0, 0),
+(129, 133, 20, 'Finance', 0, 0, 0),
+(130, 133, 21, 'Marketing', 0, 0, 0),
+(131, 133, 22, 'HR', 0, 0, 0),
+(132, 133, 23, 'Engineering', 0, 0, 0),
+(133, 133, 24, 'Finance', 0, 0, 0),
+(134, 133, 25, 'Marketing', 0, 0, 0),
+(135, 133, 26, 'HR', 0, 0, 0),
+(136, 133, 27, 'IT', 0, 0, 0),
+(137, 133, 28, 'Engineering', 0, 0, 0),
+(138, 133, 29, 'Marketing', 0, 0, 0),
+(139, 133, 30, 'HR', 0, 0, 0),
+(140, 133, 31, 'Finance', 0, 0, 0),
+(141, 133, 32, 'IT', 0, 0, 0),
+(142, 133, 33, 'Engineering', 0, 0, 0),
+(143, 133, 34, 'Marketing', 0, 0, 0),
+(144, 133, 35, 'Finance', 0, 0, 0),
+(145, 133, 36, 'HR', 0, 0, 0),
+(146, 133, 37, 'IT', 0, 0, 0),
+(147, 133, 38, 'Engineering', 0, 0, 0),
+(148, 133, 39, 'Marketing', 0, 0, 0),
+(149, 133, 40, 'Finance', 0, 0, 0),
+(150, 133, 41, 'Engineering', 0, 0, 0),
+(151, 133, 42, 'Marketing', 0, 0, 0),
+(152, 133, 43, 'Finance', 0, 0, 0),
+(153, 133, 44, 'HR', 0, 0, 0),
+(154, 134, 6, 'Engineering', 0, 0, 0),
+(155, 134, 7, 'Marketing', 0, 0, 0),
+(156, 134, 8, 'Finance', 0, 0, 0),
+(157, 134, 9, 'HR', 0, 0, 0),
+(158, 134, 10, 'IT', 0, 0, 0),
+(159, 134, 11, 'Engineering', 0, 0, 0),
+(160, 134, 12, 'Marketing', 0, 0, 0),
+(161, 134, 13, 'Finance', 0, 0, 0),
+(162, 134, 14, 'HR', 0, 0, 0),
+(163, 134, 15, 'IT', 0, 0, 0),
+(164, 134, 16, 'Marketing', 0, 0, 0),
+(165, 134, 17, 'Engineering', 0, 0, 0),
+(166, 134, 18, 'HR', 0, 0, 0),
+(167, 134, 19, 'IT', 0, 0, 0),
+(168, 134, 20, 'Finance', 0, 0, 0),
+(169, 134, 21, 'Marketing', 0, 0, 0),
+(170, 134, 22, 'HR', 0, 0, 0),
+(171, 134, 23, 'Engineering', 0, 0, 0),
+(172, 134, 24, 'Finance', 0, 0, 0),
+(173, 134, 25, 'Marketing', 0, 0, 0),
+(174, 134, 26, 'HR', 0, 0, 0),
+(175, 134, 27, 'IT', 0, 0, 0),
+(176, 134, 28, 'Engineering', 0, 0, 0),
+(177, 134, 29, 'Marketing', 0, 0, 0),
+(178, 134, 30, 'HR', 0, 0, 0),
+(179, 134, 31, 'Finance', 0, 0, 0),
+(180, 134, 32, 'IT', 0, 0, 0),
+(181, 134, 33, 'Engineering', 0, 0, 0),
+(182, 134, 34, 'Marketing', 0, 0, 0),
+(183, 134, 35, 'Finance', 0, 0, 0),
+(184, 134, 36, 'HR', 0, 0, 0),
+(185, 134, 37, 'IT', 0, 0, 0),
+(186, 134, 38, 'Engineering', 0, 0, 0),
+(187, 134, 39, 'Marketing', 0, 0, 0),
+(188, 134, 40, 'Finance', 0, 0, 0),
+(189, 134, 41, 'Engineering', 0, 0, 0),
+(190, 134, 42, 'Marketing', 0, 0, 0),
+(191, 134, 43, 'Finance', 0, 0, 0),
+(192, 134, 44, 'HR', 0, 0, 0),
+(193, 135, 6, 'Engineering', 0, 0, 0),
+(194, 135, 7, 'Marketing', 0, 0, 0),
+(195, 135, 8, 'Finance', 0, 0, 0),
+(196, 135, 9, 'HR', 0, 0, 0),
+(197, 135, 10, 'IT', 0, 0, 0),
+(198, 135, 11, 'Engineering', 0, 0, 0),
+(199, 135, 12, 'Marketing', 0, 0, 0),
+(200, 135, 13, 'Finance', 0, 0, 0),
+(201, 135, 14, 'HR', 0, 0, 0),
+(202, 135, 15, 'IT', 0, 0, 0),
+(203, 135, 16, 'Marketing', 0, 0, 0),
+(204, 135, 17, 'Engineering', 0, 0, 0),
+(205, 135, 18, 'HR', 0, 0, 0),
+(206, 135, 19, 'IT', 0, 0, 0),
+(207, 135, 20, 'Finance', 0, 0, 0),
+(208, 135, 21, 'Marketing', 0, 0, 0),
+(209, 135, 22, 'HR', 0, 0, 0),
+(210, 135, 23, 'Engineering', 0, 0, 0),
+(211, 135, 24, 'Finance', 0, 0, 0),
+(212, 135, 25, 'Marketing', 0, 0, 0),
+(213, 135, 26, 'HR', 0, 0, 0),
+(214, 135, 27, 'IT', 0, 0, 0),
+(215, 135, 28, 'Engineering', 0, 0, 0),
+(216, 135, 29, 'Marketing', 0, 0, 0),
+(217, 135, 30, 'HR', 0, 0, 0),
+(218, 135, 31, 'Finance', 0, 0, 0),
+(219, 135, 32, 'IT', 0, 0, 0),
+(220, 135, 33, 'Engineering', 0, 0, 0),
+(221, 135, 34, 'Marketing', 0, 0, 0),
+(222, 135, 35, 'Finance', 0, 0, 0),
+(223, 135, 36, 'HR', 0, 0, 0),
+(224, 135, 37, 'IT', 0, 0, 0),
+(225, 135, 38, 'Engineering', 0, 0, 0),
+(226, 135, 39, 'Marketing', 0, 0, 0),
+(227, 135, 40, 'Finance', 0, 0, 0),
+(228, 135, 41, 'Engineering', 0, 0, 0),
+(229, 135, 42, 'Marketing', 0, 0, 0),
+(230, 135, 43, 'Finance', 0, 0, 0),
+(231, 135, 44, 'HR', 0, 0, 0),
+(232, 136, 6, 'Engineering', 0, 0, 0),
+(233, 136, 7, 'Marketing', 0, 0, 0),
+(234, 136, 8, 'Finance', 0, 0, 0),
+(235, 136, 9, 'HR', 0, 0, 0),
+(236, 136, 10, 'IT', 0, 0, 0),
+(237, 136, 11, 'Engineering', 0, 0, 0),
+(238, 136, 12, 'Marketing', 0, 0, 0),
+(239, 136, 13, 'Finance', 0, 0, 0),
+(240, 136, 14, 'HR', 0, 0, 0),
+(241, 136, 15, 'IT', 0, 0, 0),
+(242, 136, 16, 'Marketing', 0, 0, 0),
+(243, 136, 17, 'Engineering', 0, 0, 0),
+(244, 136, 18, 'HR', 0, 0, 0),
+(245, 136, 19, 'IT', 0, 0, 0),
+(246, 136, 20, 'Finance', 0, 0, 0),
+(247, 136, 21, 'Marketing', 0, 0, 0),
+(248, 136, 22, 'HR', 0, 0, 0),
+(249, 136, 23, 'Engineering', 0, 0, 0),
+(250, 136, 24, 'Finance', 0, 0, 0),
+(251, 136, 25, 'Marketing', 0, 0, 0),
+(252, 136, 26, 'HR', 0, 0, 0),
+(253, 136, 27, 'IT', 0, 0, 0),
+(254, 136, 28, 'Engineering', 0, 0, 0),
+(255, 136, 29, 'Marketing', 0, 0, 0),
+(256, 136, 30, 'HR', 0, 0, 0),
+(257, 136, 31, 'Finance', 0, 0, 0),
+(258, 136, 32, 'IT', 0, 0, 0),
+(259, 136, 33, 'Engineering', 0, 0, 0),
+(260, 136, 34, 'Marketing', 0, 0, 0),
+(261, 136, 35, 'Finance', 0, 0, 0),
+(262, 136, 36, 'HR', 0, 0, 0),
+(263, 136, 37, 'IT', 0, 0, 0),
+(264, 136, 38, 'Engineering', 0, 0, 0),
+(265, 136, 39, 'Marketing', 0, 0, 0),
+(266, 136, 40, 'Finance', 0, 0, 0),
+(267, 136, 41, 'Engineering', 0, 0, 0),
+(268, 136, 42, 'Marketing', 0, 0, 0),
+(269, 136, 43, 'Finance', 0, 0, 0),
+(270, 136, 44, 'HR', 0, 0, 0),
+(271, 137, 6, 'Engineering', 0, 0, 0),
+(272, 137, 7, 'Marketing', 0, 0, 0),
+(273, 137, 8, 'Finance', 0, 0, 0),
+(274, 137, 9, 'HR', 0, 0, 0),
+(275, 137, 10, 'IT', 0, 0, 0),
+(276, 137, 11, 'Engineering', 0, 0, 0),
+(277, 137, 12, 'Marketing', 0, 0, 0),
+(278, 137, 13, 'Finance', 0, 0, 0),
+(279, 137, 14, 'HR', 0, 0, 0),
+(280, 137, 15, 'IT', 0, 0, 0),
+(281, 137, 16, 'Marketing', 0, 0, 0),
+(282, 137, 17, 'Engineering', 0, 0, 0),
+(283, 137, 18, 'HR', 0, 0, 0),
+(284, 137, 19, 'IT', 0, 0, 0),
+(285, 137, 20, 'Finance', 0, 0, 0),
+(286, 137, 21, 'Marketing', 0, 0, 0),
+(287, 137, 22, 'HR', 0, 0, 0),
+(288, 137, 23, 'Engineering', 0, 0, 0),
+(289, 137, 24, 'Finance', 0, 0, 0),
+(290, 137, 25, 'Marketing', 0, 0, 0),
+(291, 137, 26, 'HR', 0, 0, 0),
+(292, 137, 27, 'IT', 0, 0, 0),
+(293, 137, 28, 'Engineering', 0, 0, 0),
+(294, 137, 29, 'Marketing', 0, 0, 0),
+(295, 137, 30, 'HR', 0, 0, 0),
+(296, 137, 31, 'Finance', 0, 0, 0),
+(297, 137, 32, 'IT', 0, 0, 0),
+(298, 137, 33, 'Engineering', 0, 0, 0),
+(299, 137, 34, 'Marketing', 0, 0, 0),
+(300, 137, 35, 'Finance', 0, 0, 0),
+(301, 137, 36, 'HR', 0, 0, 0),
+(302, 137, 37, 'IT', 0, 0, 0),
+(303, 137, 38, 'Engineering', 0, 0, 0),
+(304, 137, 39, 'Marketing', 0, 0, 0),
+(305, 137, 40, 'Finance', 0, 0, 0),
+(306, 137, 41, 'Engineering', 0, 0, 0),
+(307, 137, 42, 'Marketing', 0, 0, 0),
+(308, 137, 43, 'Finance', 0, 0, 0),
+(309, 137, 44, 'HR', 0, 0, 0),
+(310, 138, 6, 'Engineering', 0, 0, 0),
+(311, 138, 7, 'Marketing', 0, 0, 0),
+(312, 138, 8, 'Finance', 0, 0, 0),
+(313, 138, 9, 'HR', 0, 0, 0),
+(314, 138, 10, 'IT', 0, 0, 0),
+(315, 138, 11, 'Engineering', 0, 0, 0),
+(316, 138, 12, 'Marketing', 0, 0, 0),
+(317, 138, 13, 'Finance', 0, 0, 0),
+(318, 138, 14, 'HR', 0, 0, 0),
+(319, 138, 15, 'IT', 0, 0, 0),
+(320, 138, 16, 'Marketing', 0, 0, 0),
+(321, 138, 17, 'Engineering', 0, 0, 0),
+(322, 138, 18, 'HR', 0, 0, 0),
+(323, 138, 19, 'IT', 0, 0, 0),
+(324, 138, 20, 'Finance', 0, 0, 0),
+(325, 138, 21, 'Marketing', 0, 0, 0),
+(326, 138, 22, 'HR', 0, 0, 0),
+(327, 138, 23, 'Engineering', 0, 0, 0),
+(328, 138, 24, 'Finance', 0, 0, 0),
+(329, 138, 25, 'Marketing', 0, 0, 0),
+(330, 138, 26, 'HR', 0, 0, 0),
+(331, 138, 27, 'IT', 0, 0, 0),
+(332, 138, 28, 'Engineering', 0, 0, 0),
+(333, 138, 29, 'Marketing', 0, 0, 0),
+(334, 138, 30, 'HR', 0, 0, 0),
+(335, 138, 31, 'Finance', 0, 0, 0),
+(336, 138, 32, 'IT', 0, 0, 0),
+(337, 138, 33, 'Engineering', 0, 0, 0),
+(338, 138, 34, 'Marketing', 0, 0, 0),
+(339, 138, 35, 'Finance', 0, 0, 0),
+(340, 138, 36, 'HR', 0, 0, 0),
+(341, 138, 37, 'IT', 0, 0, 0),
+(342, 138, 38, 'Engineering', 0, 0, 0),
+(343, 138, 39, 'Marketing', 0, 0, 0),
+(344, 138, 40, 'Finance', 0, 0, 0),
+(345, 138, 41, 'Engineering', 0, 0, 0),
+(346, 138, 42, 'Marketing', 0, 0, 0),
+(347, 138, 43, 'Finance', 0, 0, 0),
+(348, 138, 44, 'HR', 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mt_agenda_list`
+-- Table structure for table `domm_mt_agenda_list`
 --
 
-CREATE TABLE `mt_agenda_list` (
+CREATE TABLE `domm_mt_agenda_list` (
   `agenda_id` int(11) NOT NULL,
   `agenda_name` varchar(255) NOT NULL,
   `created_by` varchar(100) NOT NULL,
@@ -9130,45 +8840,81 @@ CREATE TABLE `mt_agenda_list` (
   `module_team` varchar(52) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `mt_agenda_list`
+-- Table structure for table `domm_personal_tasks`
 --
 
-INSERT INTO `mt_agenda_list` (`agenda_id`, `agenda_name`, `created_by`, `created_date`, `last_modified`, `agenda_date`, `module_team`) VALUES
-(76, 'Agenda Test 1', '', '0000-00-00', '0000-00-00', '2024-06-09', 'MT Exterior'),
-(77, 'Agenda Test 1', '', '0000-00-00', '0000-00-00', '2024-06-10', 'MT Chassis'),
-(100, '2001-09-11', '', '0000-00-00', '0000-00-00', '2001-09-11', 'MT Exterior'),
-(101, '2024-12-20', '', '0000-00-00', '0000-00-00', '2024-12-20', 'MT Exterior'),
-(109, '2024-06-22', '', '0000-00-00', '0000-00-00', '2024-06-22', 'MT Exterior'),
-(110, '2024-06-22', '', '0000-00-00', '0000-00-00', '2024-06-22', 'Entire Vehicle'),
-(111, '2024-06-26', '', '0000-00-00', '0000-00-00', '2024-06-26', 'Entire Vehicle'),
-(112, '2024-06-28', '', '0000-00-00', '0000-00-00', '2024-06-28', 'MT Exterior'),
-(113, '2024-06-15', '', '0000-00-00', '0000-00-00', '2024-06-15', 'MT Exterior'),
-(114, '2024-08-15', '', '0000-00-00', '0000-00-00', '2024-08-15', 'MT Exterior'),
-(115, '2024-09-14', '', '0000-00-00', '0000-00-00', '2024-09-14', 'MT Exterior'),
-(116, '2024-06-25', '', '0000-00-00', '0000-00-00', '2024-06-25', 'MT Exterior'),
-(117, '2025-01-04', '', '0000-00-00', '0000-00-00', '2025-01-04', 'MT Exterior'),
-(118, '2024-06-20', '', '0000-00-00', '0000-00-00', '2024-06-20', 'MT Exterior'),
-(119, '2024-06-21', '', '0000-00-00', '0000-00-00', '2024-06-21', 'MT Exterior'),
-(120, '2024-09-11', '', '0000-00-00', '0000-00-00', '2024-09-11', 'MT Exterior');
+CREATE TABLE `domm_personal_tasks` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `summary` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `domm_personal_tasks`
+--
+
+INSERT INTO `domm_personal_tasks` (`id`, `user_id`, `summary`) VALUES
+(1, 1, 'This is a personal task field.\r\n\r\nOnce your user ID is saved in DOMM, only you will be able to see this text.\r\n\r\nRight now everyone is looking at the same text :)');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `org_gfts`
+-- Table structure for table `domm_tasks`
 --
 
-CREATE TABLE `org_gfts` (
+CREATE TABLE `domm_tasks` (
+  `id` int(11) NOT NULL,
+  `agenda_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `responsible` varchar(255) DEFAULT NULL,
+  `gft` varchar(50) DEFAULT NULL,
+  `cr` varchar(50) DEFAULT NULL,
+  `details` text DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  `asap` int(1) DEFAULT 0,
+  `deadline` date DEFAULT NULL,
+  `sent` tinyint(1) DEFAULT NULL,
+  `topic_id` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `domm_topics`
+--
+
+CREATE TABLE `domm_topics` (
+  `id` int(11) NOT NULL,
+  `agenda_id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `responsible` varchar(255) DEFAULT NULL,
+  `start` time DEFAULT NULL,
+  `duration` time DEFAULT NULL,
+  `gft` varchar(50) DEFAULT NULL,
+  `cr` varchar(50) DEFAULT NULL,
+  `details` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `org_gfts_vehicle_mb`
+--
+
+CREATE TABLE `org_gfts_vehicle_mb` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `moduleteam` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `org_gfts`
+-- Dumping data for table `org_gfts_vehicle_mb`
 --
 
-INSERT INTO `org_gfts` (`id`, `name`, `moduleteam`) VALUES
+INSERT INTO `org_gfts_vehicle_mb` (`id`, `name`, `moduleteam`) VALUES
 (1, 'EV00 - Hubcap', 'Entire Vehicle'),
 (2, 'EV01 - Exposed bumper', 'Entire Vehicle'),
 (3, 'EV02 - Rims', 'Entire Vehicle'),
@@ -9237,219 +8983,107 @@ INSERT INTO `org_moduleteams` (`id`, `name`, `product_type`) VALUES
 (9, 'MT Thermomanagement', 'Vehicle'),
 (10, 'MT Test & Te/st', 'Vehicle');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `personal_tasks`
---
-
-CREATE TABLE `personal_tasks` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `summary` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `personal_tasks`
---
-
-INSERT INTO `personal_tasks` (`id`, `user_id`, `summary`) VALUES
-(1, 1, 'This is a personal task field.\n\nOnce your user ID is saved in DOMM, only you will be able to see this text.\n\nRight now everyone is looking at the same text :)'),
-(6, 2, 'hi there\r\n\r\ncan you hear me?\r\n\r\nbut yeah, now we chillin'),
-(7, 0, '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tasks`
---
-
-CREATE TABLE `tasks` (
-  `id` int(11) NOT NULL,
-  `agenda_id` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `responsible` varchar(255) DEFAULT NULL,
-  `gft` varchar(50) DEFAULT NULL,
-  `cr` varchar(50) DEFAULT NULL,
-  `details` text DEFAULT NULL,
-  `deleted` tinyint(1) DEFAULT NULL,
-  `asap` int(1) DEFAULT 0,
-  `deadline` date DEFAULT NULL,
-  `sent` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `tasks`
---
-
-INSERT INTO `tasks` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`, `deleted`, `asap`, `deadline`, `sent`) VALUES
-(1, 76, 'content', 'responsible', 'EX50 - Subwoofer', 'I170129001', '', 1, 0, NULL, 0),
-(2, 76, 'This is a task for the Topic above', 'Responcible person for the task', 'EX50 - Subwoofer', 'I170114801', '', 1, 1, '2024-06-20', 1),
-(3, 76, 'This task is for the change_request above', 'Task Responcible', 'EX51 - Automatic transmission speed sensor', 'I160063701', '', 1, 1, '2024-06-10', 0),
-(6, 76, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 1),
-(7, 77, 'This is a task for the Topic above', 'Task Responsible', 'CH22 - Distributor', 'I160057901', '', 0, 1, '2024-06-10', 0),
-(8, 77, 'This is a task for the Change Request above', 'Task Responcible', 'CH20 - Battery', 'I160095701', '', 0, 0, '2024-06-10', 0),
-(9, 78, 'This is a task for the Topic above', 'Responcible person for the task', 'EX50 - Subwoofer', 'I170114801', '', 0, 1, NULL, 0),
-(10, 78, 'dfsdf', 'adasd', 'EX50 - Subwoofer', 'I170129001', '', 1, 0, '2024-06-27', NULL),
-(11, 78, 'hhghgh', 'responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, NULL, NULL),
-(12, 84, 'This is a task for the Topic above', 'Responcible person for the task', 'EX50 - Subwoofer', 'I170114801', '', 0, 0, NULL, NULL),
-(20, 94, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, NULL, NULL),
-(21, 95, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 0),
-(22, NULL, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, NULL, NULL),
-(23, 96, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, NULL, 0),
-(24, 100, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, NULL, 0),
-(25, 99, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '1970-01-01', 0),
-(26, 100, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '1970-01-01', 0),
-(27, 101, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '1970-01-01', 0),
-(28, 101, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '0000-00-00', 0),
-(29, 100, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 1),
-(30, 100, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 1),
-(31, 100, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 1),
-(32, 76, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '2024-06-10', 0),
-(33, 110, 'hambrugeriosa', 'someone', 'EV02 - Rims', '', '', 0, 1, '2024-06-22', 1),
-(34, 111, 'hambrugeriosa', 'someone', 'EV02 - Rims', '', '', 0, 0, '2024-06-22', 0),
-(35, 112, 'make sandwich', 'responsible', 'EX51 - Automatic transmission speed sensor', 'I160063701', '', 0, 0, NULL, 1),
-(36, 109, 'make sandwich', 'responsible', 'EX51 - Automatic transmission speed sensor', 'I160063701', '', 1, 0, NULL, 0),
-(37, 112, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '2024-06-10', 0),
-(38, 109, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 0),
-(39, 101, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 1),
-(40, 109, 'make sandwich', 'responsible', 'EX51 - Automatic transmission speed sensor', 'I160063701', '', 1, 0, NULL, 0),
-(41, 109, 'make sandwich', 'responsible', 'EX51 - Automatic transmission speed sensor', 'I160063701', '', 0, 0, NULL, 0),
-(42, 100, 'content', 'asa', 'EX51 - Automatic transmission speed sensor', 'I170028401', '', 0, 0, '2024-06-21', NULL),
-(43, 76, 'content', '', 'EX50 - Subwoofer', 'I230088701', '', 1, 0, '0000-00-00', NULL),
-(44, 0, 'content', '', 'EX51 - Automatic transmission speed sensor', '', '', 0, 1, '0000-00-00', NULL),
-(45, 76, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 1),
-(46, 114, 'content', '', 'EX50 - Subwoofer', 'I230088701', '', 0, 0, '0000-00-00', 0),
-(47, 116, 'This is a task for the Topic above', 'Responcible person for the task', 'EX50 - Subwoofer', 'I170114801', '', 1, 0, '2024-06-20', 0),
-(48, 117, 'This is a task for the Topic above', 'Responcible person for the task', 'EX50 - Subwoofer', 'I170114801', '', 0, 0, '2024-06-20', 0),
-(49, 118, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '2024-06-10', 0),
-(50, 118, 'content', 'responsible', 'EX53 - Clinometer', '', '', 1, 0, '0000-00-00', NULL),
-(51, 118, 'testt', 'responsible', 'EX53 - Clinometer', '', '', 1, 0, '2024-06-14', 0),
-(52, 116, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '2024-06-10', 0),
-(53, 118, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '2024-06-10', 0),
-(54, 119, 'testt', 'responsible', 'EX53 - Clinometer', '', '', 1, 0, '2024-06-14', 1),
-(55, 119, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '2024-06-10', 0),
-(56, 118, 'testtaaa', 'responsible', 'EX53 - Clinometer', '', '', 0, 0, '2024-06-14', 0),
-(57, 117, 'sadafaf', 'afasfas', 'EX52 - Crankshaft position sensor', '', '', 0, 0, '2024-06-12', NULL),
-(58, 117, 'rt6urtyuyrety', 'ayreteqart', 'EX51 - Automatic transmission speed sensor', 'I200103701', '', 0, 0, '2024-06-18', NULL),
-(59, 117, 'content', 'responsible', 'EX51 - Automatic transmission speed sensor', 'I200103701', '', 0, 0, NULL, NULL),
-(60, 117, 'sadasda', 'asdasd', 'EX52 - Crankshaft position sensor', 'I200066401', '', 0, 0, '2024-06-19', 0),
-(61, 118, 'sdsad', 'sada', 'EX52 - Crankshaft position sensor', 'I180082601', '', 0, 0, '2024-06-25', 1),
-(62, 119, 'sdsad', 'sada', 'EX52 - Crankshaft position sensor', 'I180082601', '', 1, 0, '2024-06-25', 0),
-(63, 119, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '2024-06-10', 0),
-(64, 119, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 1, 0, '2024-06-10', 0),
-(65, 120, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 0),
-(66, 100, 'topic to be sent', 'responsible', 'EX50 - Subwoofer', 'I170114801', '', 0, 0, NULL, 1),
-(67, 120, 'topic to be sent', 'responsible', 'EX50 - Subwoofer', 'I170114801', '', 0, 0, NULL, 0),
-(68, 120, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 1),
-(69, 115, 'This is a task for the Change Request above', 'Task Responsible', 'EX51 - Automatic transmission speed sensor', 'I160128601', '', 0, 0, '2024-06-10', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `topics`
---
-
-CREATE TABLE `topics` (
-  `id` int(11) NOT NULL,
-  `agenda_id` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `responsible` varchar(255) DEFAULT NULL,
-  `gft` varchar(50) DEFAULT NULL,
-  `cr` varchar(50) DEFAULT NULL,
-  `details` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `topics`
---
-
-INSERT INTO `topics` (`id`, `agenda_id`, `name`, `responsible`, `gft`, `cr`, `details`) VALUES
-(3, 77, 'This Topic is responsible for the Change Request above ', 'Topic Responsible', 'CH22 - Distributor', 'I160057901', ''),
-(5, 112, 'for flower', 'responsible', 'EX51 - Automatic transmission speed sensor', 'I160063701', ''),
-(6, 109, 'for flower', 'responsible', 'EX51 - Automatic transmission speed sensor', 'I160063701', ''),
-(9, 120, 'This Topic is responsible for the change request above ', 'just', 'EX50 - Subwoofer', 'I170114801', '');
-
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `agenda_change_request_filters`
+-- Indexes for table `domm_agenda_change_request_filters`
 --
-ALTER TABLE `agenda_change_request_filters`
+ALTER TABLE `domm_agenda_change_request_filters`
   ADD PRIMARY KEY (`agenda_id`,`change_request_id`),
   ADD KEY `change_request_id` (`change_request_id`);
 
 --
--- Indexes for table `assignment`
+-- Indexes for table `domm_assignment`
 --
-ALTER TABLE `assignment`
+ALTER TABLE `domm_assignment`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `change_requests`
+-- Indexes for table `domm_change_requests`
 --
-ALTER TABLE `change_requests`
+ALTER TABLE `domm_change_requests`
   ADD KEY `idx_change_requests_id` (`ID`);
 
 --
--- Indexes for table `decision`
+-- Indexes for table `domm_decision`
 --
-ALTER TABLE `decision`
+ALTER TABLE `domm_decision`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `departments`
+-- Indexes for table `domm_gft_order`
 --
-ALTER TABLE `departments`
-  ADD PRIMARY KEY (`department_id`);
+ALTER TABLE `domm_gft_order`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `agenda_id` (`agenda_id`,`gft_id`),
+  ADD KEY `gft_id` (`gft_id`);
 
 --
--- Indexes for table `guests`
+-- Indexes for table `domm_guests`
 --
-ALTER TABLE `guests`
+ALTER TABLE `domm_guests`
   ADD PRIMARY KEY (`guest_id`);
 
 --
--- Indexes for table `information`
+-- Indexes for table `domm_information`
 --
-ALTER TABLE `information`
+ALTER TABLE `domm_information`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `module_team_guest_attendance`
+-- Indexes for table `domm_module_team_guest_attendance`
 --
-ALTER TABLE `module_team_guest_attendance`
+ALTER TABLE `domm_module_team_guest_attendance`
   ADD PRIMARY KEY (`id`),
   ADD KEY `agenda_id` (`agenda_id`),
   ADD KEY `guest_id` (`guest_id`);
 
 --
--- Indexes for table `module_team_members`
+-- Indexes for table `domm_module_team_members`
 --
-ALTER TABLE `module_team_members`
+ALTER TABLE `domm_module_team_members`
   ADD PRIMARY KEY (`member_id`);
 
 --
--- Indexes for table `module_team_member_attendance`
+-- Indexes for table `domm_module_team_member_attendance`
 --
-ALTER TABLE `module_team_member_attendance`
+ALTER TABLE `domm_module_team_member_attendance`
   ADD PRIMARY KEY (`id`),
   ADD KEY `agenda_id` (`agenda_id`),
   ADD KEY `member_id` (`member_id`);
 
 --
--- Indexes for table `mt_agenda_list`
+-- Indexes for table `domm_mt_agenda_list`
 --
-ALTER TABLE `mt_agenda_list`
+ALTER TABLE `domm_mt_agenda_list`
   ADD PRIMARY KEY (`agenda_id`),
   ADD KEY `idx_mt_agenda_list_agenda_id` (`agenda_id`);
 
 --
--- Indexes for table `org_gfts`
+-- Indexes for table `domm_personal_tasks`
 --
-ALTER TABLE `org_gfts`
+ALTER TABLE `domm_personal_tasks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `domm_tasks`
+--
+ALTER TABLE `domm_tasks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `agenda_id` (`agenda_id`);
+
+--
+-- Indexes for table `domm_topics`
+--
+ALTER TABLE `domm_topics`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `org_gfts_vehicle_mb`
+--
+ALTER TABLE `org_gfts_vehicle_mb`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -9459,87 +9093,85 @@ ALTER TABLE `org_moduleteams`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `personal_tasks`
---
-ALTER TABLE `personal_tasks`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tasks`
---
-ALTER TABLE `tasks`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `agenda_id` (`agenda_id`);
-
---
--- Indexes for table `topics`
---
-ALTER TABLE `topics`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `agenda_id` (`agenda_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `assignment`
+-- AUTO_INCREMENT for table `domm_assignment`
 --
-ALTER TABLE `assignment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+ALTER TABLE `domm_assignment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `decision`
+-- AUTO_INCREMENT for table `domm_decision`
 --
-ALTER TABLE `decision`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+ALTER TABLE `domm_decision`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `departments`
+-- AUTO_INCREMENT for table `domm_gft_order`
 --
-ALTER TABLE `departments`
-  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `domm_gft_order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `guests`
+-- AUTO_INCREMENT for table `domm_guests`
 --
-ALTER TABLE `guests`
-  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `domm_guests`
+  MODIFY `guest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
--- AUTO_INCREMENT for table `information`
+-- AUTO_INCREMENT for table `domm_information`
 --
-ALTER TABLE `information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+ALTER TABLE `domm_information`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `module_team_guest_attendance`
+-- AUTO_INCREMENT for table `domm_module_team_guest_attendance`
 --
-ALTER TABLE `module_team_guest_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=289;
+ALTER TABLE `domm_module_team_guest_attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=318;
 
 --
--- AUTO_INCREMENT for table `module_team_members`
+-- AUTO_INCREMENT for table `domm_module_team_members`
 --
-ALTER TABLE `module_team_members`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `domm_module_team_members`
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
--- AUTO_INCREMENT for table `module_team_member_attendance`
+-- AUTO_INCREMENT for table `domm_module_team_member_attendance`
 --
-ALTER TABLE `module_team_member_attendance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
+ALTER TABLE `domm_module_team_member_attendance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=349;
 
 --
--- AUTO_INCREMENT for table `mt_agenda_list`
+-- AUTO_INCREMENT for table `domm_mt_agenda_list`
 --
-ALTER TABLE `mt_agenda_list`
-  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+ALTER TABLE `domm_mt_agenda_list`
+  MODIFY `agenda_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
--- AUTO_INCREMENT for table `org_gfts`
+-- AUTO_INCREMENT for table `domm_personal_tasks`
 --
-ALTER TABLE `org_gfts`
+ALTER TABLE `domm_personal_tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `domm_tasks`
+--
+ALTER TABLE `domm_tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `domm_topics`
+--
+ALTER TABLE `domm_topics`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `org_gfts_vehicle_mb`
+--
+ALTER TABLE `org_gfts_vehicle_mb`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
@@ -9549,33 +9181,15 @@ ALTER TABLE `org_moduleteams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `personal_tasks`
---
-ALTER TABLE `personal_tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `tasks`
---
-ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
-
---
--- AUTO_INCREMENT for table `topics`
---
-ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `agenda_change_request_filters`
+-- Constraints for table `domm_gft_order`
 --
-ALTER TABLE `agenda_change_request_filters`
-  ADD CONSTRAINT `agenda_change_request_filters_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `mt_agenda_list` (`agenda_id`),
-  ADD CONSTRAINT `agenda_change_request_filters_ibfk_2` FOREIGN KEY (`change_request_id`) REFERENCES `change_requests` (`ID`);
+ALTER TABLE `domm_gft_order`
+  ADD CONSTRAINT `domm_gft_order_ibfk_1` FOREIGN KEY (`agenda_id`) REFERENCES `domm_mt_agenda_list` (`agenda_id`),
+  ADD CONSTRAINT `domm_gft_order_ibfk_2` FOREIGN KEY (`gft_id`) REFERENCES `org_gfts_vehicle_mb` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
