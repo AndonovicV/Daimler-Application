@@ -153,3 +153,11 @@ text-align: center;
   width: 100% !important; /* Ensure it uses the full width of its container */
   max-width: 25em; /* Set the maximum width you desire */
 }
+
+.task-row {
+  color: orange;
+}
+
+.topic-row {
+  color: #dfbaff;
+}
