@@ -11,18 +11,18 @@ if (!empty($agenda_id) && !empty($gft_id) && isset($order_value)) {
 
     try {
         // Check if the order already exists for this agenda and GFT
-        $stmt = $conn->prepare("SELECT * FROM gft_order WHERE agenda_id = ? AND gft_id = ?");
+        $stmt = $conn->prepare("SELECT * FROM domm_gft_order WHERE agenda_id = ? AND gft_id = ?");
         $stmt->bind_param('ii', $agenda_id, $gft_id);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             // Update existing order value
-            $stmt = $conn->prepare("UPDATE gft_order SET order_value = ? WHERE agenda_id = ? AND gft_id = ?");
+            $stmt = $conn->prepare("UPDATE domm_gft_order SET order_value = ? WHERE agenda_id = ? AND gft_id = ?");
             $stmt->bind_param('iii', $order_value, $agenda_id, $gft_id);
         } else {
             // Insert new order value
-            $stmt = $conn->prepare("INSERT INTO gft_order (agenda_id, gft_id, order_value) VALUES (?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO domm_gft_order (agenda_id, gft_id, order_value) VALUES (?, ?, ?)");
             $stmt->bind_param('iii', $agenda_id, $gft_id, $order_value);
         }
 

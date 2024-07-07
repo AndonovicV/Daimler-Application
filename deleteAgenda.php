@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'domm_information',
                 'domm_module_team_guest_attendance',
                 'domm_module_team_member_attendance',
-                'tasks',
-                'topics'
+                'domm_tasks',
+                'domm_topics'
             ];
 
             foreach ($relatedTables as $table) {
@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
 
-            // Delete from mt_agenda_list
-            $deleteSql = "DELETE FROM mt_agenda_list WHERE agenda_id IN ($placeholders)";
+            // Delete from domm_mt_agenda_list
+            $deleteSql = "DELETE FROM domm_mt_agenda_list WHERE agenda_id IN ($placeholders)";
             $stmt = $conn->prepare($deleteSql);
             if ($stmt) {
                 $types = str_repeat('i', count($agendaIds));
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute();
                 $stmt->close();
             } else {
-                throw new Exception("Failed to prepare statement for mt_agenda_list: " . $conn->error);
+                throw new Exception("Failed to prepare statement for domm_mt_agenda_list: " . $conn->error);
             }
 
             // Commit transaction

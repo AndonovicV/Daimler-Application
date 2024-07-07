@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['topic_id'], $_POST['du
         $formatted_duration = "00:00";
     }
 
-    $sql = "UPDATE topics SET duration = ? WHERE id = ?";
+    $sql = "UPDATE domm_topics SET duration = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt) {
         $stmt->bind_param('si', $formatted_duration, $topic_id);

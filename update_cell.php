@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $type = $_POST['type'];
 
     if ($type == 'topic') {
-        $table = 'topics';
+        $table = 'domm_topics';
     } else if ($type == 'task') {
-        $table = 'tasks';
+        $table = 'domm_tasks';
     } else {
         echo 'Invalid type';
         exit;

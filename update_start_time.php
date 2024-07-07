@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['topic_id'], $_POST['st
     $topic_id = $_POST['topic_id'];
     $start = $_POST['start'];
 
-    $sql = "UPDATE topics SET start = ? WHERE id = ?";
+    $sql = "UPDATE domm_topics SET start = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     if ($stmt) {
         $stmt->bind_param('si', $start, $topic_id);

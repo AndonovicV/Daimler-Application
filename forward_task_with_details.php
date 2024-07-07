@@ -10,8 +10,8 @@ $conn->begin_transaction();
 
 try {
     // Copy the main task
-    $sql = "INSERT INTO tasks (agenda_id, name, responsible, gft, cr, deleted, asap, deadline) 
-            SELECT ?, name, responsible, gft, cr, deleted, asap, deadline FROM tasks WHERE id = ?";
+    $sql = "INSERT INTO domm_tasks (agenda_id, name, responsible, gft, cr, deleted, asap, deadline) 
+            SELECT ?, name, responsible, gft, cr, deleted, asap, deadline FROM domm_tasks WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $agendaId, $taskId);
     $stmt->execute();

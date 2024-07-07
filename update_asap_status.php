@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $asap = isset($_POST['asap']) ? intval($_POST['asap']) : 0;
 
     if ($task_id > 0) {
-        $sql = "UPDATE tasks SET asap = ? WHERE id = ?";
+        $sql = "UPDATE domm_tasks SET asap = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param('ii', $asap, $task_id);

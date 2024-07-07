@@ -18,10 +18,10 @@ $found = false;
 $tables = [
     'departments' => ['department_name'],
     'domm_guests' => ['guest_name'],
-    'mt_agenda_list' => ['agenda_date', 'module_team', 'agenda_id'],
-    'org_gfts' => ['name', 'moduleteam'],
-    'tasks' => ['name', 'responsible', 'gft', 'cr', 'asap', 'deadline'],
-    'topics' => ['name', 'responsible', 'gft', 'cr'],
+    'domm_mt_agenda_list' => ['agenda_date', 'module_team', 'agenda_id'],
+    'org_gfts_vehicle_mb' => ['name', 'moduleteam'],
+    'domm_tasks' => ['name', 'responsible', 'gft', 'cr', 'asap', 'deadline'],
+    'domm_topics' => ['name', 'responsible', 'gft', 'cr'],
     'domm_information' => ['agenda_id', 'content', 'gft', 'cr'],
     'domm_assignment' => ['agenda_id', 'content', 'gft', 'cr'],
     'domm_decision' => ['agenda_id', 'content', 'gft', 'cr'],
@@ -62,10 +62,10 @@ foreach ($tables as $table => $columns) {
         // Fetch and display results
         while ($row = $result->fetch_assoc()) {
             // Format each row of the result as a card
-            if ($table === 'tasks') {
+            if ($table === 'domm_tasks') {
                 $resultsHTML .= "<div id = 'search-task' class='card'>";
             }
-            elseif ($table === 'topics') {
+            elseif ($table === 'domm_topics') {
                     $resultsHTML .= "<div id = 'search-topic' class='card'>";
                 }
             else {
@@ -74,8 +74,8 @@ foreach ($tables as $table => $columns) {
             $resultsHTML .= "<div class='card-body'>";
             foreach ($row as $key => $value) {
                 if ($key === 'id' ||
-                    ($table === 'tasks' && in_array($key, ['details', 'deleted'])) ||
-                    ($table === 'topics' && $key === 'details') ||
+                    ($table === 'domm_tasks' && in_array($key, ['details', 'deleted'])) ||
+                    ($table === 'domm_topics' && $key === 'details') ||
                     (in_array($table, ['domm_information', 'domm_assignment', 'domm_decision']) && in_array($key, ['cr', 'task_id']))
                 ) {
                     continue; // Skip the specified keys
@@ -90,7 +90,7 @@ foreach ($tables as $table => $columns) {
                     // Make agenda IDs clickable links
                     $value = "<a href='mt_agenda.php?agenda_id=$value'>$value</a>";
                 }
-                if ($table === 'tasks') {
+                if ($table === 'domm_tasks') {
                     if ($key === 'asap' && $value == 1) {
                         $resultsHTML .= "<p style='color: red;'><strong>ASAP</strong></p>";
                         continue;

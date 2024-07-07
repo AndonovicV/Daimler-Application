@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if it's a task or a topic
         if (isset($_POST['taskContent'])) {
             // It's a task
-            $sql = "INSERT INTO tasks (agenda_id, name, responsible, gft, cr, topic_id, details, deleted, sent) 
+            $sql = "INSERT INTO domm_tasks (agenda_id, name, responsible, gft, cr, topic_id, details, deleted, sent) 
                     VALUES (?, ?, ?, ?, ?, ?, '', 0, 0)";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("isssss", $agendaId, $content, $responsible, $gft, $cr, $topic);
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "Error: " . $stmt->error;
             }
             echo 'Task successfully created';
-            $sql_get_task_id = "SELECT id FROM tasks WHERE agenda_id = ? ORDER BY id DESC LIMIT 1";
+            $sql_get_task_id = "SELECT id FROM domm_tasks WHERE agenda_id = ? ORDER BY id DESC LIMIT 1";
             $stmt_get_task_id = $conn->prepare($sql_get_task_id);
             $stmt_get_task_id->bind_param("i", $agendaId);
             $stmt_get_task_id->execute();
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         } elseif (isset($_POST['topicContent'])) {
             // It's a topic
-            $sql = "INSERT INTO topics (agenda_id, name, responsible, gft, cr, details) 
+            $sql = "INSERT INTO domm_topics (agenda_id, name, responsible, gft, cr, details) 
                     VALUES (?, ?, ?, ?, ?, '')";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("issss", $agendaId, $content, $responsible, $gft, $cr);
@@ -114,11 +114,11 @@ if (isset($_POST['rowId'])) {
     switch ($rowType) {
         case 'topic':
             // Delete Topic logic
-            $sql = "DELETE FROM topics WHERE id = ?";
+            $sql = "DELETE FROM domm_topics WHERE id = ?";
             break;
         case 'task':
             // Delete Task logic
-            $sql = "UPDATE tasks SET deleted = 1 WHERE id = ?;";
+            $sql = "UPDATE domm_tasks SET deleted = 1 WHERE id = ?;";
             break;
         default:
             echo "Invalid row type";
@@ -181,7 +181,7 @@ if(isset($_POST['agenda_id'])) {
     echo '<tr><td colspan="12">Error: Agenda ID not provided.</td></tr>';
 }
 
-// Insert new row (Table) into mt_agenda_list table
+// Insert new row (Table) into domm_mt_agenda_list table
 if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda_name']) && !empty($_POST['agenda_date'])) {
     $agendaName = $_POST['agenda_name'];
     $agendaDate = $_POST['agenda_date'];
@@ -193,7 +193,7 @@ if(isset($_POST['selectedAgendaId'])) {
     $agendaId = mysqli_real_escape_string($conn, $_POST['selectedAgendaId']);
 
     // Fetch the agenda name based on the agenda ID
-    $sql = "SELECT agenda_name FROM mt_agenda_list WHERE agenda_id = '$agendaId'";
+    $sql = "SELECT agenda_name FROM domm_mt_agenda_list WHERE agenda_id = '$agendaId'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -289,7 +289,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             foreach ($selected_titles as $title) {
                 // Insert new filter selections
-                $insert_sql = "INSERT INTO domm_agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, (SELECT ID FROM change_requests WHERE title = ?), 1)";
+                $insert_sql = "INSERT INTO domm_agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, (SELECT ID FROM domm_change_requests WHERE title = ?), 1)";
                 $insert_stmt = $conn->prepare($insert_sql);
                 $insert_stmt->bind_param('is', $selectedAgendaId, $title);
                 $insert_stmt->execute();
@@ -303,7 +303,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $title = $_POST['title'];
         $agendaId = $_POST['agenda_id'];
     
-        $delete_sql = "DELETE FROM domm_agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = (SELECT ID FROM change_requests WHERE title = ? LIMIT 1)";
+        $delete_sql = "DELETE FROM domm_agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = (SELECT ID FROM domm_change_requests WHERE title = ? LIMIT 1)";
         $delete_stmt = $conn->prepare($delete_sql);
         $delete_stmt->bind_param('is', $agendaId, $title);
         $delete_stmt->execute();

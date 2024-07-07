@@ -4,7 +4,7 @@ include 'conn.php';
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 
 if ($type === 'topic') {
-    $sql = "SELECT id FROM topics ORDER BY id DESC LIMIT 1";
+    $sql = "SELECT id FROM domm_topics ORDER BY id DESC LIMIT 1";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -14,8 +14,8 @@ if ($type === 'topic') {
         echo json_encode(['error' => 'No records found']);
     }
 } elseif ($type === 'task') {
-    // Fetch the last ID from the tasks table
-    $sql = "SELECT id FROM tasks ORDER BY id DESC LIMIT 1";
+    // Fetch the last ID from the domm_tasks table
+    $sql = "SELECT id FROM domm_tasks ORDER BY id DESC LIMIT 1";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {

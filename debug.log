@@ -21,7 +21,7 @@
 [2024-07-06 16:32:42] Inserting new topic with agenda_id: 135
 [2024-07-06 16:32:42] New topic/task inserted with ID: 39
 [2024-07-06 16:32:42] Task or Topic successfully copied to the new agenda
-[2024-07-06 16:32:42] Copying tasks associated with the old topic_id: 38
+[2024-07-06 16:32:42] Copying domm_tasks associated with the old topic_id: 38
 [2024-07-06 16:32:42] Found task with ID: 83 associated with the old topic_id: 38
 [2024-07-06 16:32:42] Inserted new task with ID: 85 for new topic_id: 39
 [2024-07-06 16:32:42] Processing related table: domm_information for old task ID: 83
@@ -152,7 +152,7 @@
     [agenda_id] => 136
 )
 
-[2024-07-06 16:41:17] Fetching old tasks data for ID: 91
+[2024-07-06 16:41:17] Fetching old domm_tasks data for ID: 91
 [2024-07-06 16:41:17] Fetched data: Array
 (
     [id] => 91
@@ -240,7 +240,7 @@
 [2024-07-06 16:41:51] Inserting new topic with agenda_id: 136
 [2024-07-06 16:41:51] New topic/task inserted with ID: 40
 [2024-07-06 16:41:51] Task or Topic successfully copied to the new agenda
-[2024-07-06 16:41:51] Copying tasks associated with the old topic_id: 39
+[2024-07-06 16:41:51] Copying domm_tasks associated with the old topic_id: 39
 [2024-07-06 16:41:51] Found task with ID: 85 associated with the old topic_id: 39
 [2024-07-06 16:41:51] Inserted new task with ID: 95 for new topic_id: 40
 [2024-07-06 16:41:51] Processing related table: domm_information for old task ID: 85
@@ -372,7 +372,7 @@
 [2024-07-07 12:09:55] Inserting new topic with agenda_id: 125
 [2024-07-07 12:09:55] New topic/task inserted with ID: 17
 [2024-07-07 12:09:55] Task or Topic successfully copied to the new agenda
-[2024-07-07 12:09:55] Copying tasks associated with the old topic_id: 4
+[2024-07-07 12:09:55] Copying domm_tasks associated with the old topic_id: 4
 [2024-07-07 12:09:55] Found task with ID: 2 associated with the old topic_id: 4
 [2024-07-07 12:09:55] Inserted new task with ID: 7 for new topic_id: 17
 [2024-07-07 12:09:55] Processing related table: domm_information for old task ID: 2
@@ -412,7 +412,7 @@
 [2024-07-07 12:10:34] Inserting new topic with agenda_id: 126
 [2024-07-07 12:10:34] New topic/task inserted with ID: 18
 [2024-07-07 12:10:34] Task or Topic successfully copied to the new agenda
-[2024-07-07 12:10:34] Copying tasks associated with the old topic_id: 17
+[2024-07-07 12:10:34] Copying domm_tasks associated with the old topic_id: 17
 [2024-07-07 12:10:34] Found task with ID: 7 associated with the old topic_id: 17
 [2024-07-07 12:10:34] Inserted new task with ID: 8 for new topic_id: 18
 [2024-07-07 12:10:34] Processing related table: domm_information for old task ID: 7
@@ -452,7 +452,7 @@
 [2024-07-07 12:17:23] Inserting new topic with agenda_id: 125
 [2024-07-07 12:17:23] New topic/task inserted with ID: 19
 [2024-07-07 12:17:23] Task or Topic successfully copied to the new agenda
-[2024-07-07 12:17:23] Copying tasks associated with the old topic_id: 18
+[2024-07-07 12:17:23] Copying domm_tasks associated with the old topic_id: 18
 [2024-07-07 12:17:23] Found task with ID: 8 associated with the old topic_id: 18
 [2024-07-07 12:17:23] Inserted new task with ID: 9 for new topic_id: 19
 [2024-07-07 12:17:23] Processing related table: domm_information for old task ID: 8
@@ -467,3 +467,55 @@
 [2024-07-07 12:17:23] Marking old task as sent: 8
 [2024-07-07 12:17:23] Successfully updated/deleted old task/topic with ID: 8
 [2024-07-07 12:17:23] Script ended.
+[2024-07-07 13:00:41] Script started.
+[2024-07-07 13:00:41] POST data received: Array
+(
+    [task_id] => 10
+    [agenda_id] => 126
+)
+
+[2024-07-07 13:00:41] Fetching old task data for task_id: 10
+[2024-07-07 13:00:41] Data fetched successfully from the database.
+[2024-07-07 13:00:41] Fetched data: Array
+(
+    [id] => 10
+    [agenda_id] => 125
+    [name] => task 5
+    [responsible] => voja 5
+    [gft] => 23
+    [cr] => I170128301
+    [details] => 
+    [deadline] => 2024-07-23
+)
+
+[2024-07-07 13:00:41] Inserting new task with agenda_id: 126
+[2024-07-07 13:00:41] Script ended.
+[2024-07-07 13:05:08] Script started.
+[2024-07-07 13:05:08] POST data received: Array
+(
+    [topic_id] => 20
+    [agenda_id] => 126
+)
+
+[2024-07-07 13:05:08] Fetching old topic data for topic_id: 20
+[2024-07-07 13:05:08] Data fetched successfully from the database.
+[2024-07-07 13:05:08] Fetched data: Array
+(
+    [id] => 20
+    [agenda_id] => 125
+    [name] => topic for somt
+    [responsible] => responsible
+    [gft] => 22
+    [cr] => I160197701
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-07 13:05:08] Inserting new topic with agenda_id: 126
+[2024-07-07 13:05:08] New topic/task inserted with ID: 21
+[2024-07-07 13:05:08] Task or Topic successfully copied to the new agenda
+[2024-07-07 13:05:08] Copying tasks associated with the old topic_id: 20
+[2024-07-07 13:05:08] Deleting old topic: 20
+[2024-07-07 13:05:08] Successfully updated/deleted old task/topic with ID: 20
+[2024-07-07 13:05:08] Script ended.

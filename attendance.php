@@ -34,7 +34,7 @@ $agendaId = isset($_GET['agenda_id']) ? htmlspecialchars($_GET['agenda_id']) : n
             <select id="protokolSelect" data-search="true" class="styled-select w-100" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
                 <option value="">Select protocol...</option>
                 <?php
-                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                $sql = "SELECT * FROM domm_mt_agenda_list WHERE module_team = ?";
                 $stmt = $conn->prepare($sql);
 
                     if ($stmt) {

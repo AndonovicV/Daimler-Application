@@ -21,12 +21,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($old_task_id !== null) {
         log_message("Fetching old task data for task_id: $old_task_id");
         // Prepare and execute the query to fetch the old task data
-        $stmt = $conn->prepare("SELECT id, agenda_id, name, responsible, gft, cr, details, deadline FROM tasks WHERE id = ?");
+        $stmt = $conn->prepare("SELECT id, agenda_id, name, responsible, gft, cr, details, deadline FROM domm_tasks WHERE id = ?");
         $stmt->bind_param("i", $old_task_id);
     } elseif ($old_topic_id !== null) {
         log_message("Fetching old topic data for topic_id: $old_topic_id");
         // Prepare and execute the query to fetch the old topic data, including the new columns
-        $stmt = $conn->prepare("SELECT id, agenda_id, name, responsible, gft, cr, details, start, duration FROM topics WHERE id = ?");
+        $stmt = $conn->prepare("SELECT id, agenda_id, name, responsible, gft, cr, details, start, duration FROM domm_topics WHERE id = ?");
         $stmt->bind_param("i", $old_topic_id);
     } else {
         log_message('Task or Topic ID not provided');
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($old_task_id !== null) {
             $conn->begin_transaction(); // Start transaction
             log_message("Inserting new task with agenda_id: $new_agenda_id");
-            $insert_stmt = $conn->prepare("INSERT INTO tasks (name, responsible, deadline, gft, cr, details, agenda_id, deleted, sent, topic_id) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0, '')");
+            $insert_stmt = $conn->prepare("INSERT INTO domm_tasks (name, responsible, deadline, gft, cr, details, agenda_id, deleted, sent, topic_id) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0, '')");
             if ($insert_stmt === false) {
                 $conn->rollback(); // Rollback transaction on error
                 throw new Exception('Prepare failed: ' . $conn->error);
@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo 'Task and related details forwarded successfully';
         }  elseif ($old_topic_id !== null) {
             log_message("Inserting new topic with agenda_id: $new_agenda_id");
-            $insert_stmt = $conn->prepare("INSERT INTO topics (name, responsible, gft, cr, details, agenda_id, start, duration) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $insert_stmt = $conn->prepare("INSERT INTO domm_topics (name, responsible, gft, cr, details, agenda_id, start, duration) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $insert_stmt->bind_param("ssssssis", $name, $responsible, $gft, $cr, $details, $new_agenda_id, $start, $duration);
         }
     if ($old_topic_id !== null) {
@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 log_message("Copying tasks associated with the old topic_id: $old_topic_id");
                 
                 // Prepare all statements outside of the loops to improve efficiency
-                $task_stmt = $conn->prepare("SELECT id, name, responsible, deadline, gft, cr, details FROM tasks WHERE topic_id = ?");
+                $task_stmt = $conn->prepare("SELECT id, name, responsible, deadline, gft, cr, details FROM domm_tasks WHERE topic_id = ?");
                 $task_stmt->bind_param("i", $old_topic_id);
                 $task_stmt->execute();
                 $task_result = $task_stmt->get_result();
@@ -135,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     // Variables extracted from fetched task
                     extract($task_row);
-                    $task_insert_stmt = $conn->prepare("INSERT INTO tasks (name, responsible, deadline, gft, cr, details, agenda_id, topic_id, deleted, sent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 0)");
+                    $task_insert_stmt = $conn->prepare("INSERT INTO domm_tasks (name, responsible, deadline, gft, cr, details, agenda_id, topic_id, deleted, sent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 0)");
                     $task_insert_stmt->bind_param("ssssssii", $name, $responsible, $deadline, $gft, $cr, $details, $new_agenda_id, $new_topic_id);
                     if ($task_insert_stmt->execute()) {
                         $new_task_id = $conn->insert_id;  // Fetch the new task ID after insert
@@ -176,11 +176,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Set the old task/topic as deleted or sent
             if ($old_task_id !== null) {
                 log_message("Marking old task as sent: $old_task_id");
-                $update_stmt = $conn->prepare("UPDATE tasks SET sent = 1 WHERE id = ?");
+                $update_stmt = $conn->prepare("UPDATE domm_tasks SET sent = 1 WHERE id = ?");
                 $update_stmt->bind_param("i", $old_task_id);
             } elseif ($old_topic_id !== null) {
                 log_message("Deleting old topic: $old_topic_id");
-                $update_stmt = $conn->prepare("DELETE FROM topics WHERE id = ?");
+                $update_stmt = $conn->prepare("DELETE FROM domm_topics WHERE id = ?");
                 $update_stmt->bind_param("i", $old_topic_id);
             }
             

@@ -17,8 +17,8 @@ if ($selectedAgendaId) {
 // Fetch GFTs connected to the selected team and order by order_value
 $sql_gfts = "
     SELECT g.name, g.moduleteam, g.id, o.order_value
-    FROM org_gfts g
-    LEFT JOIN gft_order o ON g.id = o.gft_id AND o.agenda_id = ?
+    FROM org_gfts_vehicle_mb g
+    LEFT JOIN domm_gft_order o ON g.id = o.gft_id AND o.agenda_id = ?
     WHERE g.moduleteam = ?
     ORDER BY o.order_value IS NULL, o.order_value ASC, g.name ASC";
 
@@ -45,7 +45,7 @@ function generateAgendaSelect($conn, $selected_team, $selectedAgendaId)
     $output = '<select id="agendaSelect" data-search="true" class="form-select">';
     $output .= '<option value="">Select Agenda...</option>';
 
-    $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+    $sql = "SELECT * FROM domm_mt_agenda_list WHERE module_team = ?";
     $stmt = $conn->prepare($sql);
 
     if ($stmt) {
@@ -77,7 +77,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
     $output = '<select id="deleteAgendaSelect" data-search="true" class="form-select">';
     $output .= '<option value="">Delete Agenda...</option>';
 
-    $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+    $sql = "SELECT * FROM domm_mt_agenda_list WHERE module_team = ?";
     $stmt = $conn->prepare($sql);
 
     if ($stmt) {
@@ -157,7 +157,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                 <select id="agendaSelect" data-search="true" class="styled-select w-100" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important; text-align-last: center!important;">
                     <option value="">Select Agenda...</option>
                     <?php
-                    $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                    $sql = "SELECT * FROM domm_mt_agenda_list WHERE module_team = ?";
                     $stmt = $conn->prepare($sql);
 
                     if ($stmt) {
@@ -191,7 +191,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     <select id="deleteAgendaSelect" data-search="true" class="styled-select" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
                         <option value="">Delete Agenda...</option>
                         <?php
-                        $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                        $sql = "SELECT * FROM domm_mt_agenda_list WHERE module_team = ?";
                         $stmt = $conn->prepare($sql);
 
                         if ($stmt) {
@@ -243,7 +243,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     <?php
                     // Fetch change requests with the filter status for the selected agenda
                     $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active
-                                FROM change_requests cr
+                                FROM domm_change_requests cr
                                 LEFT JOIN domm_agenda_change_request_filters acrf ON cr.ID = acrf.change_request_id AND acrf.agenda_id = ?
                                 WHERE cr.lead_module_team = ? AND cr.fasttrack = 'Yes'";
                     $stmt = $conn->prepare($sql);
@@ -320,7 +320,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                                 <option value="">Select Agenda...</option>
                                 <?php
 
-                                $sql = "SELECT * FROM mt_agenda_list WHERE module_team = ?";
+                                $sql = "SELECT * FROM domm_mt_agenda_list WHERE module_team = ?";
                                 $stmt = $conn->prepare($sql);
 
                                 if ($stmt) {
@@ -410,7 +410,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             $selected_team = $row_gft["moduleteam"];
             $selected_gft = $row_gft["name"];
             $sql_change_requests = "SELECT cr.title,cr.ID 
-                    FROM change_requests cr 
+                    FROM domm_change_requests cr 
                     JOIN domm_agenda_change_request_filters acrf 
                     ON cr.ID = acrf.change_request_id 
                     WHERE acrf.agenda_id = ? AND acrf.filter_active = 1 AND cr.lead_module_team = ? AND cr.lead_gft = ? AND cr.fasttrack = 'Yes'";
@@ -453,7 +453,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                           </td>"; // Actions
                     echo "</tr>";
     
-                    // Fetch topics and tasks for this change request
+                    // Fetch domm_topics and tasks for this change request
                     fetchTasksAndTopics($conn, $gftId, $changeRequestId);
                 }
             } else {
@@ -469,7 +469,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                 
 
 
-                // Fetch topics and tasks for this GFT only
+                // Fetch domm_topics and tasks for this GFT only
                 //fetchTasksAndTopics($conn, $gftId, null);
             }
         }
@@ -485,14 +485,14 @@ function generateDeleteAgendaSelect($conn, $selected_team)
         echo "</tr>";
     }
     
-        // Function to fetch tasks and topics
+        // Function to fetch tasks and domm_topics
         function fetchTasksAndTopics($conn, $gft, $cr)
         {
             // Remove "title for " from the CR value if present
             $cr_stripped = $cr ? str_replace('title for ', '', $cr) : null;
             $selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
             
-            $sql_topics = "SELECT * FROM topics WHERE agenda_id = ? AND gft = ? AND (cr = ?)";
+            $sql_topics = "SELECT * FROM domm_topics WHERE agenda_id = ? AND gft = ? AND (cr = ?)";
             $stmt_topics = $conn->prepare($sql_topics);
             $stmt_topics->bind_param('iss', $selectedAgendaId, $gft, $cr);
             $stmt_topics->execute();
@@ -537,7 +537,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             }
             
                       
-            $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND sent = 0 AND deleted = 0 AND topic_id = '' ";
+            $sql_tasks = "SELECT * FROM domm_tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND sent = 0 AND deleted = 0 AND topic_id = '' ";
             $stmt_tasks = $conn->prepare($sql_tasks);
             $stmt_tasks->bind_param('isss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped);
             $stmt_tasks->execute();
@@ -584,7 +584,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
         function fetchTasksforTopics($conn, $topicId, $selectedAgendaId, $gft, $cr_stripped)
         {
 
-            $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND sent = 0 AND deleted = 0 AND topic_id = ?";
+            $sql_tasks = "SELECT * FROM domm_tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND sent = 0 AND deleted = 0 AND topic_id = ?";
             $stmt_tasks = $conn->prepare($sql_tasks);
             $stmt_tasks->bind_param('issss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped, $topicId);
             $stmt_tasks->execute();
@@ -633,7 +633,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             // Remove "title for " from the CR value if present
             $selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
             
-            $sql_topics = "SELECT * FROM topics WHERE agenda_id = ? AND gft = ? AND (cr = '') ";
+            $sql_topics = "SELECT * FROM domm_topics WHERE agenda_id = ? AND gft = ? AND (cr = '') ";
             $stmt_topics = $conn->prepare($sql_topics);
             $stmt_topics->bind_param('is', $selectedAgendaId, $gft);
             $stmt_topics->execute();
@@ -678,7 +678,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             }
             
                       
-            $sql_tasks = "SELECT * FROM tasks WHERE agenda_id = ? AND gft = ? AND (cr = '') AND sent = 0 AND deleted = 0 AND topic_id= '' ";
+            $sql_tasks = "SELECT * FROM domm_tasks WHERE agenda_id = ? AND gft = ? AND (cr = '') AND sent = 0 AND deleted = 0 AND topic_id= '' ";
             $stmt_tasks = $conn->prepare($sql_tasks);
             $stmt_tasks->bind_param('is', $selectedAgendaId, $gft);
             $stmt_tasks->execute();

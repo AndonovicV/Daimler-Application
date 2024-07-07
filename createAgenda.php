@@ -20,8 +20,8 @@ if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda
     $agendaDate = $conn->real_escape_string($agendaDate);
     $selected_team = $conn->real_escape_string($selected_team);
 
-    // Insert new row into mt_agenda_list table
-    $insertSql = "INSERT INTO mt_agenda_list (agenda_name, agenda_date, module_team) VALUES ('$agendaName', '$agendaDate', '$selected_team')";
+    // Insert new row into domm_mt_agenda_list table
+    $insertSql = "INSERT INTO domm_mt_agenda_list (agenda_name, agenda_date, module_team) VALUES ('$agendaName', '$agendaDate', '$selected_team')";
     if ($conn->query($insertSql) === TRUE) {
         // Retrieve the auto-generated agenda_id
         $agendaId = $conn->insert_id;
