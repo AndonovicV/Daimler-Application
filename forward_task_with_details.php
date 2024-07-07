@@ -18,7 +18,7 @@ try {
     $newTaskId = $conn->insert_id; // Get the ID of the newly inserted task
 
     // Types of IAD rows to handle
-    $types = ['information', 'assignment', 'decision'];
+    $types = ['domm_information', 'domm_assignment', 'domm_decision'];
     foreach ($types as $type) {
         $sql = "INSERT INTO $type (agenda_id, gft, cr, task_id, content, responsible) 
                 SELECT ?, gft, cr, ?, content, responsible FROM $type WHERE task_id = ?";

@@ -13,10 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             // Delete from related tables
             $relatedTables = [
-                'agenda_change_request_filters',
-                'assignment',
-                'decision',
-                'information',
+                'domm_agenda_change_request_filters',
+                'domm_assignment',
+                'domm_decision',
+                'domm_information',
                 'module_team_guest_attendance',
                 'module_team_member_attendance',
                 'tasks',

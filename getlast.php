@@ -22,18 +22,18 @@ if ($type === 'topic') {
         $taskRow = $result->fetch_assoc();
         $lastTaskId = $taskRow['id'];
 
-        // Fetch the last ID from the information table
-        $infoSql = "SELECT id FROM information ORDER BY id DESC LIMIT 1";
+        // Fetch the last ID from the domm_information table
+        $infoSql = "SELECT id FROM domm_information ORDER BY id DESC LIMIT 1";
         $infoResult = $conn->query($infoSql);
         $lastInfoId = ($infoResult->num_rows > 0) ? $infoResult->fetch_assoc()['id'] : null;
 
-        // Fetch the last ID from the assignment table
-        $assignmentSql = "SELECT id FROM assignment ORDER BY id DESC LIMIT 1";
+        // Fetch the last ID from the domm_assignment table
+        $assignmentSql = "SELECT id FROM domm_assignment ORDER BY id DESC LIMIT 1";
         $assignmentResult = $conn->query($assignmentSql);
         $lastAssignmentId = ($assignmentResult->num_rows > 0) ? $assignmentResult->fetch_assoc()['id'] : null;
 
-        // Fetch the last ID from the decision table
-        $decisionSql = "SELECT id FROM decision ORDER BY id DESC LIMIT 1";
+        // Fetch the last ID from the domm_decision table
+        $decisionSql = "SELECT id FROM domm_decision ORDER BY id DESC LIMIT 1";
         $decisionResult = $conn->query($decisionSql);
         $lastDecisionId = ($decisionResult->num_rows > 0) ? $decisionResult->fetch_assoc()['id'] : null;
 

@@ -16,13 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Determine which table to update based on rowType
     switch ($rowType) {
         case 'I':
-            $columnName = 'information';
+            $columnName = 'domm_information';
             break;
         case 'A':
-            $columnName = 'assignment';
+            $columnName = 'domm_assignment';
             break;
         case 'D':
-            $columnName = 'decision';
+            $columnName = 'domm_decision';
             break;
         default:
             // Handle invalid rowType

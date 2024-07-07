@@ -41,14 +41,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $topic_id = $row['topic_id']
 
         // Check if the filter for the Change Request is already active
-        $check_stmt = $conn->prepare("SELECT * FROM agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = ? AND filter_active = 1");
+        $check_stmt = $conn->prepare("SELECT * FROM domm_agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = ? AND filter_active = 1");
         $check_stmt->bind_param("is", $new_agenda_id, $cr);
         $check_stmt->execute();
         $check_result = $check_stmt->get_result();
 
         if ($check_result->num_rows == 0) {
             // Activate the filter for the Change Request connected to the task
-            $filter_stmt = $conn->prepare("INSERT INTO agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?,  ?, 1)");
+            $filter_stmt = $conn->prepare("INSERT INTO domm_agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?,  ?, 1)");
             $filter_stmt->bind_param("is", $new_agenda_id, $cr);
             $filter_stmt->execute();
             $filter_stmt->close();
@@ -92,8 +92,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($insert_stmt->execute()) {
             $new_task_id = $conn->insert_id; // Get the ID of the newly inserted task/topic
 
-            // Fetch related entries from information, assignment, and decision tables
-            $related_tables = ['information', 'assignment', 'decision'];
+            // Fetch related entries from domm_information, domm_assignment, and domm_decision tables
+            $related_tables = ['domm_information', 'domm_assignment', 'domm_decision'];
             foreach ($related_tables as $table) {
                 $fetch_related_stmt = $conn->prepare("SELECT * FROM $table WHERE task_id = ?");
                 $fetch_related_stmt->bind_param("i", $old_task_id);

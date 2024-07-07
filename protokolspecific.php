@@ -28,13 +28,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Determine which table to insert into based on rowType
     switch ($rowType) {
         case 'I':
-            $tableName = 'information';
+            $tableName = 'domm_information';
             break;
         case 'A':
-            $tableName = 'assignment';
+            $tableName = 'domm_assignment';
             break;
         case 'D':
-            $tableName = 'decision';
+            $tableName = 'domm_decision';
             break;
         default:
             // Handle invalid rowType

@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         log_message("Fetched data: " . print_r($row, true));
     
         // Check if the filter for the Change Request is already active
-        $check_stmt = $conn->prepare("SELECT * FROM agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = ? AND filter_active = 1");
+        $check_stmt = $conn->prepare("SELECT * FROM domm_agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = ? AND filter_active = 1");
         $check_stmt->bind_param("is", $new_agenda_id, $cr);
         $check_stmt->execute();
         $check_result = $check_stmt->get_result();
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($check_result->num_rows == 0) {
             log_message("Activating filter for Change Request: $cr");
             // Activate the filter for the Change Request connected to the task
-            $filter_stmt = $conn->prepare("INSERT INTO agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, ?, 1)");
+            $filter_stmt = $conn->prepare("INSERT INTO domm_agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, ?, 1)");
             $filter_stmt->bind_param("is", $new_agenda_id, $cr);
             $filter_stmt->execute();
             $filter_stmt->close();
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $newTaskId = $conn->insert_id; // Get the ID of the newly inserted task
         
             // Types of IAD rows to handle
-            $types = ['information', 'assignment', 'decision'];
+            $types = ['domm_information', 'domm_assignment', 'domm_decision'];
             foreach ($types as $type) {
                 $sql = "INSERT INTO $type (agenda_id, gft, cr, task_id, content, responsible) 
                         SELECT ?, gft, cr, ?, content, responsible FROM $type WHERE task_id = ?";
@@ -145,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                     $task_insert_stmt->close();
                     
-                    $related_tables = ['information', 'assignment', 'decision'];
+                    $related_tables = ['domm_information', 'domm_assignment', 'domm_decision'];
                     foreach ($related_tables as $table) {
                         log_message("Processing related table: $table for old task ID: $old_task_id");
                         $fetch_related_stmt = $conn->prepare("SELECT gft, cr, content, responsible FROM $table WHERE task_id = ?");

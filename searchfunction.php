@@ -22,9 +22,9 @@ $tables = [
     'org_gfts' => ['name', 'moduleteam'],
     'tasks' => ['name', 'responsible', 'gft', 'cr', 'asap', 'deadline'],
     'topics' => ['name', 'responsible', 'gft', 'cr'],
-    'information' => ['agenda_id', 'content', 'gft', 'cr'],
-    'assignment' => ['agenda_id', 'content', 'gft', 'cr'],
-    'decision' => ['agenda_id', 'content', 'gft', 'cr'],
+    'domm_information' => ['agenda_id', 'content', 'gft', 'cr'],
+    'domm_assignment' => ['agenda_id', 'content', 'gft', 'cr'],
+    'domm_decision' => ['agenda_id', 'content', 'gft', 'cr'],
 ];
 
 // Filter the tables based on the selected filter
@@ -76,7 +76,7 @@ foreach ($tables as $table => $columns) {
                 if ($key === 'id' ||
                     ($table === 'tasks' && in_array($key, ['details', 'deleted'])) ||
                     ($table === 'topics' && $key === 'details') ||
-                    (in_array($table, ['information', 'assignment', 'decision']) && in_array($key, ['cr', 'task_id']))
+                    (in_array($table, ['domm_information', 'domm_assignment', 'domm_decision']) && in_array($key, ['cr', 'task_id']))
                 ) {
                     continue; // Skip the specified keys
                 }

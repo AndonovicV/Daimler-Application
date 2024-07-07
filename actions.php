@@ -52,20 +52,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $row_task_id = $result_task_id->fetch_assoc();
             $taskId = $row_task_id['id'];
                         
-            // Insert into information table
-            $sql_information = "INSERT INTO information (agenda_id, gft, cr, task_id, content) VALUES (?, ?, ?, ?, ?)";
+            // Insert into domm_information table
+            $sql_information = "INSERT INTO domm_information (agenda_id, gft, cr, task_id, content) VALUES (?, ?, ?, ?, ?)";
             $stmt_information = $conn->prepare($sql_information);
             $stmt_information->bind_param("isiss", $agendaId, $gft, $cr, $taskId, $content);
             $stmt_information->execute();
             
-            // Insert into assignment table
-            $sql_assignment = "INSERT INTO assignment (agenda_id, gft, cr, task_id, content) VALUES (?, ?, ?, ?, ?)";
+            // Insert into domm_assignment table
+            $sql_assignment = "INSERT INTO domm_assignment (agenda_id, gft, cr, task_id, content) VALUES (?, ?, ?, ?, ?)";
             $stmt_assignment = $conn->prepare($sql_assignment);
             $stmt_assignment->bind_param("isiss", $agendaId, $gft, $cr, $taskId, $content);
             $stmt_assignment->execute();
             
-            // Insert into decision table
-            $sql_decision = "INSERT INTO decision (agenda_id, gft, cr, task_id, content) VALUES (?, ?, ?, ?, ?)";
+            // Insert into domm_decision table
+            $sql_decision = "INSERT INTO domm_decision (agenda_id, gft, cr, task_id, content) VALUES (?, ?, ?, ?, ?)";
             $stmt_decision = $conn->prepare($sql_decision);
             $stmt_decision->bind_param("isiss", $agendaId, $gft, $cr, $taskId, $content);
             $stmt_decision->execute();
@@ -282,14 +282,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($selectedAgendaId !== null) {
             // Clear existing filter selections for the current agenda
-            $clear_sql = "DELETE FROM agenda_change_request_filters WHERE agenda_id = ?";
+            $clear_sql = "DELETE FROM domm_agenda_change_request_filters WHERE agenda_id = ?";
             $clear_stmt = $conn->prepare($clear_sql);
             $clear_stmt->bind_param('i', $selectedAgendaId);
             $clear_stmt->execute();
 
             foreach ($selected_titles as $title) {
                 // Insert new filter selections
-                $insert_sql = "INSERT INTO agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, (SELECT ID FROM change_requests WHERE title = ?), 1)";
+                $insert_sql = "INSERT INTO domm_agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, (SELECT ID FROM change_requests WHERE title = ?), 1)";
                 $insert_stmt = $conn->prepare($insert_sql);
                 $insert_stmt->bind_param('is', $selectedAgendaId, $title);
                 $insert_stmt->execute();
@@ -303,7 +303,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $title = $_POST['title'];
         $agendaId = $_POST['agenda_id'];
     
-        $delete_sql = "DELETE FROM agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = (SELECT ID FROM change_requests WHERE title = ? LIMIT 1)";
+        $delete_sql = "DELETE FROM domm_agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = (SELECT ID FROM change_requests WHERE title = ? LIMIT 1)";
         $delete_stmt = $conn->prepare($delete_sql);
         $delete_stmt->bind_param('is', $agendaId, $title);
         $delete_stmt->execute();

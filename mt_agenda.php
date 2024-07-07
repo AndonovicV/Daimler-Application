@@ -244,7 +244,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     // Fetch change requests with the filter status for the selected agenda
                     $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active
                                 FROM change_requests cr
-                                LEFT JOIN agenda_change_request_filters acrf ON cr.ID = acrf.change_request_id AND acrf.agenda_id = ?
+                                LEFT JOIN domm_agenda_change_request_filters acrf ON cr.ID = acrf.change_request_id AND acrf.agenda_id = ?
                                 WHERE cr.lead_module_team = ? AND cr.fasttrack = 'Yes'";
                     $stmt = $conn->prepare($sql);
                     $stmt->bind_param('is', $selectedAgendaId, $selected_team);
@@ -411,7 +411,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             $selected_gft = $row_gft["name"];
             $sql_change_requests = "SELECT cr.title,cr.ID 
                     FROM change_requests cr 
-                    JOIN agenda_change_request_filters acrf 
+                    JOIN domm_agenda_change_request_filters acrf 
                     ON cr.ID = acrf.change_request_id 
                     WHERE acrf.agenda_id = ? AND acrf.filter_active = 1 AND cr.lead_module_team = ? AND cr.lead_gft = ? AND cr.fasttrack = 'Yes'";
             $stmt = $conn->prepare($sql_change_requests);

@@ -190,7 +190,7 @@ if ($result_personal_tasks->num_rows > 0) {
                             // Fetch change requests with the filter status for the selected protokol
                             $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active
                                 FROM change_requests cr
-                                LEFT JOIN agenda_change_request_filters acrf ON cr.ID = acrf.change_request_id AND acrf.agenda_id = ?
+                                LEFT JOIN domm_agenda_change_request_filters acrf ON cr.ID = acrf.change_request_id AND acrf.agenda_id = ?
                                 WHERE cr.lead_module_team = ? AND cr.fasttrack = 'Yes'";
                             $stmt = $conn->prepare($sql);
                             $stmt->bind_param('is', $selectedAgendaId, $selected_team);
@@ -327,7 +327,7 @@ if ($result_personal_tasks->num_rows > 0) {
                         $selected_gft = $row_gft["name"];
                         $sql_change_requests = "SELECT cr.title,cr.ID 
                         FROM change_requests cr 
-                        JOIN agenda_change_request_filters acrf 
+                        JOIN domm_agenda_change_request_filters acrf 
                         ON cr.ID = acrf.change_request_id 
                         WHERE acrf.agenda_id = ? AND acrf.filter_active = 1 AND cr.lead_module_team = ? AND cr.lead_gft = ? AND cr.fasttrack = 'Yes'";
                         $stmt = $conn->prepare($sql_change_requests);
@@ -473,8 +473,8 @@ if ($result_personal_tasks->num_rows > 0) {
                                       </td>"; // Actions
                                 echo "</tr>";
                             }
-                            // Load rows from information table
-                            $sql_information = "SELECT * FROM information WHERE task_id = ?";
+                            // Load rows from domm_information table
+                            $sql_information = "SELECT * FROM domm_information WHERE task_id = ?";
                             $stmt_information = $conn->prepare($sql_information);
                             $stmt_information->bind_param('i', $row_task["id"]);
                             $stmt_information->execute();
@@ -501,8 +501,8 @@ if ($result_personal_tasks->num_rows > 0) {
                                 echo "</tr>";
                             }
 
-                            // Load rows from assignment table (similar process as information)
-                            $sql_assignment = "SELECT * FROM assignment WHERE task_id = ?";
+                            // Load rows from domm_assignment table (similar process as domm_information)
+                            $sql_assignment = "SELECT * FROM domm_assignment WHERE task_id = ?";
                             $stmt_assignment = $conn->prepare($sql_assignment);
                             $stmt_assignment->bind_param('i', $row_task["id"]);
                             $stmt_assignment->execute();
@@ -529,8 +529,8 @@ if ($result_personal_tasks->num_rows > 0) {
                                 echo "</tr>";
                             }
 
-                            // Load rows from decision table (similar process as information)
-                            $sql_decision = "SELECT * FROM decision WHERE task_id = ?";
+                            // Load rows from domm_decision table (similar process as domm_information)
+                            $sql_decision = "SELECT * FROM domm_decision WHERE task_id = ?";
                             $stmt_decision = $conn->prepare($sql_decision);
                             $stmt_decision->bind_param('i', $row_task["id"]);
                             $stmt_decision->execute();
@@ -601,8 +601,8 @@ if ($result_personal_tasks->num_rows > 0) {
                                 </td>"; // Actions
                             echo "</tr>";
                         
-                             // Load rows from information table
-                             $sql_information = "SELECT * FROM information WHERE task_id = ?";
+                             // Load rows from domm_information table
+                             $sql_information = "SELECT * FROM domm_information WHERE task_id = ?";
                              $stmt_information = $conn->prepare($sql_information);
                              $stmt_information->bind_param('i', $row_task["id"]);
                              $stmt_information->execute();
@@ -629,8 +629,8 @@ if ($result_personal_tasks->num_rows > 0) {
                                  echo "</tr>";
                              }
  
-                             // Load rows from assignment table (similar process as information)
-                             $sql_assignment = "SELECT * FROM assignment WHERE task_id = ?";
+                             // Load rows from domm_assignment table (similar process as domm_information)
+                             $sql_assignment = "SELECT * FROM domm_assignment WHERE task_id = ?";
                              $stmt_assignment = $conn->prepare($sql_assignment);
                              $stmt_assignment->bind_param('i', $row_task["id"]);
                              $stmt_assignment->execute();
@@ -657,8 +657,8 @@ if ($result_personal_tasks->num_rows > 0) {
                                  echo "</tr>";
                              }
  
-                             // Load rows from decision table (similar process as information)
-                             $sql_decision = "SELECT * FROM decision WHERE task_id = ?";
+                             // Load rows from domm_decision table (similar process as domm_information)
+                             $sql_decision = "SELECT * FROM domm_decision WHERE task_id = ?";
                              $stmt_decision = $conn->prepare($sql_decision);
                              $stmt_decision->bind_param('i', $row_task["id"]);
                              $stmt_decision->execute();

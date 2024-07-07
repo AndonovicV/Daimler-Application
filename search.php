@@ -50,9 +50,9 @@ $conn->close();
             <option value="">All</option>
             <option class = 'topic-row' value="topics">Topics</option>
             <option class = 'task-row'value="tasks">Tasks</option>
-            <option value="information">Information</option>
-            <option value="assignment">Assignment</option>
-            <option value="decision">Decision</option>
+            <option value="domm_information">Information</option>
+            <option value="domm_assignment">Assignment</option>
+            <option value="domm_decision">Decision</option>
         </select>
     </div>
         
