@@ -35,7 +35,7 @@ $selectedAgendaId = isset($_GET['protokol_id']) ? $_GET['protokol_id'] : null;
 
 //PERSONAL TASK variables
 $user_id = 1; // Example user ID
-$sql_personal_tasks = "SELECT summary FROM personal_tasks WHERE user_id = $user_id ORDER BY id DESC LIMIT 1";
+$sql_personal_tasks = "SELECT summary FROM domm_personal_tasks WHERE user_id = $user_id ORDER BY id DESC LIMIT 1";
 $result_personal_tasks = $conn->query($sql_personal_tasks);
 
 if ($result_personal_tasks->num_rows > 0) {

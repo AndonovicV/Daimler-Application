@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $absent = ($status == 2) ? 1 : 0;
             $substituted = ($status == 3) ? 1 : 0;
 
-            $sql = "UPDATE module_team_member_attendance 
+            $sql = "UPDATE domm_module_team_member_attendance 
                     SET present = ?, absent = ?, substituted = ? 
                     WHERE agenda_id = ? AND member_id = ?";
             $stmt = $conn->prepare($sql);
@@ -53,7 +53,7 @@ if (isset($_POST['agenda_id']) && isset($_POST['guest_id']) && isset($_POST['dep
     $department = $_POST['department'];
     $substitute = $_POST['substitute'];
 
-    $sql = "UPDATE module_team_guest_attendance 
+    $sql = "UPDATE domm_module_team_guest_attendance 
             SET department = ?, substitute = ? 
             WHERE agenda_id = ? AND guest_id = ?";
     $stmt = $conn->prepare($sql);

@@ -9,9 +9,9 @@ if (isset($_GET['agenda_id'])) {
                 a.*, 
                 m.member_name
             FROM 
-                module_team_member_attendance a
+                domm_module_team_member_attendance a
             JOIN 
-                module_team_members m ON a.member_id = m.member_id
+                domm_module_team_members m ON a.member_id = m.member_id
             WHERE 
                 a.agenda_id = $agendaId";
     $attendanceResult = $conn->query($sql);
@@ -53,9 +53,9 @@ if (isset($_GET['agenda_id'])) {
                 ga.guest_name, 
                 ga.department AS guest_department 
             FROM 
-                module_team_guest_attendance g
+                domm_module_team_guest_attendance g
             JOIN 
-                guests ga ON g.guest_id = ga.guest_id
+                domm_guests ga ON g.guest_id = ga.guest_id
             WHERE 
                 g.agenda_id = $agendaId";
     $guestResult = $conn->query($sql);

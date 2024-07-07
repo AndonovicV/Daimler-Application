@@ -26,8 +26,8 @@ if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda
         // Retrieve the auto-generated agenda_id
         $agendaId = $conn->insert_id;
 
-        // Fetch all member_id and department values from module_team_members table
-        $memberQuery = "SELECT member_id, department FROM module_team_members";
+        // Fetch all member_id and department values from domm_module_team_members table
+        $memberQuery = "SELECT member_id, department FROM domm_module_team_members";
         $memberResult = $conn->query($memberQuery);
 
         if ($memberResult->num_rows > 0) {
@@ -35,8 +35,8 @@ if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda
                 $memberId = $memberRow['member_id'];
                 $department = $memberRow['department'];
 
-                // Insert into module_team_member_attendance table
-                $insertAttendanceSql = "INSERT INTO module_team_member_attendance (agenda_id, member_id, department, present, absent, substituted) VALUES ($agendaId, $memberId, '$department', 0, 0, 0)";
+                // Insert into domm_module_team_member_attendance table
+                $insertAttendanceSql = "INSERT INTO domm_module_team_member_attendance (agenda_id, member_id, department, present, absent, substituted) VALUES ($agendaId, $memberId, '$department', 0, 0, 0)";
                 if (!$conn->query($insertAttendanceSql)) {
                     echo json_encode(["error" => "Error inserting member ID: $memberId into attendance: " . $conn->error]);
                     exit;
@@ -44,8 +44,8 @@ if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda
             }
         }
 
-        // Fetch all guest_id, guest_name, and department values from guests table
-        $guestQuery = "SELECT guest_id, guest_name, department FROM guests";
+        // Fetch all guest_id, guest_name, and department values from domm_guests table
+        $guestQuery = "SELECT guest_id, guest_name, department FROM domm_guests";
         $guestResult = $conn->query($guestQuery);
 
         if ($guestResult->num_rows > 0) {
@@ -54,8 +54,8 @@ if (isset($_POST['agenda_name'], $_POST['agenda_date']) && !empty($_POST['agenda
                 $guestName = $guestRow['guest_name'];
                 $department = $guestRow['department'];
 
-                // Insert into module_team_guest_attendance table
-                $insertGuestAttendanceSql = "INSERT INTO module_team_guest_attendance (agenda_id, guest_id, department, substitute, present) VALUES ($agendaId, $guestId, '$department', NULL, 0)";
+                // Insert into domm_module_team_guest_attendance table
+                $insertGuestAttendanceSql = "INSERT INTO domm_module_team_guest_attendance (agenda_id, guest_id, department, substitute, present) VALUES ($agendaId, $guestId, '$department', NULL, 0)";
                 if (!$conn->query($insertGuestAttendanceSql)) {
                     echo json_encode(["error" => "Error inserting guest ID: $guestId into guest attendance: " . $conn->error]);
                     exit;

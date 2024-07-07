@@ -214,12 +214,12 @@ if (isset($_POST['save_task_trigger'])) {
     $user_id = intval($_POST['user_id']);
 
     // Check if there's already a record for the user
-    $check_sql = "SELECT * FROM personal_tasks WHERE user_id = $user_id";
+    $check_sql = "SELECT * FROM domm_personal_tasks WHERE user_id = $user_id";
     $check_result = $conn->query($check_sql);
 
     if ($check_result->num_rows > 0) {
         // Update existing record
-        $update_sql = "UPDATE personal_tasks SET summary = '$summary' WHERE user_id = $user_id";
+        $update_sql = "UPDATE domm_personal_tasks SET summary = '$summary' WHERE user_id = $user_id";
 
         if ($conn->query($update_sql) === TRUE) {
             echo "Record updated successfully";
@@ -229,7 +229,7 @@ if (isset($_POST['save_task_trigger'])) {
         }
     } else {
         // Insert new record if no record found for the user
-        $insert_sql = "INSERT INTO personal_tasks (user_id, summary) VALUES ($user_id, '$summary')";
+        $insert_sql = "INSERT INTO domm_personal_tasks (user_id, summary) VALUES ($user_id, '$summary')";
 
         if ($conn->query($insert_sql) === TRUE) {
             echo "New record created successfully";
@@ -245,12 +245,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {    // needs to be an if (isset($_POS
     $user_id = intval($_POST['user_id']);
 
     // Check if there's already a record for the user
-    $check_sql = "SELECT * FROM personal_tasks WHERE user_id = $user_id";
+    $check_sql = "SELECT * FROM domm_personal_tasks WHERE user_id = $user_id";
     $check_result = $conn->query($check_sql);
 
     if ($check_result->num_rows > 0) {
         // Update existing record
-        $update_sql = "UPDATE personal_tasks SET summary = '$summary' WHERE user_id = $user_id";
+        $update_sql = "UPDATE domm_personal_tasks SET summary = '$summary' WHERE user_id = $user_id";
 
         if ($conn->query($update_sql) === TRUE) {
             echo "Record updated successfully";
@@ -259,7 +259,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {    // needs to be an if (isset($_POS
         }
     } else {
         // Insert new record if no record found for the user
-        $insert_sql = "INSERT INTO personal_tasks (user_id, summary) VALUES ($user_id, '$summary')";
+        $insert_sql = "INSERT INTO domm_personal_tasks (user_id, summary) VALUES ($user_id, '$summary')";
 
         if ($conn->query($insert_sql) === TRUE) {
             echo "New record created successfully";

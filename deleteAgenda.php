@@ -17,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'domm_assignment',
                 'domm_decision',
                 'domm_information',
-                'module_team_guest_attendance',
-                'module_team_member_attendance',
+                'domm_module_team_guest_attendance',
+                'domm_module_team_member_attendance',
                 'tasks',
                 'topics'
             ];

@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $absent = ($status == 2) ? 1 : 0;
         $substituted = ($status == 3) ? 1 : 0;
 
-        $sql = "UPDATE module_team_member_attendance 
+        $sql = "UPDATE domm_module_team_member_attendance 
                 SET present = ?, absent = ?, substituted = ? 
                 WHERE agenda_id = ? AND member_id = ?";
         $stmt = $conn->prepare($sql);
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $guest_id = intval($member_id);  // Reuse member_id as guest_id in this context
         $present = ($status == 1) ? 1 : 0;
 
-        $sql = "UPDATE module_team_guest_attendance 
+        $sql = "UPDATE domm_module_team_guest_attendance 
                 SET present = ? 
                 WHERE agenda_id = ? AND guest_id = ?";
         $stmt = $conn->prepare($sql);
@@ -62,7 +62,7 @@ $maxRetries = 5; // Maximum number of retries
 $retryCount = 0; // Retry counter
 
 function updateAttendance($conn, $agendaId, $memberId, $status, $checkboxName) {
-    $sql = "UPDATE module_team_member_attendance SET present = ?, absent = ?, substituted = ? WHERE agenda_id = ? AND member_id = ?";
+    $sql = "UPDATE domm_module_team_member_attendance SET present = ?, absent = ?, substituted = ? WHERE agenda_id = ? AND member_id = ?";
     $present = $status == 1 ? 1 : 0;
     $absent = $status == 2 ? 1 : 0;
     $substituted = $status == 3 ? 1 : 0;

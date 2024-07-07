@@ -7,7 +7,7 @@ if (isset($_POST['agenda_id']) && isset($_POST['guest_name'])) {
     $department = $_POST['department']; // Assuming department input is also collected in modal
     $substitute = $_POST['substitute']; // Assuming substitute input is also collected in modal
 
-    $sql = "INSERT INTO guests (guest_name, department) VALUES (?, ?)";
+    $sql = "INSERT INTO domm_guests (guest_name, department) VALUES (?, ?)";
     $stmt = $conn->prepare($sql);
 
     if ($stmt) {
@@ -16,7 +16,7 @@ if (isset($_POST['agenda_id']) && isset($_POST['guest_name'])) {
             $guestId = $stmt->insert_id;
             $stmt->close();
 
-            $sql = "INSERT INTO module_team_guest_attendance (agenda_id, guest_id, substitute, present) VALUES (?, ?, ?, 0)";
+            $sql = "INSERT INTO domm_module_team_guest_attendance (agenda_id, guest_id, substitute, present) VALUES (?, ?, ?, 0)";
             $stmt = $conn->prepare($sql);
             if ($stmt) {
                 $stmt->bind_param('iis', $agendaId, $guestId, $substitute);

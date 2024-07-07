@@ -4,7 +4,7 @@ include 'conn.php';
 if (isset($_POST['guest_id'])) {
     $guestId = intval($_POST['guest_id']);
 
-    $sql = "DELETE FROM module_team_guest_attendance WHERE guest_id = ?";
+    $sql = "DELETE FROM domm_module_team_guest_attendance WHERE guest_id = ?";
     $stmt = $conn->prepare($sql);
     
     if ($stmt) {
@@ -22,7 +22,7 @@ if (isset($_POST['guest_id'])) {
     echo json_encode(['status' => 'error', 'message' => 'No guest ID provided.']);
 }
 
-// In case they want to remove guests from the main guest table:
+// In case they want to remove domm_guests from the main guest table:
     if (isset($_POST['guest_id'])) {
     $guestId = intval($_POST['guest_id']);
 
@@ -30,8 +30,8 @@ if (isset($_POST['guest_id'])) {
     $conn->begin_transaction();
 
     try {
-        // Delete from module_team_guest_attendance table
-        $sql = "DELETE FROM module_team_guest_attendance WHERE guest_id = ?";
+        // Delete from domm_module_team_guest_attendance table
+        $sql = "DELETE FROM domm_module_team_guest_attendance WHERE guest_id = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param('i', $guestId);
@@ -43,8 +43,8 @@ if (isset($_POST['guest_id'])) {
             throw new Exception($conn->error);
         }
 
-        // Delete from guests table
-        $sql = "DELETE FROM guests WHERE guest_id = ?";
+        // Delete from domm_guests table
+        $sql = "DELETE FROM domm_guests WHERE guest_id = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param('i', $guestId);
