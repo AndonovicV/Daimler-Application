@@ -142,7 +142,7 @@ if ($result_personal_tasks->num_rows > 0) {
                 </div>
                 <div class="col-md-6 d-flex justify-content-end" style="margin-left: 99.9%; width:20%">
                     <select id="deleteProtokolSelect" data-search="true" class="styled-select" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
-                        <option value="">Delete Protocol...</option>
+                        <option value=""disabled selected>Delete Protocol...</option>
                         <?php
                         $sql = "SELECT * FROM domm_mt_agenda_list WHERE module_team = ?";
                         $stmt = $conn->prepare($sql);
@@ -185,7 +185,7 @@ if ($result_personal_tasks->num_rows > 0) {
                 <div class="d-flex justify-content-between mb-3">
                     <div id="filterDiv" style="width: 100%;">
                         <select id="changeRequestSelect" data-search="true" placeholder = "Filter Change Request" multiple class="styled-select" style="width: 100% !important; height: 200px; font-size: 16px;">
-                            <option value="">Filter Change Request</option>
+                            <option value=""disabled selected>Filter Change Request</option>
                             <?php
                             // Fetch change requests with the filter status for the selected protokol
                             $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active

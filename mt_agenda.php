@@ -189,7 +189,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                 </script>
                 <div style="margin-left: 99.9%; width:15%">
                     <select id="deleteAgendaSelect" data-search="true" class="styled-select" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
-                        <option value="">Delete Agenda...</option>
+                        <option value="" disabled selected>Delete Agenda...</option>
                         <?php
                         $sql = "SELECT * FROM domm_mt_agenda_list WHERE module_team = ?";
                         $stmt = $conn->prepare($sql);
@@ -239,7 +239,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
         <div class="d-flex justify-content-between mb-3">
             <div id="filterDiv" style="width: 100%;">
                 <select id="changeRequestSelect" data-search="true" multiple class="styled-select" placeholder="Filter Change Request" style="width: 100% !important; height: 200px; font-size: 16px;">
-                    <option value="">Filter Change Request</option>
+                    <option value=""disabled selected>Filter Change Request</option>
                     <?php
                     // Fetch change requests with the filter status for the selected agenda
                     $sql = "SELECT cr.title, cr.filter_checkbox, acrf.filter_active
