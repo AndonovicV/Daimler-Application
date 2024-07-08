@@ -370,7 +370,7 @@ if ($result_personal_tasks->num_rows > 0) {
                         } else {
                             echo "<tr>";
                             echo "<td></td>"; // Empty column for module team
-                            echo "<td colspan='5'>No change requests for GFT " . $row_gft["name"] . "</td>";
+                            echo "<td colspan='5'></td>"; // Should be: No change requests for GFT " . $row_gft["name"] . "
                             echo "<td></td>"; // Responsible - You may need to add data here based on your requirements
                             echo "<td></td>"; // Empty column
                             echo "</tr>";

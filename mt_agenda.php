@@ -460,7 +460,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                 echo "<tr>";
                 echo "<td></td>"; // Type
                 echo "<td></td>"; // Order Input
-                echo "<td colspan='5'>No change requests for GFT " . htmlspecialchars($row_gft["name"]) . "</td>"; //description?
+                echo "<td colspan='5'></td>"; //description? //Should be: No change requests for GFT " . htmlspecialchars($row_gft["name"]) . "
                 echo "<td></td>"; // Responsible
                 echo "<td></td>"; // Start
                 echo "<td></td>"; // Duration
