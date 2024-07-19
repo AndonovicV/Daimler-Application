@@ -27,6 +27,7 @@ $(document).ready(function () {
         "paging": false, // Disable pagination
         "searchable": true,
         "bDestroy": true, // Ignores the error popup (cannot reinitialize), it works even with the error but purely for aesthetic purpose. Might delete later
+        "bInfo": false, //removes "Showing entries"
         "layout": {
             "topStart": {
                 "buttons": [
