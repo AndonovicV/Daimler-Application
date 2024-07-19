@@ -27,7 +27,6 @@ $stmt_gfts->bind_param('is', $selectedAgendaId, $selected_team);
 $stmt_gfts->execute();
 $result_gfts = $stmt_gfts->get_result();
 
-
 // PERSONAL TASK variables
 $user_id = 1; // Example user ID
 $sql_personal_tasks = "SELECT summary FROM domm_personal_tasks WHERE user_id = $user_id ORDER BY id DESC LIMIT 1";
@@ -140,8 +139,6 @@ function generateDeleteAgendaSelect($conn, $selected_team)
     <!--Link to checkbox JS-->
     <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> <!-- Required for Excel -->
-
-
 
     <!-- Custom CSS -->
     <link href="custom_css\mt_agenda.css" rel="stylesheet">
@@ -297,7 +294,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     </div>
                     <div class="modal-body">
                         <div class="field">
-                            <textarea name="summary" id="summary" rows="16" class="text" style="width: 100%;">><?php echo htmlspecialchars($summary); ?></textarea>
+                            <textarea name="summary" id="summary" rows="16" class="text" style="width: 100%;"><?php echo htmlspecialchars($summary); ?></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -400,13 +397,13 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                         <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
                         <div class='dropdown-menu'>
                             <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                            <button class='dropdown-item' onclick='addBreak(this)'>Break</button>
                         </div>
                     </div>
                   </td>"; // Actions
             echo "</tr>";
             
             fetchTasksAndTopicsforGFT($conn,$gftId);
-
             $selected_team = $row_gft["moduleteam"];
             $selected_gft = $row_gft["name"];
             $sql_change_requests = "SELECT cr.title,cr.ID 
@@ -445,8 +442,9 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                             <div class='button-container'>
                                 <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
                                 <div class='dropdown-menu'>
-                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                                     <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addBreak(this)'>Break</button>
                                 </div>
                                 <button id='unselectFilterBtn' class='button-12 unselect' role='button'>x</button>
                             </div>
@@ -523,8 +521,9 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                             <div class='button-container'>
                                 <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
                                 <div class='dropdown-menu'>
-                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                                     <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addBreak(this)'>Break</button>
                                 </div>
                                 <button class='button-12 deleteRow' role='button'>-</button>
                                 <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' role='button'>→</button>  
@@ -533,6 +532,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     echo "</tr>";
 
                     fetchTasksforTopics($conn, $topicId, $selectedAgendaId, $gft, $cr_stripped);
+                    
                 }
             }
             
@@ -569,8 +569,9 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                             <div class='button-container'>
                                 <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
                                 <div class='dropdown-menu'>
-                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                                     <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addBreak(this)'>Break</button>
                                 </div>
                                 <button class='button-12 deleteRow' role='button'>-</button>
                                 <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$taskId}' class='button-12 forwardTaskBtns' role='button'>→</button>  
@@ -579,7 +580,10 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     echo "</tr>";
                 }
             }
+
+            fetchBreaks($conn, $selectedAgendaId, $gft, $cr_stripped); // Fetch breaks related to the specific CR
         }
+
         // Function to fetch tasks and topics
         function fetchTasksforTopics($conn, $topicId, $selectedAgendaId, $gft, $cr_stripped)
         {
@@ -616,8 +620,9 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                             <div class='button-container'>
                                 <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
                                 <div class='dropdown-menu'>
-                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                                     <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addBreak(this)'>Break</button>
                                 </div>
                                 <button class='button-12 deleteRow' role='button'>-</button>
                             </div>
@@ -664,8 +669,10 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                             <div class='button-container'>
                                 <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
                                 <div class='dropdown-menu'>
-                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                                     <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addBreak(this)'>Break</button>
+
                                 </div>
                                 <button class='button-12 deleteRow' role='button'>-</button>
                                 <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' role='button'>→</button>  
@@ -710,13 +717,57 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                             <div class='button-container'>
                                 <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
                                 <div class='dropdown-menu'>
-                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
                                     <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addBreak(this)'>Break</button>
+
                                 </div>
                                 <button class='button-12 deleteRow' role='button'>-</button>
                                 <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$taskId}' class='button-12 forwardTaskBtns' role='button'>→</button>  
                             </div>
                         </td>"; // Actions
+                    echo "</tr>";
+                }
+            }
+
+            fetchBreaks($conn, $selectedAgendaId, $gft, ''); // Fetch breaks related to the specific GFT
+        }
+        
+        // Fetch Breaks
+        function fetchBreaks($conn, $agendaId, $gft, $cr) {
+            $sql_breaks = "SELECT * FROM domm_breaks WHERE agenda_id = ? AND gft = ? AND cr = ? AND deleted = 0";
+            $stmt_breaks = $conn->prepare($sql_breaks);
+            $stmt_breaks->bind_param('iss', $agendaId, $gft, $cr);
+            $stmt_breaks->execute();
+            $result_breaks = $stmt_breaks->get_result();
+        
+            if ($result_breaks->num_rows > 0) {
+                while ($row_break = $result_breaks->fetch_assoc()) {
+                    $breakId = $row_break["id"];
+                    $duration = isset($row_break["duration"]) ? htmlspecialchars(date('H:i', strtotime($row_break["duration"]))) : '00:00';
+                    echo "<tr id='{$row_break["id"]}' data-type='break' data-id='{$row_break["id"]}'>";
+                    echo "<td></td>"; // Order Input                
+                    echo "<td class='break-row' style='position: relative;'>";
+                    echo "<strong>Break</strong>";
+                    echo "<input type='hidden' class='break-id' value='{$breakId}'>";
+                    echo "</td>"; // Type    
+                    echo "<td></td>"; // Description
+                    echo "<td></td>"; // Responsible
+                    echo "<td></td>"; // Start
+                    echo "<td class='editabletasktopic-cell' style='border: 1px solid #00FFFF;'>";
+                    echo "<input type='text' class='duration-input' data-break-id='{$row_break["id"]}' value='{$duration}' placeholder='minutes' style='width: 100%;'>";
+                    echo "</td>"; // Duration
+                    echo "<td>
+                            <div class='button-container'>
+                                <button class='button-12 dropdown-toggle' onclick='toggleDropdown(this)'>+</button>
+                                <div class='dropdown-menu'>
+                                    <button class='dropdown-item' onclick='addTask(this)'>Task</button>
+                                    <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
+                                    <button class='dropdown-item' onclick='addBreak(this)'>Break</button>
+                                </div>
+                                <button class='button-12 deleteRow' role='button'>-</button>
+                            </div>
+                          </td>"; // Actions
                     echo "</tr>";
                 }
             }

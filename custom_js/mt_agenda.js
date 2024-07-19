@@ -240,7 +240,7 @@ $(document).ready(function () {
         var row = $(clickedCell).closest('tr');
         var rowId = row.data('id');
         var rowType = row.data('type');
-
+    
         row.remove();
         $.ajax({
             type: 'POST',
@@ -602,8 +602,10 @@ async function addTask(cell) {
                 <div class="button-container">
                     <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
                     <div class="dropdown-menu">
+                    <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
                         <button class="dropdown-item" onclick="addTask(this)">Task</button>
-                        <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
+                        <button class="dropdown-item" onclick="addBreak(this)">Break</button>
+
                     </div>
                     <button class="button-12 deleteRow" role="button">-</button>
                     <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTask}" class="button-12 forwardTaskBtns" role="button">→</button>
@@ -695,8 +697,10 @@ async function addTopic(cell) {
                     <div class="button-container">
                         <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
                         <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
                             <button class="dropdown-item" onclick="addTask(this)">Task</button>
-                            <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
+                            <button class="dropdown-item" onclick="addBreak(this)">Break</button>
+
                         </div>
                         <button class="button-12 deleteRow" role="button">-</button>
                         <button data-bs-toggle="modal" data-bs-target="#forwardModal" data-id="${lastTopic}" class="button-12 forwardTopicBtns" role="button">→</button>
@@ -1103,3 +1107,128 @@ $(document).ready(function() {
         });
     });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+async function addBreak(cell) {
+    var protokolId = $('#agendaSelect').val(); // Get the selected protokol_id
+    console.log('Add Break button clicked, protokolId:', protokolId);
+
+    // Ensure addNewRow completes before proceeding
+    await addNewRow("Break", cell, protokolId);
+
+    $.ajax({
+        type: 'POST',
+        url: 'add_break.php',
+        data: {
+            agenda_id: protokolId,
+            gft: getGFT(cell),
+            cr: getCR(cell)
+        },
+        success: function(response) {
+            if (response !== 'error') {
+                var newBreakId = response;
+
+                var newRow = $(`
+                    <tr id="${newBreakId}" data-type="break" data-id="${newBreakId}">
+                        <td></td> <!-- Order Input -->
+                        <td class="break-row"><strong>Break</strong> <input type='hidden' class='break-id' value="${newBreakId}"></td>
+                        <td></td> <!-- Description -->
+                        <td></td> <!-- Responsible -->
+                        <td></td> <!-- Start -->
+                        <td class="editabletasktopic-cell" style="border: 1px solid #00FFFF;">
+                            <input type="number" class="duration-input" data-break-id="${newBreakId}" placeholder="minutes" style="width: 100%;">
+                        </td> <!-- Duration -->
+                        <td>
+                            <div class="button-container">
+                                <button class="button-12 dropdown-toggle" onclick="toggleDropdown(this)">+</button>
+                                <div class="dropdown-menu">
+                                    <button class="dropdown-item" onclick="addTask(this)">Task</button>
+                                    <button class="dropdown-item" onclick="addTopic(this)">Topic</button>
+                                    <button class="dropdown-item" onclick="addBreak(this)">Break</button>
+                                </div>
+                                <button class="button-12 deleteRow" role="button">-</button>
+                            </div>
+                        </td> <!-- Actions -->
+                    </tr>
+                `);
+                
+                newRow.insertAfter($(cell).closest('tr'));
+                
+                // Attach blur event to save duration on change
+                newRow.find('.duration-input').on('blur', function() {
+                    var breakId = $(this).data('break-id');
+                    var duration = $(this).val();
+                    updateBreakDuration(breakId, duration);
+                });
+            } else {
+                alert('Failed to add break');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to add break:', status, error);
+        }
+    });
+}
+
+// Function to update the break duration
+function updateBreakDuration(breakId, duration) {
+    $.ajax({
+        url: 'update_break_duration.php',
+        type: 'POST',
+        data: {
+            break_id: breakId,
+            duration: duration
+        },
+        success: function(response) {
+            console.log('Break duration updated successfully:', response);
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to update break duration:', status, error);
+        }
+    });
+}
+
+// Helper function to get the GFT value
+function getGFT(cell) {
+    var gft = "";
+    var currentRow = $(cell).closest('tr');
+    while (currentRow.length > 0) {
+        var cells = currentRow.find('td:eq(1)');
+        var cellContent = cells.text().trim();
+        if (cellContent.startsWith("GFT")) {
+            var gftId = cells.find('.gft-id').val();
+            gft = gftId ? gftId : cellContent;
+            break;
+        }
+        currentRow = currentRow.prev();
+    }
+    return gft;
+}
+
+// Helper function to get the CR value
+function getCR(cell) {
+    var cr = "";
+    var currentRow = $(cell).closest('tr');
+    while (currentRow.length > 0) {
+        var cells = currentRow.find('td:eq(1)');
+        var cellContent = cells.text().trim();
+        if (cellContent.startsWith("CH")) {
+            var changeRequestId = cells.find('.change-request-id').val();
+            cr = changeRequestId ? changeRequestId : cellContent;
+            break;
+        }
+        currentRow = currentRow.prev();
+    }
+    return cr;
+}
