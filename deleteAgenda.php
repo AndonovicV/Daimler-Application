@@ -20,7 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'domm_module_team_guest_attendance',
                 'domm_module_team_member_attendance',
                 'domm_tasks',
-                'domm_topics'
+                'domm_gft_order',
+                'domm_topics',
+                'domm_breaks'
             ];
 
             foreach ($relatedTables as $table) {
