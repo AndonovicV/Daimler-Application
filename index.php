@@ -272,7 +272,9 @@ if ($result_personal_tasks->num_rows > 0) {
 
 		<!-- Footer -->
 		<footer id="footer">
-			<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+			<!-- <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p> -->
+			<p class="copyright">&copy; In dark mode. Because light attracts <a href="https://www.daimlertruck.com/en">Bugs!</a></p>
+
 		</footer>
 	</div>
 
