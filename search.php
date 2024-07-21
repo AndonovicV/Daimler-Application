@@ -48,8 +48,8 @@ $conn->close();
     <div class="search-container mb-3">
         <select id="filterBox" class="styled-select" style="background-color: #333 !important; color: #fff !important; border: 1px solid #444 !important; border-radius: 4px !important; height: 40px!important;">
             <option value="">All</option>
-            <option class = 'topic-row' value="topics">Topics</option>
-            <option class = 'task-row'value="tasks">Tasks</option>
+            <option value="domm_topics" class = 'topic-row'>Topics</option>
+            <option value="domm_tasks" class = 'task-row'>Tasks</option>
             <option value="domm_information">Information</option>
             <option value="domm_assignment">Assignment</option>
             <option value="domm_decision">Decision</option>

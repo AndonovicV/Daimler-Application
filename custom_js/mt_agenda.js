@@ -46,10 +46,10 @@ $(document).ready(function () {
                                         console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
                                         return cleanText;
                                     }
-    
+
                                     var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(1).html())).text().trim();
                                     console.log("First column text:", firstColumnText); // Debug statement
-    
+
                                     if (column === 3) {
                                         if (firstColumnText.includes("Task")) {
                                             var responsible = $(node).find('input[data-column="responsible"]').val();
@@ -85,7 +85,7 @@ $(document).ready(function () {
                         },
                         customize: function(xlsx) {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
-    
+
                             $('col', sheet).each(function (index) {
                                 
                                 if (index === 1) {
@@ -96,17 +96,17 @@ $(document).ready(function () {
                                     $(this).attr('customWidth', 1);
                                 }
                             });
-    
+
                             var fontIndex = $('fonts font', sheet).length;
                             var boldFont = '<font><b/><sz val="11"/><color rgb="000000"/><name val="Calibri"/></font>';
                             $('fonts', sheet).append(boldFont);
                             $('fonts', sheet).attr('count', fontIndex + 1);
-    
+
                             var styleBase = $('cellXfs xf', sheet).length;
                             var boldStyle = `<xf numFmtId="0" fontId="${fontIndex}" fillId="0" borderId="0" xfId="0" applyFont="1"/>`;
                             $('cellXfs', sheet).append(boldStyle);
                             $('cellXfs', sheet).attr('count', styleBase + 1);
-    
+
                             $('row', sheet).each(function () {
                                 var row = $(this);
                                 var firstCellText = $($('c t', row).first()).text().trim();
@@ -115,12 +115,6 @@ $(document).ready(function () {
                                     $('c', row).first().attr('s', styleBase);
                                 }
                             });
-                        }
-                    },
-                    {
-                        extend: 'csvHtml5',
-                        exportOptions: {
-                            columns: ':not(:last-child)' // Exclude the last column
                         }
                     },
                     {
@@ -135,10 +129,10 @@ $(document).ready(function () {
                                         console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
                                         return cleanText;
                                     }
-    
+
                                     var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(1).html())).text().trim();
                                     console.log("First column text:", firstColumnText); // Debug statement
-    
+
                                     if (column === 3) {
                                         if (firstColumnText.includes("Task")) {
                                             var responsible = $(node).find('input[data-column="responsible"]').val();
@@ -180,12 +174,12 @@ $(document).ready(function () {
                                 var topicRowStyle = {
                                     fillColor: [230, 230, 255] // Light blue background for topics
                                 };
-    
+
                                 for (var i = 1; i < doc.content[1].table.body.length; i++) {
                                     var row = doc.content[1].table.body[i];
                                     var firstCellText = row[0].text.trim();
                                     //console.log("First cell text in PDF row:", firstCellText); // Debug statement
-    
+
                                     if (firstCellText.includes("GFT")) {
                                         row[0].style = { bold: true };
                                     }
@@ -199,7 +193,7 @@ $(document).ready(function () {
                                         });
                                     }
                                 }
-    
+
                                 // Set custom column widths
                                 var colWidths = ['*', 100, 75]; // Adjust as necessary for your table
                                 doc.content[1].table.widths = colWidths;
