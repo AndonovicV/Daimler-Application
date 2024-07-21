@@ -73,6 +73,12 @@ $(document).ready(function () {
                                             return `${duration}`;
                                         }
                                     }
+                                    if (column === 5) {
+                                        if (firstColumnText.includes("Break")) {
+                                            var duration = $(node).find('input[data-column="duration"]').data('duration-value');
+                                            return `${duration}`;
+                                        }
+                                    } 
                                     return data;
                                 }
                             }
@@ -86,7 +92,7 @@ $(document).ready(function () {
                                     $(this).attr('width', 100);
                                     $(this).attr('customWidth', 1);
                                 } else if (index === 2) {
-                                    $(this).attr('width', 45);
+                                    $(this).attr('width', 65);
                                     $(this).attr('customWidth', 1);
                                 }
                             });
@@ -156,6 +162,12 @@ $(document).ready(function () {
                                             return `${duration}`;
                                         }
                                     }
+                                    if (column === 5) {
+                                        if (firstColumnText.includes("Break")) {
+                                            var duration = $(node).find('input[data-column="duration"]').data('duration-value');
+                                            return `${duration}`;
+                                        }
+                                    }                                    
                                     return data;
                                 }
                             

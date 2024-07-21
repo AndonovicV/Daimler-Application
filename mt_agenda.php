@@ -757,7 +757,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                     echo "<td></td>"; // Responsible
                     echo "<td></td>"; // Start
                     echo "<td class='editabletasktopic-cell' style='border: 1px solid #00FFFF;'>";
-                    echo "<input type='text' class='duration-input' data-break-id='{$row_break["id"]}' value='{$duration}' placeholder='minutes' style='width: 100%;'>";
+                    echo "<input type='text' class='duration-input' data-column='duration' data-break-id='{$row_break["id"]}'  data-duration-value='{$duration}' value='{$duration}' placeholder='minutes' style='width: 100%;'>";
                     echo "</td>"; // Duration
                     echo "<td>
                             <div class='button-container'>
