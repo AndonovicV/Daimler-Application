@@ -428,13 +428,14 @@ function generateDeleteAgendaSelect($conn, $selected_team)
     
                 while ($row_change_request = $result_change_requests->fetch_assoc()) {
                     $changeRequestId = $row_change_request["ID"];
-                    echo "<tr data-title='" . htmlspecialchars($row_change_request["title"]) . "'>";
+                    $changeRequestTitle = htmlspecialchars($row_change_request["title"]);
+                    echo "<tr data-title='" . $changeRequestTitle . "'>";
                     echo "<td></td>"; // Order Input
                     echo "<td style='position: relative;'>";
-                    echo "<strong>CH</strong>";
+                    echo "<strong>CR</strong>";
                     echo "<input type='hidden' class='change-request-id' value='{$changeRequestId}'>";
                     echo "</td>"; // Type
-                    echo "<td>" . htmlspecialchars($row_change_request["title"]) . "</td>"; // Description
+                    echo "<td><a href='https://www.daimlertruck.com/en.php?id={$changeRequestId}'>{$changeRequestTitle}</a></td>"; // <------- Enter CR Link here 
                     echo "<td></td>"; // Responsible
                     echo "<td></td>"; // Start
                     echo "<td></td>"; // Duration
