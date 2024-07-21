@@ -500,24 +500,24 @@ function generateDeleteAgendaSelect($conn, $selected_team)
 
             if ($result_topics->num_rows > 0) {
                 while ($row_topic = $result_topics->fetch_assoc()) {
-                    $topicId = $row_topic["id"];
+                    $topicId = htmlspecialchars($row_topic["id"]);
                     $start = isset($row_topic["start"]) ? htmlspecialchars($row_topic["start"]) : '';
-                    $duration = isset($row_topic["duration"]) ? htmlspecialchars(date('H:i', strtotime($row_topic["duration"]))) : '00:00';  // Ensure default format
-                    echo "<tr id='{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
-                    echo "<td></td>"; // Order Input                
+                    $duration_value = !empty($row_topic["duration"]) ? htmlspecialchars(date('H:i', strtotime($row_topic["duration"]))) : '';
+                    $duration_placeholder = empty($duration_value) ? 'minutes' : '';
+            
+                    echo "<tr id='{$topicId}' data-type='topic' data-id='{$topicId}'>";
+                    echo "<td></td>"; // Order Input
                     echo "<td class='topic-row' style='position: relative;'>";
                     echo "<strong>Topic</strong>";
                     echo "<input type='hidden' class='topic-id' value='{$topicId}'>";
-                    echo "</td>"; // Type    
+                    echo "</td>"; // Type
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff; max-width: 200px;'>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Description
                     echo "<td class='editabletasktopic-cell' data-column='responsible' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
                     echo "<td class='editabletasktopic-cell' style='border: 1px solid #dfbaff;'>";
-                        echo "<input type='text' class='timepicker' data-topic-id='{$row_topic["id"]}' value='{$start}' style='width: 100%;'>";
+                    echo "<input type='text' class='timepicker' data-column='start' data-topic-id='{$topicId}' data-start-value='{$start}' value='{$start}' style='width: 100%;'>";
                     echo "</td>"; // Start
                     echo "<td class='editabletasktopic-cell' style='border: 1px solid #dfbaff;'>";
-                        $duration_value = !empty($row_topic["duration"]) ? htmlspecialchars(date('H:i', strtotime($row_topic["duration"]))) : '';
-                        $duration_placeholder = empty($duration_value) ? 'minutes' : '';
-                        echo "<input type='text' class='duration-input' data-topic-id='{$row_topic["id"]}' value='{$duration_value}' placeholder='{$duration_placeholder}' style='width: 100%;'>";
+                    echo "<input type='text' class='duration-input' data-column='duration' data-topic-id='{$topicId}' data-duration-value='{$duration_value}' value='{$duration_value}' placeholder='{$duration_placeholder}' style='width: 100%;'>";
                     echo "</td>"; // Duration
                     echo "<td>
                             <div class='button-container'>
@@ -527,14 +527,15 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                                     <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
                                 </div>
                                 <button class='button-12 deleteRow' role='button'>-</button>
-                                <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' role='button'>→</button>  
+                                <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$topicId}' class='button-12 forwardTopicBtns' role='button'>→</button>
                             </div>
                           </td>"; // Actions
                     echo "</tr>";
-
-                    fetchTasksforTopics($conn, $topicId, $selectedAgendaId, $gft, $cr_stripped);
+            
+                    fetchTasksforTopics($conn, $topicId, $selectedAgendaId, $gft, "");
                 }
             }
+            
             
                       
             $sql_tasks = "SELECT * FROM domm_tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND sent = 0 AND deleted = 0 AND topic_id = '' ";
@@ -641,24 +642,24 @@ function generateDeleteAgendaSelect($conn, $selected_team)
 
             if ($result_topics->num_rows > 0) {
                 while ($row_topic = $result_topics->fetch_assoc()) {
-                    $topicId = $row_topic["id"];
+                    $topicId = htmlspecialchars($row_topic["id"]);
                     $start = isset($row_topic["start"]) ? htmlspecialchars($row_topic["start"]) : '';
-                    $duration = isset($row_topic["duration"]) ? htmlspecialchars(date('H:i', strtotime($row_topic["duration"]))) : '00:00';  // Ensure default format
-                    echo "<tr id='{$row_topic["id"]}' data-type='topic' data-id='{$row_topic["id"]}'>";
-                    echo "<td></td>"; // Order Input                
+                    $duration_value = !empty($row_topic["duration"]) ? htmlspecialchars(date('H:i', strtotime($row_topic["duration"]))) : '';
+                    $duration_placeholder = empty($duration_value) ? 'minutes' : '';
+            
+                    echo "<tr id='{$topicId}' data-type='topic' data-id='{$topicId}'>";
+                    echo "<td></td>"; // Order Input
                     echo "<td class='topic-row' style='position: relative;'>";
                     echo "<strong>Topic</strong>";
                     echo "<input type='hidden' class='topic-id' value='{$topicId}'>";
-                    echo "</td>"; // Type    
+                    echo "</td>"; // Type
                     echo "<td class='editabletasktopic-cell' contenteditable='true' style='border: 1px solid #dfbaff; max-width: 200px;'>" . htmlspecialchars($row_topic["name"]) . "</td>"; // Description
                     echo "<td class='editabletasktopic-cell' data-column='responsible' contenteditable='true' style='border: 1px solid #dfbaff;'>" . htmlspecialchars($row_topic["responsible"]) . "</td>"; // Responsible
                     echo "<td class='editabletasktopic-cell' style='border: 1px solid #dfbaff;'>";
-                        echo "<input type='text' class='timepicker' data-topic-id='{$row_topic["id"]}' value='{$start}' style='width: 100%;'>";
+                    echo "<input type='text' class='timepicker' data-column='start' data-topic-id='{$topicId}' data-start-value='{$start}' value='{$start}' style='width: 100%;'>";
                     echo "</td>"; // Start
                     echo "<td class='editabletasktopic-cell' style='border: 1px solid #dfbaff;'>";
-                        $duration_value = !empty($row_topic["duration"]) ? htmlspecialchars(date('H:i', strtotime($row_topic["duration"]))) : '';
-                        $duration_placeholder = empty($duration_value) ? 'minutes' : '';
-                        echo "<input type='text' class='duration-input' data-topic-id='{$row_topic["id"]}' value='{$duration_value}' placeholder='{$duration_placeholder}' style='width: 100%;'>";
+                    echo "<input type='text' class='duration-input' data-column='duration' data-topic-id='{$topicId}' data-duration-value='{$duration_value}' value='{$duration_value}' placeholder='{$duration_placeholder}' style='width: 100%;'>";
                     echo "</td>"; // Duration
                     echo "<td>
                             <div class='button-container'>
@@ -668,14 +669,15 @@ function generateDeleteAgendaSelect($conn, $selected_team)
                                     <button class='dropdown-item' onclick='addTopic(this)'>Topic</button>
                                 </div>
                                 <button class='button-12 deleteRow' role='button'>-</button>
-                                <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$row_topic["id"]}' class='button-12 forwardTopicBtns' role='button'>→</button>  
+                                <button data-bs-toggle='modal' data-bs-target='#forwardModal' data-id='{$topicId}' class='button-12 forwardTopicBtns' role='button'>→</button>
                             </div>
                           </td>"; // Actions
                     echo "</tr>";
-
+            
                     fetchTasksforTopics($conn, $topicId, $selectedAgendaId, $gft, "");
                 }
             }
+            
             
                       
             $sql_tasks = "SELECT * FROM domm_tasks WHERE agenda_id = ? AND gft = ? AND (cr = '') AND sent = 0 AND deleted = 0 AND topic_id= '' ";

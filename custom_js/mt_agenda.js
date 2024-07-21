@@ -31,25 +31,25 @@ $(document).ready(function () {
         "bDestroy": true, // Ignores the error popup (cannot reinitialize), it works even with the error but purely for aesthetic purpose. Might delete later
         "layout": {
             "topStart": {
-"buttons": [
+                "buttons": [
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
-                        filename: selectedAgendaId,
+                        filename: 'Agenda_Excel_' + selectedAgendaId,
                         exportOptions: {
-                            columns: ':not(:last-child)', // Exclude the last column
+                            columns: ':not(:first-child):not(:last-child)', // Exclude the first and last columns
                             format: {
                                 body: function(data, row, column, node) {
-                                    if (column === 0 || column === 1) {
+                                    if (column === 0 || column === 1 || column === 2) {
                                         var cleanText = $("<div>").html(data).text().trim();
                                         console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
                                         return cleanText;
                                     }
     
-                                    var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
+                                    var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(1).html())).text().trim();
                                     console.log("First column text:", firstColumnText); // Debug statement
     
-                                    if (column === 2) {
+                                    if (column === 3) {
                                         if (firstColumnText.includes("Task")) {
                                             var responsible = $(node).find('input[data-column="responsible"]').val();
                                             var deadline = $(node).find('input[data-column="deadline"]').val();
@@ -60,6 +60,18 @@ $(document).ready(function () {
                                             return `Responsible: ${responsible}`;
                                         }
                                     }
+                                    if (column === 4) {
+                                        if (firstColumnText.includes("Topic")) {
+                                            var start = $(node).find('input[data-column="start"]').data('start-value');
+                                            return `${start}`;
+                                        }
+                                    }
+                                    if (column === 5) {
+                                        if (firstColumnText.includes("Topic")) {
+                                            var duration = $(node).find('input[data-column="duration"]').data('duration-value');
+                                            return `${duration}`;
+                                        }
+                                    }
                                     return data;
                                 }
                             }
@@ -68,11 +80,12 @@ $(document).ready(function () {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
     
                             $('col', sheet).each(function (index) {
+                                
                                 if (index === 1) {
                                     $(this).attr('width', 100);
                                     $(this).attr('customWidth', 1);
                                 } else if (index === 2) {
-                                    $(this).attr('width', 75);
+                                    $(this).attr('width', 45);
                                     $(this).attr('customWidth', 1);
                                 }
                             });
@@ -107,112 +120,82 @@ $(document).ready(function () {
                         extend: 'pdfHtml5',
                         filename: 'Agenda_PDF_' + selectedAgendaId,
                         exportOptions: {
-                            columns: ':not(:last-child)', // Exclude the last column
+                            columns: ':not(:first-child):not(:last-child)', // Exclude the first and last columns
                             format: {
                                 body: function(data, row, column, node) {
-                                    var $node = $(node);
-                                    var $currentRow = $node.closest('tr');
-                                    var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(1).html())).text().trim();
-
-                                    // Check if the next row contains "No change requests for GFT"
-                                    var $nextRow = $currentRow.next('tr');
-                                    if ($nextRow.length > 0) {
-                                        var nextFirstColumnText = $($.parseHTML($('td', $nextRow.get(0)).eq(1).html())).text().trim();
-                                        if (nextFirstColumnText.includes("No change requests for GFT")) {
-                                            $currentRow.addClass('exclude-row');
-                                            $nextRow.addClass('exclude-row');
-                                            return '';
-                                        }
-                                    }
-
-                                    // If this row is marked for exclusion, return an empty string
-                                    if ($currentRow.hasClass('exclude-row')) {
-                                        return '';
-                                    }
-
-                                    if (column === 0 || column === 1) {
+                                    if (column === 0 || column === 1 || column === 2) {
                                         var cleanText = $("<div>").html(data).text().trim();
-                                        //console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
+                                        console.log("Cleaned text for column", column, ":", cleanText); // Debug statement
                                         return cleanText;
                                     }
     
-                                    var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(0).html())).text().trim();
-                                    //console.log("First column text:", firstColumnText); // Debug statement
+                                    var firstColumnText = $($.parseHTML($('td', node.parentNode).eq(1).html())).text().trim();
+                                    console.log("First column text:", firstColumnText); // Debug statement
     
-                                    if (column === 2) {
+                                    if (column === 3) {
                                         if (firstColumnText.includes("Task")) {
                                             var responsible = $(node).find('input[data-column="responsible"]').val();
                                             var deadline = $(node).find('input[data-column="deadline"]').val();
                                             var asapStatus = $(node).find('.asap-button').css('color') === 'rgb(255, 0, 0)' ? 'Yes' : 'No'; // Check for red color
-                                            return `Responsible: ${responsible} | Deadline: ${deadline} | ASAP: ${asapStatus}`;
+                                            return `Responsible: ${responsible}, Deadline: ${deadline}, ASAP: ${asapStatus}`;
                                         } else if (firstColumnText.includes("Topic")) {
                                             var responsible = $(node).text().trim();
                                             return `Responsible: ${responsible}`;
                                         }
                                     }
-                                    return data;
-                                }
-                            },
-                            customize: function(doc) {
-                                    var taskRowStyle = {
-                                        fillColor: [255, 230, 230] // Light red background for tasks
-                                    };
-                                    var topicRowStyle = {
-                                        fillColor: [230, 230, 255] // Light blue background for topics
-                                    };
-                            
-                                    // Filter out flagged rows and their preceding rows
-                                    doc.content[1].table.body = doc.content[1].table.body.filter(function(row, index, array) {
-                                        var firstCellText = row[0].text.trim();
-                                        if (firstCellText.includes("No change requests for GFT")) {
-                                            return false; // Exclude this row
-                                        }
-                                        // Check if the next row contains "No change requests for GFT"
-                                        if (index < array.length - 1) {
-                                            var nextRowFirstCellText = array[index + 1][0].text.trim();
-                                            if (nextRowFirstCellText.includes("No change requests for GFT")) {
-                                                return false; // Exclude this row (preceding row)
-                                            }
-                                        }
-                                        return true; // Include this row
-                                    });
-                            
-                                    for (var i = 1; i < doc.content[1].table.body.length; i++) {
-                                        var row = doc.content[1].table.body[i];
-                                        var firstCellText = row[0].text.trim();
-                            
-                                        if (firstCellText.includes("GFT")) {
-                                            row[0].style = { bold: true };
-                                        }
-                                        if (firstCellText.includes("Task")) {
-                                            row.forEach(cell => {
-                                                cell.fillColor = taskRowStyle.fillColor;
-                                            });
-                                        } else if (firstCellText.includes("Topic")) {
-                                            row.forEach(cell => {
-                                                cell.fillColor = topicRowStyle.fillColor;
-                                            });
+                                    if (column === 4) {
+                                        if (firstColumnText.includes("Topic")) {
+                                            var start = $(node).find('input[data-column="start"]').data('start-value');
+                                            return `${start}`;
                                         }
                                     }
+                                    if (column === 5) {
+                                        if (firstColumnText.includes("Topic")) {
+                                            var duration = $(node).find('input[data-column="duration"]').data('duration-value');
+                                            return `${duration}`;
+                                        }
+                                    }
+                                    return data;
+                                }
                             
-                                    // Set custom column widths
-                                    var colWidths = ['*', 100, 75]; // Adjust as necessary for your table
-                                    doc.content[1].table.widths = colWidths;
+                                    
+                            },
+                            customize: function(doc) {
+                                var taskRowStyle = {
+                                    fillColor: [255, 230, 230] // Light red background for tasks
+                                };
+                                var topicRowStyle = {
+                                    fillColor: [230, 230, 255] // Light blue background for topics
+                                };
+    
+                                for (var i = 1; i < doc.content[1].table.body.length; i++) {
+                                    var row = doc.content[1].table.body[i];
+                                    var firstCellText = row[0].text.trim();
+                                    //console.log("First cell text in PDF row:", firstCellText); // Debug statement
+    
+                                    if (firstCellText.includes("GFT")) {
+                                        row[0].style = { bold: true };
+                                    }
+                                    if (firstCellText.includes("Task")) {
+                                        row.forEach(cell => {
+                                            cell.fillColor = taskRowStyle.fillColor;
+                                        });
+                                    } else if (firstCellText.includes("Topic")) {
+                                        row.forEach(cell => {
+                                            cell.fillColor = topicRowStyle.fillColor;
+                                        });
+                                    }
+                                }
+    
+                                // Set custom column widths
+                                var colWidths = ['*', 100, 75]; // Adjust as necessary for your table
+                                doc.content[1].table.widths = colWidths;
                             }
                         }
                     }
                 ]
             }
-        },
-        "columns": [
-            null, // Type
-            null,  // Order Input (its the same column but technically not)
-            null, // Description
-            null, // Responsible
-            null, // Start
-            null, // Duration
-            null  // Actions
-        ]
+        }
     });
 
     // Initialize flatpickr for existing datepicker elements
@@ -686,10 +669,10 @@ async function addTopic(cell) {
                 <td class="editabletasktopic-cell" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td class="editabletasktopic-cell" data-column="responsible" contenteditable="true" style="border: 1px solid #dfbaff;"></td>
                 <td class="editabletasktopic-cell" style="border: 1px solid #dfbaff;">
-                    <input type="text" class="timepicker" data-topic-id="${lastTopic}" placeholder="HH:MM" style="width: 80px;">
+                    <input type="text" class="timepicker" data-column="start" data-topic-id="${lastTopic}" placeholder="HH:MM" style="width: 80px;">
                 </td> <!-- New Start column -->
                 <td class="editabletasktopic-cell" style="border: 1px solid #dfbaff;">
-                    <input type="text" class="duration-input" data-topic-id="${lastTopic}" placeholder="Duration (minutes)" style="width: 120px;">
+                    <input type="text" class="duration-input"  data-column="duration" data-topic-id="${lastTopic}" placeholder="Duration (minutes)" style="width: 120px;">
                 </td> <!-- New Duration column -->
                 <td>
                     <div class="button-container">
@@ -720,12 +703,23 @@ async function addTopic(cell) {
             }
         });
 
-        // Attach blur event to save duration on change
-        newRow.find('.duration-input').on('blur', function() {
-            var topicId = $(this).data('topic-id');
-            var duration = $(this).val();
-            updateDuration(topicId, duration);
+        $(document).on('blur', '.duration-input', function() {
+            var $this = $(this);
+            var $parent = $this.closest('tr'); // Adjust the selector to target the correct parent
+            var topicId = $parent.data('topic-id'); // Assuming the topicId is stored on the parent
+            var duration = $this.val();
+            console.log("Topic ID:", topicId);
+            console.log("Duration:", duration);
+        
+            if (topicId !== undefined && topicId !== '') {
+                updateDuration(topicId, duration);
+            } else {
+                console.error("Topic ID is missing");
+            }
         });
+        
+        
+        
 
     } catch (error) {
         console.error('Error parsing JSON:', error);
@@ -1003,9 +997,13 @@ $(document).ready(function() {
 $(document).ready(function() {
     // Save duration when input loses focus
     $('body').on('blur', '.duration-input', function() {
-        var topicId = $(this).data('topic-id');
-        var duration = $(this).val();
-        if (duration.trim() !== '') { // Ensure non-empty input before sending
+        var $this = $(this);
+        var topicId = $this.data('topic-id');  // Retrieves the topic-id from the <tr> element
+        var duration = $this.val();
+        console.log(topicId);  // Fixed variable name for consistency
+        console.log(duration);
+        
+        if (duration.trim() !== '') {  // Ensure non-empty input before sending
             $.ajax({
                 url: 'update_duration.php',
                 type: 'POST',
@@ -1014,7 +1012,8 @@ $(document).ready(function() {
                     duration: duration
                 },
                 success: function(response) {
-                    //alert('Duration saved successfully!');
+                    // Optionally handle response data or notify the user of success here
+                    console.log('Duration saved successfully!');
                 },
                 error: function(xhr, status, error) {
                     alert('Failed to save duration. Error: ' + error);
@@ -1023,6 +1022,7 @@ $(document).ready(function() {
         }
     });
 });
+
 
 function updateStartTime(topicId, startTime) {
     $.ajax({
@@ -1041,6 +1041,9 @@ function updateStartTime(topicId, startTime) {
 }
 
 function updateDuration(topicId, duration) {
+    alert(topicId)
+    alert(duration)
+
     $.ajax({
         url: 'update_duration.php',
         type: 'POST',

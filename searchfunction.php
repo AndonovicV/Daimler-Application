@@ -16,7 +16,6 @@ $found = false;
 
 // Define an array of tables and the columns to search
 $tables = [
-    'departments' => ['department_name'],
     'domm_guests' => ['guest_name'],
     'domm_mt_agenda_list' => ['agenda_date', 'module_team', 'agenda_id'],
     'org_gfts_vehicle_mb' => ['name', 'moduleteam'],
