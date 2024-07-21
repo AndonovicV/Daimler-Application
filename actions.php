@@ -1,5 +1,4 @@
 <?php 
-session_start();
 include 'conn.php';  
 session_start(); // Start the session if not already started
 
@@ -117,14 +116,18 @@ if (isset($_POST['rowId'])) {
             $sql = "DELETE FROM domm_topics WHERE id = ?";
             break;
         case 'task':
-            // Delete Task logic
-            $sql = "UPDATE domm_tasks SET deleted = 1 WHERE id = ?;";
+            // Mark Task as deleted
+            $sql = "UPDATE domm_tasks SET deleted = 1 WHERE id = ?";
+            break;
+        case 'break':
+            // Mark Break as deleted
+            $sql = "UPDATE domm_breaks SET deleted = 1 WHERE id = ?";
             break;
         default:
             echo "Invalid row type";
             exit;
     }
-    echo $stmt;
+
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $rowId);
     if ($stmt->execute()) {

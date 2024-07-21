@@ -91,6 +91,11 @@ text-align: center;
   color: #dfbaff;
 }
 
+.break-row {
+  color: #00FFFF;
+}
+
+
 #search-topic {
   border-color: #dfbaff;
 }
