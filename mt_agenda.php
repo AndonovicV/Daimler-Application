@@ -490,7 +490,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             $cr_stripped = $cr ? str_replace('title for ', '', $cr) : null;
             $selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
             
-            $sql_topics = "SELECT * FROM domm_topics WHERE agenda_id = ? AND gft = ? AND (cr = ?)";
+            $sql_topics = "SELECT * FROM domm_topics WHERE agenda_id = ? AND sent = 0 AND gft = ? AND (cr = ?)";
             $stmt_topics = $conn->prepare($sql_topics);
             $stmt_topics->bind_param('iss', $selectedAgendaId, $gft, $cr);
             $stmt_topics->execute();
@@ -639,7 +639,7 @@ function generateDeleteAgendaSelect($conn, $selected_team)
             // Remove "title for " from the CR value if present
             $selectedAgendaId = isset($_GET['agenda_id']) ? $_GET['agenda_id'] : null;
             
-            $sql_topics = "SELECT * FROM domm_topics WHERE agenda_id = ? AND gft = ? AND (cr = '') ";
+            $sql_topics = "SELECT * FROM domm_topics WHERE agenda_id = ? AND sent = 0 AND gft = ? AND (cr = '') ";
             $stmt_topics = $conn->prepare($sql_topics);
             $stmt_topics->bind_param('is', $selectedAgendaId, $gft);
             $stmt_topics->execute();

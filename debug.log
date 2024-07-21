@@ -519,3 +519,621 @@
 [2024-07-07 13:05:08] Deleting old topic: 20
 [2024-07-07 13:05:08] Successfully updated/deleted old task/topic with ID: 20
 [2024-07-07 13:05:08] Script ended.
+[2024-07-21 16:04:31] Script started.
+[2024-07-21 16:04:31] POST data received: Array
+(
+    [topic_id] => 67
+    [agenda_id] => 147
+)
+
+[2024-07-21 16:04:31] Fetching old topic data for topic_id: 67
+[2024-07-21 16:04:31] Data fetched successfully from the database.
+[2024-07-21 16:04:31] Fetched data: Array
+(
+    [id] => 67
+    [agenda_id] => 146
+    [name] => HIHI
+    [responsible] => 22
+    [gft] => 21
+    [cr] => I160100901
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:04:31] Activating filter for Change Request: I160100901
+[2024-07-21 16:04:31] Inserting new topic with agenda_id: 147
+[2024-07-21 16:04:31] New topic/task inserted with ID: 68
+[2024-07-21 16:04:31] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:04:31] Copying tasks associated with the old topic_id: 67
+[2024-07-21 16:04:31] Found task with ID: 54 associated with the old topic_id: 67
+[2024-07-21 16:04:31] Inserted new task with ID: 55 for new topic_id: 68
+[2024-07-21 16:04:31] Processing related table: domm_information for old task ID: 54
+[2024-07-21 16:04:31] Found related row in table domm_information for old task ID: 54 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:04:31] Inserted related row into table domm_information for new task ID: 55
+[2024-07-21 16:04:31] Processing related table: domm_assignment for old task ID: 54
+[2024-07-21 16:04:31] Found related row in table domm_assignment for old task ID: 54 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:04:31] Inserted related row into table domm_assignment for new task ID: 55
+[2024-07-21 16:04:31] Processing related table: domm_decision for old task ID: 54
+[2024-07-21 16:04:31] Found related row in table domm_decision for old task ID: 54 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:04:31] Inserted related row into table domm_decision for new task ID: 55
+[2024-07-21 16:04:31] Marking old task as sent: 54
+[2024-07-21 16:04:31] Successfully updated/deleted old task/topic with ID: 54
+[2024-07-21 16:04:31] Script ended.
+[2024-07-21 16:05:15] Script started.
+[2024-07-21 16:05:15] POST data received: Array
+(
+    [topic_id] => 69
+    [agenda_id] => 147
+)
+
+[2024-07-21 16:05:15] Fetching old topic data for topic_id: 69
+[2024-07-21 16:05:15] Data fetched successfully from the database.
+[2024-07-21 16:05:15] Fetched data: Array
+(
+    [id] => 69
+    [agenda_id] => 146
+    [name] => BYB
+    [responsible] => 33
+    [gft] => 21
+    [cr] => I170028401
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:05:15] Activating filter for Change Request: I170028401
+[2024-07-21 16:05:15] Inserting new topic with agenda_id: 147
+[2024-07-21 16:05:15] New topic/task inserted with ID: 70
+[2024-07-21 16:05:15] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:05:15] Copying tasks associated with the old topic_id: 69
+[2024-07-21 16:05:15] Marking old topic as sent: 69
+[2024-07-21 16:05:15] Successfully updated/deleted old task/topic with ID: 69
+[2024-07-21 16:05:15] Script ended.
+[2024-07-21 16:08:41] Script started.
+[2024-07-21 16:08:41] POST data received: Array
+(
+    [topic_id] => 71
+    [agenda_id] => 147
+)
+
+[2024-07-21 16:08:41] Fetching old topic data for topic_id: 71
+[2024-07-21 16:08:41] Data fetched successfully from the database.
+[2024-07-21 16:08:41] Fetched data: Array
+(
+    [id] => 71
+    [agenda_id] => 146
+    [name] => cec
+    [responsible] => 44
+    [gft] => 21
+    [cr] => I170028401
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:08:41] Inserting new topic with agenda_id: 147
+[2024-07-21 16:08:41] New topic/task inserted with ID: 72
+[2024-07-21 16:08:41] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:08:41] Copying tasks associated with the old topic_id: 71
+[2024-07-21 16:08:41] Found task with ID: 56 associated with the old topic_id: 71
+[2024-07-21 16:08:41] Inserted new task with ID: 57 for new topic_id: 72
+[2024-07-21 16:08:41] Processing related table: domm_information for old task ID: 56
+[2024-07-21 16:08:41] Found related row in table domm_information for old task ID: 56 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:08:41] Inserted related row into table domm_information for new task ID: 57
+[2024-07-21 16:08:41] Processing related table: domm_assignment for old task ID: 56
+[2024-07-21 16:08:41] Found related row in table domm_assignment for old task ID: 56 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:08:41] Inserted related row into table domm_assignment for new task ID: 57
+[2024-07-21 16:08:41] Processing related table: domm_decision for old task ID: 56
+[2024-07-21 16:08:41] Found related row in table domm_decision for old task ID: 56 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:08:41] Inserted related row into table domm_decision for new task ID: 57
+[2024-07-21 16:08:41] Marking old task as sent: 56
+[2024-07-21 16:08:41] Marking old topic as sent: 71
+[2024-07-21 16:08:41] Successfully updated old task/topic with ID: 56
+[2024-07-21 16:08:41] Script ended.
+[2024-07-21 16:12:13] Script started.
+[2024-07-21 16:12:13] POST data received: Array
+(
+    [topic_id] => 74
+    [agenda_id] => 150
+)
+
+[2024-07-21 16:12:13] Fetching old topic data for topic_id: 74
+[2024-07-21 16:12:13] Data fetched successfully from the database.
+[2024-07-21 16:12:13] Fetched data: Array
+(
+    [id] => 74
+    [agenda_id] => 146
+    [name] => 66
+    [responsible] => responsible
+    [gft] => 22
+    [cr] => I160197701
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:12:13] Activating filter for Change Request: I160197701
+[2024-07-21 16:12:13] Inserting new topic with agenda_id: 150
+[2024-07-21 16:12:13] New topic/task inserted with ID: 75
+[2024-07-21 16:12:13] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:12:13] Copying tasks associated with the old topic_id: 74
+[2024-07-21 16:12:13] Marking old topic as sent: 74
+[2024-07-21 16:12:13] Successfully updated old task/topic with ID: 74
+[2024-07-21 16:12:13] Script ended.
+[2024-07-21 16:12:26] Script started.
+[2024-07-21 16:12:26] POST data received: Array
+(
+    [topic_id] => 75
+    [agenda_id] => 146
+)
+
+[2024-07-21 16:12:26] Fetching old topic data for topic_id: 75
+[2024-07-21 16:12:26] Data fetched successfully from the database.
+[2024-07-21 16:12:26] Fetched data: Array
+(
+    [id] => 75
+    [agenda_id] => 150
+    [name] => 66
+    [responsible] => responsible
+    [gft] => 22
+    [cr] => I160197701
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:12:26] Inserting new topic with agenda_id: 146
+[2024-07-21 16:12:26] New topic/task inserted with ID: 76
+[2024-07-21 16:12:26] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:12:26] Copying tasks associated with the old topic_id: 75
+[2024-07-21 16:12:26] Found task with ID: 59 associated with the old topic_id: 75
+[2024-07-21 16:12:26] Inserted new task with ID: 60 for new topic_id: 76
+[2024-07-21 16:12:26] Processing related table: domm_information for old task ID: 59
+[2024-07-21 16:12:26] Found related row in table domm_information for old task ID: 59 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:12:26] Inserted related row into table domm_information for new task ID: 60
+[2024-07-21 16:12:26] Processing related table: domm_assignment for old task ID: 59
+[2024-07-21 16:12:26] Found related row in table domm_assignment for old task ID: 59 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:12:26] Inserted related row into table domm_assignment for new task ID: 60
+[2024-07-21 16:12:26] Processing related table: domm_decision for old task ID: 59
+[2024-07-21 16:12:26] Found related row in table domm_decision for old task ID: 59 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:12:26] Inserted related row into table domm_decision for new task ID: 60
+[2024-07-21 16:12:26] Marking old task as sent: 59
+[2024-07-21 16:12:26] Marking old topic as sent: 75
+[2024-07-21 16:12:26] Successfully updated old task/topic with ID: 59
+[2024-07-21 16:12:26] Script ended.
+[2024-07-21 16:13:19] Script started.
+[2024-07-21 16:13:19] POST data received: Array
+(
+    [topic_id] => 77
+    [agenda_id] => 150
+)
+
+[2024-07-21 16:13:19] Fetching old topic data for topic_id: 77
+[2024-07-21 16:13:19] Data fetched successfully from the database.
+[2024-07-21 16:13:19] Fetched data: Array
+(
+    [id] => 77
+    [agenda_id] => 146
+    [name] => 77
+    [responsible] => responsible
+    [gft] => 23
+    [cr] => I170128301
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:13:19] Activating filter for Change Request: I170128301
+[2024-07-21 16:13:19] Inserting new topic with agenda_id: 150
+[2024-07-21 16:13:19] New topic/task inserted with ID: 78
+[2024-07-21 16:13:19] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:13:19] Copying tasks associated with the old topic_id: 77
+[2024-07-21 16:13:19] Found task with ID: 61 associated with the old topic_id: 77
+[2024-07-21 16:13:19] Inserted new task with ID: 62 for new topic_id: 78
+[2024-07-21 16:13:19] Processing related table: domm_information for old task ID: 61
+[2024-07-21 16:13:19] Found related row in table domm_information for old task ID: 61 with content: {"gft":"23","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:13:19] Inserted related row into table domm_information for new task ID: 62
+[2024-07-21 16:13:19] Processing related table: domm_assignment for old task ID: 61
+[2024-07-21 16:13:19] Found related row in table domm_assignment for old task ID: 61 with content: {"gft":"23","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:13:19] Inserted related row into table domm_assignment for new task ID: 62
+[2024-07-21 16:13:19] Processing related table: domm_decision for old task ID: 61
+[2024-07-21 16:13:19] Found related row in table domm_decision for old task ID: 61 with content: {"gft":"23","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:13:19] Inserted related row into table domm_decision for new task ID: 62
+[2024-07-21 16:13:19] Marking old task as sent: 61
+[2024-07-21 16:13:19] Marking old topic as sent: 77
+[2024-07-21 16:13:19] Successfully updated old task/topic with ID: 61
+[2024-07-21 16:13:19] Script ended.
+[2024-07-21 16:15:18] Script started.
+[2024-07-21 16:15:18] POST data received: Array
+(
+    [topic_id] => 80
+    [agenda_id] => 150
+)
+
+[2024-07-21 16:15:18] Fetching old topic data for topic_id: 80
+[2024-07-21 16:15:18] Data fetched successfully from the database.
+[2024-07-21 16:15:18] Fetched data: Array
+(
+    [id] => 80
+    [agenda_id] => 146
+    [name] => 99
+    [responsible] => 99
+    [gft] => 22
+    [cr] => I170034101
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:15:18] Inserting new topic with agenda_id: 150
+[2024-07-21 16:15:18] New topic/task inserted with ID: 81
+[2024-07-21 16:15:18] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:15:18] Copying tasks associated with the old topic_id: 80
+[2024-07-21 16:15:18] Found task with ID: 64 associated with the old topic_id: 80
+[2024-07-21 16:15:18] Inserted new task with ID: 65 for new topic_id: 81
+[2024-07-21 16:15:18] Processing related table: domm_information for old task ID: 64
+[2024-07-21 16:15:18] Found related row in table domm_information for old task ID: 64 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:15:18] Inserted related row into table domm_information for new task ID: 65
+[2024-07-21 16:15:18] Processing related table: domm_assignment for old task ID: 64
+[2024-07-21 16:15:18] Found related row in table domm_assignment for old task ID: 64 with content: {"gft":"22","cr":"0","content":"","responsible":null}
+[2024-07-21 16:15:18] Inserted related row into table domm_assignment for new task ID: 65
+[2024-07-21 16:15:18] Processing related table: domm_decision for old task ID: 64
+[2024-07-21 16:15:18] Found related row in table domm_decision for old task ID: 64 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:15:18] Inserted related row into table domm_decision for new task ID: 65
+[2024-07-21 16:15:18] Marking old task as sent: 64
+[2024-07-21 16:15:18] Marking old topic as sent: 80
+[2024-07-21 16:15:18] Successfully updated old task/topic with ID: 64
+[2024-07-21 16:15:18] Script ended.
+[2024-07-21 16:17:28] Script started.
+[2024-07-21 16:17:28] POST data received: Array
+(
+    [topic_id] => 
+    [agenda_id] => 151
+)
+
+[2024-07-21 16:17:28] Task or Topic ID not provided
+[2024-07-21 16:17:41] Script started.
+[2024-07-21 16:17:41] POST data received: Array
+(
+    [topic_id] => 82
+    [agenda_id] => 151
+)
+
+[2024-07-21 16:17:41] Fetching old topic data for topic_id: 82
+[2024-07-21 16:17:41] Data fetched successfully from the database.
+[2024-07-21 16:17:41] Fetched data: Array
+(
+    [id] => 82
+    [agenda_id] => 146
+    [name] => 11
+    [responsible] => responsible
+    [gft] => 20
+    [cr] => I170114801
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:17:41] Activating filter for Change Request: I170114801
+[2024-07-21 16:17:41] Inserting new topic with agenda_id: 151
+[2024-07-21 16:17:41] New topic/task inserted with ID: 83
+[2024-07-21 16:17:41] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:17:41] Copying tasks associated with the old topic_id: 82
+[2024-07-21 16:17:41] Found task with ID: 66 associated with the old topic_id: 82
+[2024-07-21 16:17:41] Inserted new task with ID: 67 for new topic_id: 83
+[2024-07-21 16:17:41] Processing related table: domm_information for old task ID: 66
+[2024-07-21 16:17:41] Found related row in table domm_information for old task ID: 66 with content: {"gft":"20","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:17:41] Inserted related row into table domm_information for new task ID: 67
+[2024-07-21 16:17:41] Processing related table: domm_assignment for old task ID: 66
+[2024-07-21 16:17:41] Found related row in table domm_assignment for old task ID: 66 with content: {"gft":"20","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:17:41] Inserted related row into table domm_assignment for new task ID: 67
+[2024-07-21 16:17:41] Processing related table: domm_decision for old task ID: 66
+[2024-07-21 16:17:41] Found related row in table domm_decision for old task ID: 66 with content: {"gft":"20","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:17:41] Inserted related row into table domm_decision for new task ID: 67
+[2024-07-21 16:17:41] Marking old task as sent: 66
+[2024-07-21 16:17:41] Marking old topic as sent: 82
+[2024-07-21 16:17:41] Successfully updated old task/topic with ID: 66
+[2024-07-21 16:17:41] Script ended.
+[2024-07-21 16:18:29] Script started.
+[2024-07-21 16:18:29] POST data received: Array
+(
+    [topic_id] => 84
+    [agenda_id] => 151
+)
+
+[2024-07-21 16:18:29] Fetching old topic data for topic_id: 84
+[2024-07-21 16:18:29] Data fetched successfully from the database.
+[2024-07-21 16:18:29] Fetched data: Array
+(
+    [id] => 84
+    [agenda_id] => 146
+    [name] => 22
+    [responsible] => responsible
+    [gft] => 20
+    [cr] => I170129001
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:18:29] Activating filter for Change Request: I170129001
+[2024-07-21 16:18:29] Inserting new topic with agenda_id: 151
+[2024-07-21 16:18:29] New topic/task inserted with ID: 85
+[2024-07-21 16:18:29] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:18:29] Copying tasks associated with the old topic_id: 84
+[2024-07-21 16:18:29] Found task with ID: 68 associated with the old topic_id: 84
+[2024-07-21 16:18:29] Inserted new task with ID: 69 for new topic_id: 85
+[2024-07-21 16:18:29] Processing related table: domm_information for old task ID: 68
+[2024-07-21 16:18:29] Found related row in table domm_information for old task ID: 68 with content: {"gft":"20","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:18:29] Inserted related row into table domm_information for new task ID: 69
+[2024-07-21 16:18:29] Processing related table: domm_assignment for old task ID: 68
+[2024-07-21 16:18:29] Found related row in table domm_assignment for old task ID: 68 with content: {"gft":"20","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:18:29] Inserted related row into table domm_assignment for new task ID: 69
+[2024-07-21 16:18:29] Processing related table: domm_decision for old task ID: 68
+[2024-07-21 16:18:29] Found related row in table domm_decision for old task ID: 68 with content: {"gft":"20","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:18:29] Inserted related row into table domm_decision for new task ID: 69
+[2024-07-21 16:18:29] Marking old task as sent: 68
+[2024-07-21 16:18:29] Marking old topic as sent: 84
+[2024-07-21 16:18:29] Successfully updated old task/topic with ID: 68
+[2024-07-21 16:18:29] Script ended.
+[2024-07-21 16:19:43] Script started.
+[2024-07-21 16:19:43] POST data received: Array
+(
+    [topic_id] => 86
+    [agenda_id] => 151
+)
+
+[2024-07-21 16:19:43] Fetching old topic data for topic_id: 86
+[2024-07-21 16:19:43] Data fetched successfully from the database.
+[2024-07-21 16:19:43] Fetched data: Array
+(
+    [id] => 86
+    [agenda_id] => 146
+    [name] => 33
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I170028401
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:19:43] Activating filter for Change Request: I170028401
+[2024-07-21 16:19:43] Inserting new topic with agenda_id: 151
+[2024-07-21 16:19:43] New topic/task inserted with ID: 87
+[2024-07-21 16:19:43] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:19:43] Copying tasks associated with the old topic_id: 86
+[2024-07-21 16:19:43] Found task with ID: 70 associated with the old topic_id: 86
+[2024-07-21 16:19:43] Inserted new task with ID: 71 for new topic_id: 87
+[2024-07-21 16:19:43] Processing related table: domm_information for old task ID: 70
+[2024-07-21 16:19:43] Found related row in table domm_information for old task ID: 70 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:19:43] Inserted related row into table domm_information for new task ID: 71
+[2024-07-21 16:19:43] Processing related table: domm_assignment for old task ID: 70
+[2024-07-21 16:19:43] Found related row in table domm_assignment for old task ID: 70 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:19:43] Inserted related row into table domm_assignment for new task ID: 71
+[2024-07-21 16:19:43] Processing related table: domm_decision for old task ID: 70
+[2024-07-21 16:19:43] Found related row in table domm_decision for old task ID: 70 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:19:43] Inserted related row into table domm_decision for new task ID: 71
+[2024-07-21 16:19:43] Marking old task as sent: 70
+[2024-07-21 16:19:43] Marking old topic as sent: 86
+[2024-07-21 16:19:43] Successfully updated old task/topic with ID: 70
+[2024-07-21 16:19:43] Script ended.
+[2024-07-21 16:21:14] Script started.
+[2024-07-21 16:21:14] POST data received: Array
+(
+    [topic_id] => 87
+    [agenda_id] => 152
+)
+
+[2024-07-21 16:21:14] Fetching old topic data for topic_id: 87
+[2024-07-21 16:21:14] Data fetched successfully from the database.
+[2024-07-21 16:21:14] Fetched data: Array
+(
+    [id] => 87
+    [agenda_id] => 151
+    [name] => 33
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I170028401
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:21:14] Activating filter for Change Request: I170028401
+[2024-07-21 16:21:14] Inserting new topic with agenda_id: 152
+[2024-07-21 16:21:14] New topic/task inserted with ID: 88
+[2024-07-21 16:21:14] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:21:14] Copying tasks associated with the old topic_id: 87
+[2024-07-21 16:21:14] Found task with ID: 71 associated with the old topic_id: 87
+[2024-07-21 16:21:14] Inserted new task with ID: 72 for new topic_id: 88
+[2024-07-21 16:21:14] Processing related table: domm_information for old task ID: 71
+[2024-07-21 16:21:14] Found related row in table domm_information for old task ID: 71 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:21:14] Inserted related row into table domm_information for new task ID: 72
+[2024-07-21 16:21:14] Processing related table: domm_assignment for old task ID: 71
+[2024-07-21 16:21:14] Found related row in table domm_assignment for old task ID: 71 with content: {"gft":"21","cr":"0","content":"content","responsible":""}
+[2024-07-21 16:21:14] Inserted related row into table domm_assignment for new task ID: 72
+[2024-07-21 16:21:14] Processing related table: domm_decision for old task ID: 71
+[2024-07-21 16:21:14] Found related row in table domm_decision for old task ID: 71 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:21:14] Inserted related row into table domm_decision for new task ID: 72
+[2024-07-21 16:21:14] Marking old task as sent: 71
+[2024-07-21 16:21:14] Marking old topic as sent: 87
+[2024-07-21 16:21:14] Successfully updated old task/topic with ID: 71
+[2024-07-21 16:21:14] Script ended.
+[2024-07-21 16:21:49] Script started.
+[2024-07-21 16:21:49] POST data received: Array
+(
+    [topic_id] => 87
+    [agenda_id] => 153
+)
+
+[2024-07-21 16:21:49] Fetching old topic data for topic_id: 87
+[2024-07-21 16:21:49] Data fetched successfully from the database.
+[2024-07-21 16:21:49] Fetched data: Array
+(
+    [id] => 87
+    [agenda_id] => 151
+    [name] => 33
+    [responsible] => responsible
+    [gft] => 21
+    [cr] => I170028401
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:21:49] Activating filter for Change Request: I170028401
+[2024-07-21 16:21:49] Inserting new topic with agenda_id: 153
+[2024-07-21 16:21:49] New topic/task inserted with ID: 89
+[2024-07-21 16:21:49] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:21:49] Copying tasks associated with the old topic_id: 87
+[2024-07-21 16:21:49] Found task with ID: 71 associated with the old topic_id: 87
+[2024-07-21 16:21:49] Inserted new task with ID: 73 for new topic_id: 89
+[2024-07-21 16:21:49] Processing related table: domm_information for old task ID: 71
+[2024-07-21 16:21:49] Found related row in table domm_information for old task ID: 71 with content: {"gft":"21","cr":"0","content":"31","responsible":null}
+[2024-07-21 16:21:49] Inserted related row into table domm_information for new task ID: 73
+[2024-07-21 16:21:49] Processing related table: domm_assignment for old task ID: 71
+[2024-07-21 16:21:49] Found related row in table domm_assignment for old task ID: 71 with content: {"gft":"21","cr":"0","content":"32","responsible":"34"}
+[2024-07-21 16:21:49] Inserted related row into table domm_assignment for new task ID: 73
+[2024-07-21 16:21:49] Processing related table: domm_decision for old task ID: 71
+[2024-07-21 16:21:49] Found related row in table domm_decision for old task ID: 71 with content: {"gft":"21","cr":"0","content":"33","responsible":null}
+[2024-07-21 16:21:49] Inserted related row into table domm_decision for new task ID: 73
+[2024-07-21 16:21:49] Marking old task as sent: 71
+[2024-07-21 16:21:49] Marking old topic as sent: 87
+[2024-07-21 16:21:49] Successfully updated old task/topic with ID: 71
+[2024-07-21 16:21:49] Script ended.
+[2024-07-21 16:23:03] Script started.
+[2024-07-21 16:23:03] POST data received: Array
+(
+    [topic_id] => 90
+    [agenda_id] => 153
+)
+
+[2024-07-21 16:23:03] Fetching old topic data for topic_id: 90
+[2024-07-21 16:23:03] Data fetched successfully from the database.
+[2024-07-21 16:23:03] Fetched data: Array
+(
+    [id] => 90
+    [agenda_id] => 146
+    [name] => 44
+    [responsible] => 44
+    [gft] => 22
+    [cr] => I160197701
+    [details] => 
+    [start] => 12:00:00
+    [duration] => 00:24:00
+)
+
+[2024-07-21 16:23:03] Activating filter for Change Request: I160197701
+[2024-07-21 16:23:03] Inserting new topic with agenda_id: 153
+[2024-07-21 16:23:03] New topic/task inserted with ID: 91
+[2024-07-21 16:23:03] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:23:03] Copying tasks associated with the old topic_id: 90
+[2024-07-21 16:23:03] Found task with ID: 74 associated with the old topic_id: 90
+[2024-07-21 16:23:03] Inserted new task with ID: 75 for new topic_id: 91
+[2024-07-21 16:23:03] Processing related table: domm_information for old task ID: 74
+[2024-07-21 16:23:03] Found related row in table domm_information for old task ID: 74 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:23:03] Inserted related row into table domm_information for new task ID: 75
+[2024-07-21 16:23:03] Processing related table: domm_assignment for old task ID: 74
+[2024-07-21 16:23:03] Found related row in table domm_assignment for old task ID: 74 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:23:03] Inserted related row into table domm_assignment for new task ID: 75
+[2024-07-21 16:23:03] Processing related table: domm_decision for old task ID: 74
+[2024-07-21 16:23:03] Found related row in table domm_decision for old task ID: 74 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:23:03] Inserted related row into table domm_decision for new task ID: 75
+[2024-07-21 16:23:03] Marking old task as sent: 74
+[2024-07-21 16:23:03] Marking old topic as sent: 90
+[2024-07-21 16:23:03] Successfully updated old task/topic with ID: 74
+[2024-07-21 16:23:03] Script ended.
+[2024-07-21 16:26:21] Script started.
+[2024-07-21 16:26:21] POST data received: Array
+(
+    [topic_id] => 93
+    [agenda_id] => 153
+)
+
+[2024-07-21 16:26:21] Fetching old topic data for topic_id: 93
+[2024-07-21 16:26:21] Data fetched successfully from the database.
+[2024-07-21 16:26:21] Fetched data: Array
+(
+    [id] => 93
+    [agenda_id] => 146
+    [name] => 6
+    [responsible] => 6
+    [gft] => 21
+    [cr] => I160063701
+    [details] => 
+    [start] => 
+    [duration] => 
+)
+
+[2024-07-21 16:26:21] Activating filter for Change Request: I160063701
+[2024-07-21 16:26:21] Inserting new topic with agenda_id: 153
+[2024-07-21 16:26:21] New topic/task inserted with ID: 94
+[2024-07-21 16:26:21] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:26:21] Copying tasks associated with the old topic_id: 93
+[2024-07-21 16:26:21] Found task with ID: 87 associated with the old topic_id: 93
+[2024-07-21 16:26:21] Inserted new task with ID: 88 for new topic_id: 94
+[2024-07-21 16:26:21] Processing related table: domm_information for old task ID: 87
+[2024-07-21 16:26:21] Found related row in table domm_information for old task ID: 87 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:26:21] Inserted related row into table domm_information for new task ID: 88
+[2024-07-21 16:26:21] Processing related table: domm_assignment for old task ID: 87
+[2024-07-21 16:26:21] Found related row in table domm_assignment for old task ID: 87 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:26:21] Inserted related row into table domm_assignment for new task ID: 88
+[2024-07-21 16:26:21] Processing related table: domm_decision for old task ID: 87
+[2024-07-21 16:26:21] Found related row in table domm_decision for old task ID: 87 with content: {"gft":"21","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:26:21] Inserted related row into table domm_decision for new task ID: 88
+[2024-07-21 16:26:21] Marking old task as sent: 87
+[2024-07-21 16:26:21] Marking old topic as sent: 93
+[2024-07-21 16:26:21] Successfully updated old task/topic with ID: 87
+[2024-07-21 16:26:21] Script ended.
+[2024-07-21 16:27:08] Script started.
+[2024-07-21 16:27:08] POST data received: Array
+(
+    [topic_id] => 
+    [agenda_id] => 153
+)
+
+[2024-07-21 16:27:08] Task or Topic ID not provided
+[2024-07-21 16:27:22] Script started.
+[2024-07-21 16:27:22] POST data received: Array
+(
+    [topic_id] => 95
+    [agenda_id] => 153
+)
+
+[2024-07-21 16:27:22] Fetching old topic data for topic_id: 95
+[2024-07-21 16:27:22] Data fetched successfully from the database.
+[2024-07-21 16:27:22] Fetched data: Array
+(
+    [id] => 95
+    [agenda_id] => 146
+    [name] => 8
+    [responsible] => 8
+    [gft] => 22
+    [cr] => I170034101
+    [details] => 
+    [start] => 12:00:00
+    [duration] => 00:08:00
+)
+
+[2024-07-21 16:27:22] Activating filter for Change Request: I170034101
+[2024-07-21 16:27:22] Inserting new topic with agenda_id: 153
+[2024-07-21 16:27:22] New topic/task inserted with ID: 96
+[2024-07-21 16:27:22] Task or Topic successfully copied to the new agenda
+[2024-07-21 16:27:22] Copying tasks associated with the old topic_id: 95
+[2024-07-21 16:27:22] Found task with ID: 89 associated with the old topic_id: 95
+[2024-07-21 16:27:22] Inserted new task with ID: 90 for new topic_id: 96
+[2024-07-21 16:27:22] Processing related table: domm_information for old task ID: 89
+[2024-07-21 16:27:22] Found related row in table domm_information for old task ID: 89 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:27:22] Inserted related row into table domm_information for new task ID: 90
+[2024-07-21 16:27:22] Processing related table: domm_assignment for old task ID: 89
+[2024-07-21 16:27:22] Found related row in table domm_assignment for old task ID: 89 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:27:22] Inserted related row into table domm_assignment for new task ID: 90
+[2024-07-21 16:27:22] Processing related table: domm_decision for old task ID: 89
+[2024-07-21 16:27:22] Found related row in table domm_decision for old task ID: 89 with content: {"gft":"22","cr":"0","content":"content","responsible":null}
+[2024-07-21 16:27:22] Inserted related row into table domm_decision for new task ID: 90
+[2024-07-21 16:27:22] Marking old task as sent: 89
+[2024-07-21 16:27:22] Marking old topic as sent: 95
+[2024-07-21 16:27:22] Successfully updated old task/topic with ID: 89
+[2024-07-21 16:27:22] Script ended.

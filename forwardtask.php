@@ -178,18 +178,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 log_message("Marking old task as sent: $old_task_id");
                 $update_stmt = $conn->prepare("UPDATE domm_tasks SET sent = 1 WHERE id = ?");
                 $update_stmt->bind_param("i", $old_task_id);
-            } elseif ($old_topic_id !== null) {
-                log_message("Deleting old topic: $old_topic_id");
-                $update_stmt = $conn->prepare("DELETE FROM domm_topics WHERE id = ?");
-                $update_stmt->bind_param("i", $old_topic_id);
+                $update_stmt->execute();
+                $update_stmt->close();
             }
             
-            if ($update_stmt->execute()) {
-                log_message("Successfully updated/deleted old task/topic with ID: " . ($old_task_id !== null ? $old_task_id : $old_topic_id));
-            } else {
-                log_message("Failed to update/delete old task/topic with ID: " . ($old_task_id !== null ? $old_task_id : $old_topic_id) . ". Error: " . $update_stmt->error);
+            if ($old_topic_id !== null) {
+                log_message("Marking old topic as sent: $old_topic_id");
+                $update_stmt = $conn->prepare("UPDATE domm_topics SET sent = 1 WHERE id = ?");
+                $update_stmt->bind_param("i", $old_topic_id);
+                $update_stmt->execute();
+                $update_stmt->close();
             }
-            $update_stmt->close();
+    
+            log_message("Successfully updated old task/topic with ID: " . ($old_task_id !== null ? $old_task_id : $old_topic_id));
         } else {
             log_message('Failed to copy task or topic to the new agenda');
             echo 'Failed to copy task or topic to the new agenda';

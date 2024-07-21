@@ -32,62 +32,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Fetch the data and store in variables
         $row = $result->fetch_assoc();
         $id = $row['id'];
+        $agenda_id = $row['agenda_id'];
+        $name = $row['name'];
+        $deadline = isset($row['deadline']) ? $row['deadline'] : null;
+        $responsible = $row['responsible'];
+        $gft = $row['gft'];
+        $cr = $row['cr'];
+        $details = $row['details'];
+        $topic_id = $row['topic_id'];
+
+// Check if the filter for the Change Request is already active
+$check_stmt = $conn->prepare("SELECT * FROM domm_agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = ? AND filter_active = 1");
+$check_stmt->bind_param("ii", $new_agenda_id, $cr);
+$check_stmt->execute();
+$check_result = $check_stmt->get_result();
+
+if ($check_result->num_rows == 0) {
+    // Activate the filter for the Change Request connected to the task
+    $filter_stmt = $conn->prepare("INSERT INTO domm_agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, ?, 1)");
+    $filter_stmt->bind_param("ii", $new_agenda_id, $cr);
+    $filter_stmt->execute();
+    $filter_stmt->close();
+}
+$check_stmt->close();
+
+// Prepare and execute the query to insert the new task or topic with the new agenda_id
+if ($old_task_id !== null) {
+    $insert_stmt = $conn->prepare("INSERT INTO domm_tasks (name, responsible, deadline, gft, cr, details, agenda_id, deleted, topic_id, sent) VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?, ?)");
+    $insert_stmt->bind_param("sssssssis", $name, $responsible, $deadline, $gft, $cr, $details, $new_agenda_id, $topic_id, $sent);
+    $insert_stmt->execute();
+    $insert_stmt->close();
+} elseif ($old_topic_id !== null) {
+    $insert_stmt = $conn->prepare("INSERT INTO domm_topics (name, responsible, gft, cr, details, agenda_id) VALUES (?, ?, ?, ?, ?, ?)");
+    $insert_stmt->bind_param("sssssi", $name, $responsible, $gft, $cr, $details, $new_agenda_id);
+    $insert_stmt->execute();
+    $insert_stmt->close();
+
+    // Check if the filter for the Change Request is already active
+    $taskfortopic_stmt = $conn->prepare("SELECT * FROM domm_tasks WHERE topic_id = ? AND deleted = 0");
+    $taskfortopic_stmt->bind_param("i", $old_topic_id);
+    $taskfortopic_stmt->execute();
+    $tasks_result = $taskfortopic_stmt->get_result();
+
+    if ($tasks_result->num_rows == 0) {
+        $row = $tasks_result->fetch_assoc();
         $deadline = isset($row['deadline']) ? $row['deadline'] : null;
         $name = $row['name'];
         $responsible = $row['responsible'];
         $gft = $row['gft'];
         $cr = $row['cr'];
         $details = $row['details'];
-        $topic_id = $row['topic_id']
+        $topic_id = $row['topic_id'];
 
-        // Check if the filter for the Change Request is already active
-        $check_stmt = $conn->prepare("SELECT * FROM domm_agenda_change_request_filters WHERE agenda_id = ? AND change_request_id = ? AND filter_active = 1");
-        $check_stmt->bind_param("is", $new_agenda_id, $cr);
-        $check_stmt->execute();
-        $check_result = $check_stmt->get_result();
+        // Activate the filter for the Change Request connected to the task
+        $filter_stmt = $conn->prepare("INSERT INTO domm_agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?, ?, 1)");
+        $filter_stmt->bind_param("ii", $new_agenda_id, $cr);
+        $filter_stmt->execute();
+        $filter_stmt->close();
+    }
+    $taskfortopic_stmt->close();
+}
 
-        if ($check_result->num_rows == 0) {
-            // Activate the filter for the Change Request connected to the task
-            $filter_stmt = $conn->prepare("INSERT INTO domm_agenda_change_request_filters (agenda_id, change_request_id, filter_active) VALUES (?,  ?, 1)");
-            $filter_stmt->bind_param("is", $new_agenda_id, $cr);
-            $filter_stmt->execute();
-            $filter_stmt->close();
-        }
-        $check_stmt->close();
-
-        // Prepare and execute the query to insert the new task or topic with the new agenda_id
-        if ($old_task_id !== null) {
-            $insert_stmt = $conn->prepare("INSERT INTO domm_tasks (name, responsible, deadline, gft, cr, details, agenda_id, deleted, topic_id, sent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0,? ,0)");
-            $insert_stmt->bind_param("sssssssi", $name, $responsible, $deadline, $gft, $cr, $details, $new_agenda_id, $topic_id);
-        } elseif ($old_topic_id !== null) {
-            $insert_stmt = $conn->prepare("INSERT INTO domm_topics (name, responsible, gft, cr, details, agenda_id) VALUES (?, ?, ?, ?, ?, ?)");
-            $insert_stmt->bind_param("sssssi", $name, $responsible, $gft, $cr, $details, $new_agenda_id);
-
-                    // Check if the filter for the Change Request is already active
-            $taskfortopic_stmt = $conn->prepare("SELECT * FROM domm_tasks WHERE topic_id = ? AND deleted = 0");
-            $taskfortopic_stmt->bind_param("is", $old_topic_id);
-            $taskfortopic_stmt->execute();
-            $tasks_result = $taskfortopic_stmt->get_result();
-
-            if ($tasks_result->num_rows == 0) {
-                $row = $tasks_result->fetch_assoc();
-                $deadline = isset($row['deadline']) ? $row['deadline'] : null;
-                $name = $row['name'];
-                $responsible = $row['responsible'];
-                $gft = $row['gft'];
-                $cr = $row['cr'];
-                $details = $row['details'];
-                $topic_id = $row['topic_id']
-        
-                // Activate the filter for the Change Request connected to the task
-                $filter_stmt = $conn->prepare("INSERT INTO domm_tasks (agenda_id, change_request_id, filter_active) VALUES (?,  ?, 1)");
-                $filter_stmt->bind_param("is", $new_agenda_id, $cr);
-                $filter_stmt->execute();
-                $filter_stmt->close();
-            }
-            $check_stmt->close();
-
-        }
         
         if ($insert_stmt->execute()) {
             $new_task_id = $conn->insert_id; // Get the ID of the newly inserted task/topic

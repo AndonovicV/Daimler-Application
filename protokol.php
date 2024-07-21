@@ -564,7 +564,7 @@ if ($result_personal_tasks->num_rows > 0) {
                 function fetchTasksforTopics($conn, $topicId, $selectedAgendaId, $gft, $cr_stripped)
                 {
     
-                    $sql_tasks = "SELECT * FROM domm_tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND sent = 0 AND deleted = 0 AND topic_id = ?";
+                    $sql_tasks = "SELECT * FROM domm_tasks WHERE agenda_id = ? AND gft = ? AND (cr = ? OR ? IS NULL) AND deleted = 0 AND topic_id = ?";
                     $stmt_tasks = $conn->prepare($sql_tasks);
                     $stmt_tasks->bind_param('issss', $selectedAgendaId, $gft, $cr_stripped, $cr_stripped, $topicId);
                     $stmt_tasks->execute();
