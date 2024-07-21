@@ -199,7 +199,8 @@ $agendaId = isset($_GET['agenda_id']) ? htmlspecialchars($_GET['agenda_id']) : n
                     <div class="col-lg-12">
                         <div class="card shadow dark-card">
                             <div class="card-header rounded-0">
-                                <div class="d-flex w-100 justify-content-end align-items-center">
+                                <div class="d-flex w-100 justify-content-between align-items-center">
+                                <h6 style="color: #ccc;">*Double click substitute column to eddit</h6>
                                     <button class="btn btn-sm rounded-0 btn-primary" type="button" id="add_guest"><i class="far fa-plus-square"></i> Add New</button>
                                 </div>
                             </div>
