@@ -161,3 +161,7 @@ text-align: center;
 .topic-row {
   color: #dfbaff;
 }
+
+.buttons-csv{
+  display: none;
+}

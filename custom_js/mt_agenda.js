@@ -118,6 +118,12 @@ $(document).ready(function () {
                         }
                     },
                     {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':not(:last-child)' // Exclude the last column
+                        }
+                    },
+                    {
                         extend: 'pdfHtml5',
                         filename: 'Agenda_PDF_' + selectedAgendaId,
                         exportOptions: {
